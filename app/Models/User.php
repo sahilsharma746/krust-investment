@@ -40,4 +40,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function addresses()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
+
+    public function verifiedStatus()
+    {
+        return $this->hasOne(UserVerifiedStatus::class);
+    }
+
+
 }

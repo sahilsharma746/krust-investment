@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserAccountType;
+use App\Models\UserVerifiedStatus;
+use App\Models\UserAddress;
 
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -77,9 +79,9 @@ class RegisterController extends Controller
         // Access GET parameters
         $requested_account_type = ( $request->query('plan_type') != null ) ? $request->query('plan_type') : '1';
         $user_account_types = UserAccountType::all();
-
-        // Pass custom data to the view
-        return view('auth.register', compact('user_account_types', 'requested_account_type'));
+        $countries = config('countries');
+        
+        return view('auth.register', compact('user_account_types', 'requested_account_type', 'countries'));
     }
 
 
@@ -92,7 +94,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::latest()->first();
-        return User::create([
+        $user = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
@@ -100,9 +102,22 @@ class RegisterController extends Controller
             'account_type' => $data['account_type'],
             'username' => $data['username'],
             'phone' => $data['phone'],
-            'country' => $data['country'],
-            'referal_id' => $data['country'],
+            'referal_id' => $data['referal_id'],
         ]);
+
+        UserVerifiedStatus::create([
+            'user_id' => $user->id,
+            'kyc_verify_status' => 'pending',
+            'email_verify_status' => 'pending',
+            'phone_verify_status' => 'pending',
+        ]);
+
+         UserAddress::create([
+            'user_id' => $user->id,
+            'country' => $data['country'],
+        ]);
+
+        return  $user;
     }
 
 

@@ -4,54 +4,106 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Deposit;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
+
+    protected $page_title;
+
+    public function __construct()
+    {
+        $this->middleware(['is_admin']);
+        $this->page_title = 'Manage User';
+    }
+
+
     public function index () {
-        $datas = User::where('role', 'user')->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function activeUsers () {
-        $datas = User::where([['role', 'user'], ['status', 'active']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function kycVerified () {
-        $datas = User::where([['role', 'user'], ['verify_status', 'Verified']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+
+        // $all_users = User::with('address')
+        //      ->where('role', 'user') 
+        //      ->whereHas('verifiedStatus', function ($query) {
+        //          $query->where('kyc_verify_status', 'verified');
+        //      })
+        //      ->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function kycUnverified () {
-        $datas = User::where([['role', 'user'], ['verify_status', 'Unverified']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+
+        // $all_users = User::with('address')
+        //      ->where('role', 'user') // Add the condition to check for the user role
+        //      ->whereHas('verifiedStatus', function ($query) {
+        //         $query->where('kyc_verify_status', 'pending')
+        //                 ->orWhere('kyc_verify_status', 'rejected');
+        //      })
+        //      ->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function emailVerified () {
-        $datas = User::where([['role', 'user'], ['email_verified_at', '!=', '']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function phoneVerified () {
-        $datas = User::where([['role', 'user'], ['phone', '!=', '']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
 
     public function bannedVerified () {
-        $datas = User::where([['role', 'user'], ['status', 'deactive']])->latest()->get();;
-        return view('admin.users.index', compact('datas'));
+        $page_title = $this->page_title;
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        return view('admin.users.index', compact('all_users', 'page_title'));
     }
 
-    public function details(){
-        $datas = User::where('role', 'user')->latest()->get();
-        return view('admin.users.user-detail', compact('datas'));
+    public function details(User $user){
+        $page_title = "Manage User";
+        $full_data = [];
+        $total_deposit_amount = Deposit::getUserDepositAmount($user->id);
+        $total_withdrawl_amount = 0;
+        $total_transactions = 0;
+        $user_address = UserAddress::where('user_id', $user->id)->first();
+        $verification_prompts_permissions_data = '';
+
+
+        $full_data['total_deposit_amount'] = $total_deposit_amount;
+        $full_data['total_withdrawl_amount'] = $total_withdrawl_amount;
+        $full_data['total_transactions'] = $total_transactions;
+        $full_data['user_data'] = $user;
+        $full_data['user_address'] = $user_address;
+        $full_data['verification_prompts_permissions_data'] = $verification_prompts_permissions_data;
+
+        return view('admin.users.user-detail', compact('full_data','page_title'));
+
     }
 
 

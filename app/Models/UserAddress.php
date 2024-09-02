@@ -5,20 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserVerifiedStatus extends Model
+class UserAddress extends Model
 {
     use HasFactory;
 
-    protected $table = 'user_verified_status';
+    protected $table = 'users_address';
 
     protected $fillable = [
         'user_id',
-        'kyc_verify_status',
-        'email_verify_status',
-        'phone_verify_status',
+        'country',
+        'state',
+        'city',
+        'zipcode',
+        'address',
     ];
 
-    public function user()
+     public function user()
     {
         return $this->belongsTo(User::class);
     }
