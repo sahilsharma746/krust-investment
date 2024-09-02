@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         if (!Schema::hasTable('deposits')) {
-        Schema::create('deposits', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('getway_id');
-            $table->float('amount');
-            // $table->string('wallet_address');
-            $table->string('receipt');
-            $table->enum('status', array('pending', 'approved', 'rejected'))->default('pending');
-            $table->timestamps();
-        });
+            Schema::create('deposits', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id');
+                $table->unsignedBigInteger('getway_id')->nullable(); // Make getway_id nullable
+                $table->string('payment_method');
+                $table->string('wallet_address');
+                $table->float('amount');
+                $table->string('receipt')->nullable(); // Make receipt nullable
+                $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+                $table->timestamps();
+            });
         }
     }
 

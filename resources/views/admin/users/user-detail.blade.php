@@ -133,21 +133,28 @@
 
 
 </style>
-    <link rel="stylesheet" href="{{ asset('assets') }}/public/assets/nice-select-2/nice-select2.css">
 @endsection
 @section('content')
+
+@php
+    $country_code = $full_data['user_address']['country'];
+    $country_name = config('countries.' . $country_code);
+@endphp
+
+<?php   // echo '<pre>'; print_r( $full_data); die;  ?>
+
 <main class="main-area">
     <div class="container user-details-container">
         <div class="partial-view-header">
             <div class="back-btn-area">
-                <a href="{{ asset('assets') }}/img/user-manage.html">
+                <a href="{{ route('admin.user.index') }}">
                     <span class="icon">
                         <i class="fa-solid fa-arrow-left"></i>
                     </span>
                     <span>Manage Users</span>
                 </a>
                 <span>/</span>
-                <span>Michael Michaelson</span>
+                <span>{{$full_data['user_data']['first_name']}} {{$full_data['user_data']['last_name']}}</span>
             </div>
             <div class="btn-area">
                 <a href="../user-dashboard.html" class="btn btn-login-as-user">Log in As User</a>
@@ -209,7 +216,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card-title">Balance</div>
-                        <div class="card-value">$ 150,000</div>
+                        <div class="card-value">$ {{$full_data['user_data']['balance']}}</div>
                     </div>
                     <span class="arrow-icon">
                         <i class="fa-solid fa-angle-right"></i>
@@ -221,7 +228,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card-title">Deposit</div>
-                        <div class="card-value">$ 100,000</div>
+                        <div class="card-value">$ {{$full_data['total_deposit_amount']}}</div>
                     </div>
                     <span class="arrow-icon">
                         <i class="fa-solid fa-angle-right"></i>
@@ -233,7 +240,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card-title">Withdrawals</div>
-                        <div class="card-value">$ 75,000</div>
+                        <div class="card-value">$ {{$full_data['total_withdrawl_amount']}}</div>
                     </div>
                     <span class="arrow-icon">
                         <i class="fa-solid fa-angle-right"></i>
@@ -245,7 +252,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card-title">Transactions</div>
-                        <div class="card-value">124</div>
+                        <div class="card-value">{{$full_data['total_transactions']}}</div>
                     </div>
                     <span class="arrow-icon">
                         <i class="fa-solid fa-angle-right"></i>
@@ -328,43 +335,43 @@
                 <div class="card-body">
                     <div class="input-group">
                         <label class="form-label">First Name</label>
-                        <input class="form-control" type="text" placeholder="Enter First Name">
+                        <input class="form-control" type="text" value="{{$full_data['user_data']['first_name']}}" placeholder="Enter First Name">
                     </div>
                     <div class="input-group">
                         <label class="form-label">Last Name</label>
-                        <input class="form-control" type="text" placeholder="Enter Last Name">
+                        <input class="form-control" type="text" value="{{$full_data['user_data']['last_name']}}" placeholder="Enter Last Name">
                     </div>
                     <div class="input-group">
                         <label class="form-label">Email address</label>
-                        <input class="form-control" type="email" placeholder="Enter email address">
+                        <input class="form-control" type="email" value="{{$full_data['user_data']['email']}}" placeholder="Enter email address">
                     </div>
                     <div class="input-group">
                         <label class="form-label">Phone number</label>
-                        <input class="form-control" type="text" placeholder="Enter Phone number">
+                        <input class="form-control" type="text" value="{{$full_data['user_data']['phone']}}" placeholder="Enter Phone number">
                     </div>
                     <div class="input-group">
                         <label class="form-label">Country</label>
-                        <input class="form-control" type="text" placeholder="Enter Country">
+                        <input class="form-control" type="text" value="{{$country_name}}"  placeholder="Enter Country">
                     </div>
                     <div class="input-group">
                         <label class="form-label">State</label>
-                        <input class="form-control" type="text" placeholder="Enter State">
+                        <input class="form-control" type="text" value="{{$full_data['user_address']['state']}}" placeholder="Enter State">
                     </div>
                     <div class="input-group">
                         <label class="form-label">City</label>
-                        <input class="form-control" type="text" placeholder="Enter City">
+                        <input class="form-control" type="text" value="{{$full_data['user_address']['city']}}" placeholder="Enter City">
                     </div>
                     <div class="input-group">
                         <label class="form-label">zip code</label>
-                        <input class="form-control" type="number" min="0" placeholder="Enter zip code here">
+                        <input class="form-control" type="text" value="{{$full_data['user_address']['zipcode']}}"  placeholder="Enter zip code here">
                     </div>
                     <div class="input-group grid-column-lg-2">
                         <label class="form-label">Address</label>
-                        <input class="form-control" type="text" placeholder="Enter Address">
+                        <input class="form-control" type="text" value="{{$full_data['user_address']['zipcode']}}" placeholder="Enter Address">
                     </div>
                     <div class="input-group grid-column-lg-2">
                         <label class="form-label">user password</label>
-                        <input class="form-control" type="text" placeholder="Enter user password">
+                        <input class="form-control" type="text" value="{{$full_data['user_data']['password']}}" placeholder="Enter user password">
                     </div>
                 </div>
             </div>

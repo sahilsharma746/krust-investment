@@ -33,12 +33,10 @@ Route::get('/reboot', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about-us', [FrontendController::class, 'about'])->name('frontend.about');
 Route::get('/account-plan', [FrontendController::class, 'accountPlan'])->name('frontend.accountPlan');
 Route::get('/faq', [FrontendController::class, 'faq'])->name('frontend.faq');
-
 
 
 // frontend users dashboard urls 
@@ -70,7 +68,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
 Route::get('/admin', [AdminHomeController::class, 'adminLogin'])->name('admin.login');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
 
     Route::get('/dashboard', [AdminHomeController::class, 'index'])->name('admin.dashboard');
     Route::get('/all-user', [AdminUserController::class, 'index'])->name('admin.user.index');

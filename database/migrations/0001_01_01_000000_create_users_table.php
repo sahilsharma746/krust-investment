@@ -24,7 +24,6 @@ return new class extends Migration
                 $table->enum('status', array('active', 'deactive', 'baned'))->default('active');
                 $table->string('account_type');
                 $table->string('phone')->nullable();
-                $table->string('country');
                 $table->string('referal_id')->nullable();
                 $table->float('balance')->default(0);
                 $table->string('avatar')->default('uploads/avatar.png');

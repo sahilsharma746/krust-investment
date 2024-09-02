@@ -25,14 +25,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($datas as $data)
+                         
+                        @foreach ($all_users as $user)
                             <tr>
-                                <td>{{ $data->first_name }} {{ $data->last_name }}</td>
-                                <td>{{ $data->email }}</td>
-                                <td>{{ $data->phone ?? '(N/A)' }}</td>
-                                <td>{{ '@' . $data->username }}</td>
-                                <td>{{ $data->country }}</td>
-                                <td>${{ $data->balance }}</td>
+                                <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->phone ?? '(N/A)' }}</td>
+                                <td>{{ '@' . $user->username }}</td>
+                                <td>{{ config('countries.' . $user->addresses->country) }}</td>
+                                <td>${{ $user->balance }}</td>
                                 <td>
                                     <div class="dropdown w-max">
                                         <a class="btn-dropdown">
@@ -41,33 +42,27 @@
 
                                         <ul class="list-style-none dropdown-menu d-flex flex-column">
                                             <li class="dropdown-item">
-                                                <a class="btn" href="{{ route('admin.user.details', $data->id) }}">View
+                                                <a class="btn" href="{{ route('admin.user.details', $user->id) }}">View
                                                     User</a>
                                                 <a class="btn"
-                                                    href="{{ route('admin.user.editBalance', $data->id) }}">Edit balance</a>
-                                                <a class="btn" href="{{ route('admin.user.banUser', $data->id) }}">Ban
+                                                    href="{{ route('admin.user.editBalance', $user->id) }}">Edit balance</a>
+                                                <a class="btn" href="{{ route('admin.user.banUser', $user->id) }}">Ban
                                                     User</a>
                                                 <a class="btn"
-                                                    href="{{ route('admin.user.deleteUser', $data->id) }}">Delete User</a>
+                                                    href="{{ route('admin.user.deleteUser', $user->id) }}">Delete User</a>
                                             </li>
                                         </ul>
                                     </div>
-
-
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
+                           <!--  <tr>
                                 <td class="text-center" colspan="6">No data available</td>
-                            </tr>
-                        @endforelse
-
+                            </tr> -->
+                        @endforeach
                     </tbody>
                 </table>
             </section>
         </div>
-
-
     </main>
 @endsection
 @section('scripts')

@@ -11,7 +11,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Total Users</div>
-                            <div class="card-value">{{ $totalUsers }}</div>
+                            <div class="card-value">{{ $full_data['total_users'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Active Users</div>
-                            <div class="card-value">{{ $totalActiveUsers }}</div>
+                            <div class="card-value">{{ $full_data['total_active_users'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">KYC Verified</div>
-                            <div class="card-value">{{ $totalVerifiedUsers }}</div>
+                            <div class="card-value">{{ $full_data['total_kyc_verified_users'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">KYC Unverified</div>
-                            <div class="card-value">{{ $totalUnverifiedUsers }}</div>
+                            <div class="card-value">{{ $full_data['total_kyc_unverified_users'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Total Deposits</div>
-                            <div class="card-value">$ {{ $totalDeposit }}</div>
+                            <div class="card-value">$ {{ $full_data['total_deposit'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Pending Deposits</div>
-                            <div class="card-value">$ {{ $pendingDeposit }}</div>
+                            <div class="card-value">$ {{ $full_data['pending_deposit'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Total Withdrawals</div>
-                            <div class="card-value">$ {{ $totalWithdraw }}</div>
+                            <div class="card-value">$ {{ $full_data['total_withdraw'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Pending Withdrawal</div>
-                            <div class="card-value">$ {{ $pendingWithdraw }}</div>
+                            <div class="card-value">$ {{ $full_data['pending_withdraw'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Cancelled Deposits</div>
-                            <div class="card-value">$ {{ $rejectedDeposit }}</div>
+                            <div class="card-value">$ {{ $full_data['rejected_deposit'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -125,7 +125,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Deposit Charge</div>
-                            <div class="card-value">$ 200</div>
+                            <div class="card-value">$ {{$full_data['deposit_charge']}}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Cancelled Withdrawals</div>
-                            <div class="card-value">$ {{ $rejectedWithdraw }}</div>
+                            <div class="card-value">$ {{ $full_data['rejected_withdraw'] }}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-title">Withdrawal Charge</div>
-                            <div class="card-value">$ 0.00</div>
+                            <div class="card-value">$ {{$full_data['withdraw_charge']}}</div>
                         </div>
                         <span class="arrow-icon">
                             <i class="fa-solid fa-angle-right"></i>
