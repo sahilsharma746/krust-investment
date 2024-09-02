@@ -1,6 +1,7 @@
 @extends('admin.layouts.app_admin')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
+    
 @endsection
 @section('content')
     <main class="main-area">

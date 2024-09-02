@@ -10,7 +10,7 @@
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
-
+    {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" rel="stylesheet"> --}}
 
     <!-- nice select 2 -->
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
@@ -26,14 +26,19 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 
 
+    
     <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
 
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
     <!-- jQuery added here ================ -->
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
+
+
     <style>
         .form-control::placeholder {
             color: #aaa !important;
