@@ -140,7 +140,7 @@
     <div class="container user-details-container">
         <div class="partial-view-header">
             <div class="back-btn-area">
-                <a href="./user-manage.html">
+                <a href="{{ asset('assets') }}/img/user-manage.html">
                     <span class="icon">
                         <i class="fa-solid fa-arrow-left"></i>
                     </span>
@@ -203,9 +203,9 @@
 
         <section class="user-preview-section">
             <div class="section-article user-balance-controllers">
-                <a href="./user-balance.html" class="card">
+                <a href="javascript:void(0)" class="card">
                     <div class="card-icon">
-                        <img src="../assets/img/admin-icon-money.png">
+                        <img src="{{ asset('assets') }}/img/admin-icon-money.png">
                     </div>
                     <div class="card-body">
                         <div class="card-title">Balance</div>
@@ -215,9 +215,9 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </span>
                 </a>
-                <a href="./user-deposit.html" class="card">
+                <a href="javascript:void(0)" class="card">
                     <div class="card-icon">
-                        <img src="../assets/img/admin-icon-card.png">
+                        <img src="{{ asset('assets') }}/img/admin-icon-card.png">
                     </div>
                     <div class="card-body">
                         <div class="card-title">Deposit</div>
@@ -227,9 +227,9 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </span>
                 </a>
-                <a href="./user-withdraw.html" class="card">
+                <a href="javascript:void(0)" class="card">
                     <div class="card-icon">
-                        <img src="../assets/img/admin-icon-withdraw.png">
+                        <img src="{{ asset('assets') }}/img/admin-icon-withdraw.png">
                     </div>
                     <div class="card-body">
                         <div class="card-title">Withdrawals</div>
@@ -239,9 +239,9 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </span>
                 </a>
-                <a href="./user-transaction.html" class="card">
+                <a href="javascript:void(0)" class="card">
                     <div class="card-icon">
-                        <img src="../assets/img/admin-icon-sorting.png">
+                        <img src="{{ asset('assets') }}/img/admin-icon-sorting.png">
                     </div>
                     <div class="card-body">
                         <div class="card-title">Transactions</div>
@@ -309,7 +309,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="./user-login-history.html" class="btn btn-info">
+                <a href="javascript:void(0)" class="btn btn-info">
                     <span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
                     <span class="text">Log In History</span>
                 </a>

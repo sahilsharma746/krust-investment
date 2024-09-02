@@ -12,6 +12,10 @@
         #password, #email {
             color: #fff !important;
         }
+
+        body{
+            background-color:rgba(23,31,44,1);
+        }
     </style>
 </head>
 
