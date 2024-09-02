@@ -130,7 +130,7 @@
             </a>
             <div class="header-btns d-flex flex-wrap g-8">
                 <a class="btn btn-login" href="{{ route('login') }}">Log in</a>
-                <a class="btn btn-started" href="{{ route('admin.dashboard') }}">Get Started</a>
+                <a class="btn btn-started" href="{{ route('register') }}">Get Started</a>
             </div>
         </div>
     </div>
