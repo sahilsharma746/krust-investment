@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
+
+# RewriteCond %{REQUEST_URI} ^/public/login$ [NC]
+# RewriteRule ^(.*)$ /login [L,R=301]
