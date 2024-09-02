@@ -57,7 +57,7 @@ $(document).ready(function () {
             </a>
         </li>
         <li>
-            <a href="./manage-user.html">
+            <a href="./user-manage.html">
                 <span class="icon">
                     <i class="fa-regular fa-circle-user"></i>
                 </span>
@@ -65,7 +65,7 @@ $(document).ready(function () {
             </a>
         </li>
         <li>
-            <a href="deposit.html">
+            <a href="./all-users-deposit.html">
                 <span class="icon">
                     <i class="fa-regular fa-credit-card"></i>
                 </span>
@@ -73,7 +73,7 @@ $(document).ready(function () {
             </a>
         </li>
         <li>
-            <a href="./withdraw.html">
+            <a href="./all-users-withdraw.html">
                 <span class="icon">
                     <i class="fa-solid fa-landmark"></i>
                 </span>
@@ -81,7 +81,7 @@ $(document).ready(function () {
             </a>
         </li>
         <li>
-            <a href="./trades.html">
+            <a href="./all-trades.html">
                 <span class="icon">
                     <i class="fa-solid fa-chart-line"></i>
                 </span>
@@ -89,7 +89,7 @@ $(document).ready(function () {
             </a>
         </li>
         <li>
-            <a href="./assets.html">
+            <a href="./all-assets.html">
                 <span class="icon">
                     <i class="fa-solid fa-money-bill-wave"></i>
                 </span>
@@ -226,16 +226,19 @@ $(document).ready(function () {
 
     $.each($('nav > .nav-menu > li'), function () {
         const href = $(this).find('a').attr('href');
+        const parent = $('title').attr('parent');
         if (
-            './' + lastSegment == href &&
+            ('./' + lastSegment == href || `./${parent}.html` == href) &&
             !$(this).find('a').hasClass('active')
         ) {
             $(this).find('a').addClass('active');
             $(this).siblings().find('a').removeClass('active');
             console.log('left nav active');
+            return;
         }
     }); //! ======================================================
 
     const siteTitle = $('title').text().slice(8); //!=============
+    console.log(siteTitle);
     if (siteTitle) $('.top-header .page-title').text(siteTitle);
 });

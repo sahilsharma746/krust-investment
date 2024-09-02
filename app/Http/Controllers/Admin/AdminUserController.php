@@ -49,6 +49,10 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('datas'));
     }
 
+    public function details(){
+        $datas = User::where('role', 'user')->latest()->get();
+        return view('admin.users.user-detail', compact('datas'));
+    }
 
 
     public function banUser (User $user) {
