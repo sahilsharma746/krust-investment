@@ -27,13 +27,15 @@
                 <tbody>
                     @forelse ($datas as $data)
                         <tr>
-                            <td>{{ Carbon\Carbon::parse($data->created_at)->format('d m, Y') }}</td>
-                            <td>{{ $data->user->name }}</td>
-                            <td>{{ $data->user->email }}</td>
-                            <td>{{ $data->getway->name }}</td>
-                            <td>${{ $data->amount }}</td>
-                            <td>
-                                <a target="_blank" href="{{ asset($data->receipt) }}">View Receipt</a>
+                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d M, Y ') }}</td>
+                            <td>{{ $data->first_name }} {{ $data->last_name }}</td>
+                            <td>{{ $data->email }}</td>
+                            <td>{{ $data->payment_method ?? 'N/A' }}</td> 
+                            <td>${{ number_format($data->amount, 2) }}</td>
+             <td>                                {{-- <a target="_blank" href="{{ asset($data->receipt) }}">View Receipt</a> --}}
+                <a target="_blank" href="{{ asset('uploads/Deposit_Receipt/' . $data->user_id . '/' . basename($data->receipt)) }}">View Receipt</a>
+
+
                             </td>
                             <td style="text-transform:capitalize">{{ $data->status }}</td>
                             <td>
