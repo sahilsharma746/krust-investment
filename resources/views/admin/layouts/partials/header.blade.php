@@ -25,18 +25,16 @@
     <!-- font-awesome added here ================ -->
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
 
-<!-- DataTables CSS -->
+    <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-
-
     
     <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
+    <script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
     <!-- jQuery added here ================ -->
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>

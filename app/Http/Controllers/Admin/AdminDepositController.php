@@ -2,28 +2,59 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Deposit;
 use App\Models\User;
+use App\Models\Deposit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class AdminDepositController extends Controller
 {
+   
     public function index() {
-        $datas = Deposit::with('getway', 'user')->latest()->get();
+        $datas = DB::table('deposits')
+            ->join('users', 'deposits.user_id', '=', 'users.id')
+            ->select('deposits.*', 'users.first_name', 'users.last_name', 'users.email')
+            ->orderBy('deposits.created_at', 'desc')
+            ->orderBy('deposits.payment_method', 'asc')
+            ->get();
+        
         return view('admin.deposit.index', compact('datas'));
     }
+    
+    
     public function pending() {
-        $datas = Deposit::with('getway', 'user')->where('status', 'pending')->latest()->get();
+        $datas = DB::table('deposits')
+        ->join('users', 'deposits.user_id', '=', 'users.id')
+        ->select('deposits.*', 'users.first_name', 'users.last_name', 'users.email')
+        ->where('deposits.status', 'pending') 
+        ->orderBy('deposits.created_at', 'desc')
+        ->orderBy('deposits.payment_method', 'asc')
+        ->get();
+            
         return view('admin.deposit.index', compact('datas'));
     }
     public function approved() {
-        $datas = Deposit::with('getway', 'user')->where('status', 'approved')->latest()->get();
+
+        $datas = DB::table('deposits')
+        ->join('users', 'deposits.user_id', '=', 'users.id')
+        ->select('deposits.*', 'users.first_name', 'users.last_name', 'users.email')
+        ->where('deposits.status', 'approved') 
+        ->orderBy('deposits.created_at', 'desc')
+        ->orderBy('deposits.payment_method', 'asc')
+        ->get();
         return view('admin.deposit.index', compact('datas'));
     }
     public function rejected() {
-        $datas = Deposit::with('getway', 'user')->where('status', 'rejected')->latest()->get();
-        return view('admin.deposit.index', compact('datas'));
+
+
+        $datas = DB::table('deposits')
+        ->join('users', 'deposits.user_id', '=', 'users.id')
+        ->select('deposits.*', 'users.first_name', 'users.last_name', 'users.email')
+        ->where('deposits.status', 'rejected') 
+        ->orderBy('deposits.created_at', 'desc')
+        ->orderBy('deposits.payment_method', 'asc')
+        ->get();        return view('admin.deposit.index', compact('datas'));
     }
     public function approvedStatus($id) {
         $data = Deposit::where([['id', $id], ['status', 'pending']])->first();

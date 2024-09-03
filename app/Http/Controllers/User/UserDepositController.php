@@ -29,17 +29,11 @@ class UserDepositController extends Controller
             'wallet_address'=>'required',
             
         ]);
-
-        // $path = public_path('uploads/');
-        // $file = $request->file('receipt');
-        // $fileName = time().'-receipt.'.auth()->user()->id.'.'.$file->getClientOriginalExtension();
-        // $request->receipt->move($path, $fileName);
         
-        $path = public_path('uploads/');
+    $basePath = public_path('uploads/Deposit_Receipt/');
 
     $userId = auth()->user()->id;
-    
-    $userFolderPath = $path . $userId . '/';
+    $userFolderPath = $basePath . $userId . '/';
     
     if (!File::exists($userFolderPath)) {
         File::makeDirectory($userFolderPath, 0755, true);
@@ -48,19 +42,17 @@ class UserDepositController extends Controller
     $file = $request->file('receipt');
     $fileName = time() . '-receipt.' . $userId . '.' . $file->getClientOriginalExtension();
     $file->move($userFolderPath, $fileName);
-
-
         Deposit::insert([
             'user_id' => auth()->user()->id,
             'getway_id' => $id,
             'payment_method'=> $getway->name,
             'amount' => $request->amount,
             'wallet_address' => $request->wallet_address,
-            'receipt' => $path.$fileName,
+            'receipt' => $basePath.$fileName,
             'created_at' => Carbon::now()
         ]);
 
-        return back()->with('success', 'Submited Successfully');
+        return back()->with('success', 'Your Requeste Submited Successfully');
     
     }
 

@@ -99,7 +99,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
-                                <th>Address</th>
+                                <th>Wallet Address</th>
                                 <th>Currency</th>
                                 <th>Amount</th>
                                 <th>Status</th>
@@ -109,8 +109,10 @@
                             @forelse ($datas as $data)
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
-                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('d-m-y') }}</td>
-                                    <td>{{ $data->getway->address }}</ <td>USD</td>
+                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('F j, Y');
+ }}</td>
+                                    <td>{{ $data->getway->address }}</td>
+                                    <td>USD</td>
                                     <td>${{ $data->amount }}</td>
 
                                     @if ($data->status == 'pending')
