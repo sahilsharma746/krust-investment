@@ -40,7 +40,7 @@
         <div class="main-header">
             <div class="container d-flex flex-wrap justify-content-between align-items-center g-10">
                 <div>
-                    <a href="{{ route('frontend.index') }}" class="logo-area d-flex align-items-center g-4">
+                    <a href="{{ route('user.dashboard') }}" class="logo-area d-flex align-items-center g-4">
                         <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
                         <span class="site-name">Krust-Investments</span>
                     </a>
