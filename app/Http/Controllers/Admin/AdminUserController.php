@@ -13,74 +13,53 @@ class AdminUserController extends Controller
 {
 
     protected $page_title;
-
-    public function __construct()
-    {
-        $this->middleware(['is_admin']);
-        $this->page_title = 'Manage User';
-    }
-
-
     public function index () {
-        $page_title = $this->page_title;
+        $page_title = 'All Users';
         $all_users = User::with('addresses')->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function activeUsers () {
-        $page_title = $this->page_title;
+        $page_title = 'Active Users';
         $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function kycVerified () {
-        $page_title = $this->page_title;
-        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        $page_title = 'KYC Verified Users';
+       
+            $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
+                ->with('addresses')
+                ->where([
+                    ['users.role', 'user'],
+                    ['user_verified_status.kyc_verify_status', 'verified']
+                ])
+                ->select('users.*') 
+                ->get();
 
-        // $all_users = User::with('address')
-        //      ->where('role', 'user') 
-        //      ->whereHas('verifiedStatus', function ($query) {
-        //          $query->where('kyc_verify_status', 'verified');
-        //      })
-        //      ->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function kycUnverified () {
-        $page_title = $this->page_title;
+        $page_title = 'KYC Unverified Users';
         $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
-
-        // $all_users = User::with('address')
-        //      ->where('role', 'user') // Add the condition to check for the user role
-        //      ->whereHas('verifiedStatus', function ($query) {
-        //         $query->where('kyc_verify_status', 'pending')
-        //                 ->orWhere('kyc_verify_status', 'rejected');
-        //      })
-        //      ->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function emailVerified () {
-        $page_title = $this->page_title;
+        $page_title = 'Email Verified Users';
         $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
-
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function phoneVerified () {
-        $page_title = $this->page_title;
+        $page_title = 'Phone Verified Users';
         $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
-
-
+    
     public function bannedVerified () {
-        $page_title = $this->page_title;
+        $page_title = 'Banned Users';
         $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
@@ -93,7 +72,6 @@ class AdminUserController extends Controller
         $total_transactions = 0;
         $user_address = UserAddress::where('user_id', $user->id)->first();
         $verification_prompts_permissions_data = '';
-
 
         $full_data['total_deposit_amount'] = $total_deposit_amount;
         $full_data['total_withdrawl_amount'] = $total_withdrawl_amount;
@@ -139,11 +117,6 @@ class AdminUserController extends Controller
             abort(404);
         }
     }
-
-
-
-
-
 
 
     public function deleteUser(User $user) {

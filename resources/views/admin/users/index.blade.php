@@ -10,7 +10,7 @@
                 @include('admin.users.manage-user-nav')
             </section>
             <section class="all-user-table-area">
-                <div class="section-title">All Users</div>
+                <div class="section-title"> {{ $page_title }}</div>
 
                 <table id="all-user-table" class="all-user-table display">
                     <thead>
