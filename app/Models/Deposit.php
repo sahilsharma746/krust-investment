@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Deposit extends Model
 {
     use HasFactory;
+
+    protected $table = 'deposits';
+
+    protected $fillable = [
+        'user_id',
+        'getway_id',
+        'payment_method',
+        'wallet_address',
+        'amount',
+        'receipt',
+        'status'
+    ];
+
     protected $guarded = [];
 
     public function getway() {
