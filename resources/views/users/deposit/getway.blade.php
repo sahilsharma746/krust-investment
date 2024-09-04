@@ -12,6 +12,7 @@
 
                 <div class="collapsible-card-group">
                     @foreach ($getways as $key => $getway)
+                   
                         <form action="{{ route('user.deposit.store', $getway->id) }}" method="POST" enctype="multipart/form-data" class="card">
                             @csrf
                             <div class="card-header">
@@ -39,6 +40,16 @@
                                                 <i class="fa-regular fa-clone"></i>
                                             </label>
                                         </div>
+
+                                        @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+                                        <div class="input-group">
+                                            <label class="form-label"> Address tag</label>
+                                            <input class="form-control form-clone" type="text" name="address_tag"  id="address_tag-{{ $getway->id }}">
+                                            <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
+                                                <i class="fa-regular fa-clone"></i>
+                                            </label>
+                                        </div>
+                                    @endif
                 
                                         <div class="input-group attach-file-input-group">
                                             <label class="form-label">Upload receipt</label>
@@ -100,6 +111,7 @@
                                 <th>ID</th>
                                 <th>Date</th>
                                 <th>Wallet Address</th>
+                                <th>Address Tag</th>
                                 <th>Currency</th>
                                 <th>Amount</th>
                                 <th>Status</th>
@@ -112,6 +124,7 @@
                                     <td>{{ Carbon\Carbon::parse($data->created_at)->format('F j, Y');
  }}</td>
                                     <td>{{ $data->getway->address }}</td>
+                                    <td>{{ $data->address_tag ? $data->address_tag : 'NA' }}</td>
                                     <td>USD</td>
                                     <td>${{ $data->amount }}</td>
 

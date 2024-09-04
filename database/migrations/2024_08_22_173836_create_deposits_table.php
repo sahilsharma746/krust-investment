@@ -18,11 +18,11 @@ return new class extends Migration
                 $table->unsignedBigInteger('getway_id')->nullable(); // Make getway_id nullable
                 $table->string('payment_method');
                 $table->string('wallet_address');
-                $table->string('address_tag');
+                $table->string('address_tag')->nullable();
                 $table->float('amount');
                 $table->string('receipt')->nullable(); // Make receipt nullable
                 $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-                $table->string('remarks');
+                $table->string('remarks')->nullable();
                 $table->timestamps();
             });
         }
