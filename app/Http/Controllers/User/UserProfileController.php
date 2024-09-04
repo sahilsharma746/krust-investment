@@ -20,6 +20,7 @@ class UserProfileController extends Controller
         $user_data = User::with('addresses')->where([['role', 'user'], ['id', $user->id]])->first();
         $countries = config('countries');
         return view('users.profile.personal-info', compact('user_data', 'countries'));
+
     }
 
     public function personalInfoUpdate(Request $request) {
@@ -47,6 +48,7 @@ class UserProfileController extends Controller
 
 
         return back()->with('success', 'Updated successfully');
+
     }
 
 
@@ -70,7 +72,8 @@ class UserProfileController extends Controller
         User::where('id', $user->id)
                 ->update(['avatar' => $file_name]);
 
-        return back()->with('success', 'Avatar updated successfully');
+
+return back()->with(['success' => 'Avatar updated successfully', 'user' => $user]);
     }
 
 
