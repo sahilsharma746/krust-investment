@@ -40,9 +40,13 @@ class AdminHomeController extends Controller
         return view('admin.index', compact('full_data','page_title'));
     }
 
-
     public function adminLogin(){
-        return view('admin.adminlogin');
+        $user = Auth::user();
+        if( isset( $user->role ) &&  $user->role == 'admin' ) {
+            return redirect()->route('admin.dashboard');
+        }else if( isset( $user->role ) &&  $user->role == 'user' ){
+            return redirect()->route('user.dashboard');
+        }        return view('admin.adminlogin');
     }
 
 }

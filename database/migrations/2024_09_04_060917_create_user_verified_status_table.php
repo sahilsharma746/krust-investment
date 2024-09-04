@@ -18,6 +18,11 @@ return new class extends Migration
                 $table->enum('kyc_verify_status', ['pending', 'verified', 'rejected']); // Using enum for fixed set of values
                 $table->enum('email_verify_status', ['pending', 'verified', 'rejected']);
                 $table->enum('phone_verify_status', ['pending', 'verified', 'rejected']);
+                $table->tinyInteger('upgrade_prompt')->comment('0=no, 1=yes');
+                $table->tinyInteger('certificate_prompt')->comment('0=no, 1=yes');
+                $table->tinyInteger('identity_prompt')->comment('0=no, 1=yes');
+                $table->tinyInteger('custom_prompt')->comment('0=no, 1=yes');
+                $table->tinyInteger('demo')->comment('0=no, 1=yes');
                 $table->timestamps();
             });
         }

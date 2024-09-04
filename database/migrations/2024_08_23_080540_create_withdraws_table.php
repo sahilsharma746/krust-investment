@@ -16,8 +16,12 @@ return new class extends Migration
                 $table->id();
                 $table->unsignedBigInteger('user_id');
                 $table->unsignedBigInteger('getway_id');
+                $table->string('payment_method');
+                $table->string('wallet_address');
+                $table->string('address_tag');
                 $table->float('amount');
                 $table->string('address');
+                $table->string('remarks');
                 $table->enum('status', array('pending', 'approved', 'rejected'))->default('pending');
                 $table->timestamps();
             });

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Deposit;
 use App\Models\UserAddress;
+use App\Models\UserVerifiedStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class AdminUserController extends Controller
 {
@@ -15,7 +17,7 @@ class AdminUserController extends Controller
     protected $page_title;
     public function index () {
         $page_title = 'All Users';
-        $all_users = User::with('addresses')->get();
+        $all_users = User::with('addresses')->where([['role', 'user']])->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
     
@@ -92,7 +94,7 @@ class AdminUserController extends Controller
         $total_withdrawl_amount = 0;
         $total_transactions = 0;
         $user_address = UserAddress::where('user_id', $user->id)->first();
-        $verification_prompts_permissions_data = '';
+        $verification_prompts_permissions_data = UserVerifiedStatus::where('user_id', $user->id)->first();
 
         $full_data['total_deposit_amount'] = $total_deposit_amount;
         $full_data['total_withdrawl_amount'] = $total_withdrawl_amount;
@@ -106,9 +108,19 @@ class AdminUserController extends Controller
     }
 
 
+  
+
+    public function user_verification (User $user) {
+
+        
+        return view('admin.users.user-detail', compact('all_users', 'page_title'));
+    }
+    
+
+
     public function banUser (User $user) {
         $user->update([
-            'status' => 'deactive'
+            'status' => 'baned'
         ]);
 
         return back()->with('success', 'Banned Succesfully');
@@ -141,6 +153,9 @@ class AdminUserController extends Controller
 
 
     public function deleteUser(User $user) {
+        $user->update([
+            'status' => 'deactive'
+        ]);
         $arr = explode('/', $user->avatar);
         $img = end($arr);
         if ($img != 'avatar.png') {

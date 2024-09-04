@@ -110,6 +110,11 @@ class RegisterController extends Controller
             'kyc_verify_status' => 'pending',
             'email_verify_status' => 'pending',
             'phone_verify_status' => 'pending',
+            'upgrade_prompt' => 0,
+            'certificate_prompt'=>0,
+            'identity_prompt'=>0,
+            'custom_prompt'=>0,
+            'demo'=>0,
         ]);
 
          UserAddress::create([

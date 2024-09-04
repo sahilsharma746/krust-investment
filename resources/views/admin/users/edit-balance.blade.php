@@ -4,7 +4,7 @@
         <div class="container user-details-container">
             <div class="partial-view-header">
                 <div class="back-btn-area">
-                    <a href="./manage-user.html">
+                    <a href="{{ route('admin.user.index') }}">
                         <span class="icon">
                             <i class="fa-solid fa-arrow-left"></i>
                         </span>

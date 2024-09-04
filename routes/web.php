@@ -86,6 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
 
 
     Route::get('/details/{user}', [AdminUserController::class, 'details'])->name('admin.user.details');
+    Route::get('/user_verification/{user}', [AdminUserController::class, 'user_verification'])->name('admin.user.details');
     Route::get('/editBalance/{user}', [AdminUserController::class, 'editBalance'])->name('admin.user.editBalance');
     Route::post('/updateBalance/{user}', [AdminUserController::class, 'updateBalance'])->name('admin.user.updateBalance');
     Route::get('/banUser/{user}', [AdminUserController::class, 'banUser'])->name('admin.user.banUser');
