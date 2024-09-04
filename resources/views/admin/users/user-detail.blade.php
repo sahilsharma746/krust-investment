@@ -139,6 +139,9 @@
 @php
     $country_code = $full_data['user_address']['country'];
     $country_name = config('countries.' . $country_code);
+
+    // echo '<pre>'; print_r(  $full_data['verification_prompts_permissions_data']['upgrade_prompt']  ); die;
+
 @endphp
 
 <?php   // echo '<pre>'; print_r( $full_data); die;  ?>
@@ -404,7 +407,6 @@
                         <p>2FA Verification</p>
                         <p
                             class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
@@ -413,7 +415,6 @@
                         <p>KYC</p>
                         <p
                             class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
@@ -422,55 +423,56 @@
             </div>
 
             <div class="section-title">Prompts & Permissions</div>
+            
             <div class="card common-card">
                 <div class="card-body">
                     <div class="input-group">
                         <label class="form-label">Ban</label>
                         <select class="form-control" id="userPermissionBan" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option  {{ $full_data['user_data'] ['status'] == 'active' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['user_data'] ['status']  == 'baned' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label class="form-label">Verified</label>
+                        <label class="form-label"> KYC Verified</label>
                         <select class="form-control" id="userPermissionVerified" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['kyc_verify_status'] == 'pending' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['kyc_verify_status'] == 'verified' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label class="form-label">Upgrade Prompt</label>
                         <select class="form-control" id="userPermissionUpgradePrompt" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '0' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label class="form-label">Certificate Prompt</label>
                         <select class="form-control" id="userPermissionCertificatePrompt" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['certificate_prompt'] == '0' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['certificate_prompt'] == '1' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label class="form-label">Identity Prompt</label>
                         <select class="form-control" id="userPermissionIdentityPrompt" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['identity_prompt'] == '0' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['identity_prompt'] == '1' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label class="form-label">CustomPrompy</label>
+                        <label class="form-label">Custom Prompt</label>
                         <select class="form-control" id="userPermissionCustomPrompy" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['custom_prompt'] == '0' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['custom_prompt'] == '1' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label class="form-label">Demo</label>
                         <select class="form-control" id="userPermissionDemo" searchable="false">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['demo'] == '0' ? 'selected' : '' }} value="0">No</option>
+                            <option {{ $full_data['verification_prompts_permissions_data']['demo'] == '1' ? 'selected' : '' }} value="1">Yes</option>
                         </select>
                     </div>
                 </div>

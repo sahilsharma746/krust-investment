@@ -61,4 +61,12 @@ class AdminIdentyVerificationController extends Controller
             return back()->with('success', 'Deleted Successfully');
         }
     }
+
+
+
+    public function banUsers () {
+        $all_users = User::with('')->where([['role', 'user'], ['status', 'active']])->get();
+        return view('admin.users.index', compact('all_users', ''));
+    }
+    
 }

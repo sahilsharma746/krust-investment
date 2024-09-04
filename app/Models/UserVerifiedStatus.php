@@ -16,6 +16,11 @@ class UserVerifiedStatus extends Model
         'kyc_verify_status',
         'email_verify_status',
         'phone_verify_status',
+        'upgrade_prompt',
+        'certificate_prompt',
+        'identity_prompt',
+        'custom_prompt',
+        'demo',
     ];
 
     public function user()
