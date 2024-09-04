@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Models\UserAccountType;
+
 
 
 class UserDepositController extends Controller
 {
     public function index() {
+        $user = Auth::user();
         $datas = Deposit::with('getway')->where('user_id', auth()->user()->id)->latest()->get();
         $getways = Getway::where('deposit', 'yes')->get();
         return view('users.deposit.getway', compact('datas', 'getways'));
@@ -27,21 +30,20 @@ class UserDepositController extends Controller
             'amount' => 'required | numeric | min:1',
             'receipt' => 'required | image | mimes:jpg,png,jpeg',
             'wallet_address'=>'required',
-            
         ]);
         
-    $basePath = public_path('uploads/Deposit_Receipt/');
+        $basePath = public_path('uploads/Deposit_Receipt/');
 
-    $userId = auth()->user()->id;
-    $userFolderPath = $basePath . $userId . '/';
+        $userId = auth()->user()->id;
+        $userFolderPath = $basePath . $userId . '/';
     
-    if (!File::exists($userFolderPath)) {
-        File::makeDirectory($userFolderPath, 0755, true);
-    }
+        if (!File::exists($userFolderPath)) {
+            File::makeDirectory($userFolderPath, 0755, true);
+        }
 
-    $file = $request->file('receipt');
-    $fileName = time() . '-receipt.' . $userId . '.' . $file->getClientOriginalExtension();
-    $file->move($userFolderPath, $fileName);
+        $file = $request->file('receipt');
+        $fileName = time() . '-receipt.' . $userId . '.' . $file->getClientOriginalExtension();
+        $file->move($userFolderPath, $fileName);
         Deposit::insert([
             'user_id' => auth()->user()->id,
             'getway_id' => $id,
@@ -53,11 +55,6 @@ class UserDepositController extends Controller
         ]);
 
         return back()->with('success', 'Your Requeste Submited Successfully');
-    
     }
-
-
-    
-    
     
 }

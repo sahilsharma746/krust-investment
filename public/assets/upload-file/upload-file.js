@@ -41,8 +41,9 @@ let fileFlag = 0;
 
 const validateFileType = (input) => {
     const filePath = input.value;
+    console.log( filePath );
     const allowedExtensions = /(\.JPG|\.jpeg|\.png|\.gif)$/i;
-
+    console.log( filePath );
     if (!allowedExtensions.exec(filePath)) {
         alert('Images not in JPG, PNG or GIF');
         input.value = ''; // Clear the input
@@ -50,16 +51,17 @@ const validateFileType = (input) => {
     }
     return true;
 };
+
 const addImage = (file) => {
     if (file) {
         // const file = e.target.files[0];
         const reader = new FileReader();
         reader.onload = function (event) {
             const src = event.target.result;
-            if (validateFileType(src)) {
-                console.log(true);
-            }
-
+            console.log(src);
+            // if (validateFileType(src)) {
+            //     console.log(true);
+            // }
             $('.upload-files-container #user-image')
                 .attr('src', src)
                 .removeClass('d-none');
@@ -168,9 +170,13 @@ if (isAdvancedUpload) {
 
         let files = e.dataTransfer.files;
         fileInput.files = files;
+        
         console.log(files[0].name + ' ' + files[0].size);
         console.log(document.querySelector('.default-file-input').value);
+        
         fileName.innerHTML = files[0].name;
+
+        console.log(files[0].name + ' ' + files[0].size);
 
         const imgSize = (fileInput.files[0].size / 1024).toFixed(1);
         if (imgSize > 4999) {

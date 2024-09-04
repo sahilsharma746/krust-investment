@@ -32,6 +32,9 @@
     <!-- jQuery added here ================ -->
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
 
+    <script src="https://s3.tradingview.com/tv.js"></script>
+
+
 
 </head>
 
@@ -40,7 +43,7 @@
         <div class="main-header">
             <div class="container d-flex flex-wrap justify-content-between align-items-center g-10">
                 <div>
-                    <a href="{{ route('user.dashboard') }}" class="logo-area d-flex align-items-center g-4">
+                    <a href="{{ route('home') }}" class="logo-area d-flex align-items-center g-4">
                         <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
                         <span class="site-name">Krust-Investments</span>
                     </a>
@@ -68,7 +71,7 @@
                         </a>
 
                         <dl class="dropdown-menu d-flex flex-column">
-                            <dt class="dropdown-item">Current Plan: <span class="user-plan-name">Tier 1</span> </dt>
+                            <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ session('user_account_type') }}</span> </dt>
                             <dt class="dropdown-item">
                                 <div class="account-status-header d-flex align-items-center g-10">
                                     <span class="dot"></span>

@@ -5,42 +5,74 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Identification;
 use App\Models\User;
+use App\Models\UserAddress;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class UserProfileController extends Controller
 {
     public function personalInfo() {
-        return view('users.profile.personal-info');
+        $user = Auth::user();
+        $user_data = User::with('addresses')->where([['role', 'user'], ['id', $user->id]])->first();
+        $countries = config('countries');
+        return view('users.profile.personal-info', compact('user_data', 'countries'));
     }
 
     public function personalInfoUpdate(Request $request) {
-        $user = User::where('id', auth()->user()->id)->first();
+        $user = Auth::user();
+
         $request->validate([
             'first_name' => 'required | string | max:255',
             'last_name' => 'required | string | max:255',
             'email' => 'required | email | unique:users,email,'.$user->id.',id',
             'phone' => 'required',
-            'country' => 'required | string | max:255',
+            'country' => 'required',
         ]);
+        
         $user->update([
-            'name' => $request->first_name.' '.$request->last_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'country' => $request->country,
         ]);
+
+        UserAddress::where('user_id', $user->id)
+                ->update(['country' => $request->country]);
+
+        session()->put('user_name', "{$request->first_name} {$request->last_name}");
+
 
         return back()->with('success', 'Updated successfully');
     }
 
+
     public function avatarUpdate(Request $request) {
+        $user = Auth::user();
+        
         $request->validate([
             'avatar' => 'required | image | mimes:jpg,png,jpeg'
         ]);
+
+        $base_path = public_path('uploads/user_avatar/');
+    
+        if (!File::exists($base_path)) {
+            File::makeDirectory($base_path, 0755, true);
+        }
+
+        $file = $request->file('avatar');
+        $file_name = time() . '-user-avatar-' . $user->id . '.' . $file->getClientOriginalExtension();
+        $file->move($base_path, $file_name);
+
+        User::where('id', $user->id)
+                ->update(['avatar' => $file_name]);
+
+        return back()->with('success', 'Avatar updated successfully');
     }
+
 
     public function verification() {
         $identification = Identification::where('user_id', auth()->user()->id)->first();

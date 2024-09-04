@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserAccountType;
 
 
 class LoginController extends Controller
@@ -51,8 +52,9 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            session(['user_name' => $user->first_name . ' '.$user->last_name ]);
-            // Authentication passed...
+             $user_account_type = UserAccountType::where('id', $user->account_type)->pluck('name')->first();
+            session()->put('user_name', $user->first_name . ' ' . $user->last_name);
+            session()->put('user_account_type', $user_account_type);
             return redirect()->intended('home');
         }
 

@@ -14,6 +14,20 @@ typeof NiceSelect !== 'undefined' &&
         NiceSelect.bind(document.getElementById(id), options);
     });
 
+    
+
+window.addEventListener('load', function() {
+    document.querySelectorAll('svg').forEach(function(svg) {
+        svg.style.display = 'none';
+        svg.offsetHeight; // trigger a reflow, flushing the CSS changes
+        svg.style.display = 'block';
+    });
+});
+
+
+
+
+
 //* Navigation nav-tab script ===============
 document.addEventListener('click', function (e) {
     if (e.target.closest('a[data-toggle="tab"]')) {

@@ -28,39 +28,60 @@ class AdminUserController extends Controller
     public function kycVerified () {
         $page_title = 'KYC Verified Users';
        
-            $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
-                ->with('addresses')
-                ->where([
-                    ['users.role', 'user'],
-                    ['user_verified_status.kyc_verify_status', 'verified']
-                ])
-                ->select('users.*') 
-                ->get();
+        $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
+            ->with('addresses')
+            ->where([
+                ['users.role', 'user'],
+                ['user_verified_status.kyc_verify_status', 'verified']
+            ])
+            ->select('users.*') 
+            ->get();
 
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
     
     public function kycUnverified () {
         $page_title = 'KYC Unverified Users';
-        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
+            ->with('addresses')
+            ->where([
+                ['users.role', 'user'],
+                ['user_verified_status.kyc_verify_status', 'pending']
+            ])
+            ->select('users.*')
+            ->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
     
     public function emailVerified () {
         $page_title = 'Email Verified Users';
-        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
+            ->with('addresses')
+            ->where([
+                ['users.role', 'user'],
+                ['user_verified_status.email_verify_status', 'verified']
+            ])
+            ->select('users.*') 
+            ->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
     
     public function phoneVerified () {
         $page_title = 'Phone Verified Users';
-        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        $all_users = User::join('user_verified_status', 'users.id', '=', 'user_verified_status.user_id')
+            ->with('addresses')
+            ->where([
+                ['users.role', 'user'],
+                ['user_verified_status.phone_verify_status', 'verified']
+            ])
+            ->select('users.*') 
+            ->get();        
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
     
     public function bannedVerified () {
         $page_title = 'Banned Users';
-        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'active']])->get();
+        $all_users = User::with('addresses')->where([['role', 'user'], ['status', 'baned']])->get();
         return view('admin.users.index', compact('all_users', 'page_title'));
     }
 

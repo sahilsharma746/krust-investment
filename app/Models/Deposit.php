@@ -34,7 +34,6 @@ class Deposit extends Model
 
     public static function getUserDepositAmount($user_id, $status = 'all'){
         $total_deposit = 0;
-
         if( $status == 'all' ) {
             $deposits = Deposit::where('user_id', $user_id)->get();
         }else {

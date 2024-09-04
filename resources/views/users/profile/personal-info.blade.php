@@ -19,7 +19,10 @@
                     </li>
                 </ul>
             </div>
-
+            @php
+                $country_code = $user_data->addresses->country;
+                $country_name = config('countries.' . $country_code);
+            @endphp
             <form action="{{ route('user.personal.info.update') }}" method="POST">
                 @csrf
                 <div class="personal-info-card-area">
@@ -28,28 +31,28 @@
                         <div class="card-body d-grid">
                             <div class="input-group">
                                 <label class="form-label">First Name</label>
-                                <input class="form-control" type="text" name="first_name" value="{{ old('first_name') ?? auth()->user()->first_name }}" placeholder="Enter First Name">
+                                <input class="form-control" type="text" name="first_name" value="{{ $user_data->first_name }}" placeholder="Enter First Name">
                                 @error('first_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Last Name</label>
-                                <input class="form-control" type="text" name="last_name" value="{{ old('last_name') ?? auth()->user()->last_name }}" placeholder="Enter Last Name">
+                                <input class="form-control" type="text" name="last_name" value="{{ $user_data->last_name }}" placeholder="Enter Last Name">
                                 @error('last_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Email address</label>
-                                <input class="form-control" type="email" placeholder="Enter email address" name="email" value="{{ old('email') ?? auth()->user()->email }}">
+                                <input class="form-control" type="email" placeholder="Enter email address" readonly name="email" value="{{ $user_data->email }}">
                                 @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Phone number</label>
-                                <input class="form-control" type="text" placeholder="Enter Phone number" name="phone" value="{{ old('phone') ?? auth()->user()->phone }}">
+                                <input class="form-control" type="text" placeholder="Enter Phone number" name="phone" value="{{ $user_data->phone }}">
                                 @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -58,9 +61,9 @@
                                 <label class="form-label">Country</label>
                                 <select class="form-control" id="userCountry" searchable="true" name="country">
                                     <option>Select Country</option>
-                                    <option {{ auth()->user()->country == 'Bangladesh' ? 'selected' : '' }} value="Bangladesh">Bangladesh</option>
-                                    <option {{ auth()->user()->country == 'Nepal' ? 'selected' : '' }} value="Nepal">Nepal</option>
-                                    <option {{ auth()->user()->country == 'Bhutan' ? 'selected' : '' }} value="Bhutan">Bhutan</option>
+                                   @foreach($countries as $code => $name)
+                                        <option {{ $country_code == $code ? 'selected' : '' }} value="{{ $code }}">{{ $name }}</option>
+                                    @endforeach
                                 </select>
                                 @error('country')
                                     <span class="text-danger">{{ $message }}</span>
@@ -72,6 +75,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
                 <div class="profile-picture-card-area">
                     <div class="area-title">Profile picture</div>
                     <form action="{{ route('user.profile.avatarUpdate') }}" method="POST" enctype="multipart/form-data">

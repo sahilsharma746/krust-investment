@@ -16,7 +16,7 @@
                             portfolio grow. Join the Krust
                             community today.
                         </p>
-                        <a href="" class="btn w-max">Start Trading Today</a>
+                        <a href="{{route('register')}}" class="btn w-max">Start Trading Today</a>
                     </div>
                     <div class="col d-flex">
                         <img class="hero-image" src="{{ asset('assets') }}/img/hero-section-2-mopbile-phone.png" alt="">

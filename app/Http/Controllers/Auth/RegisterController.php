@@ -117,6 +117,11 @@ class RegisterController extends Controller
             'country' => $data['country'],
         ]);
 
+        $user_account_type = UserAccountType::where('id', $user->account_type)->pluck('name')->first();
+
+        session()->put('user_name', $user->first_name . ' ' . $user->last_name);
+        session()->put('user_account_type', $user_account_type);
+
         return  $user;
     }
 

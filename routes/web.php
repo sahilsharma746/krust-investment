@@ -18,6 +18,8 @@ use App\Http\Controllers\User\UserWithdrawController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+
 
 
 Auth::routes();
@@ -31,6 +33,8 @@ Route::get('/reboot', function () {
     // composer dump-autoload
     dd('Done');
 });
+
+Auth::routes(['reset' => true]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');

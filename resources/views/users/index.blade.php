@@ -18,7 +18,7 @@
                         <div class="card-title">Total balance</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets') }}/img/flag-eur.png" alt="Eur currency">
-                            <div class="amount">${{ auth()->user()->balance }}</div>
+                            <div class="amount">${{ $full_data['total_approved_deposit'] }}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-3 text-primary">
                             <div class="percentage">1.5%</div>
@@ -31,7 +31,7 @@
                         <div class="card-title">Total Deposit</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets') }}/img/flag-eur.png" alt="Eur currency">
-                            <div class="amount">${{ $totalDeposit }}</div>
+                            <div class="amount">${{ $full_data['total_deposit']  }}</div>
                         </div>
                     </div>
                     <div class="card d-grid g-4">

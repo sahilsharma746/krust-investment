@@ -21,6 +21,7 @@ class AdminHomeController extends Controller
         $full_data['total_active_users']  = User::where([['role', 'user'], ['status', 'active']])->count();
         
         $full_data['total_kyc_verified_users'] = UserVerifiedStatus::where('kyc_verify_status', 'verified')->count();
+        
         $full_data['total_kyc_unverified_users'] = UserVerifiedStatus::where('kyc_verify_status', 'pending')
                                                            ->orWhere('kyc_verify_status', 'rejected')
                                                            ->count();
