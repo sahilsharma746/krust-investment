@@ -3,6 +3,7 @@
         <li class="nav-item {{ Request::url() == route('user.dashboard') ? 'active' : '' }}">
             <a data-toggle="tab" href="{{ route('user.dashboard') }}">
                 <i class="fa-regular fa-circle-user"></i>
+                
                 <span> {{ session('user_name') }}</span>
             </a>
         </li>

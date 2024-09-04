@@ -19,13 +19,12 @@ class UserDepositController extends Controller
         $user = Auth::user();
         $datas = Deposit::with('getway')->where('user_id', auth()->user()->id)->latest()->get();
         $getways = Getway::where([['deposit', 'yes'], ['name', '!=', 'admin']])->get();
-         return view('users.deposit.getway', compact('datas', 'getways'));
+        return view('users.deposit.getway', compact('datas', 'getways'));
     }
 
     public function store(Request $request, $id) {
 
         $getway = Getway::where('id', $id)->first();
-
         $request->validate([
             'amount' => 'required | numeric | min:1',
             'receipt' => 'required | image | mimes:jpg,png,jpeg',
@@ -50,6 +49,7 @@ class UserDepositController extends Controller
             'payment_method'=> $getway->name,
             'amount' => $request->amount,
             'wallet_address' => $request->wallet_address,
+            'address_tag'=>  $request->address_tag,
             'receipt' => $file_name,
             'created_at' => Carbon::now()
         ]);
