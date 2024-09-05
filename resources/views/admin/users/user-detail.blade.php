@@ -277,19 +277,23 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
+                        <form action="{{ route('admin.user.updateBalance', $full_data['user_data']->id) }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="input-group">
                                 <label class="form-label">Amount</label>
-                                <input class="form-control" type="number" min="0" placeholder="Enter Amount">
+                                <input class="form-control" name="amount" type="number" min="0" placeholder="Enter Amount">
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Remark</label>
-                                <textarea class="form-control" rows="4" placeholder="Enter Remark Yet" style="height: 150px"></textarea>
+                                <textarea class="form-control" name="remark" rows="4" placeholder="Enter Remark Yet" style="height: 150px"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <input name="type" type="hidden" value="credit">
                             <button class="btn btn-confirm-info">Submit</button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <button class="btn btn-danger" onclick="openModal('user-subtract-balance')">
@@ -304,19 +308,23 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
+                        <form action="{{ route('admin.user.updateBalance', $full_data['user_data']->id) }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="input-group">
                                 <label class="form-label">Amount</label>
-                                <input class="form-control" type="number" min="0" placeholder="Enter Amount">
+                                <input class="form-control" name="amount" type="number" min="0" placeholder="Enter Amount">
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Remark</label>
-                                <textarea class="form-control" rows="4" placeholder="Enter Remark Yet"></textarea>
+                                <textarea class="form-control" name="remark" rows="4" placeholder="Enter Remark Yet" style="height: 150px"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <input name="type" type="hidden" value="debit">
                             <button class="btn btn-confirm-info">Submit</button>
                         </div>
+                    </form>
                     </div>
                 </div>
                 <a href="javascript:void(0)" class="btn btn-info">
@@ -541,7 +549,4 @@ window.onclick = function(event) {
     });
 }
 </script>
-    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
-    <script src="{{asset('assets')}}/nice-select-2/nice-select2.js"></script>
-    <script src="{{ asset('assets/nice-select-2/nice-select2.js') }}"></script>
 @endsection

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Deposit;
+use App\Models\Getway;
 use App\Models\UserAddress;
 use App\Models\UserVerifiedStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -130,26 +132,41 @@ class AdminUserController extends Controller
         return view('admin.users.edit-balance', compact('user'));
     }
 
+    
+
+
     public function updateBalance(Request $request, User $user) {
+
         $request->validate([
             'amount' => 'required | numeric | min:1',
             'type' => 'required | string'
         ]);
 
+        $admin_gateway_id = Getway::getAdminGatewayID();
+
+        $remarks = isset($request->remark ) ? $request->remark : '';
+
         if ($request->type == 'credit') {
+
+            Deposit::updateDepositByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks );
             $user->increment('balance', $request->amount);
             return to_route('admin.user.index')->with('success', 'Updated Successfully');
+        
         }elseif ($request->type == 'debit'){
+            
             if ($user->balance > $request->amount) {
                 $user->decrement('balance', $request->amount);
                 return to_route('admin.user.index')->with('success', 'Updated Successfully');
             }else{
                 return to_route('admin.user.index')->with('error', 'This user dose not have enough balance');
             }
+
         }else{
             abort(404);
         }
     }
+
+
 
 
     public function deleteUser(User $user) {

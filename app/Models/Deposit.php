@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Deposit extends Model
 {
@@ -47,6 +48,21 @@ class Deposit extends Model
             }
         }
         return $total_deposit;
+    }
+
+
+    public static function updateDepositByAdmin($user_id, $amount, $gateway_id, $remarks){
+       return Deposit::insert([
+            'user_id' => $user_id,
+            'getway_id' => $gateway_id,
+            'payment_method'=> 'Bonus',
+            'amount' => $amount,
+            'wallet_address' => '',
+            'remarks' => $remarks,
+            'status' => 'approved',
+            'created_at' => Carbon::now()
+        ]);
+
     }
 
 

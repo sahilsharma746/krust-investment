@@ -38,3 +38,9 @@
 [03-Sep-2024 14:44:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
 [03-Sep-2024 14:44:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
 [03-Sep-2024 18:22:12 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Auth\ForgotPasswordController::sendResetLinkEmail() in /home/krusmpts/staging/app/Http/Controllers/Auth/ForgotPasswordController.php on line 37
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Sep-2024 16:20:56 UTC] PHP Warning:  Undefined variable $dg in /home/krusmpts/staging/public/adminer-4.8.1-mysql.php on line 868

@@ -1,8 +1,4 @@
 @extends('admin.layouts.app_admin')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
-    
-@endsection
 @section('content')
     <main class="main-area">
         <div class="container manage-user-container">
@@ -10,7 +6,7 @@
                 @include('admin.users.manage-user-nav')
             </section>
             <section class="all-user-table-area">
-                <div class="section-title"> {{ $page_title }}</div>
+                <div class="section-title">All Users</div>
 
                 <table id="all-user-table" class="all-user-table display">
                     <thead>
@@ -21,6 +17,7 @@
                             <th>UserName</th>
                             <th>Country</th>
                             <th>Balance</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -34,6 +31,7 @@
                                 <td>{{ '@' . $user->username }}</td>
                                 <td>{{ config('countries.' . $user->addresses->country) }}</td>
                                 <td>${{ $user->balance }}</td>
+                                <td>{{ $user->status }}</td>
                                 <td>
                                     <div class="dropdown w-max">
                                         <a class="btn-dropdown">
@@ -46,8 +44,10 @@
                                                     User</a>
                                                 <a class="btn"
                                                     href="{{ route('admin.user.editBalance', $user->id) }}">Edit balance</a>
-                                                <a class="btn" href="{{ route('admin.user.banUser', $user->id) }}">Ban
+                                                @if ($user->status != 'baned')
+                                                    <a class="btn" href="{{ route('admin.user.banUser', $user->id) }}">Ban
                                                     User</a>
+                                                @endif    
                                                 <a class="btn"
                                                     href="{{ route('admin.user.deleteUser', $user->id) }}">Delete User</a>
                                             </li>
