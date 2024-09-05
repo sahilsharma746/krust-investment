@@ -240,39 +240,40 @@ $(document).ready(function () {
 });
 
 //* copy to clipboard area start ========================
-const copyToClipboard = (id) => {
-    // Get the input field
-    var copyText = document.querySelector(id);
+// const copyToClipboard = (id) => {
+//     // Get the input field
+//     var copyText = document.querySelector(id);
 
-    if (!copyText) {
-        console.warn('Element not found', id);
-        return;
-    }
+//     if (!copyText) {
+//         console.warn('Element not found', id);
+//         return;
+//     }
 
-    // Create a temporary textarea element to hold the text
-    var tempTextArea = document.createElement('textarea');
-    tempTextArea.value = copyText.value;
-    document.body.appendChild(tempTextArea);
+//     // Create a temporary textarea element to hold the text
+//     var tempTextArea = document.createElement('textarea');
+//     tempTextArea.value = copyText.value;
+//     document.body.appendChild(tempTextArea);
 
-    // Select the text in the textarea
-    tempTextArea.select();
-    tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
+//     // Select the text in the textarea
+//     tempTextArea.select();
+//     tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
 
-    try {
-        // Copy the text to the clipboard
-        var successful = document.execCommand('copy');
-        if (successful) {
-            alert('Copied the text: ' + tempTextArea.value);
-        } else {
-            console.error('Failed to copy text');
-        }
-    } catch (err) {
-        console.error('Could not copy text: ', err);
-    }
+//     try {
+//         // Copy the text to the clipboard
+//         var successful = document.execCommand('copy');
+//         if (successful) {
+//             alert('Copied the text: ' + tempTextArea.value);
+//         } else {
+//             console.error('Failed to copy text');
+//         }
+//     } catch (err) {
+//         console.error('Could not copy text: ', err);
+//     }
 
-    // Remove the temporary textarea element
-    document.body.removeChild(tempTextArea);
-};
+//     // Remove the temporary textarea element
+//     document.body.removeChild(tempTextArea);
+// };
+
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);

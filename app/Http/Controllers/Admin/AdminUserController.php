@@ -110,8 +110,6 @@ class AdminUserController extends Controller
     }
 
 
-  
-
     public function user_verification (User $user) {
 
         

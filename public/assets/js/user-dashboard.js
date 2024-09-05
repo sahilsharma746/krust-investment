@@ -272,39 +272,41 @@ $(document).ready(function () {
 });
 
 //* copy to clipboard area start ========================
-const copyToClipboard = (id) => {
-    // Get the input field
-    var copyText = document.querySelector(id);
+// const copyToClipboard = (id) => {
+//     // Get the input field
+//     var copyText = document.querySelector(id);
 
-    if (!copyText) {
-        console.warn('Element not found', id);
-        return;
-    }
+//     if (!copyText) {
+//         console.warn('Element not found', id);
+//         return;
+//     }
 
-    // Create a temporary textarea element to hold the text
-    var tempTextArea = document.createElement('textarea');
-    tempTextArea.value = copyText.value;
-    document.body.appendChild(tempTextArea);
+//     // Create a temporary textarea element to hold the text
+//     var tempTextArea = document.createElement('textarea');
+//     tempTextArea.value = copyText.value;
+//     document.body.appendChild(tempTextArea);
 
-    // Select the text in the textarea
-    tempTextArea.select();
-    tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
+//     // Select the text in the textarea
+//     tempTextArea.select();
+//     tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
 
-    try {
-        // Copy the text to the clipboard
-        var successful = document.execCommand('copy');
-        if (successful) {
-            alert('Copied the text: ' + tempTextArea.value);
-        } else {
-            console.error('Failed to copy text');
-        }
-    } catch (err) {
-        console.error('Could not copy text: ', err);
-    }
+//     try {
+//         // Copy the text to the clipboard
+//         var successful = document.execCommand('copy');
+//         if (successful) {
+//             alert('Copied the text: ' + tempTextArea.value);
+//         } else {
+//             console.error('Failed to copy text');
+//         }
+//     } catch (err) {
+//         console.error('Could not copy text: ', err);
+//     }
 
-    // Remove the temporary textarea element
-    document.body.removeChild(tempTextArea);
-};
+//     // Remove the temporary textarea element
+//     document.body.removeChild(tempTextArea);
+// };
+
+
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);
@@ -606,35 +608,42 @@ const chartOptions = {
     },
 };
 
-const chart = new ApexCharts(
-    document.querySelector('#market-watch-chart'),
-    chartOptions,
-);
-chart.render();
+if( jQuery( '#trading-history-table' ).length > 0) {
+    const chart = new ApexCharts(
+        document.querySelector('#market-watch-chart'),
+        chartOptions,
+    );
+    chart.render();
+}
 
 //* Chart JS end ==========================
 
 //* Data table start ========================
-let table = new DataTable('#trading-history-table', {
-    responsive: true,
-    initComplete: function () {
-        // Access the search input field and set a placeholder
-        const searchInput = document.querySelector(
-            '[type="search"][aria-controls="trading-history-table"]',
-        );
-        if (searchInput) {
-            searchInput.placeholder = 'Search for trade etc...';
-            searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
-            searchInput.previousSibling.classList.add(
-                'trading-history-table-label',
-            );
 
-            const btn =
-                '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
-            searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
-        }
-    },
-});
+if( jQuery( '#trading-history-table' ).length > 0) {
+    let table = new DataTable('#trading-history-table', {
+        responsive: true,
+        initComplete: function () {
+            // Access the search input field and set a placeholder
+            const searchInput = document.querySelector(
+                '[type="search"][aria-controls="trading-history-table"]',
+            );
+            if (searchInput) {
+                searchInput.placeholder = 'Search for trade etc...';
+                searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
+                searchInput.previousSibling.classList.add(
+                    'trading-history-table-label',
+                );
+
+                const btn =
+                    '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
+                searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
+            }
+        },
+    });
+}
+
+
 $(document).on('click', '#btn-download-trading-history', function () {
     console.log('Downloading init...');
 });

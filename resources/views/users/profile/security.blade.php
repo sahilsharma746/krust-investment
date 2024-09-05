@@ -52,32 +52,34 @@
                     </div>
                 </div>
             </form>
-            {{-- <div class="area-title">Language and Currency</div>
-            <div class="card common-card">
-                <div class="card-body d-grid">
-                    <div class="input-group">
-                        <label class="form-label">Country</label>
-                        <select class="form-control" id="dashboard-currency" searchable="true">
-                            <!-- <option value="0">Select Country</option> -->
-                            <option value="">Dollar (USD)</option>
-                            <option value="">Taka (BDT)</option>
-                        </select>
+            <div class="area-title">Language and Currency</div>
+            <form action="{{ route('user.profile.update') }}" method="POST">
+                @csrf
+                <div class="card common-card">
+                    <div class="card-body d-grid">
+                        <div class="input-group">
+                            <label class="form-label">Currency</label>
+                            <select class="form-control" name="dashboard_currency" id="dashboard-currency">
+                                <option value="USD">Dollar (USD)</option>
+                                <option value="BDT">Taka (BDT)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Profile Language</label>
+                            <select class="form-control" name="profile_language" id="profile-language">
+                                <option value="Arabic">Arabic</option>
+                                <option value="English">English</option>
+                                <option value="Bangla">Bangla</option>
+                                <option value="Hindi">Hindi</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label class="form-label">Profile Language</label>
-                        <select class="form-control" id="profile-language" searchable="true">
-                            <!-- <option value="0">Select Country</option> -->
-                            <option value="">Arabic</option>
-                            <option value="">English</option>
-                            <option value="">Bangla</option>
-                            <option value="">Hindi</option>
-                        </select>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-update-lang-currancy w-max">Save changes</button>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="" class="btn btn-update-lang-currancy w-max">Save changes</a>
-                </div>
-            </div>
+            </form>
+            
             <div class="area-title">Activate Two Factor (2FA) Authentication</div>
             <div class="card common-card card-2fa">
                 <div class="card-body d-grid">
@@ -99,12 +101,12 @@
                     <div class="qr-code-area">
                         <div class="input-group">
                             <label class="form-label">QR Code</label>
-                            <img class="img-qr-code" src="./assets/img/dev-qr-code.png" alt="qr-code">
+                            <img class="img-qr-code" src="{{ asset('assets') }}/img/dev-qr-code.png" alt="qr-code">
                         </div>
                     </div>
                     <a href="" class="btn btn-activation-2fa w-max">Activate 2FA Protection</a>
                 </div>
-            </div> --}}
+            </div>
         </section>
 
 

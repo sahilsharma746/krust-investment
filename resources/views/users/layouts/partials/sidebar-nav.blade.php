@@ -1,7 +1,7 @@
 <nav id="left-nav" class="left-nav">
     <ul class="nav nav-tabs scroll">
         <li class="nav-item {{ Request::is('user/dashboard') ? 'active' : '' }}">
-            <a  href="{{ route('user.dashboard') }}">
+            <a href="{{ route('user.dashboard') }}">
                 @if(isset($user_data) && !empty($user_data->avatar))
                     <img src="{{ asset('uploads/user_avatar/' . $user_data->avatar) }}" style="width: 50px; height: 50px; border-radius: 50%;">
                 @else
