@@ -23,21 +23,21 @@
                     </div>
                 </div>
 
-                <div class="trade-counter d-flex flex-wrap justify-content-evenly r-g-15 w-100">
-                    <div class="item cfds">
+                <div class="trade-counter d-grid w-100">
+                    <div class="item">
                         <span value="300">300+</span>
                         <span class="text d-inline-block">CFDS to Trade</span>
                     </div>
-                    <div class="item leverage">
-                        <span value="1" value2="500">1:500</span>
+                    <div class="item">
+                        <span value="500" startWith="1:">1:500</span>
                         <span class="text d-inline-block">Leverage Up To</span>
                     </div>
-                    <div class="item cfds">
-                        <span value="100">$100</span>
+                    <div class="item">
+                        <span value="100" startWith="$">$100</span>
                         <span class="text d-inline-block">minimum deposit</span>
                     </div>
-                    <div class="item cfds">
-                        <span value="0">$0</span>
+                    <div class="item">
+                        <span value="0" startWith="$">$0</span>
                         <span class="text d-inline-block">Deposit fees</span>
                     </div>
                 </div>
@@ -120,6 +120,9 @@
                 </div>
             </div>
         </section>
+
+
+
     </main>
 @endsection
 @section('scripts')
