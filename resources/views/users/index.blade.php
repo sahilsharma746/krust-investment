@@ -187,34 +187,38 @@
             @endphp
             <div class="personal-info-card-area">
                 <form action="{{ route('user.personal.info.update') }}" method="POST">
-                        @csrf
+                    @csrf
                     <div class="area-title">personal information</div>
                     <div class="card common-card">
                         <div class="card-body d-grid">
                             <div class="input-group">
                                 <label class="form-label">First Name</label>
-                                <input class="form-control" type="text" name="first_name" value="{{ $user_data->first_name }}" placeholder="Enter First Name">
+                                <input class="form-control" type="text" name="first_name"
+                                    value="{{ $user_data->first_name }}" placeholder="Enter First Name">
                                 @error('first_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Last Name</label>
-                                <input class="form-control" type="text" name="last_name" value="{{ $user_data->last_name }}" placeholder="Enter Last Name">
+                                <input class="form-control" type="text" name="last_name"
+                                    value="{{ $user_data->last_name }}" placeholder="Enter Last Name">
                                 @error('last_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Email address</label>
-                                <input class="form-control" type="email" placeholder="Enter email address" readonly name="email" value="{{ $user_data->email }}">
+                                <input class="form-control" type="email" placeholder="Enter email address" readonly
+                                    name="email" value="{{ $user_data->email }}">
                                 @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Phone number</label>
-                                <input class="form-control" type="text" placeholder="Enter Phone number" name="phone" value="{{ $user_data->phone }}">
+                                <input class="form-control" type="text" placeholder="Enter Phone number"
+                                    name="phone" value="{{ $user_data->phone }}">
                                 @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -223,8 +227,9 @@
                                 <label class="form-label">Country</label>
                                 <select class="form-control" id="userCountry" searchable="true" name="country">
                                     <option>Select Country</option>
-                                   @foreach($full_data['countries'] as $code => $name)
-                                        <option {{ $country_code == $code ? 'selected' : '' }} value="{{ $code }}">{{ $name }}</option>
+                                    @foreach ($full_data['countries'] as $code => $name)
+                                        <option {{ $country_code == $code ? 'selected' : '' }}
+                                            value="{{ $code }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @error('country')
@@ -238,7 +243,7 @@
                     </div>
                 </form>
             </div>
-            
+
             <div class="profile-picture-card-area">
                 <div class="area-title">Profile picture</div>
                 <form action="{{ route('user.profile.avatarUpdate') }}" method="POST" enctype="multipart/form-data">
@@ -247,7 +252,8 @@
                         <div class="card-body d-grid">
                             <div class="upload-files-container w-100 overflowY-hidden">
                                 <div class="drag-file-area align-content-center">
-                                    <img id="user-image" class="user-image d-none" src="https://picsum.photos/300/200?grayscale" alt="">
+                                    <img id="user-image" class="user-image d-none"
+                                        src="https://picsum.photos/300/200?grayscale" alt="">
                                     <label for="upload-dp-input"
                                         class="upload-icon attach-icon mx-auto d-flex justify-content-center align-items-center">
                                         <i class="fa-solid fa-link"></i>
@@ -296,7 +302,8 @@
                                     guideline or the photo will be removed.</p>
                             </fieldset>
                             {{-- <a type="button" id="dp-upload-btn" class="btn upload-button w-max">Upload picture</a> --}}
-                            <button id="dp-upload-btn" class="btn upload-button w-max" type="submit">Upload Picture</button>
+                            <button id="dp-upload-btn" class="btn upload-button w-max" type="submit">Upload
+                                Picture</button>
                         </div>
                     </div>
                 </form>
@@ -442,55 +449,88 @@
                 </ul>
             </div>
             <div class="area-title">Change Password</div>
-            <div class="card common-card">
-                <div class="card-body d-grid">
-                    <div class="input-group">
-                        <label class="form-label">new Password</label>
-                        <input class="form-control form-eye" type="password" name="password" id="set-new-password"
-                            placeholder="Enter password">
-                        <label for="set-new-password" class="eye-icon">
-                            <i class="fa-regular fa-eye-slash"></i>
-                        </label>
+            <form action="{{ route('user.profile.updatePassword') }}" method="POST">
+                @csrf
+                <div class="card common-card">
+                    <div class="card-body d-grid">
+                        <div class="input-group">
+                            <label class="form-label">new Password</label>
+                            <input class="form-control form-eye" type="password" name="password" id="set-new-password"
+                                placeholder="Enter password">
+                            <label for="set-new-password" class="eye-icon">
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </label>
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Re-type Password</label>
+                            <input class="form-control form-eye" type="password" name="confirmation_password"
+                                id="set-new-password-retype" placeholder="Enter password">
+                            <label for="set-new-password-retype" class="eye-icon">
+                                <i class="fa-regular fa-eye-slash"></i>
+                            </label>
+                        </div>
+                        @error('confirmation_password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="input-group">
-                        <label class="form-label">Update Password</label>
-                        <input class="form-control form-eye" type="password" name="password"
-                            id="set-new-password-retype" placeholder="Enter password">
-                        <label for="set-new-password-retype" class="eye-icon">
-                            <i class="fa-regular fa-eye-slash"></i>
-                        </label>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-update-password w-max">Update password</button>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="" class="btn btn-update-password w-max">Update password</a>
-                </div>
-            </div>
+            </form>
             <div class="area-title">Language and Currency</div>
-            <div class="card common-card">
-                <div class="card-body d-grid">
-                    <div class="input-group">
-                        <label class="form-label">Country</label>
-                        <select class="form-control" id="dashboard-currency" searchable="true">
-                            <!-- <option value="0">Select Country</option> -->
-                            <option value="">Dollar (USD)</option>
-                            <option value="">Taka (BDT)</option>
-                        </select>
+            <form action="{{ route('user.profile.update') }}" method="POST">
+                @csrf
+                <div class="card common-card">
+                    <div class="card-body d-grid">
+                        <div class="input-group">
+                            <label class="form-label">Currency</label>
+                            <select class="form-control" name="dashboard_currency" id="dashboard-currency">
+                                @foreach ($full_data['currencies'] as $code => $name)
+                                    @php
+                                        $selected = '';
+
+                                        if (
+                                            isset($full_data['setting_info']['dashboard_currency']) &&
+                                            $full_data['setting_info']['dashboard_currency'] == $code
+                                        ) {
+                                            $selected = 'selected';
+                                        }
+                                    @endphp
+                                    <option value="{{ $code }}" {{ $selected }}>{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="form-label">Profile Language</label>
+                            <select class="form-control" name="profile_language" id="profile-language">
+                                @foreach ($full_data['languages'] as $code => $name)
+                                    @php
+                                        $selected = '';
+                                        if (
+                                            isset($full_data['setting_info']['profile_language']) &&
+                                            $full_data['setting_info']['profile_language'] == $code
+                                        ) {
+                                            $selected = 'selected';
+                                        }
+                                    @endphp
+                                    <option {{ $selected }} value="{{ $code }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
                     </div>
-                    <div class="input-group">
-                        <label class="form-label">Profile Language</label>
-                        <select class="form-control" id="profile-language" searchable="true">
-                            <!-- <option value="0">Select Country</option> -->
-                            <option value="">Arabic</option>
-                            <option value="">English</option>
-                            <option value="">Bangla</option>
-                            <option value="">Hindi</option>
-                        </select>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-update-lang-currancy w-max">Save changes</button>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="" class="btn btn-update-lang-currancy w-max">Save changes</a>
-                </div>
-            </div>
+            </form>
+
             <div class="area-title">Activate Two Factor (2FA) Authentication</div>
             <div class="card common-card card-2fa">
                 <div class="card-body d-grid">

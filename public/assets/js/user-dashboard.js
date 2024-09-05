@@ -608,6 +608,11 @@ const chartOptions = {
     },
 };
 
+
+
+
+
+
 if( jQuery( '#trading-history-table' ).length > 0) {
     const chart = new ApexCharts(
         document.querySelector('#market-watch-chart'),
