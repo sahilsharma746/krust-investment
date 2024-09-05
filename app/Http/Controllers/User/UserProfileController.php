@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\Identification;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserAddress;
-use Carbon\Carbon;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Identification;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserProfileController extends Controller
@@ -19,11 +20,13 @@ class UserProfileController extends Controller
         $user = Auth::user();
         $user_data = User::with('addresses')->where([['role', 'user'], ['id', $user->id]])->first();
         $countries = config('countries');
+        
         return view('users.profile.personal-info', compact('user_data', 'countries'));
 
     }
 
     public function personalInfoUpdate(Request $request) {
+
         $user = Auth::user();
 
         $request->validate([
@@ -98,6 +101,23 @@ return back()->with(['success' => 'Avatar updated successfully', 'user' => $user
         return back()->with('success', 'Updated Successfully');
     }
 
+    public function updateSettings(Request $request)
+    {
+        $user = auth()->user(); 
+
+        $settings = $request->only(['dashboard_currency', 'profile_language']);
+
+        foreach ($settings as $optionName => $optionValue) {
+            UserSetting::updateOrCreate(
+                ['user_id' => $user->id, 'option_name' => $optionName],
+                ['option_value' => $optionValue]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Settings updated successfully!');
+    }
+
+    
 
     public function verificationUpdate (Request $request) {
         $request->validate([

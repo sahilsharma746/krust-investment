@@ -137,16 +137,16 @@ $(document).ready(function () {
 
     //? active tab with localStorage ________________
 
-    const activeLeftTab = $('.left-nav .nav-item.active a').attr('href');
-    const activeLeftTabLocalStorage = localStorage.getItem('activeLeftTab');
-    if (activeLeftTab !== activeLeftTabLocalStorage) {
-        const leftActiveNav = $(
-            `a[data-toggle="tab"][href="${activeLeftTabLocalStorage}"]`,
-        );
-        if (leftActiveNav.length) leftActiveNav[0].click();
-    } else {
-        console.log(activeLeftTabLocalStorage);
-    }
+    // const activeLeftTab = $('.left-nav .nav-item.active a').attr('href');
+    // const activeLeftTabLocalStorage = localStorage.getItem('activeLeftTab');
+    // if (activeLeftTab !== activeLeftTabLocalStorage) {
+    //     const leftActiveNav = $(
+    //         `a[data-toggle="tab"][href="${activeLeftTabLocalStorage}"]`,
+    //     );
+    //     if (leftActiveNav.length) leftActiveNav[0].click();
+    // } else {
+    //     console.log(activeLeftTabLocalStorage);
+    // }
     //* admin left navigation active script end =======
 
     //* Verification section script start =========
@@ -232,64 +232,64 @@ $(document).ready(function () {
 });
 
 //* market-watch-grid area start ======================
-new TradingView.widget({
-    width: '100%',
-    height: 'calc(100vh - 75px)',
-    symbol: 'COINBASE:BTCUSD',
-    interval: '1',
-    timezone: 'Etc/UTC',
-    theme: 'dark',
-    style: '1',
-    locale: 'en',
-    toolbar_bg: '#f1f3f6',
-    enable_publishing: false,
-    hide_side_toolbar: false,
-    allow_symbol_change: true,
-    details: true,
-    studies: [
-        'BB@tv-basicstudies',
-        'Volume@tv-basicstudies',
-        'VWAP@tv-basicstudies',
-    ],
-    container_id: 'krust-investments-tradingView-card',
-});
+// new TradingView.widget({
+//     width: '100%',
+//     height: 'calc(100vh - 75px)',
+//     symbol: 'COINBASE:BTCUSD',
+//     interval: '1',
+//     timezone: 'Etc/UTC',
+//     theme: 'dark',
+//     style: '1',
+//     locale: 'en',
+//     toolbar_bg: '#f1f3f6',
+//     enable_publishing: false,
+//     hide_side_toolbar: false,
+//     allow_symbol_change: true,
+//     details: true,
+//     studies: [
+//         'BB@tv-basicstudies',
+//         'Volume@tv-basicstudies',
+//         'VWAP@tv-basicstudies',
+//     ],
+//     container_id: 'krust-investments-tradingView-card',
+// });
 
 //* market-watch-grid area end ======================
 
 //* copy to clipboard area start ======================
-function copyToClipboard(id) {
-    // Get the input field
-    var copyText = document.querySelector(id);
+// function copyToClipboard(id) {
+//     // Get the input field
+//     var copyText = document.querySelector(id);
 
-    if (!copyText) {
-        console.warn('Element not found', id);
-        return;
-    }
+//     if (!copyText) {
+//         console.warn('Element not found', id);
+//         return;
+//     }
 
-    // Create a temporary textarea element to hold the text
-    var tempTextArea = document.createElement('textarea');
-    tempTextArea.value = copyText.value;
-    document.body.appendChild(tempTextArea);
+//     // Create a temporary textarea element to hold the text
+//     var tempTextArea = document.createElement('textarea');
+//     tempTextArea.value = copyText.value;
+//     document.body.appendChild(tempTextArea);
 
-    // Select the text in the textarea
-    tempTextArea.select();
-    tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
+//     // Select the text in the textarea
+//     tempTextArea.select();
+//     tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
 
-    try {
-        // Copy the text to the clipboard
-        var successful = document.execCommand('copy');
-        if (successful) {
-            alert('Copied the text: ' + tempTextArea.value);
-        } else {
-            console.error('Failed to copy text');
-        }
-    } catch (err) {
-        console.error('Could not copy text: ', err);
-    }
+//     try {
+//         // Copy the text to the clipboard
+//         var successful = document.execCommand('copy');
+//         if (successful) {
+//             alert('Copied the text: ' + tempTextArea.value);
+//         } else {
+//             console.error('Failed to copy text');
+//         }
+//     } catch (err) {
+//         console.error('Could not copy text: ', err);
+//     }
 
-    // Remove the temporary textarea element
-    document.body.removeChild(tempTextArea);
-}
+//     // Remove the temporary textarea element
+//     document.body.removeChild(tempTextArea);
+// }
 
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');

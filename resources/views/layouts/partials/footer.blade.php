@@ -20,7 +20,7 @@
             <dl>
                 <dt><a href="javascript:void(0)">Company</a></dt>
                 <dt><a href="{{ route('frontend.about') }}">Who We are</a></dt>
-                <dt><a href="javascript:void(0)">Contact Us</a></dt>
+                <dt><a href="{{ route('frontend.contact') }}">Contact Us</a></dt>
                 <dt><a href="javascript:void(0)">Legal Documentation</a></dt>
             </dl>
             <dl>

@@ -39,6 +39,8 @@ Auth::routes(['reset' => true]);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/about-us', [FrontendController::class, 'about'])->name('frontend.about');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
+Route::post('/contact', [FrontendController::class, 'message'])->name('contact.store');
 Route::get('/account-plan', [FrontendController::class, 'accountPlan'])->name('frontend.accountPlan');
 Route::get('/faq', [FrontendController::class, 'faq'])->name('frontend.faq');
 
@@ -47,6 +49,7 @@ Route::get('/faq', [FrontendController::class, 'faq'])->name('frontend.faq');
 Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function () {
     
     Route::get('/dashboard', [UserHomeController::class, 'index'])->name('user.dashboard');
+
     Route::get('/market-news', [UserHomeController::class, 'news'])->name('user.market.news');
     Route::get('/persoanl-information', [UserProfileController::class, 'personalInfo'])->name('user.personal.info');
     Route::post('/persoanl-information', [UserProfileController::class, 'personalInfoUpdate'])->name('user.personal.info.update');
@@ -55,6 +58,9 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
     Route::get('/security-setting', [UserProfileController::class, 'securitySetting'])->name('user.profile.securitySetting');
     Route::post('/update-password', [UserProfileController::class, 'updatePassword'])->name('user.profile.updatePassword');
+    Route::post('/settings', [UserProfileController::class, 'updateSettings'])->name('user.profile.update');
+
+
 
     Route::get('/market-watch', [UserMarktWatchController::class, 'index'])->name('user.marketWatch.index');
 

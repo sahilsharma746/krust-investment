@@ -122,7 +122,7 @@
                         </a>
 
                         <dl class="dropdown-menu d-flex flex-column r-g-15">
-                            <dt class="dropdown-item"><a href="javascript:void(0)">Leave Message</a></dt>
+                            <dt class="dropdown-item"><a href="{{ route('frontend.contact') }}">Leave Message</a></dt>
                             <dt class="dropdown-item"><a href="{{ route('frontend.accountPlan') }}">Account Plans</a></dt>
                             <dt class="dropdown-item"><a href="{{ route('frontend.faq') }}">FAQs</a></dt>
                         </dl>

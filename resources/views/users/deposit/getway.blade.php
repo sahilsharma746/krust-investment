@@ -1,5 +1,6 @@
 @extends('users.layouts.app_user')
 @section('styles')
+
     <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
 @endsection
 @section('content')
@@ -12,49 +13,93 @@
 
                 <div class="collapsible-card-group">
                     @foreach ($getways as $key => $getway)
-                   
-                        <form action="{{ route('user.deposit.store', $getway->id) }}" method="POST" enctype="multipart/form-data" class="card">
+                        <form action="{{ route('user.deposit.store', $getway->id) }}" method="POST
+                            enctype="multipart/form-data" class="card">
                             @csrf
                             <div class="card-header">
-                                <a data-toggle="collapse" href="#payment-{{ $getway->tab_id }}-tab" name="{{ $getway->name }}" class="d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}" >
+
+
+                                <a data-toggle="collapse" href="#payment-{{ $getway->tab_id }}-tab"
+                                    name="{{ $getway->name }}"
+                                    class="d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}">
                                     <img src="{{ asset('assets/img/' . $getway->logo) }}" alt="{{ $getway->tab_id }}">
                                     <span>{{ $getway->name }}</span>
-                                </a>
+                                 </a>
+                                 
+                                 <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        // Attach click event listeners to all links
+                                        document.querySelectorAll('a[data-toggle="collapse"]').forEach(function(element) {
+                                            element.addEventListener('click', function(event) {
+                                                // Get the name attribute of the clicked element
+                                                var gatewayName = event.currentTarget.getAttribute('name');
+                                                
+                                                // Check if the gateway name matches "deposit via paypal" or "deposit via bank"
+                                                if (gatewayName === 'deposit via paypal' || gatewayName === 'deposit via bank') {
+                                                    // Prevent the default action of the link
+                                                    event.preventDefault();
+                                                    
+                                                    // Find the corresponding modal by using a class or ID
+                                                    var modalId = 'depositConfirmationModal' + event.currentTarget.getAttribute('data-key');
+                                                    var modal = document.getElementById(modalId);
+                                                    
+                                                    if (modal) {
+                                                        // Use Bootstrap's modal methods to show the modal
+                                                        var bsModal = new bootstrap.Modal(modal);
+                                                        bsModal.show();
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+                                
+                            
                             </div>
-                            <div id="payment-{{ $getway->tab_id }}-tab" class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
-                                <p class="card-title">Make payment to the {{ $getway->name }} address below and upload receipt.</p>
+                            
+
+                            @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+
+                            <div id="payment-{{ $getway->tab_id }}-tab"
+                                class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
+                                <p class="card-title">Make payment to the {{ $getway->name }} address below and upload
+                                    receipt.</p>
                                 <div class="payment-details-area d-grid align-items-center">
                                     <div class="input-group-area d-flex flex-column justify-content-between">
                                         <div class="input-group">
                                             <label class="form-label">amount</label>
-                                            <input class="form-control" type="text" placeholder="enter amount to pay" name="amount">
+                                            <input class="form-control" type="text" placeholder="enter amount to pay"
+                                                name="amount">
                                             @error('amount')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                
+
                                         <div class="input-group">
                                             <label class="form-label">wallet address</label>
-                                            <input class="form-control form-clone" type="text" name="wallet_address" readonly id="wallet-address{{ $key }}" value="{{ $getway->address }}">
+                                            <input class="form-control form-clone" type="text" name="wallet_address"
+                                                readonly id="wallet-address{{ $key }}"
+                                                value="{{ $getway->address }}">
                                             <label for="wallet-address{{ $key }}" class="form-icon clone-icon">
                                                 <i class="fa-regular fa-clone"></i>
                                             </label>
                                         </div>
 
-                                        @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
-                                        <div class="input-group">
-                                            <label class="form-label"> Address tag</label>
-                                            <input class="form-control form-clone" type="text" name="address_tag"  id="address_tag-{{ $getway->id }}">
-                                            <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
-                                                <i class="fa-regular fa-clone"></i>
-                                            </label>
-                                        </div>
-                                    @endif
-                
+                                            <div class="input-group">
+                                                <label class="form-label"> Address tag</label>
+                                                <input class="form-control form-clone" type="text" name="address_tag"
+                                                    id="address_tag-{{ $getway->id }}">
+                                                <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
+                                                    <i class="fa-regular fa-clone"></i>
+                                                </label>
+                                            </div>
+                                      
+
                                         <div class="input-group attach-file-input-group">
                                             <label class="form-label">Upload receipt</label>
                                             <div class="form-control">
-                                                <label class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                                <label
+                                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
                                                     <span type="placeholder">Upload payment receipt</span>
                                                     <input class="d-none" type="file" name="receipt">
                                                     <i class="fa-solid fa-link"></i>
@@ -65,43 +110,65 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                
+
                                     <div class="qr-code-area">
                                         <div class="input-group">
                                             <label class="form-label">QR Code</label>
-                                            <img class="img-qr-code" src="{{ asset('assets/img/dev-qr-code.png') }}" alt="qr-code">
+                                            <img class="img-qr-code" src="{{ asset('assets/img/dev-qr-code.png') }}"
+                                                alt="qr-code">
                                         </div>
                                     </div>
-                
-                                    @if ($getway->name !== 'BITCOIN')
-                                        <a data-toggle="modal" href="#depositConfirmationModal{{ $key }}" class="btn w-max">Deposit</a>
+
+                                    @if (!in_array($getway->name, ['BITCOIN', 'USDT', 'XMR']))
+                                        <a data-toggle="modal" href="#depositConfirmationModal{{ $key }}"
+                                            class="btn w-max">Deposit</a>
                                     @else
-                                        <!-- For Bitcoin, directly show a deposit button or another relevant action -->
+                                        <!-- For BITCOIN, USDT, XMR, directly show a deposit button or another relevant action -->
                                         <button class="btn w-max" type="submit">Deposit</button>
                                     @endif
+
                                 </div>
                             </div>
-                
-                            @if ($getway->name !== 'Bitcoin')
+                            @endif
+
+
                                 <!-- Modal for non-Bitcoin payment methods -->
-                                <div id="depositConfirmationModal{{ $key }}" class="modal depositConfirmationModal{{ $key }}">
+                                <div id="depositConfirmationModal{{ $key }}"
+                                    class="modal depositConfirmationModal{{ $key }}">
                                     <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
                                         <div class="modal-body text-center">
                                             <h3 class="modal-title">Requesting Payment Info</h3>
-                                            <p class="modal-text">You are requesting Bank Wire Transfer Payment Information in order to fund your wallet</p>
+                                            <p class="modal-text">You are requesting {{$getway->name}} Payment Information
+                                                in order to fund your wallet</p>
                                             <div class="btn-area d-flex g-15 justify-content-center">
-                                                <button class="btn btn-modal-close btn-confirm-info" type="submit">Yes</button>
+                                                <button class="btn btn-modal-close btn-confirm-info"
+                                                    type="submit">Yes</button>
                                                 <a class="btn btn-modal-close text-bg-primary">No</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+
+                                 <div id="depositConfirmationModal{{ $key }}"
+                                 class="modal depositConfirmationModal{{ $key }}">
+                                 <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
+                                     <div class="modal-body text-center">
+                                         <h3 class="modal-title">Requesting Payment Info</h3>
+                                         <p class="modal-text">You are requesting {{$getway->name}} Payment Information
+                                             in order to fund your wallet</p>
+                                         <div class="btn-area d-flex g-15 justify-content-center">
+                                             <button class="btn btn-modal-close btn-confirm-info"
+                                                 type="submit">Yes</button>
+                                             <a class="btn btn-modal-close text-bg-primary">No</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
                         </form>
                     @endforeach
                 </div>
-                
-               
+
+
                 <div class="clear-fix"></div>
                 <div class="area-title">Deposit History</div>
                 <div class="deposit-table-area table-area scroll">
@@ -121,8 +188,7 @@
                             @forelse ($datas as $data)
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
-                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('F j, Y');
- }}</td>
+                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
                                     <td>{{ $data->getway->address }}</td>
                                     <td>{{ $data->address_tag ? $data->address_tag : 'NA' }}</td>
                                     <td>USD</td>
@@ -151,5 +217,9 @@
 @endsection
 
 @section('scripts')
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
 @endsection
