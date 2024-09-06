@@ -13,57 +13,38 @@
 
                 <div class="collapsible-card-group">
                     @foreach ($getways as $key => $getway)
-                        <form action="{{ route('user.deposit.store', $getway->id) }}" method="POST
+                        <form action="{{ route('user.deposit.store', $getway->id) }}" method="POST"
                             enctype="multipart/form-data" class="card">
                             @csrf
                             <div class="card-header">
-
-
-                                <a data-toggle="collapse" href="#payment-{{ $getway->tab_id }}-tab"
-                                    name="{{ $getway->name }}"
-                                    class="d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}">
-                                    <img src="{{ asset('assets/img/' . $getway->logo) }}" alt="{{ $getway->tab_id }}">
-                                    <span>{{ $getway->name }}</span>
-                                 </a>
-                                 
-                                 <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        // Attach click event listeners to all links
-                                        document.querySelectorAll('a[data-toggle="collapse"]').forEach(function(element) {
-                                            element.addEventListener('click', function(event) {
-                                                // Get the name attribute of the clicked element
-                                                var gatewayName = event.currentTarget.getAttribute('name');
-                                                
-                                                // Check if the gateway name matches "deposit via paypal" or "deposit via bank"
-                                                if (gatewayName === 'deposit via paypal' || gatewayName === 'deposit via bank') {
-                                                    // Prevent the default action of the link
-                                                    event.preventDefault();
-                                                    
-                                                    // Find the corresponding modal by using a class or ID
-                                                    var modalId = 'depositConfirmationModal' + event.currentTarget.getAttribute('data-key');
-                                                    var modal = document.getElementById(modalId);
-                                                    
-                                                    if (modal) {
-                                                        // Use Bootstrap's modal methods to show the modal
-                                                        var bsModal = new bootstrap.Modal(modal);
-                                                        bsModal.show();
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
-                                
-                            
+                                @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+                                    <a data-toggle="collapse" href="#payment-{{ $getway->tab_id }}-tab"
+                                        name="{{ $getway->name }}"
+                                        class="deposit-{{ $getway->tab_id }} d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('assets/img/' . $getway->logo) }}" alt="{{ $getway->tab_id }}">
+                                        <span>{{ $getway->name }}</span>
+                                     </a>
+                                @else
+                                    <a data-toggle="modal" href="#depositConfirmationModal{{ $key }}"
+                                        name="{{ $getway->name }}"
+                                        class="d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset('assets/img/' . $getway->logo) }}" alt="{{ $getway->tab_id }}">
+                                        <span>{{ $getway->name }}</span>
+                                    </a>
+                                @endif    
                             </div>
-                            
-
-                            @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+                            @php
+                            if ($getway->name === 'BITCOIN') {
+                                $bitcoin_id = $getway->tab_id;
+                            }
+                            @endphp
 
                             <div id="payment-{{ $getway->tab_id }}-tab"
                                 class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
                                 <p class="card-title">Make payment to the {{ $getway->name }} address below and upload
                                     receipt.</p>
+                                @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+
                                 <div class="payment-details-area d-grid align-items-center">
                                     <div class="input-group-area d-flex flex-column justify-content-between">
                                         <div class="input-group">
@@ -118,54 +99,48 @@
                                                 alt="qr-code">
                                         </div>
                                     </div>
-
-                                    @if (!in_array($getway->name, ['BITCOIN', 'USDT', 'XMR']))
-                                        <a data-toggle="modal" href="#depositConfirmationModal{{ $key }}"
-                                            class="btn w-max">Deposit</a>
-                                    @else
-                                        <!-- For BITCOIN, USDT, XMR, directly show a deposit button or another relevant action -->
-                                        <button class="btn w-max" type="submit">Deposit</button>
-                                    @endif
+                                   
+                                    <button class="btn w-max" type="submit">Deposit</button>
 
                                 </div>
+
+                                @endif
                             </div>
-                            @endif
 
-
-                                <!-- Modal for non-Bitcoin payment methods -->
-                                <div id="depositConfirmationModal{{ $key }}"
-                                    class="modal depositConfirmationModal{{ $key }}">
-                                    <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
-                                        <div class="modal-body text-center">
-                                            <h3 class="modal-title">Requesting Payment Info</h3>
-                                            <p class="modal-text">You are requesting {{$getway->name}} Payment Information
-                                                in order to fund your wallet</p>
-                                            <div class="btn-area d-flex g-15 justify-content-center">
-                                                <button class="btn btn-modal-close btn-confirm-info"
-                                                    type="submit">Yes</button>
-                                                <a class="btn btn-modal-close text-bg-primary">No</a>
-                                            </div>
+                            <!-- Modal for non-Bitcoin payment methods -->
+                            <div id="depositConfirmationModal{{ $key }}"
+                                class="modal depositConfirmationModal{{ $key }}">
+                                <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
+                                    <div class="modal-body text-center">
+                                        <h3 class="modal-title">Requesting Payment Info</h3>
+                                        <p class="modal-text">You are requesting {{$getway->name}} Payment Information
+                                            in order to fund your wallet</p>
+                                        <div class="btn-area d-flex g-15 justify-content-center">
+                                            <button data-gatewayid="{{$getway->id}}" class="btn btn-modal-close btn-confirm-deposit"
+                                                type="button">Yes</button>
+                                            <a class="btn btn-modal-close text-bg-primary">No</a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                 <div id="depositConfirmationModal{{ $key }}"
-                                 class="modal depositConfirmationModal{{ $key }}">
-                                 <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
-                                     <div class="modal-body text-center">
-                                         <h3 class="modal-title">Requesting Payment Info</h3>
-                                         <p class="modal-text">You are requesting {{$getway->name}} Payment Information
-                                             in order to fund your wallet</p>
-                                         <div class="btn-area d-flex g-15 justify-content-center">
-                                             <button class="btn btn-modal-close btn-confirm-info"
-                                                 type="submit">Yes</button>
-                                             <a class="btn btn-modal-close text-bg-primary">No</a>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
                         </form>
                     @endforeach
+                </div>
+
+                <!-- on submit the first popup -->
+                <div id="depositSecondModal" class="modal depositSecondModal">
+                    <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
+                         <div class="modal-body text-center">
+                             <h3 class="modal-title">Requesting Payment Info</h3>
+                             <p class="modal-text">You request has been received. Please note that we only receive bank wire transfer for payments above $150,000. Any lesser payment must be processed via bitcoin</p>
+                             <div class="btn-area d-flex g-15 justify-content-center">
+                                 <button data-gatewayid="" class="btn btn-modal-close confirm-deposit-success"
+                                     type="button">Yes</button>
+                                 <button class="btn btn-modal-close text-bg-primary deposit-use-bitcoin" data-bitcointabid="{{$bitcoin_id}}">Use Bitcoin</button>
+                             </div>
+                         </div>
+                     </div>
                 </div>
 
 
@@ -219,7 +194,4 @@
 @section('scripts')
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
 @endsection

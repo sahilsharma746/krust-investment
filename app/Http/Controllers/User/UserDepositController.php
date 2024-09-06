@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\UserAccountType;
+use Illuminate\Support\Facades\Mail;
+
 
 
 
@@ -22,7 +24,8 @@ class UserDepositController extends Controller
         return view('users.deposit.getway', compact('datas', 'getways'));
     }
 
-    public function store(Request $request, $id) {
+
+    public function storeUserDeposit(Request $request, $id) {
 
         $getway = Getway::where('id', $id)->first();
         $request->validate([
@@ -56,5 +59,29 @@ class UserDepositController extends Controller
 
         return back()->with('success', 'Your Requeste Submited Successfully');
     }
+
+
+    
+    public function sendUserDepositTransferEmail(Request $request, $id) {
+            $user = Auth::user();
+            $getway = Getway::where('id', $id)->first();
+
+            // Details to be passed to the email view
+            $details = [
+                'payment_method' => $getway->name,
+                'body' => "You are requesting a transfer."
+            ];
+
+            // Sending email
+            Mail::send('emails.deposit-transfer', ['details' => $details], function($message) use ($user) {
+                $message->to($user->email)
+                        ->subject('Test Email from Laravel');
+            });
+
+        return back()->with('success', 'Your Requeste Submited Successfully');
+    }
+
+
+
     
 }

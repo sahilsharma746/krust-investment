@@ -35,7 +35,7 @@
     
     <!-- script added here ======================= -->
     <script src="{{ asset('assets') }}/js/site-common.js"></script>
-    {{-- <script src="https://s3.tradingview.com/tv.js"></script> --}}
+    <!-- {{-- <script src="https://s3.tradingview.com/tv.js"></script> --}} -->
 
 
 

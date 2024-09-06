@@ -4,11 +4,11 @@
         <section id="admin-account-grid" class="tab-pane in active admin-account-grid d-grid">
             <div class="balance-board d-grid align-items-center">
                 <div class="btn-area d-grid g-25">
-                    <a class="btn btn-deposit g-8" href="./user-deposit.html">
+                    <a class="btn btn-deposit g-8" href="{{ route('user.deposit.getway') }}">
                         <i class="fa-regular fa-credit-card"></i>
                         <span>Deposit</span>
                     </a>
-                    <a class="btn btn-withdraw g-8" href="#">
+                    <a class="btn btn-withdraw g-8" href="{{ route('user.withdraw.index') }}">
                         <i class="fa-solid fa-landmark"></i>
                         <span>Withdraw</span>
                     </a>
@@ -145,7 +145,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="card d-grid align-items-center g-8" href="./user-trade.html">
+                    <a class="card d-grid align-items-center g-8" href="{{ route('user.trade.index') }}">
                         <div class="icon">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>

@@ -5,10 +5,16 @@
 
 @yield('scripts')
 
-<script src="{{ asset('assets') }}/js/admin.js"></script>
-<script src="{{ asset('assets') }}/upload-file/upload-file.js"></script>
+<!-- <script src="{{ asset('assets') }}/js/admin.js"></script> -->
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+@if (Route::currentRouteName() === 'user.dashboard')
+    <script src="{{ asset('assets') }}/upload-file/upload-file.js"></script>
+@endif
+
+    <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @if (session('success'))
         <script>swal("Good job!", "{{ session('success') }}", "success");</script>

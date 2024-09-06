@@ -15,6 +15,7 @@ use App\Http\Controllers\User\UserMarktWatchController;
 use App\Http\Controllers\User\UserPersoanlInformation;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\UserWithdrawController;
+use App\Http\Controllers\User\UserTradeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,39 +37,70 @@ Route::get('/reboot', function () {
 
 Auth::routes(['reset' => true]);
 
+// home page route 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// lending page route
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
+
+// about us page route
 Route::get('/about-us', [FrontendController::class, 'about'])->name('frontend.about');
-Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
-Route::post('/contact', [FrontendController::class, 'message'])->name('contact.store');
+
+// account plans page route
 Route::get('/account-plan', [FrontendController::class, 'accountPlan'])->name('frontend.accountPlan');
+
+// FAQ page route
 Route::get('/faq', [FrontendController::class, 'faq'])->name('frontend.faq');
+
+// contact us page route 
+Route::get('/contact', [FrontendController::class, 'contact'])->name('frontend.contact');
+
+// Route for saving the users contact page message 
+Route::post('/contact', [FrontendController::class, 'message'])->name('contact.store');
+
 
 
 // frontend users dashboard urls 
 Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function () {
     
+    // route for the user dashboard 
     Route::get('/dashboard', [UserHomeController::class, 'index'])->name('user.dashboard');
+    
+    // route for the user dashboard deposits
+    Route::get('/deposit-method', [UserDepositController::class, 'index'])->name('user.deposit.getway');
+    
+    // route to store the deposites by bitcoin , USDT and XMR
+    Route::post('/deposit-store/{id}', [UserDepositController::class, 'storeUserDeposit'])->name('user.deposit.store');
 
-    Route::get('/market-news', [UserHomeController::class, 'news'])->name('user.market.news');
-    Route::get('/persoanl-information', [UserProfileController::class, 'personalInfo'])->name('user.personal.info');
-    Route::post('/persoanl-information', [UserProfileController::class, 'personalInfoUpdate'])->name('user.personal.info.update');
-    Route::post('/avatar', [UserProfileController::class, 'avatarUpdate'])->name('user.profile.avatarUpdate');
-    Route::get('/verification', [UserProfileController::class, 'verification'])->name('user.profile.verification');
-    Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
-    Route::get('/security-setting', [UserProfileController::class, 'securitySetting'])->name('user.profile.securitySetting');
+    // route to send the email for deposites by paypal and bank transfer
+    Route::get('/deposit-transfer/{id}', [UserDepositController::class, 'sendUserDepositTransferEmail'])->name('user.deposit.transfer');
+
+    // route to update the user pass form user dashboard
     Route::post('/update-password', [UserProfileController::class, 'updatePassword'])->name('user.profile.updatePassword');
+    
+    // route to update the user setting like currency and langusage form user dashboard
     Route::post('/settings', [UserProfileController::class, 'updateSettings'])->name('user.profile.update');
 
+    // route to update the user profile image form user dashboard
+    Route::post('/avatar', [UserProfileController::class, 'avatarUpdate'])->name('user.profile.avatarUpdate');
+
+    // route to update the user personal info form user dashboard
+    Route::post('/persoanl-information', [UserProfileController::class, 'personalInfoUpdate'])->name('user.personal.info.update');
 
 
+    Route::get('/trade', [UserTradeController::class, 'index'])->name('user.trade.index');
+
+
+    
+    Route::get('/market-news', [UserHomeController::class, 'news'])->name('user.market.news');
+    
+    
+    Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
+    
     Route::get('/market-watch', [UserMarktWatchController::class, 'index'])->name('user.marketWatch.index');
 
-    Route::get('/deposit-method', [UserDepositController::class, 'index'])->name('user.deposit.getway');
-    Route::post('/deposit-store/{id}', [UserDepositController::class, 'store'])->name('user.deposit.store');
-
-
     Route::get('/withdraw', [UserWithdrawController::class, 'index'])->name('user.withdraw.index');
+
     Route::post('/withdraw', [UserWithdrawController::class, 'store'])->name('user.withdraw.store');
 
 });

@@ -139,12 +139,7 @@
 @php
     $country_code = $full_data['user_address']['country'];
     $country_name = config('countries.' . $country_code);
-
-    // echo '<pre>'; print_r(  $full_data['verification_prompts_permissions_data']['upgrade_prompt']  ); die;
-
 @endphp
-
-<?php   // echo '<pre>'; print_r( $full_data); die;  ?>
 
 <main class="main-area">
     <div class="container user-details-container">
@@ -160,8 +155,7 @@
                 <span>{{$full_data['user_data']['first_name']}} {{$full_data['user_data']['last_name']}}</span>
             </div>
             <div class="btn-area">
-                <a href="../user-dashboard.html" class="btn btn-login-as-user">Log in As User</a>
-                <!-- <a href="" class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></a> -->
+                <a href="javascript:void(0)" class="btn btn-login-as-user">Log in As User</a>
                 <div class="dropdown w-max">
                     <a class="btn btn-dropdown">
                         <i class="fa-solid fa-ellipsis-vertical"></i>

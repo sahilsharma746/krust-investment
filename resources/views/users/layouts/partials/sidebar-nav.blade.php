@@ -1,7 +1,7 @@
 <nav id="left-nav" class="left-nav">
     <ul class="nav nav-tabs scroll">
         <li class="nav-item {{ Request::is('user/dashboard') ? 'active' : '' }}">
-            <a href="{{ route('user.dashboard') }}">
+            <a href="{{ route('user.dashboard') }}" onclick="localStorage.removeItem('activeLeftTab');">
                 @if(isset($user_data) && !empty($user_data->avatar))
                     <img src="{{ asset('uploads/user_avatar/' . $user_data->avatar) }}" style="width: 50px; height: 50px; border-radius: 50%;">
                 @else
@@ -30,8 +30,8 @@
                 <span>Market Watch</span>
             </a>
         </li>
-        <li class="nav-item ">
-            <a href="javascript:void(0)">
+        <li class="nav-item {{ Request::url() == route('user.trade.index') ? 'active' : '' }}">
+            <a href="{{ route('user.trade.index') }}">
                 <i class="fa-solid fa-arrow-down-up-across-line"></i>
                 <span>Trade</span>
             </a>

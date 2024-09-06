@@ -26,8 +26,6 @@ window.addEventListener('load', function() {
 
 
 
-
-
 //* Navigation nav-tab script ===============
 document.addEventListener('click', function (e) {
     if (e.target.closest('a[data-toggle="tab"]')) {
@@ -103,7 +101,8 @@ $(document).ready(function () {
     $(document).on('click', '#left-nav:not(ul > *)', function (e) {
         if (!$(e.target).is('ul')) leftNavClose();
     });
-    //* admin left navigation active script end =======
+
+
 
     //! active tab with localStorage ________________
     const activeLeftTab = $('.left-nav .nav-item.active a').attr('href');
@@ -115,8 +114,11 @@ $(document).ready(function () {
         if (leftActiveNav.length) leftActiveNav[0].click();
     } else {
         console.log(activeLeftTabLocalStorage);
-    } //? active tab with localStorage
-    //* admin left navigation active script end =======
+    } 
+
+    
+
+    //? active tab with localStorage
 
     //* attach file form control script start =========
     $(document).on(
@@ -267,56 +269,22 @@ $(document).ready(function () {
                 $('body').removeClass('overflowY-hidden');
             });
     });
-
-    //* modal script end =================================
 });
 
-//* copy to clipboard area start ========================
-// const copyToClipboard = (id) => {
-//     // Get the input field
-//     var copyText = document.querySelector(id);
-
-//     if (!copyText) {
-//         console.warn('Element not found', id);
-//         return;
-//     }
-
-//     // Create a temporary textarea element to hold the text
-//     var tempTextArea = document.createElement('textarea');
-//     tempTextArea.value = copyText.value;
-//     document.body.appendChild(tempTextArea);
-
-//     // Select the text in the textarea
-//     tempTextArea.select();
-//     tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
-
-//     try {
-//         // Copy the text to the clipboard
-//         var successful = document.execCommand('copy');
-//         if (successful) {
-//             alert('Copied the text: ' + tempTextArea.value);
-//         } else {
-//             console.error('Failed to copy text');
-//         }
-//     } catch (err) {
-//         console.error('Could not copy text: ', err);
-//     }
-
-//     // Remove the temporary textarea element
-//     document.body.removeChild(tempTextArea);
-// };
 
 
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);
-}); //? copy to clipboard area end =====================
+}); 
 
-//* search script area start ==========================
+
 $(document).on('keyup', '.search-input-group .search-input', function (e) {
     const value = this.value.toLowerCase();
     console.log(value);
-}); //? search script area end ============================
+}); 
+
+
 
 //* Chart JS start ==========================
 const chartOptions = {
@@ -613,15 +581,13 @@ const chartOptions = {
 
 
 
-if( jQuery( '#trading-history-table' ).length > 0) {
+if( jQuery( '#market-watch-chart' ).length > 0) {
     const chart = new ApexCharts(
         document.querySelector('#market-watch-chart'),
         chartOptions,
     );
     chart.render();
 }
-
-//* Chart JS end ==========================
 
 //* Data table start ========================
 
@@ -654,3 +620,36 @@ $(document).on('click', '#btn-download-trading-history', function () {
 });
 
 //* Data table end ==========================
+
+
+
+
+
+
+// WOrk done by Sahil :
+// when user click yes on first popup
+jQuery(document).on( 'click',  '.btn-confirm-deposit', function() {
+    var payment_method_id = jQuery(this).data('gatewayid');
+    jQuery('#depositSecondModal').show();
+    jQuery('#depositSecondModal').find('.confirm-deposit-success').data('gatewayid', payment_method_id );
+});
+
+// when user click no on second popup
+jQuery(document).on( 'click',  '.deposit-use-bitcoin', function() {
+    var bitcoin_tab_id = jQuery(this).data('bitcointabid');
+    jQuery('#depositSecondModal').hide();
+    jQuery('.deposit-'+bitcoin_tab_id).trigger('click');
+});
+
+// when user click yes on second popup
+jQuery(document).on( 'click',  '.confirm-deposit-success', function() {
+    var payment_method_id = jQuery(this).data('gatewayid');
+    window.location.href = 'deposit-transfer/'+payment_method_id;
+});
+
+
+
+
+
+
+
