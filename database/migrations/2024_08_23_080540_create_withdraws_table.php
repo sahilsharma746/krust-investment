@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->float('amount');
                 $table->string('address');
                 $table->string('remarks');
-                $table->enum('status', array('pending', 'approved', 'rejected'))->default('pending');
+                $table->enum('status', array('pending', 'approved', 'rejected' ,'requested'))->default('pending');
                 $table->timestamps();
             });
         }

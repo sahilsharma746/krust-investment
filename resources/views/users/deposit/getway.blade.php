@@ -17,7 +17,7 @@
                             enctype="multipart/form-data" class="card">
                             @csrf
                             <div class="card-header">
-                                @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
+                                @if ($getway->name === 'Bitcoin' || $getway->name === 'Xmr' || $getway->name === 'Usdt')
                                     <a data-toggle="collapse" href="#payment-{{ $getway->tab_id }}-tab"
                                         name="{{ $getway->name }}"
                                         class="deposit-{{ $getway->tab_id }} d-flex align-items-center g-8 {{ $key == 0 ? 'active' : '' }}">
@@ -34,7 +34,7 @@
                                 @endif    
                             </div>
                             @php
-                            if ($getway->name === 'BITCOIN') {
+                            if ($getway->name === 'Bitcoin') {
                                 $bitcoin_id = $getway->tab_id;
                             }
                             @endphp
@@ -43,8 +43,7 @@
                                 class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
                                 <p class="card-title">Make payment to the {{ $getway->name }} address below and upload
                                     receipt.</p>
-                                @if ($getway->name === 'BITCOIN' || $getway->name === 'XMR' || $getway->name === 'USDT')
-
+                                    @if ($getway->name === 'Bitcoin' || $getway->name === 'Xmr' || $getway->name === 'Usdt')
                                 <div class="payment-details-area d-grid align-items-center">
                                     <div class="input-group-area d-flex flex-column justify-content-between">
                                         <div class="input-group">

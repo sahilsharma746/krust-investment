@@ -15,13 +15,16 @@ use Illuminate\Support\Facades\Hash;
 
 
 class UserProfileController extends Controller
+
 {
     public function personalInfo() {
         $user = Auth::user();
         $user_data = User::with('addresses')->where([['role', 'user'], ['id', $user->id]])->first();
+        $totalDepostAmount = Deposite::where('user_id', $user->id)->sum('amount');
+        
         $countries = config('countries');
         
-        return view('users.profile.personal-info', compact('user_data', 'countries'));
+        return view('users.profile.personal-info', compact('user_data', 'countries','totalDepostAmount'));
 
     }
 

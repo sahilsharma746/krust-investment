@@ -5,11 +5,12 @@ namespace App\Http\Controllers\User;
 use Carbon\Carbon;
 use App\Models\Getway;
 use App\Models\Deposit;
+use App\Models\Withdraw;
 use Illuminate\Http\Request;
+use App\Models\UserAccountType;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Models\UserAccountType;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -18,10 +19,13 @@ use Illuminate\Support\Facades\Mail;
 class UserDepositController extends Controller
 {
     public function index() {
+       
         $user = Auth::user();
         $datas = Deposit::with('getway')->where('user_id', auth()->user()->id)->latest()->get();
+        $withdrawals = Withdraw::where('user_id', $user->id)->with('getway')->get();
         $getways = Getway::where([['deposit', 'yes'], ['name', '!=', 'admin']])->get();
-        return view('users.deposit.getway', compact('datas', 'getways'));
+
+        return view('users.deposit.getway', compact('datas', 'getways','withdrawals'));
     }
 
 
@@ -71,6 +75,16 @@ class UserDepositController extends Controller
                 'payment_method' => $getway->name,
                 'body' => "You are requesting a transfer."
             ];
+            
+            // Deposit::insert([
+            //     'user_id' => $user_id,
+            //     'getway_id' => $id,
+            //     'payment_method'=> $getway->name,
+            //     'amount' => $request->amount,
+            //     'wallet_address' => $request->wallet_address,
+            //     'address_tag'=>  $request->address_tag,
+            //     'created_at' => Carbon::now()
+            // ]);
 
             // Sending email
             Mail::send('emails.deposit-transfer', ['details' => $details], function($message) use ($user) {
