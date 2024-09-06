@@ -17,25 +17,47 @@ class UserWithdrawController extends Controller
         return view('users.withdraw.index', compact('getways', 'datas'));
     }
 
+
     public function store(Request $request) {
         $request->validate([
-            'amount' => 'required | numeric | min:1',
-            'getway' => 'required | numeric',
-            'address' => 'required'
+            'amount' => 'required|numeric|min:1',
+            'getway' => 'required|numeric',
+            'address' => 'required',
+            'address_tag' => 'nullable'
         ]);
+    
         $user = User::where('id', auth()->user()->id)->first();
+    
+     
         if ($user->balance < $request->amount) {
-            return back()->with('error', 'You dont have enough balance.');
+            return back()->with('error', 'You don’t have enough balance.');
         }
-
+    
+        $getway = Getway::find($request->getway);
+    
+      
+        if (!$getway) {
+            return back()->with('error', 'Invalid withdrawal method selected.');
+        }
+    
         Withdraw::insert([
             'user_id' => auth()->user()->id,
-            'getway_id' => $request->getway,
+            'getway_id' => $request->getway,  
             'amount' => $request->amount,
-            'address' => $request->address,
+            'address' => $request->address, 
+            'wallet_address' => $request->address,  
+            'address_tag' => $request->address_tag,
+            'payment_method' => $getway->name,  
             'created_at' => Carbon::now()
         ]);
+    
+       
         $user->decrement('balance', $request->amount);
-        return back()->with('success', 'Request Submited');
+    
+        return back()->with('success', 'Request Submitted');
     }
+    
+    
+    
+   
 }

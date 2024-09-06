@@ -40,6 +40,13 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="input-group">
+                                    <label class="form-label"> Address tag</label>
+                                    <input class="form-control" type="text" placeholder="Enter Withdrawal address" name="address_tag">
+                                    @error('address')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <a data-toggle="modal" href="#withDrawRequestModal"

@@ -55,9 +55,7 @@
                                     </div>
                                 </td>
                             </tr>
-                           <!--  <tr>
-                                <td class="text-center" colspan="6">No data available</td>
-                            </tr> -->
+                         
                         @endforeach
                     </tbody>
                 </table>

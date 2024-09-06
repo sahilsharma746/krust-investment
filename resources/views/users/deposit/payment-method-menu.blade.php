@@ -10,7 +10,7 @@
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="#">
+        <a class="card" href="{{ route('user.trade.index') }}">
             <p>Trade</p>
         </a>
     </li>
@@ -25,12 +25,12 @@
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="#">
+        <a class="card" href="{{ route('user.dashboard') }}">
             <p>Account</p>
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="#">
+        <a class="card" href="{{ route('user.marketWatch.index') }}">
             <p>Market Watch</p>
         </a>
     </li>

@@ -18,7 +18,7 @@
                         <div class="card-title">Total balance</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="../assets/img/flag-eur.png" alt="Eur currency">
-                            <div class="amount">$100,000.00</div>
+                            <div class="amount">${{ number_format(auth()->user()->balance) }}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-3 text-primary">
                             <div class="percentage">1.5%</div>
@@ -31,14 +31,14 @@
                         <div class="card-title">Total Deposit</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="../assets/img/flag-eur.png" alt="Eur currency">
-                            <div class="amount">$40,000.00</div>
+                            <div class="amount">${{ $full_data['total_deposit']}}</div>
                         </div>
                     </div>
                     <div class="card d-grid g-4">
                         <div class="card-title">Profitable Trades</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="../assets/img/flag-eur.png" alt="Eur currency">
-                            <div class="amount">17/20</div>
+                            <div class="amount">0/0</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
                             <div class="percentage">0.5%</div>
@@ -195,7 +195,7 @@
                                 <label class="form-label">First Name</label>
                                 <input class="form-control" type="text" name="first_name"
                                     value="{{ $user_data->first_name }}" placeholder="Enter First Name">
-                                @error('first_name')
+                                @error('f$irst_name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
