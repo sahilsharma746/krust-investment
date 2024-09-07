@@ -26,7 +26,7 @@ return new class extends Migration
                 $table->string('phone')->nullable();
                 $table->string('referal_id')->nullable();
                 $table->float('balance')->default(0);
-                $table->string('avatar')->default('avatar.png');
+                $table->string('avatar')->nullable();
                 $table->rememberToken();
                 $table->timestamps();
             });
