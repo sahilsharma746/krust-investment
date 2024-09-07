@@ -1,6 +1,7 @@
 <!-- font-awesome added here ================ -->
-<script src="{{ asset('assets') }}/font-awesome-6.6.6-web/js/all.min.js"></script>
+<!-- <script src="{{ asset('assets') }}/font-awesome-6.6.6-web/js/all.min.js"></script> -->
 <!-- nice select 2 -->
+ 
 <script src="{{ asset('assets') }}/nice-select-2/nice-select2.js"></script>
 
 @yield('scripts')

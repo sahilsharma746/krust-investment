@@ -11,6 +11,9 @@
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
 
+    <!-- jQuery added here ================ -->
+    <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
+
     <!-- nice select 2 -->
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
 
@@ -23,15 +26,9 @@
     <!-- font added here (ital + Merriweather) ================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-        @yield('styles')
-
-    <!-- jQuery added here ================ -->
-    <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
-
+    <!-- @yield('styles') -->
     
     <!-- script added here ======================= -->
     <script src="{{ asset('assets') }}/js/site-common.js"></script>
@@ -86,7 +83,7 @@
                             </dt>
                             <dt class="dropdown-item">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     <span>Logout</span>
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
