@@ -109,28 +109,32 @@ $(document).ready(function () {
         if (!callback) return new Promise((r) => (callback = r));
     };
 
-    onVisible($('.trade-counter')[0], (e) => {
-        $.each($('.trade-counter .item'), function () {
-            const $this = $(this).find('span[value]');
-            const $thisValue = +$this.attr('value');
-            if (!$thisValue || $thisValue <= 0) return;
 
-            const $startWith = $this.attr('startWith');
+    if( $('.trade-counter').length > 0 ) {
+        onVisible($('.trade-counter')[0], (e) => {
+            $.each($('.trade-counter .item'), function () {
+                const $this = $(this).find('span[value]');
+                const $thisValue = +$this.attr('value');
+                if (!$thisValue || $thisValue <= 0) return;
 
-            let count = 0;
-            let count2 = 0;
-            const duration = 1500;
-            const intervalTime = duration / $thisValue;
+                const $startWith = $this.attr('startWith');
 
-            const interval = setInterval(() => {
-                $this.text($startWith ? $startWith + count : count);
-                count++;
+                let count = 0;
+                let count2 = 0;
+                const duration = 1500;
+                const intervalTime = duration / $thisValue;
 
-                // Check if the count has reached the maximum value
-                if (count > $thisValue) {
-                    clearInterval(interval);
-                }
-            }, intervalTime);
+                const interval = setInterval(() => {
+                    $this.text($startWith ? $startWith + count : count);
+                    count++;
+
+                    // Check if the count has reached the maximum value
+                    if (count > $thisValue) {
+                        clearInterval(interval);
+                    }
+                }, intervalTime);
+            });
         });
-    });
+    }
+
 });

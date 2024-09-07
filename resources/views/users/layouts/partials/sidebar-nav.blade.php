@@ -2,12 +2,7 @@
     <ul class="nav nav-tabs scroll">
         <li class="nav-item {{ Request::is('user/dashboard') ? 'active' : '' }}">
             <a href="{{ route('user.dashboard') }}" onclick="localStorage.removeItem('activeLeftTab');">
-                
-                @if(isset($user_data) && $user_data->avatar == 'avatar.png')
-                    <img src="{{ asset('assets/img/' . $user_data->avatar) }}" style="width: 50px; height: 50px; border-radius: 50%;">
-                @else
-                    <i class="fa-regular fa-circle-user" style="font-size: 10px;"></i>
-                @endif
+                <img src="{{ asset('uploads/user_avatar/' . $user_data->avatar) }}" style="width: 50px; height: 50px; border-radius: 50%;">
                 <span>{{ session('user_name') }}</span>
             </a>
         </li>
