@@ -44,8 +44,8 @@
                                 class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
                                 <p class="card-title">Make payment to the {{ $getway->name }} address below and upload
                                     receipt.</p>
-                                    @if (trim(strtolower($getway->name)) == 'bitcoin' || trim(strtolower($getway->name)) == 'xmr' || trim(strtolower($getway->name)) == 'usdt')
-                                <div class="payment-details-area d-grid align-items-center">
+                                @if (trim(strtolower($getway->name)) == 'bitcoin' || trim(strtolower($getway->name)) == 'xmr' || trim(strtolower($getway->name)) == 'usdt')
+                                    <div class="payment-details-area d-grid align-items-center">
                                     <div class="input-group-area d-flex flex-column justify-content-between">
                                         <div class="input-group">
                                             <label class="form-label">amount</label>
@@ -55,27 +55,23 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-
                                         <div class="input-group">
                                             <label class="form-label">wallet address</label>
                                             <input class="form-control form-clone" type="text" name="wallet_address"
                                                 readonly id="wallet-address{{ $key }}"
-                                                value="{{ $getway->address }}">
+                                                value="{{ isset($user_settings[$getway->address_setting_key]) ? $user_settings[$getway->address_setting_key] : '' }}">
                                             <label for="wallet-address{{ $key }}" class="form-icon clone-icon">
                                                 <i class="fa-regular fa-clone"></i>
                                             </label>
                                         </div>
-
-                                            <div class="input-group">
-                                                <label class="form-label"> Address tag</label>
-                                                <input class="form-control form-clone" type="text" name="address_tag"
-                                                    id="address_tag-{{ $getway->id }}">
-                                                <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
-                                                    <i class="fa-regular fa-clone"></i>
-                                                </label>
-                                            </div>
-                                      
-
+                                        <div class="input-group">
+                                            <label class="form-label"> Address tag</label>
+                                            <input class="form-control form-clone" type="text" name="address_tag"
+                                            readonly id="address_tag-{{ $getway->id }}" value="{{ isset($user_settings[$getway->address_setting_key]) ? $user_settings[$getway->address_tag_setting_key] : '' }}">
+                                            <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
+                                                <i class="fa-regular fa-clone"></i>
+                                            </label>
+                                        </div>
                                         <div class="input-group attach-file-input-group">
                                             <label class="form-label">Upload receipt</label>
                                             <div class="form-control">
@@ -91,7 +87,6 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="qr-code-area">
                                         <div class="input-group">
                                             <label class="form-label">QR Code</label>
@@ -99,9 +94,7 @@
                                                 alt="qr-code">
                                         </div>
                                     </div>
-                                   
                                     <button class="btn w-max" type="submit">Deposit</button>
-
                                 </div>
 
                                 @endif
@@ -152,28 +145,33 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
+                                <th>Payment Method</th>
                                 <th>Wallet Address</th>
                                 <th>Address Tag</th>
                                 <th>Currency</th>
                                 <th>Amount</th>
+                                <th>Remarks</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($datas as $data)
+                            @forelse ($deposits as $deposit)
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
-                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('F j, Y') }}</td>
-                                    <td>{{ $data->getway->address }}</td>
-                                    <td>{{ $data->address_tag ? $data->address_tag : 'NA' }}</td>
+                                    <td>{{ Carbon\Carbon::parse($deposit->created_at)->format('F j, Y') }}</td>
+                                    <td>{{ $deposit->payment_method ? $deposit->payment_method : 'NA' }}</td>
+                                    <td>{{ $deposit->wallet_address ? $deposit->wallet_address : 'NA' }}</td>
+                                    <td>{{ $deposit->address_tag ? $deposit->address_tag : 'NA' }}</td>
                                     <td>USD</td>
-                                    <td>${{ $data->amount }}</td>
-
-                                    @if ($data->status == 'pending')
-                                        <td isConfirmed="false" style="text-transform:capitalize;">pending</td>
-                                    @elseif($data->status == 'approved')
-                                        <td isConfirmed="true" style="text-transform:capitalize;">approved</td>
-                                    @elseif($data->status == 'rejected')
+                                    <td>${{ $deposit->amount }}</td>
+                                    <td>{{ $deposit->remarks ? $deposit->remarks : 'NA' }}</td>
+                                    @if ($deposit->status == 'pending')
+                                        <td isConfirmed="false" style="text-transform:capitalize;">Pending</td>
+                                    @elseif ($deposit->status == 'requested')
+                                        <td isConfirmed="false" style="text-transform:capitalize;">Requested</td>
+                                    @elseif($deposit->status == 'approved')
+                                        <td isConfirmed="true" style="text-transform:capitalize;">Succesfull</td>
+                                    @elseif($deposit->status == 'rejected' || $deposit->status == 'deleted')
                                         <td style="text-transform:capitalize; color:red; background:#a21a1a1a;">rejected
                                         </td>
                                     @endif

@@ -5,6 +5,12 @@ use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminIdentyVerificationController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminWithdrawController;
+use App\Http\Controllers\Admin\AdminTradesController;
+
+use App\Http\Controllers\Admin\AdminAssetsController;
+use App\Http\Controllers\Admin\AdminSoftwareController;
+use App\Http\Controllers\Admin\AdminSettingsController;
+
 use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\FrontendController;
@@ -79,7 +85,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     Route::post('/update-password', [UserProfileController::class, 'updatePassword'])->name('user.profile.updatePassword');
     
     // route to update the user setting like currency and langusage form user dashboard
-    Route::post('/settings', [UserProfileController::class, 'updateSettings'])->name('user.profile.update');
+    Route::post('/update-settings', [UserProfileController::class, 'updateSettings'])->name('user.profile.update');
 
     // route to update the user profile image form user dashboard
     Route::post('/avatar', [UserProfileController::class, 'avatarUpdate'])->name('user.profile.avatarUpdate');
@@ -87,50 +93,127 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     // route to update the user personal info form user dashboard
     Route::post('/persoanl-information', [UserProfileController::class, 'personalInfoUpdate'])->name('user.personal.info.update');
 
+    // route for all the user withdrawls and request withdrawl
+    Route::get('/withdraw', [UserWithdrawController::class, 'index'])->name('user.withdraw.index');
+ 
+     // route for handling withdrawl request
+    Route::post('/save-withdraw', [UserWithdrawController::class, 'SaveUserWithdrawlRequest'])->name('user.withdraw.store');
 
+    // route to restore the admin if admin is logged in as user 
+    Route::get('/admin-restore', [UserProfileController::class, 'restoreAdmin'])->name('user.admin.restore');
+
+    // route to save the user kyc docs 
+    Route::post('/save-kyc-documents', [UserProfileController::class, 'saveKycDocuments'])->name('user.save.kyc');
+
+    // route to  user dashboard trade page
     Route::get('/trade', [UserTradeController::class, 'index'])->name('user.trade.index');
-
-
+    
     
     Route::get('/market-news', [UserHomeController::class, 'news'])->name('user.market.news');
-    
-    
-    Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
-    
+    // Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
     Route::get('/market-watch', [UserMarktWatchController::class, 'index'])->name('user.marketWatch.index');
-
-    Route::get('/withdraw', [UserWithdrawController::class, 'index'])->name('user.withdraw.index');
-
-    Route::post('/withdraw', [UserWithdrawController::class, 'store'])->name('user.withdraw.store');
 
 });
 
 
 
-
+// Backend admin dashboard urls 
+// admin login URL 
 Route::get('/admin', [AdminHomeController::class, 'adminLogin'])->name('admin.login');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
 
+    // admin main dashboard view url 
     Route::get('/dashboard', [AdminHomeController::class, 'index'])->name('admin.dashboard');
+    
+    // admin all users dashboard view url 
     Route::get('/all-user', [AdminUserController::class, 'index'])->name('admin.user.index');
+    
+    // admin all active users dashboard view url 
     Route::get('/active-users', [AdminUserController::class, 'activeUsers'])->name('admin.user.activeUsers');
+    
+    // admin all kyc unverified users dashboard view url 
     Route::get('/kyc-unverified', [AdminUserController::class, 'kycUnverified'])->name('admin.user.kycUnverified');
+    
+    // admin all kyc verified users dashboard view url 
     Route::get('/kyc-verified', [AdminUserController::class, 'kycVerified'])->name('admin.user.kycVerified');
+    
+    // admin all email verified users dashboard view url 
     Route::get('/email-verified', [AdminUserController::class, 'emailVerified'])->name('admin.user.emailVerified');
+    
+    // admin all phone verified users dashboard view url 
     Route::get('/phone-verified', [AdminUserController::class, 'phoneVerified'])->name('admin.user.phoneVerified');
+    
+    // admin all banned verified users dashboard view url 
     Route::get('/banned-users', [AdminUserController::class, 'bannedVerified'])->name('admin.user.bannedVerified');
 
-
-
+    // admin dashbopard user details view
     Route::get('/details/{user}', [AdminUserController::class, 'details'])->name('admin.user.details');
+    
+    // admin update user payment details
+    Route::post('/edit-payments/{user}', [AdminUserController::class, 'editUserPaymentSettings'])->name('admin.user.payments');
+
+    // admin balance update view
     Route::get('/edit-balance/{user}', [AdminUserController::class, 'editBalance'])->name('admin.user.editBalance');
-    Route::post('/updateBalance/{user}', [AdminUserController::class, 'updateBalance'])->name('admin.user.updateBalance');
-    Route::get('/banUser/{user}', [AdminUserController::class, 'banUser'])->name('admin.user.banUser');
+    
+     // admin balance update post request handle
+    Route::post('/update-balance/{user}', [AdminUserController::class, 'updateBalance'])->name('admin.user.updateBalance');
+    
+    // admin ban user 
+    Route::get('/ban-user/{user}', [AdminUserController::class, 'banUser'])->name('admin.user.banUser');
+    
+    // admin un ban user 
+    Route::get('/un-ban-user/{user}', [AdminUserController::class, 'UnbanUser'])->name('admin.user.unBanUser');
+
+    // admin delete user 
     Route::get('/deleteUser/{user}', [AdminUserController::class, 'deleteUser'])->name('admin.user.deleteUser');
 
-    // Route::get('/form', [AdminUserController::class, 'form'])->name('form');
+    // Admin login as a normal user form admin dashbord
+    Route::get('/login-as-user/{user}', [AdminUserController::class, 'loginAsUser'])->name('admin.login-as-user');
 
+
+
+    // Admin deposit screen routes
+    Route::get('/deposits', [AdminDepositController::class, 'getAllDeposits'])->name('admin.deposit.index');
+    Route::get('/deposit/pending', [AdminDepositController::class, 'getPendingDeposits'])->name('admin.deposit.pending');
+    Route::get('/deposit/approved', [AdminDepositController::class, 'getApprovedDeposits'])->name('admin.deposit.approved');
+    Route::get('/deposit/rejected', [AdminDepositController::class, 'getRejectedDeposits'])->name('admin.deposit.rejected');
+    Route::get('/deposit/{id}/approved', [AdminDepositController::class, 'approvedDepositStatus'])->name('admin.deposit.approved.status');
+    Route::get('/deposit/{id}/rejected', [AdminDepositController::class, 'rejectedDepositStatus'])->name('admin.deposit.rejected.status');
+    Route::get('/deposit/{id}/delete', [AdminDepositController::class, 'deleteDeposit'])->name('admin.deposit.delete');
+    Route::get('/deposit/{id}/download', [AdminDepositController::class, 'downloadDeposit'])->name('admin.deposit.download');
+
+
+    // Admin Withdrawls screen routes
+    Route::get('/withdraw', [AdminWithdrawController::class, 'getAllWithDrawls'])->name('admin.withdraw.index');
+    Route::get('/withdraw/pending', [AdminWithdrawController::class, 'getPendingWithDrawls'])->name('admin.withdraw.pending');
+    Route::get('/withdraw/approved', [AdminWithdrawController::class, 'getApprovedWithDrawls'])->name('admin.withdraw.approved');
+    Route::get('/withdraw/rejected', [AdminWithdrawController::class, 'getRejectedWithDrawls'])->name('admin.withdraw.rejected');
+    Route::get('/withdraw/{id}/approved', [AdminWithdrawController::class, 'approvedWithDrawlStatus'])->name('admin.withdraw.approved.status');
+    Route::get('/withdraw/{id}/rejected', [AdminWithdrawController::class, 'rejectedWithDrawlStatus'])->name('admin.withdraw.rejected.status');
+    Route::get('/withdraw/{id}/delete', [AdminWithdrawController::class, 'deleteWithDrawl'])->name('admin.withdraw.delete');
+
+
+    // Admin dashboard trades screen 
+    Route::get('/trades', [AdminTradesController::class, 'getAllTrades'])->name('admin.trades');
+
+
+    // Admin dashboard assets screen 
+    Route::get('/assets', [AdminAssetsController::class, 'getAllAssets'])->name('admin.assets');
+
+    
+    // Admin dashboard software screen 
+    Route::get('/software', [AdminSoftwareController::class, 'getSoftwares'])->name('admin.software');
+
+
+    // Admin dashboard admin settings screen 
+    Route::get('/general-settings', [AdminSettingsController::class, 'getAdminGeneralSettings'])->name('admin.general.settings');
+    Route::get('/system-settings', [AdminSettingsController::class, 'getAdminSystemSettings'])->name('admin.system.settings');
+
+
+
+
+    // Admin kyc verification screen routes
     Route::get('/verification', [AdminIdentyVerificationController::class, 'index'])->name('admin.identyVerification.index');
     Route::get('/verification/pending', [AdminIdentyVerificationController::class, 'pending'])->name('admin.identyVerification.pending');
     Route::get('/verification/approved', [AdminIdentyVerificationController::class, 'approved'])->name('admin.identyVerification.approved');
@@ -138,23 +221,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     Route::get('/verification/{id}/approvedStatus', [AdminIdentyVerificationController::class, 'approvedStatus'])->name('admin.identification.approvedStatus');
     Route::get('/verification/{id}/rejectedStatus', [AdminIdentyVerificationController::class, 'rejectedStatus'])->name('admin.identification.rejectedStatus');
     Route::get('/verification/{id}/delete', [AdminIdentyVerificationController::class, 'delete'])->name('admin.identification.delete');
-
-    Route::get('/deposits', [AdminDepositController::class, 'index'])->name('admin.deposit.index');
-    Route::get('/deposit/pending', [AdminDepositController::class, 'pending'])->name('admin.deposit.pending');
-    Route::get('/deposit/approved', [AdminDepositController::class, 'approved'])->name('admin.deposit.approved');
-    Route::get('/deposit/rejected', [AdminDepositController::class, 'rejected'])->name('admin.deposit.rejected');
-    Route::get('/deposit/{id}/approvedStatus', [AdminDepositController::class, 'approvedStatus'])->name('admin.deposit.approvedStatus');
-    Route::get('/deposit/{id}/rejectedStatus', [AdminDepositController::class, 'rejectedStatus'])->name('admin.deposit.rejectedStatus');
-    Route::get('/deposit/{id}/delete', [AdminDepositController::class, 'delete'])->name('admin.deposit.delete');
-
-
-    Route::get('/withdraw', [AdminWithdrawController::class, 'index'])->name('admin.withdraw.index');
-    Route::get('/withdraw/pending', [AdminWithdrawController::class, 'pending'])->name('admin.withdraw.pending');
-    Route::get('/withdraw/approved', [AdminWithdrawController::class, 'approved'])->name('admin.withdraw.approved');
-    Route::get('/withdraw/rejected', [AdminWithdrawController::class, 'rejected'])->name('admin.withdraw.rejected');
-    Route::get('/withdraw/{id}/approvedStatus', [AdminWithdrawController::class, 'approvedStatus'])->name('admin.withdraw.approvedStatus');
-    Route::get('/withdraw/{id}/rejectedStatus', [AdminWithdrawController::class, 'rejectedStatus'])->name('admin.withdraw.rejectedStatus');
-    Route::get('/withdraw/{id}/delete', [AdminWithdrawController::class, 'delete'])->name('admin.withdraw.delete');
 
 });
 

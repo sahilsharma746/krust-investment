@@ -108,6 +108,25 @@ main.main-area table .dropdown ul.dropdown-menu a.btn {
 main.main-area table .dropdown ul.dropdown-menu a.btn:hover {
   background-color: var(--secondary-color-10);
 }
+main.main-area table tr.child td.child {
+  text-align: left;
+}
+main.main-area table tr.child td.child ul.dtr-details > li {
+  display: flex;
+  align-items: center;
+}
+main.main-area table tr.child td.child ul.dtr-details > li > span.dtr-title {
+  min-width: 150px;
+}
+main.main-area table .fixedColumns .dataTable td:last-child {
+  position: sticky;
+  right: 0;
+  background-color: white; /* Ensure the background matches */
+  z-index: 1;
+}
+main.main-area table .dtfc-fixed-end:hover {
+  z-index: 2;
+}
 main.main-area div.dt-container .dt-search input {
   height: 48px;
   padding-left: 35px;
@@ -286,6 +305,21 @@ main.main-area .nice-select .nice-select-dropdown .option.selected.focus:hover {
 }
 main.main-area .nice-select .nice-select-dropdown .list {
   margin-block: 0;
+}
+main.main-area .tagify {
+  --tag-bg: $bgColor;
+  --tag-pad: 5px 3px 5px 3px;
+  height: auto;
+  padding-block: 4px;
+}
+main.main-area .tagify tag {
+  border-radius: 50px;
+  overflow: hidden;
+  padding-inline: 8px;
+  border: 1px solid var(--secondary-color-10);
+}
+main.main-area .tagify tag .tagify__tag__removeBtn {
+  margin-right: 0;
 }
 main.main-area .modal .modal-dialog {
   background-color: var(--bg-color);
@@ -500,7 +534,7 @@ main.main-area .user-details-container .user-info-form .check-files-valid-area {
 }
 main.main-area .user-details-container .user-info-form .check-files-valid-area .verified-qty {
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 500;
   text-align: end;
   margin-bottom: 16px;
 }
@@ -509,6 +543,9 @@ main.main-area .user-details-container .user-info-form .check-files-valid-area .
 }
 @media only screen and (min-width: 992px) {
   main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -520,18 +557,66 @@ main.main-area .user-details-container .user-info-form .check-files-valid-area .
   text-transform: capitalize;
 }
 main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid .card .document-verification-status {
-  color: var(--secondary-color-40);
+  background-color: var(--secondary-color-40);
+  color: var(--bg-color);
   width: 20px;
   height: 20px;
   border: 1px solid;
   border-radius: 50px;
-  font-size: 12px;
+  font-size: 11px;
 }
 main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid .card .document-verification-status[verified] {
   background-color: var(--primary-color);
   outline: 2px solid;
   color: var(--secondary-font-color);
   border-color: var(--primary-color);
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card {
+  padding: 0;
+  border-width: 0;
+  font-size: 14px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .border {
+  border: 1px solid var(--secondary-color-10);
+  padding: 16px;
+  margin-bottom: 10px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-title .icon,
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .download-btn {
+  font-size: 17px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--secondary-color-65);
+  margin-bottom: 10px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-header > div {
+  display: flex;
+  gap: 8px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-body img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-footer .btn {
+  flex-grow: 1;
+}
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-footer .btn-decline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+@media only screen and (min-width: 992px) {
+  main.main-area .user-details-container .user-info-form .promt-and-permission-card .card-body {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 main.main-area .user-details-container .deposit-table-area,
 main.main-area .user-details-container .withdraw-table-area {
@@ -607,6 +692,9 @@ main.main-area .admin-settings-container .admin-settings-section .common-card .c
     width: 200px;
   }
 }
+main.main-area .admin-settings-container .admin-settings-section .common-card .form-control {
+  background-color: var(--secondary-font-color-50);
+}
 main.main-area .admin-settings-container .admin-system-settings-section {
   display: grid;
   gap: 8px;
@@ -635,6 +723,11 @@ main.main-area .admin-settings-container .admin-system-settings-section .card .c
   font-weight: 400;
   color: var(--secondary-color-65);
 }
+main.main-area .admin-settings-container .admin-system-settings-section .card .card-body .card-text code {
+  font-size: 0.9em;
+  font-family: revert;
+  letter-spacing: 0.08em;
+}
 main.main-area .admin-settings-container .admin-system-settings-section .card .card-footer .btn {
   min-width: 160px;
   min-height: 40px;
@@ -647,4 +740,13 @@ main.main-area .admin-settings-container .admin-system-settings-section .card .c
 main.main-area .admin-settings-container .admin-system-settings-section .card .card-footer .btn.btn-disabled {
   border-right: 5px solid var(--secondary-color);
   background-color: var(--danger-color);
+}
+main.main-area .modal.user-trade-result .modal-dialog {
+  max-width: 500px;
+}
+main.main-area .modal.user-trade-result .modal-footer .btn {
+  font-size: 14px;
+}
+main.main-area .modal.user-trade-result .tagify {
+  --tag-bg: var(--secondary-color-5);
 }

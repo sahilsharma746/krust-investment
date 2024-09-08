@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Getway extends Model
 {
     use HasFactory;
+    protected $table = 'getways';
     protected $guarded = [];
 
 

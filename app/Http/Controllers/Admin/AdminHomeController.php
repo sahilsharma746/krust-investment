@@ -18,14 +18,19 @@ class AdminHomeController extends Controller
         $full_data=[];
         $page_title = "Overview";
         $full_data['total_users'] = User::where('role', 'user')->count();
+        
         $full_data['total_active_users']  = User::where([['role', 'user'], ['status', 'active']])->count();
         
-        $full_data['total_kyc_verified_users'] = UserVerifiedStatus::where('kyc_verify_status', 'verified')->count();
-        
-        $full_data['total_kyc_unverified_users'] = UserVerifiedStatus::where('kyc_verify_status', 'pending')
-                                                           ->orWhere('kyc_verify_status', 'rejected')
-                                                           ->count();
+        $full_data['total_kyc_verified_users'] = UserVerifiedStatus::join('users', 'user_verified_status.user_id', '=', 'users.id')
+                                                                ->where('users.role', 'user') 
+                                                                ->where('user_verified_status.kyc_verify_status', 'verified')
+                                                                ->count();
 
+        $full_data['total_kyc_unverified_users'] = UserVerifiedStatus::join('users', 'user_verified_status.user_id', '=', 'users.id')
+                                                                ->where('users.role', 'user') 
+                                                                ->where('user_verified_status.kyc_verify_status', 'pending')
+                                                                ->orWhere('user_verified_status.kyc_verify_status', 'rejected')
+                                                                ->count();                                                           
         
         $full_data['total_deposit'] = Deposit::sum('amount');
         $full_data['pending_deposit'] = Deposit::where('status', 'pending')->sum('amount');
@@ -46,7 +51,8 @@ class AdminHomeController extends Controller
             return redirect()->route('admin.dashboard');
         }else if( isset( $user->role ) &&  $user->role == 'user' ){
             return redirect()->route('user.dashboard');
-        }        return view('admin.adminlogin');
+        }        
+        return view('admin.adminlogin');
     }
 
 }

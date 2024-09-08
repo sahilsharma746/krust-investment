@@ -26,7 +26,7 @@
                                 <label class="form-label" for="amount">Amount</label>
                                 <input class="form-control" type="number" placeholder="Enter amount" name="amount" value="{{ old('amount') }}">
                                 @error('amount')
-                                    <span class="text-dagner">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-group">
@@ -36,15 +36,18 @@
                                     <option {{ old('type') == 'debit' ? 'selected' : '' }} value="debit">Debit</option>
                                 </select>
                                 @error('type')
-                                    <span class="text-dagner">{{ $message }}</span>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Remark</label>
+                            <textarea class="form-control" name="remark" rows="4" placeholder="Enter Remark Yet" style="height: 150px"></textarea>
                         </div>
                         <br>
                         <button type="submit" class="btn border-0">Add Balance</button>
                     </div>
                 </form>
-
             </section>
         </div>
     </main>

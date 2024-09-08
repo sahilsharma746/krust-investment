@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
 
     <!-- style added here ================ -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css">
+    <!-- <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css"> -->
+
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
 
     <!-- font-awesome added here ================ -->
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
@@ -28,14 +30,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-    <!-- @yield('styles') -->
-    
     <!-- script added here ======================= -->
-    <script src="{{ asset('assets') }}/js/site-common.js"></script>
     <!-- {{-- <script src="https://s3.tradingview.com/tv.js"></script> --}} -->
-
-
-
 </head>
 
 <body>
@@ -86,10 +82,17 @@
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     <span>Logout</span>
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
-                                </form>
+                                </form> -->
                             </dt>
+
+                            @if(session()->has('admin_id'))
+                                <dt class="dropdown-item">
+                                    <a href="{{ route('user.admin.restore') }}" class="btn btn-warning">Return to Admin</a>
+                                </dt>
+                            @endif
+
                         </dl>
                     </dt>
                 </dl>

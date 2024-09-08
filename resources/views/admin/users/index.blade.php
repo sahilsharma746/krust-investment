@@ -47,7 +47,11 @@
                                                 @if ($user->status != 'baned')
                                                     <a class="btn" href="{{ route('admin.user.banUser', $user->id) }}">Ban
                                                     User</a>
-                                                @endif    
+                                                @endif
+                                                @if ($user->status == 'baned')
+                                                    <a class="btn" href="{{ route('admin.user.unBanUser', $user->id) }}">Un Ban
+                                                    User</a>
+                                                @endif  
                                                 <a class="btn"
                                                     href="{{ route('admin.user.deleteUser', $user->id) }}">Delete User</a>
                                             </li>

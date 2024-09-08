@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserSetting;
+use App\Models\UserVerifiedStatus;
+
 use Illuminate\Http\Request;
-use App\Models\Identification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -15,23 +16,24 @@ use Illuminate\Support\Facades\Hash;
 
 
 class UserProfileController extends Controller
-
 {
+
+    public $user_setting;
+
+    public function __construct() {
+        $this->user_setting = new UserSetting();
+    }
+
     public function personalInfo() {
         $user = Auth::user();
         $user_data = User::with('addresses')->where([['role', 'user'], ['id', $user->id]])->first();
-        $totalDepostAmount = Deposite::where('user_id', $user->id)->sum('amount');
-        
+        $total_depost_amount = Deposite::where('user_id', $user->id)->sum('amount');
         $countries = config('countries');
-        
-        return view('users.profile.personal-info', compact('user_data', 'countries','totalDepostAmount'));
-
+        return view('users.profile.personal-info', compact('user_data', 'countries','total_depost_amount'));
     }
 
     public function personalInfoUpdate(Request $request) {
-
         $user = Auth::user();
-
         $request->validate([
             'first_name' => 'required | string | max:255',
             'last_name' => 'required | string | max:255',
@@ -39,47 +41,35 @@ class UserProfileController extends Controller
             'phone' => 'required',
             'country' => 'required',
         ]);
-        
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-
         UserAddress::where('user_id', $user->id)
                 ->update(['country' => $request->country]);
 
         session()->put('user_name', "{$request->first_name} {$request->last_name}");
-
-
         return back()->with('success', 'Updated successfully');
-
     }
 
 
     public function avatarUpdate(Request $request) {
         $user = Auth::user();
-        
         $request->validate([
             'avatar' => 'required | image | mimes:jpg,png,jpeg'
         ]);
-
         $base_path = public_path('uploads/user_avatar/');
-    
         if (!File::exists($base_path)) {
             File::makeDirectory($base_path, 0755, true);
         }
-
         $file = $request->file('avatar');
         $file_name = time() . '-user-avatar-' . $user->id . '.' . $file->getClientOriginalExtension();
         $file->move($base_path, $file_name);
-
         User::where('id', $user->id)
                 ->update(['avatar' => $file_name]);
-
-
-return back()->with(['success' => 'Avatar updated successfully', 'user' => $user]);
+        return back()->with(['success' => 'Avatar updated successfully', 'user' => $user]);
     }
 
 
@@ -104,60 +94,74 @@ return back()->with(['success' => 'Avatar updated successfully', 'user' => $user
         return back()->with('success', 'Updated Successfully');
     }
 
-    public function updateSettings(Request $request)
-    {
+
+    public function updateSettings(Request $request){
         $user = auth()->user(); 
-
         $settings = $request->only(['dashboard_currency', 'profile_language']);
-
-        foreach ($settings as $optionName => $optionValue) {
-            UserSetting::updateOrCreate(
-                ['user_id' => $user->id, 'option_name' => $optionName],
-                ['option_value' => $optionValue]
-            );
+        foreach ($settings as $option_name => $option_value) {
+            $this->user_setting->updatUserSetting($option_name, $option_value, $user->id );
         }
-
         return redirect()->back()->with('success', 'Settings updated successfully!');
     }
 
-    
-
-    public function verificationUpdate (Request $request) {
+    public function saveKycDocuments( Request $request ){
+        $user = Auth::user();
         $request->validate([
-            'nid_front' => 'required | image | mimes:jpg,png,jpeg',
-            'nid_back' => 'required | image | mimes:jpg,png,jpeg',
-            'proof_address' => 'required | image | mimes:jpg,png,jpeg',
-            'selfe' => 'required | image | mimes:jpg,png,jpeg',
+            'kyc_id_front' => 'required | image | mimes:jpg,png,jpeg',
+            'kyc_id_back' => 'required | image | mimes:jpg,png,jpeg',
+            'kyc_address_proof' => 'required | image | mimes:jpg,png,jpeg',
+            'kyc_selfie_proof' => 'required | image | mimes:jpg,png,jpeg',
         ]);
 
-        $path = 'uploads/';
+        $base_path = public_path('uploads/kyc_documents/');
+        $user_id = auth()->user()->id;
+        $user_folder_path = $base_path . $user->id . '/';
+        
+        if (!File::exists($user_folder_path)) {
+            File::makeDirectory($user_folder_path, 0755, true);
+        }
 
-        $file1 = $request->file('nid_front');
-        $fileName1 = time().'-nid_front.'.auth()->user()->id.'.'.$file1->getClientOriginalExtension();
-        $request->nid_front->move($path, $fileName1);
+        // upload kyc id front
+        $kyc_id_front_file = $request->file('kyc_id_front');
+        $kyc_id_front_file_name = time() . '-kyc_id_front.' . $user_id . '.' . $kyc_id_front_file->getClientOriginalExtension();
+        $kyc_id_front_file->move($user_folder_path, $kyc_id_front_file_name);
+        $this->user_setting->updatUserSetting('kyc_id_front', $kyc_id_front_file_name, $user->id );
 
-        $file2 = $request->file('nid_back');
-        $fileName2 = time().'-nid_back.'.auth()->user()->id.'.'.$file2->getClientOriginalExtension();
-        $request->nid_back->move($path, $fileName2);
+        // upload kyc id back
+        $kyc_id_back_file = $request->file('kyc_id_back');
+        $kyc_id_back_filename = time() . '-kyc_id_back.' . $user_id . '.' . $kyc_id_back_file->getClientOriginalExtension();
+        $kyc_id_back_file->move($user_folder_path, $kyc_id_back_filename);
+        $this->user_setting->updatUserSetting('kyc_id_back', $kyc_id_back_filename, $user->id );
+        
+        // upload kyc id back
+        $kyc_address_proof_file = $request->file('kyc_address_proof');
+        $kyc_address_proof_file_name = time() . '-kyc_address_proof.' . $user_id . '.' . $kyc_address_proof_file->getClientOriginalExtension();
+        $kyc_address_proof_file->move($user_folder_path, $kyc_address_proof_file_name);
+        $this->user_setting->updatUserSetting('kyc_address_proof', $kyc_address_proof_file_name, $user->id );
+        
+        // upload kyc id back
+        $kyc_selfie_proof_file = $request->file('kyc_selfie_proof');
+        $kyc_selfie_proof_file_name = time() . '-kyc_selfie_proof.' . $user_id . '.' . $kyc_selfie_proof_file->getClientOriginalExtension();
+        $kyc_selfie_proof_file->move($user_folder_path, $kyc_selfie_proof_file_name);
+        $this->user_setting->updatUserSetting('kyc_selfie_proof', $kyc_selfie_proof_file_name, $user->id );
 
-        $file3 = $request->file('proof_address');
-        $fileName3 = time().'-proof_address.'.auth()->user()->id.'.'.$file3->getClientOriginalExtension();
-        $request->proof_address->move($path, $fileName3);
-
-        $file4 = $request->file('selfe');
-        $fileName4 = time().'-selfe.'.auth()->user()->id.'.'.$file4->getClientOriginalExtension();
-        $request->selfe->move($path, $fileName4);
-
-        Identification::insert([
-            'user_id' => auth()->user()->id,
-            'nid_front' => $path.$fileName1,
-            'nid_back' => $path.$fileName2,
-            'proof_address' => $path.$fileName3,
-            'selfe' => $path.$fileName4,
-            'created_at' => Carbon::now()
-        ]);
-
-        return back()->with('success', 'Submited Successfully');
-
+        $user_verifications = UserVerifiedStatus::where('user_id', $user->id)
+                                                ->update(['kyc_verify_status' => 'pending']);
+    
+        return back()->with('success', 'Submited successfully for review');
     }
+
+    public function restoreAdmin(){
+        if (session()->has('admin_id')) {
+            $adminId = session('admin_id');
+            $admin = User::find($adminId);
+            if ($admin) {
+                Auth::login($admin); // Log back in as admin
+                session()->forget('admin_id'); // Remove the stored admin ID
+                return redirect()->route('admin.dashboard')->with('success', 'Restored to Admin session');
+            }
+        }
+        return redirect()->route('admin.dashboard')->with('error', 'Unable to restore Admin session.');
+    }
+
 }

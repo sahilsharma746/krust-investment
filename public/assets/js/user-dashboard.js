@@ -1,20 +1,3 @@
-//* common script for admin panel =======
-typeof NiceSelect !== 'undefined' &&
-    NiceSelect.bind &&
-    $.each($('select'), function (index, selector) {
-        const id = $(selector).attr('id');
-        const searchable = $(selector).attr('searchable');
-        const options = {
-            searchable: searchable == 'true' || false,
-            placeholder: 'select',
-            searchtext: 'Search',
-            selectedtext: 'geselecteerd',
-        };
-
-        NiceSelect.bind(document.getElementById(id), options);
-    });
-
-    
 
 window.addEventListener('load', function() {
     document.querySelectorAll('svg').forEach(function(svg) {
@@ -23,8 +6,6 @@ window.addEventListener('load', function() {
         svg.style.display = 'block';
     });
 });
-
-
 
 //* Navigation nav-tab script ===============
 document.addEventListener('click', function (e) {
@@ -287,7 +268,7 @@ $(document).on('keyup', '.search-input-group .search-input', function (e) {
 
 
 //* Chart JS start ==========================
-const chartOptions = {
+var chartOptions = {
     series: [
         {
             data: [

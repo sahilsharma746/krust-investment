@@ -55,11 +55,12 @@ class Deposit extends Model
        return Deposit::insert([
             'user_id' => $user_id,
             'getway_id' => $gateway_id,
-            'payment_method'=> 'Bonus',
+            'payment_method'=> 'admin',
             'amount' => $amount,
             'wallet_address' => '',
             'remarks' => $remarks,
             'status' => 'approved',
+            'deposit_by' => 'admin',
             'created_at' => Carbon::now()
         ]);
 

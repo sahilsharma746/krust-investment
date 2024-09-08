@@ -14,37 +14,58 @@
             <table id="all-user-table" class="all-user-table display">
                 <thead>
                     <tr>
+                        <th>ID</th>
+                        <th>User</th>
                         <th>Date/Time</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Getway</th>
                         <th>Amount</th>
+                        <th>Getway</th>
+                        <th>Address</th>
+                        <th>Remarks</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($datas as $data)
+                    @forelse ($withdrawls as $withdrawl)
                         <tr>
-                            <td>{{ Carbon\Carbon::parse($data->created_at)->format('d m, Y') }}</td>
-                            <td>{{ $data->user->name }}</td>
-                            <td>{{ $data->user->email }}</td>
-                            <td>{{ $data->getway->name }}</td>
-                            <td>${{ $data->amount }}</td>
-                            <td style="text-transform:capitalize">{{ $data->status }}</td>
+                            <td>{{ $withdrawl->id }}</td>
+                            <td>
+                                <p>{{ $withdrawl->first_name }} {{ $withdrawl->last_name }}</p>
+                                <p>{{ $withdrawl->email }}</p>
+                            </td>
+                            <td>{{ Carbon\Carbon::parse($withdrawl->created_at)->format('d m, Y') }}</td>
+                            <td>${{ $withdrawl->amount }}</td>
+                            <td>{{ $withdrawl->payment_method ?? 'N/A' }}</td> 
+                            <td>{{ $withdrawl->wallet_address ?? 'N/A' }}</td>
+                            <td>{{ $withdrawl->remarks ?? 'N/A' }}</td>
+                            @php
+                                $class = '';
+                                if( $withdrawl->status == 'approved' ) {
+                                    $class = 'text-success';
+                                }else if( $withdrawl->status == 'rejected' || $withdrawl->status == 'deleted' ) {
+                                    $class = 'text-danger';
+                                }else if( $withdrawl->status == 'pending' || $withdrawl->status == 'requested' ){
+                                    $class = 'text-warning';
+                                }
+                            @endphp
+
+                            <td class="{{$class}}" style="text-transform:capitalize">{{ $withdrawl->status }}</td>
                             <td>
                                 <div class="dropdown w-max">
                                     <a class="btn-dropdown">
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </a>
-
                                     <ul class="list-style-none dropdown-menu d-flex flex-column">
                                         <li class="dropdown-item">
-                                            @if ($data->status == 'pending')
-                                                <a class="btn" href="{{ route('admin.withdraw.approvedStatus', $data->id) }}">Approved</a>
-                                                <a class="btn" href="{{ route('admin.withdraw.rejectedStatus', $data->id) }}">Rejected</a>
+                                            @if($withdrawl->status != 'approved')
+                                                <a class="btn" href="{{ route('admin.withdraw.approved.status', $withdrawl->id) }}">Approve Withdrawl</a>
                                             @endif
-                                            <a class="btn" href="{{ route('admin.withdraw.delete', $data->id) }}">Delete</a>
+                                            @if($withdrawl->status != 'rejected')
+                                                <a class="btn" href="{{ route('admin.withdraw.rejected.status', $withdrawl->id) }}">Reject Withdrawl</a>
+                                            @endif
+                                            @if($withdrawl->status != 'deleted')
+                                                <a class="btn" href="{{ route('admin.withdraw.delete', $withdrawl->id) }}">Delete Withdrawl</a>
+                                            @endif
                                         </li>
                                     </ul>
                                 </div>
@@ -54,7 +75,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center" colspan="6">No data available</td>
+                            <td class="text-center" colspan="9">No data available</td>
                         </tr>
                     @endforelse
 

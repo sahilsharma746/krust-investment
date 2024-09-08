@@ -5,7 +5,7 @@
     </a>
     <ul class="nav-menu list-style-none scroll">
         <li>
-            <a class="active" href="{{ route('admin.dashboard') }}">
+            <a class="{{ Request::url() == route('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                 <span class="icon">
                     <img src="{{ asset('assets') }}/img/icon-menu-category.png">
                 </span>
@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.user.index') }}">
+            <a class="{{ Request::url() == route('admin.user.index') ? 'active' : '' }}" href="{{ route('admin.user.index') }}">
                 <span class="icon">
                     <i class="fa-regular fa-circle-user"></i>
                 </span>
@@ -21,7 +21,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.identyVerification.index') }}">
+            <a class="{{ Request::url() == route('admin.identyVerification.index') ? 'active' : '' }}" href="{{ route('admin.identyVerification.index') }}">
                 <span class="icon">
                     <i class="fa-regular fa-credit-card"></i>
                 </span>
@@ -29,7 +29,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.deposit.index') }}">
+            <a class="{{ Request::url() == route('admin.deposit.index') ? 'active' : '' }}" href="{{ route('admin.deposit.index') }}">
                 <span class="icon">
                     <i class="fa-regular fa-credit-card"></i>
                 </span>
@@ -37,15 +37,16 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.withdraw.index') }}">
+            <a class="{{ Request::url() == route('admin.withdraw.index') ? 'active' : '' }}" href="{{ route('admin.withdraw.index') }}">
                 <span class="icon">
                     <i class="fa-solid fa-landmark"></i>
                 </span>
                 <span class="name">Withdrawals</span>
             </a>
         </li>
+        
         <li>
-            <a href="./trades.html">
+            <a class="{{ Request::url() == route('admin.trades') ? 'active' : '' }}" href="{{ route('admin.trades') }}">
                 <span class="icon">
                     <i class="fa-solid fa-chart-line"></i>
                 </span>
@@ -53,7 +54,7 @@
             </a>
         </li>
         <li>
-            <a href="./assets.html">
+        <a class="{{ Request::url() == route('admin.assets') ? 'active' : '' }}" href="{{ route('admin.assets') }}">
                 <span class="icon">
                     <i class="fa-solid fa-money-bill-wave"></i>
                 </span>
@@ -61,7 +62,7 @@
             </a>
         </li>
         <li>
-            <a href="./software.html">
+        <a class="{{ Request::url() == route('admin.software') ? 'active' : '' }}" href="{{ route('admin.software') }}">
                 <span class="icon">
                     <i class="fa-solid fa-server"></i>
                 </span>
@@ -69,7 +70,7 @@
             </a>
         </li>
         <li>
-            <a href="./admin-settings.html">
+        <a class="{{ Request::url() == route('admin.general.settings') ? 'active' : '' }}" href="{{ route('admin.general.settings') }}">
                 <span class="icon">
                     <i class="fa-solid fa-gear"></i>
                 </span>
@@ -77,7 +78,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+            <a class="" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
                 <span class="icon">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 </span>

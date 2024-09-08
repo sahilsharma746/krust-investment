@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Identification extends Model
 {
     use HasFactory;
+    protected $table = 'identifications';
     protected $guarded = [];
 
     public function withUser() {

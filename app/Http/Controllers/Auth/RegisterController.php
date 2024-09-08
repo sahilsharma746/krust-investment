@@ -102,14 +102,20 @@ class RegisterController extends Controller
             'account_type' => $data['account_type'],
             'username' => $data['username'],
             'phone' => $data['phone'],
+            'avatar' => 'avatar.png',
             'referal_id' => $data['referal_id'],
         ]);
 
         UserVerifiedStatus::create([
             'user_id' => $user->id,
-            'kyc_verify_status' => 'pending',
-            'email_verify_status' => 'pending',
-            'phone_verify_status' => 'pending',
+            'kyc_verify_status' => 'unverified',
+            'email_verify_status' => 'verified',
+            'phone_verify_status' => 'verified',
+            '2fa_verify_status' => 0,
+            'kyc_id_front' => 0,
+            'kyc_id_back'=>0,
+            'kyc_address_proof'=>0,
+            'kyc_selfie_proof'=>0,
             'upgrade_prompt' => 0,
             'certificate_prompt'=>0,
             'identity_prompt'=>0,

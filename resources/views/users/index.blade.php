@@ -17,7 +17,7 @@
                     <div class="card d-grid g-4">
                         <div class="card-title">Total balance</div>
                         <div class="card-price d-flex align-items-center g-8">
-                            <img src="../assets/img/flag-eur.png" alt="Eur currency">
+                            <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
                             <div class="amount">${{ number_format(auth()->user()->balance) }}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-3 text-primary">
@@ -30,14 +30,14 @@
                     <div class="card d-grid g-4">
                         <div class="card-title">Total Deposit</div>
                         <div class="card-price d-flex align-items-center g-8">
-                            <img src="../assets/img/flag-eur.png" alt="Eur currency">
+                            <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
                             <div class="amount">${{ $full_data['total_deposit']}}</div>
                         </div>
                     </div>
                     <div class="card d-grid g-4">
                         <div class="card-title">Profitable Trades</div>
                         <div class="card-price d-flex align-items-center g-8">
-                            <img src="../assets/img/flag-eur.png" alt="Eur currency">
+                            <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
                             <div class="amount">0/0</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
@@ -51,7 +51,7 @@
             </div>
             <div class="company-trade-percentage-card-group d-grid">
                 <div class="card d-grid align-items-center">
-                    <img src="../assets/img/company-bitcoin_symbol.svg.png" alt="company logo">
+                    <img src="{{ asset('assets/img/company-bitcoin_symbol.svg.png') }}" alt="company logo">
                     <div class="card-title-area">
                         <div class="card-title">Bitcoin</div>
                         <div class="card-price">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="card d-grid align-items-center">
-                    <img src="../assets/img/company-apple-T.png" alt="company logo">
+                    <img src="{{ asset('assets/img/company-apple-T.png') }}" alt="company logo">
                     <div class="card-title-area">
                         <div class="card-title">Bitcoin</div>
                         <div class="card-price">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="card d-grid align-items-center">
-                    <img src="../assets/img/company-amazon.png" alt="company logo">
+                    <img src="{{ asset('assets/img/company-amazon.png') }}" alt="company logo">
                     <div class="card-title-area">
                         <div class="card-title">Amazon</div>
                         <div class="card-price">
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="card d-grid align-items-center">
-                    <img src="../assets/img/company-solana_symbol.svg.png" alt="company logo">
+                    <img src="{{ asset('assets/img/company-solana_symbol.svg.png') }}" alt="company logo">
                     <div class="card-title-area">
                         <div class="card-title">Solana</div>
                         <div class="card-price">
@@ -115,6 +115,72 @@
                     </div>
                 </div>
             </div>
+            <div class="company-trade-percentage-card-group d-grid">
+                    <div class="card d-grid align-items-center">
+                        <img src="{{ asset('assets/img/profit.png') }}" alt="company logo">
+                        <div class="card-title-area">
+                            <div class="card-title">Profit</div>
+                            <div class="card-price">
+                                <span>USD</span>
+                                <span class="amount">1,26,000</span>
+                            </div>
+                        </div>
+                        <div class="card-status d-flex align-items-center g-4 text-primary">
+                            <div class="percentage">17.5%</div>
+                            <span class="status">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card d-grid align-items-center">
+                        <img src="{{ asset('assets/img/loan.png') }}" alt="company logo">
+                        <div class="card-title-area">
+                            <div class="card-title">Loan</div>
+                            <div class="card-price">
+                                <span>USD</span>
+                                <span class="amount">5,000</span>
+                            </div>
+                        </div>
+                        <div class="card-status d-flex align-items-center g-4 text-danger">
+                            <div class="percentage">2.5%</div>
+                            <span class="status">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card d-grid align-items-center">
+                        <img src="{{ asset('assets/img/insurance.png') }}" alt="company logo">
+                        <div class="card-title-area">
+                            <div class="card-title">Insurance</div>
+                            <div class="card-price">
+                                <span>USD</span>
+                                <span class="amount">13,000</span>
+                            </div>
+                        </div>
+                        <div class="card-status d-flex align-items-center g-4 text-primary">
+                            <div class="percentage">3.9%</div>
+                            <span class="status">
+                                <i class="fa-solid fa-arrow-up"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card d-grid align-items-center">
+                        <img src="{{ asset('assets/img/credit.png') }}" alt="company logo">
+                        <div class="card-title-area">
+                            <div class="card-title">Credit</div>
+                            <div class="card-price">
+                                <span>USD</span>
+                                <span class="amount">1,200</span>
+                            </div>
+                        </div>
+                        <div class="card-status d-flex align-items-center g-4 text-danger">
+                            <div class="percentage">20%</div>
+                            <span class="status">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             <ul class="nav nav-tabs navigation-card-group list-style-none d-grid">
                 <li class="nav-item">
                     <a class="card d-grid align-items-center g-8" data-toggle="tab" href="#personal-information">
@@ -138,7 +204,6 @@
                     <a class="card d-grid align-items-center g-8" data-toggle="tab" href="#security-settings">
                         <div class="icon">
                             <i class="fa-solid fa-gear"></i>
-                            <!-- <img src="../assets/img/Icon-gear.png" alt="settings icon"> -->
                         </div>
                         <p>Security settings</p>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -157,7 +222,6 @@
                     <a class="card d-grid align-items-center g-8" data-toggle="tab" href="#live-chat-section">
                         <div class="icon">
                             <i class="fa-brands fa-rocketchat"></i>
-                            <!-- <img src="../assets/img/Icon-chat.png" alt=""> -->
                         </div>
                         <p>Live Chat</p>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -310,6 +374,8 @@
             </div>
         </section>
         <section id="account-verification" class="tab-pane in account-verification common-section">
+        <form action="{{ route('user.save.kyc') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="back-btn-area">
                 <ul class="nav nav-tabs list-style-none">
                     <li class="nav-item d-flex align-items-center g-15">
@@ -330,12 +396,12 @@
                     <!-- use $('.verification-status').attr "verified" for verify -->
                     <span class="icon d-flex justify-content-center align-items-center"><i
                             class="fa-solid fa-check"></i></span>
-                    <span class="status-text">Unverified</span>
+                    <span class="status-text">{{$full_data['user_verifications']->kyc_verify_status}}</span>
                 </p>
             </div>
             <div class="card common-card">
                 <div class="card-header">
-                    <div class="card-title">Profile Status: Unverified</div>
+                    <div class="card-title">Profile Status: {{ ucfirst( $full_data['user_verifications']->kyc_verify_status ) }}</div>
                 </div>
                 <div class="card-body d-grid">
                     <div class="input-group attach-file-input-group">
@@ -344,7 +410,7 @@
                             <label for="identification-front-id"
                                 class="attach-icon d-flex justify-content-between align-items-center w-100">
                                 <span type="placeholder">Upload ID card Front</span>
-                                <input id="identification-front-id" class="d-none" type="file">
+                                <input id="identification-front-id" class="d-none" name="{{ config('settingkeys.kyc_id_front') }}" type="file">
                                 <i class="fa-solid fa-link"></i>
                             </label>
                         </div>
@@ -355,7 +421,7 @@
                             <label for="identification-back-id"
                                 class="attach-icon d-flex justify-content-between align-items-center w-100">
                                 <span type="placeholder">Upload ID card back</span>
-                                <input id="identification-back-id" class="d-none" type="file"
+                                <input id="identification-back-id" class="d-none" name="{{ config('settingkeys.kyc_id_back') }}"  type="file"
                                     placeholder="Upload ID card back">
                                 <i class="fa-solid fa-link"></i>
                             </label>
@@ -367,7 +433,7 @@
                             <label for="user-proof-of-address"
                                 class="attach-icon d-flex justify-content-between align-items-center w-100">
                                 <span type="placeholder">Upload Proof Of Address</span>
-                                <input id="user-proof-of-address" class="d-none" type="file">
+                                <input id="user-proof-of-address" class="d-none" name="{{ config('settingkeys.kyc_address_proof') }}"  type="file">
                                 <i class="fa-solid fa-link"></i>
                             </label>
                         </div>
@@ -378,7 +444,7 @@
                             <label for="attach-user-selfie"
                                 class="attach-icon d-flex justify-content-between align-items-center w-100">
                                 <span type="placeholder">Upload Selfie</span>
-                                <input id="attach-user-selfie" class="d-none" type="file" accept="image/*"
+                                <input id="attach-user-selfie" class="d-none" type="file" name="{{ config('settingkeys.kyc_selfie_proof') }}"  accept="image/*"
                                     capture="environment">
                                 <i class="fa-solid fa-camera"></i>
                             </label>
@@ -386,7 +452,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="" class="btn btn-submit-identification w-max">Submit identification</a>
+                    <button type="submit" class="btn btn-submit-identification w-max">Submit identification</button>
                 </div>
             </div>
             <div class="card common-card">
@@ -396,8 +462,7 @@
                 <div class="card-footer check-files-valid-grid d-grid">
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>ID Front</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                            data-label="identification-front-id">
+                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
                             <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
@@ -405,8 +470,7 @@
                     </div>
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>ID Back</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                            data-label="identification-back-id">
+                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
                             <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
@@ -414,8 +478,7 @@
                     </div>
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>proof of address</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                            data-label="user-proof-of-address">
+                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
                             <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
@@ -423,8 +486,7 @@
                     </div>
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>upload selfie</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                            data-label="attach-user-selfie">
+                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
                             <!-- use $('.verification-status').attr "verified" for verify -->
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
@@ -432,6 +494,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </section>
         <section id="security-settings" class="tab-pane common-section in security-settings">
             <div class="back-btn-area">
@@ -488,42 +551,21 @@
                     <div class="card-body d-grid">
                         <div class="input-group">
                             <label class="form-label">Currency</label>
-                            <select class="form-control" name="dashboard_currency" id="dashboard-currency">
+                            <select class="form-control" name="dashboard_currency" searchable="true" id="dashboard-currency">
                                 @foreach ($full_data['currencies'] as $code => $name)
-                                    @php
-                                        $selected = '';
-
-                                        if (
-                                            isset($full_data['setting_info']['dashboard_currency']) &&
-                                            $full_data['setting_info']['dashboard_currency'] == $code
-                                        ) {
-                                            $selected = 'selected';
-                                        }
-                                    @endphp
-                                    <option value="{{ $code }}" {{ $selected }}>{{ $name }}</option>
+                                    <option value="{{ $code }}" {{ isset($full_data['setting_info']['dashboard_currency']) && $full_data['setting_info']['dashboard_currency'] == $code  ? 'selected' : '' }}>{{ $code }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="input-group">
                             <label class="form-label">Profile Language</label>
-                            <select class="form-control" name="profile_language" id="profile-language">
+                            <select class="form-control" name="profile_language" searchable="true" id="profile-language">
                                 @foreach ($full_data['languages'] as $code => $name)
-                                    @php
-                                        $selected = '';
-                                        if (
-                                            isset($full_data['setting_info']['profile_language']) &&
-                                            $full_data['setting_info']['profile_language'] == $code
-                                        ) {
-                                            $selected = 'selected';
-                                        }
-                                    @endphp
-                                    <option {{ $selected }} value="{{ $code }}">{{ $name }}</option>
+                                    <option {{ isset($full_data['setting_info']['profile_language']) && $full_data['setting_info']['profile_language'] == $code  ? 'selected' : '' }} value="{{ $code }}">{{ $name }}</option>
                                 @endforeach
                             </select>
                         </div>
-
-
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-update-lang-currancy w-max">Save changes</button>

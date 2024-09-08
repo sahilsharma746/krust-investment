@@ -9,50 +9,77 @@ use Illuminate\Http\Request;
 
 class AdminWithdrawController extends Controller
 {
-    public function index() {
-        $datas = Withdraw::with('getway', 'user')->latest()->get();
-        return view('admin.withdraw.index', compact('datas'));
+    public function getAllWithDrawls() {
+        $withdrawls = Withdraw::join('users', 'withdraws.user_id', '=', 'users.id')
+                        ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
+                        ->orderBy('withdraws.created_at', 'asc')
+                        ->get();
+        return view('admin.withdraw.index', compact('withdrawls'));
     }
-    public function pending() {
-        $datas = Withdraw::with('getway', 'user')->where('status', 'pending')->latest()->get();
-        return view('admin.withdraw.index', compact('datas'));
+    
+    public function getPendingWithDrawls() {
+        $withdrawls = Withdraw::join('users', 'withdraws.user_id', '=', 'users.id')
+                        ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
+                        ->where('withdraws.status', 'pending')
+                        ->orderBy('withdraws.created_at', 'asc')
+                        ->get();
+        return view('admin.withdraw.index', compact('withdrawls'));
     }
-    public function approved() {
-        $datas = Withdraw::with('getway', 'user')->where('status', 'approved')->latest()->get();
-        return view('admin.withdraw.index', compact('datas'));
+    
+    public function getApprovedWithDrawls() {
+        $withdrawls = Withdraw::join('users', 'withdraws.user_id', '=', 'users.id')
+                            ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
+                            ->where('withdraws.status', 'approved')
+                            ->orderBy('withdraws.created_at', 'asc')
+                            ->get();
+        return view('admin.withdraw.index', compact('withdrawls'));
     }
-    public function rejected() {
-        $datas = Withdraw::with('getway', 'user')->where('status', 'rejected')->latest()->get();
-        return view('admin.withdraw.index', compact('datas'));
+    
+    public function getRejectedWithDrawls() {
+        $withdrawls = Withdraw::join('users', 'withdraws.user_id', '=', 'users.id')
+                        ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
+                        ->where('withdraws.status', 'rejected')
+                        ->orWhere('withdraws.status', 'deleted')
+                        ->orderBy('withdraws.created_at', 'asc')
+                        ->get();
+        return view('admin.withdraw.index', compact('withdrawls'));
     }
-    public function approvedStatus($id) {
-        $data = Withdraw::where([['id', $id], ['status', 'pending']])->first();
-        if ($data) {
-            $data->update([
-                'status' => 'approved'
-            ]);
-        }
-        return back()->with('success', 'Updated Successfully');
-    }
-    public function rejectedStatus($id) {
-        $data = Withdraw::where([['id', $id], ['status', 'pending']])->first();
-        if ($data) {
-            $data->update([
-                'status' => 'rejected'
-            ]);
-        }
-
-        $user = User::where('id', $data->user_id)->first();
-        $user->increment('balance', $data->amount);
-        return back()->with('success', 'Updated Successfully');
-    }
-    public function delete($id) {
+    
+    public function approvedWithDrawlStatus($id) {
         $data = Withdraw::where('id', $id)->first();
-        if ($data->status == 'pending') {
-            $user = User::where('id', $data->user_id)->first();
+        $user = User::where('id', $data->user_id)->first();
+        if( $user->balance < $data->amount ){
+            return back()->with('error', 'User does not have sufficient balance.');
+        }
+        if ($data) {
+            $data->update([ 'status' => 'approved' ]);
+        }
+        $user->decrement('balance', $data->amount);
+        return back()->with('success', 'Updated Successfully');
+    }
+
+
+    public function rejectedWithDrawlStatus($id) {
+        $data = Withdraw::where('id', $id)->first();
+        $user = User::where('id', $data->user_id)->first();
+        if( $data->status == 'approved' ){
             $user->increment('balance', $data->amount);
         }
-        $data->delete();
+        if ($data) {
+            $data->update([  'status' => 'rejected' ]);
+        }
+        return back()->with('success', 'Updated Successfully');
+    }
+    
+    public function deleteWithDrawl($id) {
+        $data = Withdraw::where('id', $id)->first();
+        $user = User::where('id', $data->user_id)->first();
+        if( $data->status == 'approved' ){
+            $user->increment('balance', $data->amount);
+        }
+        if ($data) {
+            $data->update([  'status' => 'deleted' ]);
+        }
         return back()->with('success', 'Updated Successfully');
     }
 }

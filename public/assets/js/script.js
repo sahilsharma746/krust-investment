@@ -55,20 +55,20 @@ $(document).ready(function () {
         }
     });
 
-    typeof NiceSelect !== 'undefined' &&
-        NiceSelect.bind &&
-        $.each($('select'), function (index, selector) {
-            const id = $(selector).attr('id');
-            const searchable = $(selector).attr('searchable');
-            const options = {
-                searchable: searchable == 'true' || false,
-                placeholder: 'select',
-                searchtext: 'Search',
-                selectedtext: 'geselecteerd',
-            };
+    // typeof NiceSelect !== 'undefined' &&
+    //     NiceSelect.bind &&
+    //     $.each($('select'), function (index, selector) {
+    //         const id = $(selector).attr('id');
+    //         const searchable = $(selector).attr('searchable');
+    //         const options = {
+    //             searchable: searchable == 'true' || false,
+    //             placeholder: 'select',
+    //             searchtext: 'Search',
+    //             selectedtext: 'geselecteerd',
+    //         };
 
-            NiceSelect.bind(document.getElementById(id), options);
-        });
+    //         NiceSelect.bind(document.getElementById(id), options);
+    //     });
 
     $(document).on('click', '.faq-section .btn-collapse', function () {
         $(this)

@@ -11,7 +11,7 @@ class UserTradeController extends Controller
 
     public function index() {
     
-        return view('users.marketWatch.index');
+        return view('users.trade.index');
     
     }
 

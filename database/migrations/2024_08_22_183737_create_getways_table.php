@@ -17,6 +17,8 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('tab_id');
                 $table->string('address');
+                $table->string('address_setting_key')->nullable();
+                $table->string('address_tag_setting_key')->nullable();
                 $table->string('deposit')->default('yes');
                 $table->string('withdraw')->default('yes');
                 $table->string('logo');

@@ -84,15 +84,20 @@ $(document).ready(function () {
             opacity: 0.5,
         });
     };
-    const tableAllUserTable = new DataTable('#all-user-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="all-user-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
+
+
+    if( jQuery('#all-user-table-no-data').length != 0 ) {
+        const tableAllUserTable = new DataTable('#all-user-table', {
+            initComplete: function () {
+                // Access the search input field and set a placeholder
+                const searchInput = document.querySelector(
+                    '[type="search"][aria-controls="all-user-table"]',
+                );
+                if (searchInput) searchInputFormControl(searchInput);
+            },
+        });
+    }
+
 
     const tableLoginHistoryTable = new DataTable('#login-history-table', {
         initComplete: function () {
@@ -143,24 +148,6 @@ $(document).ready(function () {
             if (searchInput) searchInputFormControl(searchInput);
         },
     });
-
-    //* Nice selector-2 script start ==========
-    typeof NiceSelect !== 'undefined' &&
-        NiceSelect.bind &&
-        $.each($('select:not(.dt-input)'), function (index, selector) {
-            const id = $(selector).attr('id');
-            const searchable = $(selector).attr('searchable');
-            const options = {
-                searchable: searchable == 'true' || false,
-                placeholder: 'select',
-                searchtext: 'Search',
-                selectedtext: 'geselecteerd',
-            };
-
-            NiceSelect.bind(document.getElementById(id), options);
-        });
-
-    //* Nice selector-2 script end ==========
 
     $(document).on('click', '.notification-card .btn-delete', function () {
         $(this)

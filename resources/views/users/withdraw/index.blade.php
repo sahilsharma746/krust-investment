@@ -1,7 +1,4 @@
 @extends('users.layouts.app_user')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
-@endsection
 @section('content')
     <article class="tab-content trade-article">
         <section id="payment-method-and-history" class="tab-pane common-section in active payment-method-and-history">
@@ -26,7 +23,7 @@
                                     <select class="form-control small" id="userWithdrawalMethod" searchable="false" name="getway">
                                         <option value="">Select Method</option>
                                         @foreach ($getways as $getway)
-                                            <option value="{{ $getway->id }}">{{ $getway->name }}</option>
+                                            <option value="{{ $getway->id }}">{{ ucfirst(strtolower($getway->name));  }}</option>
                                         @endforeach
                                     </select>
                                     @error('getway')
@@ -49,13 +46,13 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a data-toggle="modal" href="#withDrawRequestModal"
-                                    class="btn btn-request-withdrawal w-max">Request Withdrawal</a>
-                                <p class="support-text">For other payment methods please <a href="">Contact Support</a>
+                                <a data-toggle="modal" href="#withDrawRequestModal" class="btn btn-request-withdrawal w-max">Request Withdrawal</a>
+                                <p class="support-text">For other payment methods please <a href="{{ route('frontend.contact') }}">Contact Support</a>
                                 </p>
                             </div>
                         </div>
                     </div>
+
                     <div id="withDrawRequestModal" class="modal withDrawRequestModal">
                         <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
                             <div class="modal-body text-center">
@@ -70,34 +67,36 @@
                     </div>
                 </form>
 
-
-
-                <div class="area-title">Transaction History</div>
+                <div class="area-title">Withdrawal History</div>
                 <div class="withdraw-table-area table-area scroll">
                     <table class="withdraw-table w-100">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
-                                <th>Method</th>
+                                <th>Payment Method</th>
+                                <th>Wallet Address</th>
+                                <th>Address tag</th>
+                                <th>Remarks</th>
                                 <th>Amount</th>
                                 <th style="width: 140px;">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($datas as $data)
+                            @forelse ($withdrawals as $withdrawal)
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
-                                    <td>{{ Carbon\Carbon::parse($data->created_at)->format('d-m-y') }}</td>
-                                    <td>{{ $data->getway->name }}</td>
-                                    <td>${{ $data->amount }}</td>
-
-
-                                    @if ($data->status == 'pending')
+                                    <td>{{ Carbon\Carbon::parse($withdrawal->created_at)->format('F j, Y') }}</td>
+                                    <td>{{ $withdrawal->payment_method ? $withdrawal->payment_method : 'NA' }}</td>
+                                    <td>{{ $withdrawal->wallet_address ? $withdrawal->wallet_address : 'NA' }}</td>
+                                    <td>{{ $withdrawal->address_tag ? $withdrawal->address_tag : 'NA' }}</td>
+                                    <td>{{ $withdrawal->remarks ? $withdrawal->remarks : 'NA' }}</td>
+                                    <td>${{ $withdrawal->amount }}</td>
+                                    @if ($withdrawal->status == 'pending')
                                         <td isConfirmed="false" style="text-transform:capitalize;">pending</td>
-                                    @elseif($data->status == 'approved')
+                                    @elseif($withdrawal->status == 'approved')
                                         <td isConfirmed="true" style="text-transform:capitalize;">approved</td>
-                                    @elseif($data->status == 'rejected')
+                                    @elseif($withdrawal->status == 'rejected')
                                         <td style="text-transform:capitalize; color:red; background:#a21a1a1a;">rejected</td>
                                     @endif
                                 </tr>
@@ -112,8 +111,4 @@
             </div>
         </section>
     </article>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
 @endsection

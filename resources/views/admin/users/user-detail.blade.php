@@ -131,7 +131,6 @@
     background-color: #3AA31A; /* Darker blue on hover */
 }
 
-
 </style>
 @endsection
 @section('content')
@@ -155,7 +154,7 @@
                 <span>{{$full_data['user_data']['first_name']}} {{$full_data['user_data']['last_name']}}</span>
             </div>
             <div class="btn-area">
-                <a href="javascript:void(0)" class="btn btn-login-as-user">Log in As User</a>
+                <a href="{{ route('admin.login-as-user', $full_data['user_data']['id']) }}" class="btn btn-login-as-user">Log in As User</a>
                 <div class="dropdown w-max">
                     <a class="btn btn-dropdown">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -176,9 +175,6 @@
                         <li class="dropdown-item">
                             <a class="btn btn-default text-danger" style="text-decoration: line-through;">View
                                 Password</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a class="btn btn-default" href="">Turn On/Off Verified</a>
                         </li>
                         <li class="dropdown-item">
                             <a class="btn btn-default" href="">Turn On/Off Upgrade Prompt</a>
@@ -202,9 +198,6 @@
                 </div>
             </div>
         </div>
-      
-
-
         <section class="user-preview-section">
             <div class="section-article user-balance-controllers">
                 <a href="javascript:void(0)" class="card">
@@ -374,10 +367,10 @@
                         <label class="form-label">Address</label>
                         <input class="form-control" type="text" value="{{$full_data['user_address']['zipcode']}}" placeholder="Enter Address">
                     </div>
-                    <div class="input-group grid-column-lg-2">
+                    <!-- <div class="input-group grid-column-lg-2">
                         <label class="form-label">user password</label>
                         <input class="form-control" type="text" value="{{$full_data['user_data']['password']}}" placeholder="Enter user password">
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -389,9 +382,7 @@
                 <div class="card-body check-files-valid-grid d-grid">
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>Email</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                            verified>
-                            <!-- use $('.verification-status').attr "verified" for verify -->
+                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5" {{ isset($full_data['verification_prompts_permissions_data']['email_verify_status']) && $full_data['verification_prompts_permissions_data']['email_verify_status'] == 'verified' ? 'verified'  : '' }}>
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
@@ -399,8 +390,7 @@
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>Phone number</p>
                         <p
-                            class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
+                            class="document-verification-status d-flex justify-content-center align-items-center g-5" {{ isset($full_data['verification_prompts_permissions_data']['phone_verify_status']) && $full_data['verification_prompts_permissions_data']['phone_verify_status'] == 'verified' ? 'verified'  : '' }}>
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
@@ -408,7 +398,7 @@
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>2FA Verification</p>
                         <p
-                            class="document-verification-status d-flex justify-content-center align-items-center g-5">
+                            class="document-verification-status d-flex justify-content-center align-items-center g-5" {{ isset($full_data['verification_prompts_permissions_data']['2fa_verify_status']) && $full_data['verification_prompts_permissions_data']['2fa_verify_status'] == 'verified' ? 'verified'  : '' }}>
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
@@ -416,13 +406,127 @@
                     <div class="card d-flex justify-content-between align-items-center">
                         <p>KYC</p>
                         <p
-                            class="document-verification-status d-flex justify-content-center align-items-center g-5">
+                            class="document-verification-status d-flex justify-content-center align-items-center g-5" {{ isset($full_data['verification_prompts_permissions_data']['kyc_verify_status']) && $full_data['verification_prompts_permissions_data']['kyc_verify_status'] == 'verified' ? 'verified'  : '' }}>
                             <span class="icon d-flex justify-content-center align-items-center"><i
                                     class="fa-solid fa-check"></i></span>
                         </p>
                     </div>
                 </div>
             </div>
+
+            <div class="section-title">KYC Verification</div>
+                <div class="card check-files-valid-area">
+                    <div class="card-header">
+                        <div class="verified-qty">3/4 Uploaded</div>
+                    </div>
+                    <div class="card-body check-files-valid-grid kyc-grid d-grid">
+                        <div class="card">
+                            <div class="border">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <div class="icon"><i class="fa-solid fa-paperclip"></i></div>
+                                        <p>ID Front</p>
+                                    </div>
+                                    <div class="card-icons">
+                                        <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                        <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                            verified>
+                                            <!-- use $('.verification-status').attr "verified" for verify -->
+                                            <span class="icon d-flex justify-content-center align-items-center"><i
+                                                    class="fa-solid fa-check"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <img src="{{ asset('assets/img/id-card-demo.png') }}" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn btn-decline">Decline</a>
+                                <a href="" class="btn btn-approve">approve</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="border">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <div class="icon"><i class="fa-solid fa-paperclip"></i></div>
+                                        <p>Proof Of Address</p>
+                                    </div>
+                                    <div class="card-icons">
+                                        <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                        <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                            verified>
+                                            <!-- use $('.verification-status').attr "verified" for verify -->
+                                            <span class="icon d-flex justify-content-center align-items-center"><i
+                                                    class="fa-solid fa-check"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <img src="{{ asset('assets/img/address-demo.png') }}" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn btn-decline">Decline</a>
+                                <a href="" class="btn btn-approve">approve</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="border">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <div class="icon"><i class="fa-solid fa-paperclip"></i></div>
+                                        <p>ID Back</p>
+                                    </div>
+                                    <div class="card-icons">
+                                        <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                        <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                            verified>
+                                            <!-- use $('.verification-status').attr "verified" for verify -->
+                                            <span class="icon d-flex justify-content-center align-items-center"><i
+                                                    class="fa-solid fa-check"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <img src="{{ asset('assets/img/id-card-demo.png') }}" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn btn-decline">Decline</a>
+                                <a href="" class="btn btn-approve">approve</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="border">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <div class="icon"><i class="fa-solid fa-paperclip"></i></div>
+                                        <p>Selfie</p>
+                                    </div>
+                                    <div class="card-icons">
+                                        <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                        <div
+                                            class="document-verification-status d-flex justify-content-center align-items-center g-5">
+                                            <!-- use $('.verification-status').attr "verified" for verify -->
+                                            <span class="icon d-flex justify-content-center align-items-center"><i
+                                                    class="fa-solid fa-check"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <img src="{{ asset('assets/img/selfie-demo.png') }}" class="card-img">
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn btn-decline">Decline</a>
+                                <a href="" class="btn btn-approve">approve</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             <div class="section-title">Prompts & Permissions</div>
             
@@ -482,40 +586,59 @@
 
             <div class="section-title">Payment Information</div>
             <div class="card common-card">
+            <form action= "{{ route('admin.user.payments', $full_data['user_data']->id) }}" method="POST">
+            @csrf
                 <div class="card-body">
-                    <div class="input-group">
-                        <label class="form-label">Bitcoin Address</label>
-                        <input class="form-control" type="text" placeholder="Enter Bitcoin Address">
+                        <div class="input-group">
+                            <label class="form-label">Bitcoin Address</label>
+                            <input class="form-control" type="text" name="{{ config('settingkeys.bitcoin_address_key') }}" value="{{ isset($full_data['user_settings'][config('settingkeys.bitcoin_address_key')]) ? $full_data['user_settings'][config('settingkeys.bitcoin_address_key')] : '' }}" placeholder="Enter Bitcoin Address">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Bitcoin Address Tag</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.bitcoin_address_tag_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.bitcoin_address_tag_key')]) ? $full_data['user_settings'][config('settingkeys.bitcoin_address_tag_key')] : '' }}" placeholder="Enter Bitcoin Address Tag">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">USDT Address</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.usdt_address_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.usdt_address_key')]) ? $full_data['user_settings'][config('settingkeys.usdt_address_key')] : '' }}" placeholder="Enter USDT Address">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">USDT Address Tag</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.usdt_address_tag_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.usdt_address_tag_key')]) ? $full_data['user_settings'][config('settingkeys.usdt_address_tag_key')] : '' }}" placeholder="Enter USDT Address Tag">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">XMR Address</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.xmr_address_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.xmr_address_key')]) ? $full_data['user_settings'][config('settingkeys.xmr_address_key')] : '' }}" placeholder="Enter XMR Address">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">XMR Address Tag</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.xmr_address_tag_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.xmr_address_tag_key')]) ? $full_data['user_settings'][config('settingkeys.xmr_address_tag_key')] : '' }}" placeholder="Enter XMR Address Tag">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Paypal Tag</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.paypal_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.paypal_key')]) ? $full_data['user_settings'][config('settingkeys.paypal_key')] : '' }}" placeholder="Enter Paypal Tag">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Bank</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.bank_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.bank_key')]) ? $full_data['user_settings'][config('settingkeys.bank_key')] : '' }}" placeholder="Enter Bank">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Account Type</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.account_type_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.account_type_key')]) ? $full_data['user_settings'][config('settingkeys.account_type_key')] : '' }}" placeholder="Account Type">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Account Number</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.account_number_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.account_number_key')]) ? $full_data['user_settings'][config('settingkeys.account_number_key')] : '' }}" placeholder="Enter Account text">
+                        </div>
+                        <div class="input-group">
+                            <label class="form-label">Sort Code</label>
+                            <input class="form-control" type="text" name="{{config('settingkeys.sort_code_key')}}" value="{{ isset($full_data['user_settings'][config('settingkeys.sort_code_key')]) ? $full_data['user_settings'][config('settingkeys.sort_code_key')] : '' }}" placeholder="Enter Sort Code">
+                        </div>
+                        <br>
+                        <div class="">
+                            <button type="submit" class="btn btn-primary btn-sm"> Save Payment Info </button>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label class="form-label">USDT Address</label>
-                        <input class="form-control" type="text" placeholder="Enter USDT Address">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">XMR Address</label>
-                        <input class="form-control" type="text" placeholder="Enter XMR Address">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">Paypal Tag</label>
-                        <input class="form-control" type="text" placeholder="Enter Paypal Tag">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">Bank</label>
-                        <input class="form-control" type="text" placeholder="Enter Bank">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">Account Type</label>
-                        <input class="form-control" type="text" placeholder="Account Type">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">Account Number</label>
-                        <input class="form-control" type="text" placeholder="Enter Account text">
-                    </div>
-                    <div class="input-group">
-                        <label class="form-label">Sort Code</label>
-                        <input class="form-control" type="text" placeholder="Enter Sort Code">
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
     </div>

@@ -20,9 +20,9 @@ return new class extends Migration
                 $table->string('wallet_address');
                 $table->string('address_tag');
                 $table->float('amount');
-                $table->string('address');
-                $table->string('remarks');
-                $table->enum('status', array('pending', 'approved', 'rejected' ,'requested'))->default('pending');
+                $table->string('remarks')->nullable();
+                $table->enum('status', array('pending', 'approved', 'rejected' ,'deleted'))->default('pending');
+                $table->string('withdrawl_by')->nullable();
                 $table->timestamps();
             });
         }

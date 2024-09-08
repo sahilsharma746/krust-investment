@@ -21,8 +21,9 @@ return new class extends Migration
                 $table->string('address_tag')->nullable();
                 $table->float('amount');
                 $table->string('receipt')->nullable(); // Make receipt nullable
-                $table->enum('status', ['pending', 'approved', 'rejected','requested'])->default('pending');
+                $table->enum('status', ['pending', 'approved', 'rejected','requested', 'deleted'])->default('pending');
                 $table->string('remarks')->nullable();
+                $table->string('deposit_by')->nullable();
                 $table->timestamps();
             });
         }

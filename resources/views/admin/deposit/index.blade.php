@@ -1,7 +1,4 @@
 @extends('admin.layouts.app_admin')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
-@endsection
 @section('content')
 <main class="main-area">
     <div class="container manage-user-container">
@@ -14,64 +11,71 @@
             <table id="all-user-table" class="all-user-table display">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Date/Time</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
+                        <th>User</th>
+                        <!-- <th>Email</th> -->
                         <th>Getway</th>
                         <th>Amount</th>
-                        <th>Receipt</th>
+                        <th>Remarks</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($datas as $data)
+                    @forelse ($deposits as $deposit)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d M, Y ') }}</td>
-                            <td>{{ $data->first_name }} {{ $data->last_name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td>{{ $data->payment_method ?? 'N/A' }}</td> 
-                            <td>${{ number_format($data->amount, 2) }}</td>
-             <td>                                {{-- <a target="_blank" href="{{ asset($data->receipt) }}">View Receipt</a> --}}
-                <a target="_blank" href="{{ asset('uploads/Deposit_Receipt/' . $data->user_id . '/' . basename($data->receipt)) }}">View Receipt</a>
-
-
+                            <td>{{ $deposit->id }}</td>
+                            <td>{{ \Carbon\Carbon::parse($deposit->created_at)->format('d M, Y ') }}</td>
+                            <td>
+                                <p>{{ $deposit->first_name }} {{ $deposit->last_name }}</p>
+                                <p>{{ $deposit->email }}</p>
                             </td>
-                            <td style="text-transform:capitalize">{{ $data->status }}</td>
+                            <td>{{ $deposit->payment_method ?? 'N/A' }}</td> 
+                            <td>${{ number_format($deposit->amount, 2) }}</td>
+                            <td>{{ $deposit->remarks ?? 'N/A' }}</td> 
+                            @php
+                                $class = '';
+                                if( $deposit->status == 'approved' ) {
+                                    $class = 'text-success';
+                                }else if( $deposit->status == 'rejected' || $deposit->status == 'deleted' ) {
+                                    $class = 'text-danger';
+                                }else if( $deposit->status == 'pending' || $deposit->status == 'requested' ){
+                                    $class = 'text-warning';
+                                }
+                            @endphp
+                            <td class="{{$class}}" style="text-transform:capitalize">{{ $deposit->status }}</td>
                             <td>
                                 <div class="dropdown w-max">
                                     <a class="btn-dropdown">
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                     </a>
-
                                     <ul class="list-style-none dropdown-menu d-flex flex-column">
                                         <li class="dropdown-item">
-                                            @if ($data->status == 'pending')
-                                                <a class="btn" href="{{ route('admin.deposit.approvedStatus', $data->id) }}">Approved</a>
-                                                <a class="btn" href="{{ route('admin.deposit.rejectedStatus', $data->id) }}">Rejected</a>
+                                            @if($deposit->status != 'approved')
+                                                <a class="btn" href="{{ route('admin.deposit.approved.status', $deposit->id) }}">Approve Deposit</a>
                                             @endif
-                                            <a class="btn" href="{{ route('admin.deposit.delete', $data->id) }}">Delete</a>
+                                            @if($deposit->status != 'rejected')
+                                                <a class="btn" href="{{ route('admin.deposit.rejected.status', $deposit->id) }}">Reject Deposit</a>
+                                            @endif
+                                            @if($deposit->status != 'deleted')
+                                                <a class="btn" href="{{ route('admin.deposit.delete', $deposit->id) }}">Delete Deposit</a>
+                                            @endif
+                                            <a class="btn" target="_blank" href="{{ asset('uploads/deposit_receipt/' . $deposit->user_id . '/' . basename($deposit->receipt)) }}">View Recipt</a>
+                                            <a class="btn" href="{{ route('admin.deposit.download', $deposit->id) }}">Download Recipt</a>
                                         </li>
                                     </ul>
                                 </div>
-
-
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td class="text-center" colspan="6">No data available</td>
+                        <tr class="all-user-table-no-data">
+                            <td class="text-center" colspan="8">No data available</td>
                         </tr>
                     @endforelse
-
                 </tbody>
             </table>
         </section>
     </div>
-
-
 </main>
-@endsection
-@section('scripts')
-    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 @endsection
