@@ -19,10 +19,10 @@ return new class extends Migration
                 $table->enum('email_verify_status', ['pending', 'verified', 'rejected']);
                 $table->enum('phone_verify_status', ['pending', 'verified', 'rejected']);
                 $table->tinyInteger('2fa_verify_status')->comment('0=no, 1=yes');
-                $table->tinyInteger('kyc_id_front')->comment('0=no, 1=yes');
-                $table->tinyInteger('kyc_id_back')->comment('0=no, 1=yes');
-                $table->tinyInteger('kyc_address_proof')->comment('0=no, 1=yes');
-                $table->tinyInteger('kyc_selfie_proof')->comment('0=no, 1=yes');
+                $table->tinyInteger('kyc_id_front')->comment('0=no, 1=user_uploaded, 2=approve , 3=reject');                
+                $table->tinyInteger('kyc_id_back')->comment('0=no,1=user_uploaded, 2=approve , 3=reject');
+                $table->tinyInteger('kyc_address_proof')->comment('0=no, 1=user_uploaded, 2=approve , 3=reject');
+                $table->tinyInteger('kyc_selfie_proof')->comment('0=no, 1=user_uploaded, 2=approve , 3=reject');
                 $table->tinyInteger('upgrade_prompt')->comment('0=no, 1=yes');
                 $table->tinyInteger('certificate_prompt')->comment('0=no, 1=yes');
                 $table->tinyInteger('identity_prompt')->comment('0=no, 1=yes');

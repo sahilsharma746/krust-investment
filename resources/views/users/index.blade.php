@@ -31,7 +31,7 @@
                         <div class="card-title">Total Deposit</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
-                            <div class="amount">${{ $full_data['total_deposit']}}</div>
+                            <div class="amount">${{ $full_data['total_deposit'] }}</div>
                         </div>
                     </div>
                     <div class="card d-grid g-4">
@@ -116,71 +116,71 @@
                 </div>
             </div>
             <div class="company-trade-percentage-card-group d-grid">
-                    <div class="card d-grid align-items-center">
-                        <img src="{{ asset('assets/img/profit.png') }}" alt="company logo">
-                        <div class="card-title-area">
-                            <div class="card-title">Profit</div>
-                            <div class="card-price">
-                                <span>USD</span>
-                                <span class="amount">1,26,000</span>
-                            </div>
-                        </div>
-                        <div class="card-status d-flex align-items-center g-4 text-primary">
-                            <div class="percentage">17.5%</div>
-                            <span class="status">
-                                <i class="fa-solid fa-arrow-up"></i>
-                            </span>
+                <div class="card d-grid align-items-center">
+                    <img src="{{ asset('assets/img/profit.png') }}" alt="company logo">
+                    <div class="card-title-area">
+                        <div class="card-title">Profit</div>
+                        <div class="card-price">
+                            <span>USD</span>
+                            <span class="amount">1,26,000</span>
                         </div>
                     </div>
-                    <div class="card d-grid align-items-center">
-                        <img src="{{ asset('assets/img/loan.png') }}" alt="company logo">
-                        <div class="card-title-area">
-                            <div class="card-title">Loan</div>
-                            <div class="card-price">
-                                <span>USD</span>
-                                <span class="amount">5,000</span>
-                            </div>
-                        </div>
-                        <div class="card-status d-flex align-items-center g-4 text-danger">
-                            <div class="percentage">2.5%</div>
-                            <span class="status">
-                                <i class="fa-solid fa-arrow-down"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card d-grid align-items-center">
-                        <img src="{{ asset('assets/img/insurance.png') }}" alt="company logo">
-                        <div class="card-title-area">
-                            <div class="card-title">Insurance</div>
-                            <div class="card-price">
-                                <span>USD</span>
-                                <span class="amount">13,000</span>
-                            </div>
-                        </div>
-                        <div class="card-status d-flex align-items-center g-4 text-primary">
-                            <div class="percentage">3.9%</div>
-                            <span class="status">
-                                <i class="fa-solid fa-arrow-up"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card d-grid align-items-center">
-                        <img src="{{ asset('assets/img/credit.png') }}" alt="company logo">
-                        <div class="card-title-area">
-                            <div class="card-title">Credit</div>
-                            <div class="card-price">
-                                <span>USD</span>
-                                <span class="amount">1,200</span>
-                            </div>
-                        </div>
-                        <div class="card-status d-flex align-items-center g-4 text-danger">
-                            <div class="percentage">20%</div>
-                            <span class="status">
-                                <i class="fa-solid fa-arrow-down"></i>
-                            </span>
-                        </div>
+                    <div class="card-status d-flex align-items-center g-4 text-primary">
+                        <div class="percentage">17.5%</div>
+                        <span class="status">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </span>
                     </div>
                 </div>
+                <div class="card d-grid align-items-center">
+                    <img src="{{ asset('assets/img/loan.png') }}" alt="company logo">
+                    <div class="card-title-area">
+                        <div class="card-title">Loan</div>
+                        <div class="card-price">
+                            <span>USD</span>
+                            <span class="amount">5,000</span>
+                        </div>
+                    </div>
+                    <div class="card-status d-flex align-items-center g-4 text-danger">
+                        <div class="percentage">2.5%</div>
+                        <span class="status">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="card d-grid align-items-center">
+                    <img src="{{ asset('assets/img/insurance.png') }}" alt="company logo">
+                    <div class="card-title-area">
+                        <div class="card-title">Insurance</div>
+                        <div class="card-price">
+                            <span>USD</span>
+                            <span class="amount">13,000</span>
+                        </div>
+                    </div>
+                    <div class="card-status d-flex align-items-center g-4 text-primary">
+                        <div class="percentage">3.9%</div>
+                        <span class="status">
+                            <i class="fa-solid fa-arrow-up"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="card d-grid align-items-center">
+                    <img src="{{ asset('assets/img/credit.png') }}" alt="company logo">
+                    <div class="card-title-area">
+                        <div class="card-title">Credit</div>
+                        <div class="card-price">
+                            <span>USD</span>
+                            <span class="amount">1,200</span>
+                        </div>
+                    </div>
+                    <div class="card-status d-flex align-items-center g-4 text-danger">
+                        <div class="percentage">20%</div>
+                        <span class="status">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
             <ul class="nav nav-tabs navigation-card-group list-style-none d-grid">
                 <li class="nav-item">
                     <a class="card d-grid align-items-center g-8" data-toggle="tab" href="#personal-information">
@@ -373,129 +373,171 @@
                 </form>
             </div>
         </section>
+
+
+
         <section id="account-verification" class="tab-pane in account-verification common-section">
-        <form action="{{ route('user.save.kyc') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="back-btn-area">
-                <ul class="nav nav-tabs list-style-none">
-                    <li class="nav-item d-flex align-items-center g-15">
-                        <a class="btn-tab d-flex align-items-center g-15" data-toggle="tab" href="#admin-account-grid">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            <span class="text">Account</span>
-                        </a>
-                        <p class="section-name d-flex g-15">
-                            <span>/</span>
-                            <span>Verification</span>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-            <div class="area-title d-flex justify-content-between">
-                <h3>Identification</h3>
-                <p class="verification-status d-flex align-items-center g-5">
-                    <!-- use $('.verification-status').attr "verified" for verify -->
-                    <span class="icon d-flex justify-content-center align-items-center"><i
-                            class="fa-solid fa-check"></i></span>
-                    <span class="status-text">{{$full_data['user_verifications']->kyc_verify_status}}</span>
-                </p>
-            </div>
-            <div class="card common-card">
-                <div class="card-header">
-                    <div class="card-title">Profile Status: {{ ucfirst( $full_data['user_verifications']->kyc_verify_status ) }}</div>
+            <form action="{{ route('user.save.kyc') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="back-btn-area">
+                    <ul class="nav nav-tabs list-style-none">
+                        <li class="nav-item d-flex align-items-center g-15">
+                            <a class="btn-tab d-flex align-items-center g-15" data-toggle="tab"
+                                href="#admin-account-grid">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <span class="text">Account</span>
+                            </a>
+                            <p class="section-name d-flex g-15">
+                                <span>/</span>
+                                <span>Verification</span>
+                            </p>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-body d-grid">
-                    <div class="input-group attach-file-input-group">
-                        <label class="form-label">Upload ID Front</label>
-                        <div class="form-control">
-                            <label for="identification-front-id"
-                                class="attach-icon d-flex justify-content-between align-items-center w-100">
-                                <span type="placeholder">Upload ID card Front</span>
-                                <input id="identification-front-id" class="d-none" name="{{ config('settingkeys.kyc_id_front') }}" type="file">
-                                <i class="fa-solid fa-link"></i>
-                            </label>
+                <div class="area-title d-flex justify-content-between">
+                    <h3>Identification</h3>
+                    <p class="verification-status d-flex align-items-center g-5">
+                        <!-- use $('.verification-status').attr "verified" for verify -->
+                        <span class="icon d-flex justify-content-center align-items-center"><i
+                                class="fa-solid fa-check"></i></span>
+                        <span class="status-text">{{ $full_data['user_verifications']->kyc_verify_status }}</span>
+                    </p>
+                </div>
+                <div class="card common-card">
+                    <div class="card-header">
+                        <div class="card-title">Profile Status:
+                            {{ ucfirst($full_data['user_verifications']->kyc_verify_status) }}</div>
+                    </div>
+                    <div class="card-body d-grid">
+                        <!-- Upload ID Front -->
+                        <div class="input-group attach-file-input-group">
+                            <label class="form-label">Upload ID Front</label>
+                            <div class="form-control">
+                                <label for="identification-front-id"
+                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                    <span type="placeholder">Upload ID card Front</span>
+                                    <input id="identification-front-id" class="d-none"
+                                        name="{{ config('settingkeys.kyc_id_front') }}" type="file">
+                                    <i class="fa-solid fa-link"></i>
+                                </label>
+                            </div>
+                            @if ($full_data['userVerifiedStatus']['kyc_id_front'] == 2)
+                                <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
+                            @elseif ($full_data['userVerifiedStatus']['kyc_id_front'] == 3)
+                                <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
+                            @endif
+                        </div>
+                    
+                        <!-- Upload ID Back -->
+                        <div class="input-group attach-file-input-group">
+                            <label class="form-label">Upload ID Back</label>
+                            <div class="form-control">
+                                <label for="identification-back-id"
+                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                    <span type="placeholder">Upload ID card Back</span>
+                                    <input id="identification-back-id" class="d-none"
+                                        name="{{ config('settingkeys.kyc_id_back') }}" type="file">
+                                    <i class="fa-solid fa-link"></i>
+                                </label>
+                            </div>
+                            @if ($full_data['userVerifiedStatus']['kyc_id_back'] == 2)
+                                <p style="color: red; font-size: 16px; margin-top: 10px; font-weight: bold;">Please upload again</p>
+                            @elseif ($full_data['userVerifiedStatus']['kyc_id_back'] == 3)
+                                <p style="color: green; font-size: 16px; margin-top: 10px; font-weight: bold;">Document verified</p>
+                            @endif
+                        </div>
+                    
+                        <!-- Upload Proof Of Address -->
+                        <div class="input-group attach-file-input-group">
+                            <label class="form-label">Upload Proof Of Address</label>
+                            <div class="form-control">
+                                <label for="user-proof-of-address"
+                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                    <span type="placeholder">Upload Proof Of Address</span>
+                                    <input id="user-proof-of-address" class="d-none"
+                                        name="{{ config('settingkeys.kyc_address_proof') }}" type="file">
+                                    <i class="fa-solid fa-link"></i>
+                                </label>
+                            </div>
+                            @if ($full_data['userVerifiedStatus']['kyc_address_proof'] == 2)
+                                <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
+                            @elseif ($full_data['userVerifiedStatus']['kyc_address_proof'] == 3)
+                                <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
+                            @endif
+                        </div>
+                    
+                        <!-- Upload Selfie -->
+                        <div class="input-group attach-file-input-group">
+                            <label class="form-label">Upload Selfie</label>
+                            <div class="form-control">
+                                <label for="attach-user-selfie"
+                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                    <span type="placeholder">Upload Selfie</span>
+                                    <input id="attach-user-selfie" class="d-none" type="file"
+                                        name="{{ config('settingkeys.kyc_selfie_proof') }}" accept="image/*" capture="environment">
+                                    <i class="fa-solid fa-camera"></i>
+                                </label>
+                            </div>
+                            @if ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 2)
+                                <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
+                            @elseif ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 3)
+                                <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
+                            @endif
                         </div>
                     </div>
-                    <div class="input-group attach-file-input-group">
-                        <label class="form-label">Upload ID back</label>
-                        <div class="form-control">
-                            <label for="identification-back-id"
-                                class="attach-icon d-flex justify-content-between align-items-center w-100">
-                                <span type="placeholder">Upload ID card back</span>
-                                <input id="identification-back-id" class="d-none" name="{{ config('settingkeys.kyc_id_back') }}"  type="file"
-                                    placeholder="Upload ID card back">
-                                <i class="fa-solid fa-link"></i>
-                            </label>
+                    
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-submit-identification w-max">Submit identification</button>
+                    </div>
+                </div>
+                <div class="card common-card">
+                    <div class="card-header">
+                        <div class="card-title">Documents Uploaded and Confirmed</div>
+                    </div>
+                    <div class="card-footer check-files-valid-grid d-grid">
+                        <div class="card d-flex justify-content-between align-items-center">
+                            <p>ID Front</p>
+                            <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                @if ($full_data['userVerifiedStatus']['kyc_id_front'] == 3) verified @endif>
+                                <span class="icon d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </p>
+
+                        </div>
+                        <div class="card d-flex justify-content-between align-items-center">
+                            <p>ID Back</p>
+                            <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                @if ($full_data['userVerifiedStatus']['kyc_id_back'] == 3) verified @endif>
+                                <span class="icon d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="card d-flex justify-content-between align-items-center">
+                            <p>proof of address</p>
+                            <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                @if ($full_data['userVerifiedStatus']['kyc_address_proof'] == 3) verified @endif>
+                                <span class="icon d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="card d-flex justify-content-between align-items-center">
+                            <p>upload selfie</p>
+                            <p class="document-verification-status d-flex justify-content-center align-items-center g-5"
+                                @if ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 3) verified @endif>
+                                <span class="icon d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                            </p>
                         </div>
                     </div>
-                    <div class="input-group attach-file-input-group">
-                        <label class="form-label">Upload Proof Of Address</label>
-                        <div class="form-control">
-                            <label for="user-proof-of-address"
-                                class="attach-icon d-flex justify-content-between align-items-center w-100">
-                                <span type="placeholder">Upload Proof Of Address</span>
-                                <input id="user-proof-of-address" class="d-none" name="{{ config('settingkeys.kyc_address_proof') }}"  type="file">
-                                <i class="fa-solid fa-link"></i>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="input-group attach-file-input-group">
-                        <label class="form-label">Upload Selfie</label>
-                        <div class="form-control">
-                            <label for="attach-user-selfie"
-                                class="attach-icon d-flex justify-content-between align-items-center w-100">
-                                <span type="placeholder">Upload Selfie</span>
-                                <input id="attach-user-selfie" class="d-none" type="file" name="{{ config('settingkeys.kyc_selfie_proof') }}"  accept="image/*"
-                                    capture="environment">
-                                <i class="fa-solid fa-camera"></i>
-                            </label>
-                        </div>
-                    </div>
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-submit-identification w-max">Submit identification</button>
-                </div>
-            </div>
-            <div class="card common-card">
-                <div class="card-header">
-                    <div class="card-title">Documents Uploaded and Confirmed</div>
-                </div>
-                <div class="card-footer check-files-valid-grid d-grid">
-                    <div class="card d-flex justify-content-between align-items-center">
-                        <p>ID Front</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
-                            <span class="icon d-flex justify-content-center align-items-center"><i
-                                    class="fa-solid fa-check"></i></span>
-                        </p>
-                    </div>
-                    <div class="card d-flex justify-content-between align-items-center">
-                        <p>ID Back</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
-                            <span class="icon d-flex justify-content-center align-items-center"><i
-                                    class="fa-solid fa-check"></i></span>
-                        </p>
-                    </div>
-                    <div class="card d-flex justify-content-between align-items-center">
-                        <p>proof of address</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
-                            <span class="icon d-flex justify-content-center align-items-center"><i
-                                    class="fa-solid fa-check"></i></span>
-                        </p>
-                    </div>
-                    <div class="card d-flex justify-content-between align-items-center">
-                        <p>upload selfie</p>
-                        <p class="document-verification-status d-flex justify-content-center align-items-center g-5">
-                            <!-- use $('.verification-status').attr "verified" for verify -->
-                            <span class="icon d-flex justify-content-center align-items-center"><i
-                                    class="fa-solid fa-check"></i></span>
-                        </p>
-                    </div>
-                </div>
-            </div>
             </form>
         </section>
+
+
         <section id="security-settings" class="tab-pane common-section in security-settings">
             <div class="back-btn-area">
                 <ul class="nav nav-tabs list-style-none">
@@ -551,18 +593,24 @@
                     <div class="card-body d-grid">
                         <div class="input-group">
                             <label class="form-label">Currency</label>
-                            <select class="form-control" name="dashboard_currency" searchable="true" id="dashboard-currency">
+                            <select class="form-control" name="dashboard_currency" searchable="true"
+                                id="dashboard-currency">
                                 @foreach ($full_data['currencies'] as $code => $name)
-                                    <option value="{{ $code }}" {{ isset($full_data['setting_info']['dashboard_currency']) && $full_data['setting_info']['dashboard_currency'] == $code  ? 'selected' : '' }}>{{ $code }}</option>
+                                    <option value="{{ $code }}"
+                                        {{ isset($full_data['setting_info']['dashboard_currency']) && $full_data['setting_info']['dashboard_currency'] == $code ? 'selected' : '' }}>
+                                        {{ $code }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="input-group">
                             <label class="form-label">Profile Language</label>
-                            <select class="form-control" name="profile_language" searchable="true" id="profile-language">
+                            <select class="form-control" name="profile_language" searchable="true"
+                                id="profile-language">
                                 @foreach ($full_data['languages'] as $code => $name)
-                                    <option {{ isset($full_data['setting_info']['profile_language']) && $full_data['setting_info']['profile_language'] == $code  ? 'selected' : '' }} value="{{ $code }}">{{ $name }}</option>
+                                    <option
+                                        {{ isset($full_data['setting_info']['profile_language']) && $full_data['setting_info']['profile_language'] == $code ? 'selected' : '' }}
+                                        value="{{ $code }}">{{ $name }}</option>
                                 @endforeach
                             </select>
                         </div>

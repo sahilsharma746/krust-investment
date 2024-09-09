@@ -22,10 +22,13 @@ class UserHomeController extends Controller
         $user_data = User::with('addresses')
             ->where([['role', 'user'], ['id', $user->id]])
             ->first();
-        
+        $full_data['userVerifiedStatus'] = UserVerifiedStatus::where('user_id', $user->id)->first();
+
         $full_data['total_deposit'] = Deposit::getUserDepositAmount($user->id);
         $full_data['total_approved_deposit'] = Deposit::getUserDepositAmount($user->id, 'approved');
 
+
+        
         $settings = UserSetting::where('user_id', $user->id)
             ->whereIn('option_name', ['dashboard_currency', 'profile_language'])
             ->get()->keyBy('option_name');

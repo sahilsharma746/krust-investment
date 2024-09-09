@@ -50,7 +50,7 @@
                                     <label for="identification-front-id"
                                         class="attach-icon d-flex justify-content-between align-items-center w-100">
                                         <span type="placeholder">Upload ID card Front</span>
-                                        <input id="identification-front-id" {{ !empty($identification->status) == 'pending' || !empty($identification->status) == 'approved' ? 'disabled readonly' : '' }} class="d-none" name="nid_front" type="file" placeholder="Upload ID card Front">
+                                        <input id="identification-front-id" {{ !empty($identification->status) == 'pending' || !empty($identification->status) == 'approved' ? 'disabled readonly' : '' }} class="d-none" name="nid_front" type="file" placeholder="Upload pppD card Front">
                                         <svg class="svg-inline--fa fa-link" aria-hidden="true" focusable="false" data-prefix="fas"
                                             data-icon="link" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
                                             data-fa-i2svg="">

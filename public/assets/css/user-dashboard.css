@@ -539,6 +539,7 @@ section .subtitle {
 }
 .input-group .form-label {
   margin-bottom: 8px;
+  margin-top: 20px;
 }
 .input-group .form-control {
   width: 100%;
@@ -573,7 +574,7 @@ section .subtitle {
 .input-group .eye-icon,
 .input-group .attach-icon,
 .input-group .form-icon {
-  padding: 12px;
+  padding:  47px;
   position: absolute;
   right: 1px;
   bottom: 1px;
@@ -581,7 +582,7 @@ section .subtitle {
 }
 .input-group .attach-icon {
   padding-left: 32px;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 
 /** form style area end */

@@ -147,6 +147,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     // admin all banned verified users dashboard view url 
     Route::get('/banned-users', [AdminUserController::class, 'bannedVerified'])->name('admin.user.bannedVerified');
 
+
+    Route::post('/kyc-admin-action/{user}', [AdminUserController::class, 'kycAdminAction'])->name('admin.kyc.action');
+
+
     // admin dashbopard user details view
     Route::get('/details/{user}', [AdminUserController::class, 'details'])->name('admin.user.details');
     

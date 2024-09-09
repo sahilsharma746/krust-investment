@@ -104,52 +104,81 @@ class UserProfileController extends Controller
         return redirect()->back()->with('success', 'Settings updated successfully!');
     }
 
-    public function saveKycDocuments( Request $request ){
-        $user = Auth::user();
-        $request->validate([
-            'kyc_id_front' => 'required | image | mimes:jpg,png,jpeg',
-            'kyc_id_back' => 'required | image | mimes:jpg,png,jpeg',
-            'kyc_address_proof' => 'required | image | mimes:jpg,png,jpeg',
-            'kyc_selfie_proof' => 'required | image | mimes:jpg,png,jpeg',
-        ]);
 
-        $base_path = public_path('uploads/kyc_documents/');
-        $user_id = auth()->user()->id;
-        $user_folder_path = $base_path . $user->id . '/';
-        
-        if (!File::exists($user_folder_path)) {
-            File::makeDirectory($user_folder_path, 0755, true);
-        }
 
-        // upload kyc id front
+    public function saveKycDocuments(Request $request)
+{
+    $user = Auth::user();
+
+    $image_uploaded = false;
+    $base_path = public_path('uploads/kyc_documents/');
+    $user_id = $user->id;
+    $user_folder_path = $base_path . $user_id . '/';
+
+    if (!File::exists($user_folder_path)) {
+        File::makeDirectory($user_folder_path, 0755, true);
+    }
+
+    // upload kyc id front
+    if ($request->hasFile('kyc_id_front')) {
+        $image_uploaded = true;
         $kyc_id_front_file = $request->file('kyc_id_front');
         $kyc_id_front_file_name = time() . '-kyc_id_front.' . $user_id . '.' . $kyc_id_front_file->getClientOriginalExtension();
         $kyc_id_front_file->move($user_folder_path, $kyc_id_front_file_name);
-        $this->user_setting->updatUserSetting('kyc_id_front', $kyc_id_front_file_name, $user->id );
+        $this->user_setting->updatUserSetting('kyc_id_front', $kyc_id_front_file_name, $user_id);
+        // $this->user_setting->updateUserSetting(['kyc_id_front_status' => 'user_uploaded'], $user_id);
+        UserVerifiedStatus::where('user_id', $user_id)
+    ->update(['kyc_id_front' => 1]);
+        }
 
-        // upload kyc id back
+    // upload kyc id back
+    if ($request->hasFile('kyc_id_back')) {
+        $image_uploaded = true;
         $kyc_id_back_file = $request->file('kyc_id_back');
         $kyc_id_back_filename = time() . '-kyc_id_back.' . $user_id . '.' . $kyc_id_back_file->getClientOriginalExtension();
         $kyc_id_back_file->move($user_folder_path, $kyc_id_back_filename);
-        $this->user_setting->updatUserSetting('kyc_id_back', $kyc_id_back_filename, $user->id );
-        
-        // upload kyc id back
+        $this->user_setting->updatUserSetting('kyc_id_back', $kyc_id_back_filename, $user_id);
+        UserVerifiedStatus::where('user_id', $user_id)
+        ->update(['kyc_id_back' => 1]);
+    }
+
+    // upload kyc address proof
+    if ($request->hasFile('kyc_address_proof')) {
+        $image_uploaded = true;
         $kyc_address_proof_file = $request->file('kyc_address_proof');
         $kyc_address_proof_file_name = time() . '-kyc_address_proof.' . $user_id . '.' . $kyc_address_proof_file->getClientOriginalExtension();
         $kyc_address_proof_file->move($user_folder_path, $kyc_address_proof_file_name);
-        $this->user_setting->updatUserSetting('kyc_address_proof', $kyc_address_proof_file_name, $user->id );
-        
-        // upload kyc id back
+        $this->user_setting->updatUserSetting('kyc_address_proof', $kyc_address_proof_file_name, $user_id);
+        UserVerifiedStatus::where('user_id', $user_id)
+        ->update(['kyc_address_proof' => 1]);
+    }
+
+    // upload kyc selfie proof
+    if ($request->hasFile('kyc_selfie_proof')) {      
+        $image_uploaded = true;
         $kyc_selfie_proof_file = $request->file('kyc_selfie_proof');
         $kyc_selfie_proof_file_name = time() . '-kyc_selfie_proof.' . $user_id . '.' . $kyc_selfie_proof_file->getClientOriginalExtension();
         $kyc_selfie_proof_file->move($user_folder_path, $kyc_selfie_proof_file_name);
-        $this->user_setting->updatUserSetting('kyc_selfie_proof', $kyc_selfie_proof_file_name, $user->id );
-
-        $user_verifications = UserVerifiedStatus::where('user_id', $user->id)
-                                                ->update(['kyc_verify_status' => 'pending']);
-    
-        return back()->with('success', 'Submited successfully for review');
+        $this->user_setting->updatUserSetting('kyc_selfie_proof', $kyc_selfie_proof_file_name, $user_id);
+        UserVerifiedStatus::where('user_id', $user_id)
+        ->update(['kyc_selfie_proof' => 1]);
     }
+
+
+    UserVerifiedStatus::where('user_id', $user_id)
+        ->update(['kyc_verify_status' => 'pending']);
+
+        if ($image_uploaded = true){
+
+    
+        return back()->with('success', 'Submitted successfully for review');
+        }
+        else{
+            return back();
+
+        }
+
+}
 
     public function restoreAdmin(){
         if (session()->has('admin_id')) {
