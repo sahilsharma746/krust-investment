@@ -595,7 +595,7 @@ main.main-area .user-details-container .user-info-form .check-files-valid-area .
   display: flex;
   gap: 8px;
 }
-main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-body img {
+main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-body img, main.main-area .user-details-container .user-info-form .check-files-valid-area .check-files-valid-grid.kyc-grid .card .card-body .card-no-img {
   width: 100%;
   max-height: 120px;
   object-fit: cover;
