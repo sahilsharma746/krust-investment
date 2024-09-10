@@ -529,9 +529,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if (
-                                        
-                                            $full_data['verification_prompts_permissions_data']['kyc_id_front'] == 1)
+                                    @if ( $full_data['verification_prompts_permissions_data']['kyc_id_front'] == 1)
                                         <div class="card-footer">
                                             <input type="hidden" value="kyc_id_front" name="kyc_id_type">
                                             <button type="submit" name="action" value="reject"
@@ -543,7 +541,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @else
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -596,7 +594,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @else
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -647,7 +645,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @else
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -697,7 +695,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @else
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>

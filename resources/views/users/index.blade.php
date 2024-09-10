@@ -421,11 +421,11 @@
                                     <i class="fa-solid fa-link"></i>
                                 </label>
                             </div>
-                            @if ($full_data['userVerifiedStatus']['kyc_id_front'] == 2)
+                            <!-- @if ($full_data['userVerifiedStatus']['kyc_id_front'] == 2)
                                 <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
                             @elseif ($full_data['userVerifiedStatus']['kyc_id_front'] == 3)
                                 <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
-                            @endif
+                            @endif -->
                         </div>
                     
                         <!-- Upload ID Back -->
@@ -440,11 +440,11 @@
                                     <i class="fa-solid fa-link"></i>
                                 </label>
                             </div>
-                            @if ($full_data['userVerifiedStatus']['kyc_id_back'] == 2)
+                            <!-- @if ($full_data['userVerifiedStatus']['kyc_id_back'] == 2)
                                 <p style="color: red; font-size: 16px; margin-top: 10px; font-weight: bold;">Please upload again</p>
                             @elseif ($full_data['userVerifiedStatus']['kyc_id_back'] == 3)
                                 <p style="color: green; font-size: 16px; margin-top: 10px; font-weight: bold;">Document verified</p>
-                            @endif
+                            @endif -->
                         </div>
                     
                         <!-- Upload Proof Of Address -->
@@ -459,11 +459,11 @@
                                     <i class="fa-solid fa-link"></i>
                                 </label>
                             </div>
-                            @if ($full_data['userVerifiedStatus']['kyc_address_proof'] == 2)
+                            <!-- @if ($full_data['userVerifiedStatus']['kyc_address_proof'] == 2)
                                 <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
                             @elseif ($full_data['userVerifiedStatus']['kyc_address_proof'] == 3)
                                 <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
-                            @endif
+                            @endif -->
                         </div>
                     
                         <!-- Upload Selfie -->
@@ -478,11 +478,11 @@
                                     <i class="fa-solid fa-camera"></i>
                                 </label>
                             </div>
-                            @if ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 2)
+                            <!-- @if ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 2)
                                 <p style="color: red; font-size: 16px; margin-top: 20px; font-weight: bold;">Please upload again</p>
                             @elseif ($full_data['userVerifiedStatus']['kyc_selfie_proof'] == 3)
                                 <p style="color: green; font-size: 16px; margin-top: 20px; font-weight: bold;">Document verified</p>
-                            @endif
+                            @endif -->
                         </div>
                     </div>
                     

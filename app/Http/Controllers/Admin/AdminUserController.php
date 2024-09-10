@@ -278,90 +278,67 @@ class AdminUserController extends Controller
     }
 
 
-    // public function kycAdminAction(User $user, Request $request){
-    //         dd($request);
+    
+    public function kycAdminAction(User $user, Request $request){
+        $request->validate([
+            'kyc_id_type' => 'required|string',
+            'action' => 'required|string|in:approve,reject',
+        ]);
+    
+        $status = ($request->action === 'approve') ? 3 : 2;
+
+        $message = '';
+
+        if ($request->kyc_id_type === 'kyc_id_front') {
+            $updated = UserVerifiedStatus::where('user_id', $user->id)
+                ->update(['kyc_id_front' => $status]);
+            $message = 'Front ID';
+
+        } elseif ($request->kyc_id_type === 'kyc_id_back') {
+            $updated = UserVerifiedStatus::where('user_id', $user->id)
+                ->update(['kyc_id_back' => $status]);
+            $message = 'Back ID';
+
+        } elseif ($request->kyc_id_type === 'kyc_address_proof') {
+            $updated = UserVerifiedStatus::where('user_id', $user->id)
+                ->update(['kyc_address_proof' => $status]);
+            $message = 'Address Proof';
+
+        } elseif ($request->kyc_id_type === 'kyc_selfie_proof') {
+            $updated = UserVerifiedStatus::where('user_id', $user->id)
+                ->update(['kyc_selfie_proof' => $status]);
+            $message = 'Selfie Proof';
+
+        } else {
+            return back()->with('error', 'Invalid document type.');
+        }
+
+        if (!$updated) {
+            return back()->with('error', 'Failed to update status.');
+        }
+
+        $action = ($status === 3) ? 'approved' : 'rejected';
+        $statusMessage = "{$message} has been {$action} successfully!";
+
+        $user_verified_status = UserVerifiedStatus::where('user_id', $user->id)->first();
         
-    //             // Update the status in the database
-    //         UserVerifiedStatus::where('user_id', $user->id)
-    //                 ->update(['kyc_verify_status' => 3]);
-        
-    //             return back()->with('success', 'Status updated successfully!');
-            
-            
-            
-                
-            
-            
-    //         // check of all the doc are verified than update the kyc_verify status to approved
-            
-    //         }
+        if (
+            $user_verified_status->kyc_id_front == 3 &&
+            $user_verified_status->kyc_id_back == 3 &&
+            $user_verified_status->kyc_address_proof == 3 &&
+            $user_verified_status->kyc_selfie_proof == 3
+        ) {
+            // If all are approved, update kyc_verify_status to 'approved'
+            $user_verified_status->kyc_verify_status = 'verified';
+            $user_verified_status->save();
+            $statusMessage .= ' All documents are approved. KYC status is now fully approved.';
+        }
 
-    
-    public function kycAdminAction(User $user, Request $request)
-{
-    
-    $request->validate([
-        'kyc_id_type' => 'required|string',
-        'action' => 'required|string|in:approve,reject',
-    ]);
-
-   
-    $status = ($request->action === 'approve') ? 3 : 2;
-
-    $message = '';
-
-    if ($request->kyc_id_type === 'kyc_id_front') {
-        $updated = UserVerifiedStatus::where('user_id', $user->id)
-            ->update(['kyc_id_front' => $status]);
-        $message = 'Front ID';
-
-    } elseif ($request->kyc_id_type === 'kyc_id_back') {
-        $updated = UserVerifiedStatus::where('user_id', $user->id)
-            ->update(['kyc_id_back' => $status]);
-        $message = 'Back ID';
-
-    } elseif ($request->kyc_id_type === 'kyc_address_proof') {
-        $updated = UserVerifiedStatus::where('user_id', $user->id)
-            ->update(['kyc_address_proof' => $status]);
-        $message = 'Address Proof';
-
-    } elseif ($request->kyc_id_type === 'kyc_selfie_proof') {
-        $updated = UserVerifiedStatus::where('user_id', $user->id)
-            ->update(['kyc_selfie_proof' => $status]);
-        $message = 'Selfie Proof';
-
-    } else {
-        return back()->with('error', 'Invalid document type.');
+        return back()->with('success', $statusMessage);
     }
-
-    if (!$updated) {
-        return back()->with('error', 'Failed to update status.');
-    }
-
-    $action = ($status === 3) ? 'approved' : 'rejected';
-    $statusMessage = "{$message} has been {$action} successfully!";
-
-    $user_verified_status = UserVerifiedStatus::where('user_id', $user->id)->first();
     
-    if (
-        $user_verified_status->kyc_id_front == 3 &&
-        $user_verified_status->kyc_id_back == 3 &&
-        $user_verified_status->kyc_address_proof == 3 &&
-        $user_verified_status->kyc_selfie_proof == 3
-    ) {
-        // If all are approved, update kyc_verify_status to 'approved'
-        $user_verified_status->kyc_verify_status = 'approved';
-        $user_verified_status->save();
-        $statusMessage .= ' All documents are approved. KYC status is now fully approved.';
-    }
-
-    return back()->with('success', $statusMessage);
+    
 }
-    
-    
-    
-
-    }
 
 
 
