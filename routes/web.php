@@ -1,32 +1,33 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminDepositController;
-use App\Http\Controllers\Admin\AdminHomeController;
-use App\Http\Controllers\Admin\AdminIdentyVerificationController;
-use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\AdminWithdrawController;
-use App\Http\Controllers\Admin\AdminTradesController;
-
-use App\Http\Controllers\Admin\AdminAssetsController;
-use App\Http\Controllers\Admin\AdminSoftwareController;
-use App\Http\Controllers\Admin\AdminSettingsController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FrontendController;
 
 use App\Http\Controllers\Auth\LoginController;
-
-use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\UserDepositController;
 use App\Http\Controllers\User\UserHomeController;
-use App\Http\Controllers\User\UserMarktWatchController;
-use App\Http\Controllers\User\UserPersoanlInformation;
-use App\Http\Controllers\User\UserProfileController;
-use App\Http\Controllers\User\UserWithdrawController;
 use App\Http\Controllers\User\UserTradeController;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
 
+use App\Http\Controllers\Admin\AdminHomeController;
+
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\User\UserDepositController;
+use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\User\UserUpgradeController;
+use App\Http\Controllers\Admin\AdminAssetsController;
+use App\Http\Controllers\Admin\AdminTradesController;
+use App\Http\Controllers\User\UserWithdrawController;
+use App\Http\Controllers\Admin\AdminDepositController;
+use App\Http\Controllers\User\UserPersoanlInformation;
+
+use App\Http\Controllers\Admin\AdminSettingsController;
+use App\Http\Controllers\Admin\AdminSoftwareController;
+use App\Http\Controllers\Admin\AdminWithdrawController;
+use App\Http\Controllers\User\UserMarktWatchController;
+use App\Http\Controllers\Admin\AdminIdentyVerificationController;
 
 
 Auth::routes();
@@ -113,6 +114,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     // Route::post('/verification', [UserProfileController::class, 'verificationUpdate'])->name('user.profile.verificationUpdate');
     Route::get('/market-watch', [UserMarktWatchController::class, 'index'])->name('user.marketWatch.index');
 
+
+    Route::get('upgrade', [UserUpgradeController::class, 'index'])->name('user.upgrade.index');
+
+
 });
 
 
@@ -125,6 +130,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
 
     // admin main dashboard view url 
     Route::get('/dashboard', [AdminHomeController::class, 'index'])->name('admin.dashboard');
+
+
     
     // admin all users dashboard view url 
     Route::get('/all-user', [AdminUserController::class, 'index'])->name('admin.user.index');
@@ -147,8 +154,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     // admin all banned verified users dashboard view url 
     Route::get('/banned-users', [AdminUserController::class, 'bannedVerified'])->name('admin.user.bannedVerified');
 
-
+    // admin all banned verified users dashboard view url 
     Route::post('/kyc-admin-action/{user}', [AdminUserController::class, 'kycAdminAction'])->name('admin.kyc.action');
+
+    Route::post('/admin-prompt/{user}', [AdminUserController::class, 'AdminPrompt'])->name('admin.prompt');
+
 
 
     // admin dashbopard user details view
