@@ -127,12 +127,6 @@ class AdminUserController extends Controller
         $full_data['verification_prompts_permissions_data'] = $verification_prompts_permissions_data;
         $full_data['user_settings'] = $user_settings;
         $full_data['kyc_cocument_path'] = asset('uploads/kyc_documents/'.$user->id.'/');
-
-
-
-        //  dd($full_data['user_settings']);
-        
-
         return view('admin.users.user-detail', compact('full_data','page_title'));
     }
 
@@ -277,7 +271,6 @@ class AdminUserController extends Controller
         return view('admin.form');
     }
 
-
     
     public function kycAdminAction(User $user, Request $request){
         $request->validate([
@@ -329,15 +322,39 @@ class AdminUserController extends Controller
             $user_verified_status->kyc_selfie_proof == 3
         ) {
             // If all are approved, update kyc_verify_status to 'approved'
-            $user_verified_status->kyc_verify_status = 'verified';
+            $user_verified_status->kyc_verify_status = 'approved';
             $user_verified_status->save();
-            $statusMessage .= ' All documents are approved. KYC status is now fully approved.';
+            $status_message .= ' All documents are approved. KYC status is now fully approved.';
         }
 
-        return back()->with('success', $statusMessage);
+        return back()->with('success', $status_message);
     }
     
     
+    public function AdminPrompt(Request $request, $userId)
+    {    
+        $request->validate([
+            'prompt_type' => 'required|string|in:upgrade_prompt,certificate_prompt,identity_prompt,custom_prompt,demo',
+            'action' => 'required|string|in:on,off'
+        ]);
+
+        $user_prompt_settings = UserVerifiedStatus::where('user_id', $userId)->first();
+
+        if (!$user_prompt_settings) {
+            return redirect()->back()->withErrors('User prompt settings not found.');
+        }
+
+        $prompt_type = $request->input('prompt_type');
+        $action = $request->input('action');
+
+        $newValue = $action == 'on' ? '1' : '0';
+        $user_prompt_settings->$prompt_type = $newValue;
+        $user_prompt_settings->save();
+
+        return back()->with('success', 'updated successfully');
+
+    }
+
 }
 
 

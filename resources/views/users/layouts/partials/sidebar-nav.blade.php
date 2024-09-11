@@ -2,8 +2,8 @@
     <ul class="nav nav-tabs scroll">
         <li class="nav-item {{ Request::is('user/dashboard') ? 'active' : '' }}">
             <a href="{{ route('user.dashboard') }}" onclick="localStorage.removeItem('activeLeftTab');">
-                <img src="{{ asset('uploads/user_avatar/' . $user_data->avatar) }}" style="width: 50px; height: 50px; border-radius: 50%;">
-                <span>{{ session('user_name') }}</span>
+                <img src="{{ asset('uploads/user_avatar/' . $user_data->avatar) }}" width="50" height="50" style="object-fit: cover; border-radius: 50%; border: 3px solid white;">
+                <span>{{ $user_data->first_name  . ' '. $user_data->last_name }}</span>
             </a>
         </li>
         

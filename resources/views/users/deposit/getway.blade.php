@@ -67,7 +67,7 @@
                                         <div class="input-group">
                                             <label class="form-label"> Address tag</label>
                                             <input class="form-control form-clone" type="text" name="address_tag"
-                                            readonly id="address_tag-{{ $getway->id }}" value="{{ isset($user_settings[$getway->address_setting_key]) ? $user_settings[$getway->address_tag_setting_key] : '' }}">
+                                            readonly id="address_tag-{{ $getway->id }}" value="{{ isset($user_settings[$getway->address_tag_setting_key]) ? $user_settings[$getway->address_tag_setting_key] : '' }}">
                                             <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
                                                 <i class="fa-regular fa-clone"></i>
                                             </label>

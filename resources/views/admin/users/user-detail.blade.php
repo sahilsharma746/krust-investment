@@ -201,6 +201,33 @@
     @php
         $country_code = $full_data['user_address']['country'];
         $country_name = config('countries.' . $country_code);
+
+        $uploadedCount = 0;
+        $total_count = 4; 
+
+        $documents = ['kyc_id_front', 'kyc_id_back', 'kyc_address_proof', 'kyc_selfie_proof'];
+
+        foreach ($documents as $doc) {
+            if (isset($full_data['user_settings'][$doc])) {
+                $uploadedCount++;
+            }
+        }
+
+        $verification_statuses = [
+    'email_verify_status' => $full_data['verification_prompts_permissions_data']['email_verify_status'],
+    'phone_verify_status' => $full_data['verification_prompts_permissions_data']['phone_verify_status'],
+    '2fa_verify_status' => $full_data['verification_prompts_permissions_data']['2fa_verify_status'],
+    'kyc_verify_status' => $full_data['verification_prompts_permissions_data']['kyc_verify_status']
+];
+
+$verified_count = 0;
+foreach ($verification_statuses as $status) {
+    if ($status == 'verified') {
+        $verified_count++;
+    }
+}
+$verification_progress = $verified_count . '/4';
+
     @endphp
 
     <main class="main-area">
@@ -240,21 +267,79 @@
                                 <a class="btn btn-default text-danger" style="text-decoration: line-through;">View
                                     Password</a>
                             </li>
-                            <li class="dropdown-item">
-                                <a class="btn btn-default" href="">Turn On/Off Upgrade Prompt</a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="btn btn-default" href="">Turn On/Off Certificate Prompt</a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="btn btn-default" href="">Turn On/Off Identity Prompt</a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="btn btn-default" href="">Turn On/Off Custom Prompt</a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="btn btn-default" href="">Turn On/Off Demo</a>
-                            </li>
+
+                            <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="prompt_type" value="upgrade_prompt">
+                                <input type="hidden" name="action"
+                                    value="{{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'off' : 'on' }}">
+                                <button type="submit" class="btn btn-default"
+                                    style="font-size:initial; font-family: Inter, sans-serif;">
+                                    Turn
+                                    {{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'Off' : 'On' }}
+                                    Upgrade Prompt
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="prompt_type" value="certificate_prompt">
+                                <input type="hidden" name="action"
+                                    value="{{ $full_data['verification_prompts_permissions_data']['certificate_prompt'] == '1' ? 'off' : 'on' }}">
+                                <button type="submit" class="btn btn-default"
+                                    style="font-size:initial; font-family: Inter, sans-serif;">
+                                    Turn
+                                    {{ $full_data['verification_prompts_permissions_data']['certificate_prompt'] == '1' ? 'Off' : 'On' }}
+                                    Certificate Prompt
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="prompt_type" value="identity_prompt">
+                                <input type="hidden" name="action"
+                                    value="{{ $full_data['verification_prompts_permissions_data']['identity_prompt'] == '1' ? 'off' : 'on' }}">
+                                <button type="submit" class="btn btn-default"
+                                    style="font-size:initial; font-family: Inter, sans-serif;">
+                                    Turn
+                                    {{ $full_data['verification_prompts_permissions_data']['identity_prompt'] == '1' ? 'Off' : 'On' }}
+                                    Identity Prompt
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="prompt_type" value="custom_prompt">
+                                <input type="hidden" name="action"
+                                    value="{{ $full_data['verification_prompts_permissions_data']['custom_prompt'] == '1' ? 'off' : 'on' }}">
+                                <button type="submit" class="btn btn-default"
+                                    style="font-size:initial; font-family: Inter, sans-serif;">
+                                    Turn
+                                    {{ $full_data['verification_prompts_permissions_data']['custom_prompt'] == '1' ? 'Off' : 'On' }}
+                                    Custom Prompt
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
+                                @csrf
+
+                                <input type="hidden" name="prompt_type" value="demo">
+                                <input type="hidden" name="action"
+                                    value="{{ $full_data['verification_prompts_permissions_data']['demo'] == '1' ? 'off' : 'on' }}">
+                                <button type="submit" class="btn btn-default"
+                                    style="font-size:initial; font-family: Inter, sans-serif;">
+                                    Turn
+                                    {{ $full_data['verification_prompts_permissions_data']['demo'] == '1' ? 'Off' : 'On' }}
+                                    Demo
+                                </button>
+                            </form>
+
+
+
                             <li class="dropdown-item">
                                 <a class="btn btn-default" href="">Delete User</a>
                             </li>
@@ -445,17 +530,16 @@
                                 value="{{ $full_data['user_address']['zipcode'] }}" placeholder="Enter Address">
                         </div>
                         <!-- <div class="input-group grid-column-lg-2">
-                                    <label class="form-label">user password</label>
-                                    <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
-                                </div> -->
+                                                    <label class="form-label">user password</label>
+                                                    <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
+                                                </div> -->
                     </div>
                 </div>
                 <div class="section-title">Verification Status</div>
 
                 <div class="card check-files-valid-area">
                     <div class="card-header">
-                        <div class="verified-qty">1/4 Verified</div>
-                    </div>
+                        <div class="verified-qty">{{ $verification_progress }}</div>                    </div>
                     <div class="card-body check-files-valid-grid d-grid">
                         <div class="card d-flex justify-content-between align-items-center">
                             <p>Email</p>
@@ -495,7 +579,7 @@
                     <div class="section-title">KYC Verification</div>
                     <div class="card check-files-valid-area">
                         <div class="card-header">
-                            <div class="verified-qty">3/4 Uploaded</div>
+                            <div class="verified-qty">{{ $uploadedCount }}/{{ $total_count }} Uploaded</div>
                         </div>
                         <div class="card-body check-files-valid-grid kyc-grid d-grid">
                             <div class="card">
@@ -509,11 +593,15 @@
                                                 <p>ID Front</p>
                                             </div>
                                             <div class="card-icons">
-                                                <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                                @if (!empty($full_data['user_settings']['kyc_selfie_proof']))
+                                                    <a class="icon download-btn"
+                                                        href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_id_front']) }}"
+                                                        download>
+                                                        <i class="fa-solid fa-download"></i>
+                                                    </a>
+                                                @endif
                                                 <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                                                @if($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3) 
-                                                    verified 
-                                                @endif> 
+                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3) verified @endif>
                                                     <span class="icon d-flex justify-content-center align-items-center"><i
                                                             class="fa-solid fa-check"></i></span>
                                                 </div>
@@ -529,7 +617,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if ( $full_data['verification_prompts_permissions_data']['kyc_id_front'] == 1)
+                                    @if ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 1)
                                         <div class="card-footer">
                                             <input type="hidden" value="kyc_id_front" name="kyc_id_type">
                                             <button type="submit" name="action" value="reject"
@@ -560,11 +648,15 @@
                                                 <p>ID Back</p>
                                             </div>
                                             <div class="card-icons">
-                                                <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                                @if (!empty($full_data['user_settings']['kyc_id_back']))
+                                                    <a class="icon download-btn"
+                                                        href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_id_back']) }}"
+                                                        download>
+                                                        <i class="fa-solid fa-download"></i>
+                                                    </a>
+                                                @endif
                                                 <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
-    @if($full_data['verification_prompts_permissions_data']['kyc_id_back'] == 3) 
-        verified 
-    @endif> 
+                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_id_back'] == 3) verified @endif>
                                                     <span class="icon d-flex justify-content-center align-items-center"><i
                                                             class="fa-solid fa-check"></i></span>
                                                 </div>
@@ -580,9 +672,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if (
-                                      
-                                            $full_data['verification_prompts_permissions_data']['kyc_id_back'] == 1)
+                                    @if ($full_data['verification_prompts_permissions_data']['kyc_id_back'] == 1)
                                         <div class="card-footer">
                                             <input type="hidden" value="kyc_id_back" name="kyc_id_type">
                                             <button type="submit" name="action" value="reject"
@@ -594,7 +684,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_back'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -612,11 +702,15 @@
                                                 <p>Proof Of Address</p>
                                             </div>
                                             <div class="card-icons">
-                                                <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                                @if (!empty($full_data['user_settings']['kyc_address_proof']))
+                                                    <a class="icon download-btn"
+                                                        href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_address_proof']) }}"
+                                                        download>
+                                                        <i class="fa-solid fa-download"></i>
+                                                    </a>
+                                                @endif
                                                 <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
-    @if($full_data['verification_prompts_permissions_data']['kyc_address_proof'] == 3) 
-        verified 
-    @endif> 
+                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_address_proof'] == 3) verified @endif>
                                                     <span class="icon d-flex justify-content-center align-items-center"><i
                                                             class="fa-solid fa-check"></i></span>
                                                 </div>
@@ -632,8 +726,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if (
-                                            $full_data['verification_prompts_permissions_data']['kyc_address_proof'] == 1)
+                                    @if ($full_data['verification_prompts_permissions_data']['kyc_address_proof'] == 1)
                                         <div class="card-footer">
                                             <input type="hidden" value="kyc_address_proof" name="kyc_id_type">
                                             <button type="submit" name="action" value="reject"
@@ -645,7 +738,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
+                                    @elseif($full_data['verification_prompts_permissions_data']['kyc_address_proof'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -663,11 +756,16 @@
                                                 <p>Selfie</p>
                                             </div>
                                             <div class="card-icons">
-                                                <a class="icon download-btn"><i class="fa-solid fa-download"></i></a>
+                                                @if (!empty($full_data['user_settings']['kyc_address_proof']))
+                                                    <a class="icon download-btn"
+                                                        href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_selfie_proof']) }}"
+                                                        download>
+                                                        <i class="fa-solid fa-download"></i>
+                                                    </a>
+                                                @endif
                                                 <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                                                @if($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3) 
-                                                    verified 
-                                                @endif>                                                     <!-- use $('.verification-status').attr "verified" for verify -->
+                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3) verified @endif>
+                                                    <!-- use $('.verification-status').attr "verified" for verify -->
                                                     <span class="icon d-flex justify-content-center align-items-center"><i
                                                             class="fa-solid fa-check"></i></span>
                                                 </div>
@@ -683,7 +781,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 1)
+                                    @if ($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 1)
                                         <div class="card-footer">
                                             <input type="hidden" value="kyc_selfie_proof" name="kyc_id_type">
                                             <button type="submit" name="action" value="reject"
@@ -695,7 +793,7 @@
                                         <div class="card-footer">
                                             <button class="btn btn-danger" disabled>Rejected</button>
                                         </div>
-                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3)
+                                    @elseif ($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3)
                                         <div class="card-footer">
                                             <button class="btn btn-success" disabled>Approved</button>
                                         </div>
@@ -720,16 +818,17 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label class="form-label"> KYC Verified</label>
+                            <label class="form-label">KYC Verified</label>
                             <select class="form-control" id="userPermissionVerified" searchable="false">
-                                <option
-                                    {{ $full_data['verification_prompts_permissions_data']['kyc_verify_status'] == 'pending' ? 'selected' : '' }}
-                                    value="0">No</option>
                                 <option
                                     {{ $full_data['verification_prompts_permissions_data']['kyc_verify_status'] == 'verified' ? 'selected' : '' }}
                                     value="1">Yes</option>
+                                <option
+                                    {{ $full_data['verification_prompts_permissions_data']['kyc_verify_status'] != 'verified' ? 'selected' : '' }}
+                                    value="0">No</option>
                             </select>
                         </div>
+
                         <div class="input-group">
                             <label class="form-label">Upgrade Prompt</label>
                             <select class="form-control" id="userPermissionUpgradePrompt" searchable="false">

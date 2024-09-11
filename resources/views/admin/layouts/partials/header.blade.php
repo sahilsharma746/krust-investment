@@ -69,7 +69,7 @@
                     <span class="icon">
                         <img src="{{ asset('assets') }}/img/avatar.png" alt="{{ auth()->user()->name }}">
                     </span>
-                    <span>{{ session('user_name') }}</span>
+                    <span>{{ $user_data->first_name  . ' '. $user_data->last_name }}</span>
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu d-flex flex-column">

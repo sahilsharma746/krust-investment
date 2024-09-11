@@ -40,7 +40,7 @@
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="{{ route('user.upgrade.index') }}">
+        <a class="card {{ Request::url() == route('user.upgrade.index') ? 'active' : '' }}" href="{{ route('user.upgrade.index') }}">
             <p>Upgrade</p>
         </a>
     </li>

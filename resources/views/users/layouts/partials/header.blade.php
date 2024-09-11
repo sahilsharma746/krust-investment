@@ -67,7 +67,7 @@
                         </a>
 
                         <dl class="dropdown-menu d-flex flex-column">
-                            <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ session('user_account_type') }}</span> </dt>
+                            <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ $user_plan }}</span> </dt>
                             <dt class="dropdown-item">
                                 <div class="account-status-header d-flex align-items-center g-10">
                                     <span class="dot"></span>
