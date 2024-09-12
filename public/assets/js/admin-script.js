@@ -56,11 +56,9 @@ $(document).ready(function () {
         chart.render();
     });
 
+
     //* attach file form control script start =========
-    $(document).on(
-        'change',
-        '.attach-file-input-group .attach-icon input',
-        function () {
+    $(document).on('change','.attach-file-input-group .attach-icon input',function () {
             try {
                 const placeholder = $(this).prev('[type="placeholder"]');
                 const fileName = this.files[0].name;
@@ -71,7 +69,7 @@ $(document).ready(function () {
                 console.warn(error);
             }
         },
-    ); //? attach file form control script end ========
+    );
 
     const searchInputFormControl = (searchInput) => {
         $(searchInput).attr('placeholder', 'Search for user etc...');
@@ -109,6 +107,7 @@ $(document).ready(function () {
         },
     });
 
+
     const tableAllDepositTable = new DataTable('#all-deposit-table', {
         initComplete: function () {
             // Access the search input field and set a placeholder
@@ -118,6 +117,7 @@ $(document).ready(function () {
             if (searchInput) searchInputFormControl(searchInput);
         },
     });
+
 
     const tableAllWithdrawTable = new DataTable('#all-withdraw-table', {
         initComplete: function () {
@@ -129,6 +129,7 @@ $(document).ready(function () {
         },
     });
 
+
     const tableAllTradeTable = new DataTable('#all-trade-table', {
         initComplete: function () {
             // Access the search input field and set a placeholder
@@ -138,6 +139,7 @@ $(document).ready(function () {
             if (searchInput) searchInputFormControl(searchInput);
         },
     });
+
 
     const tableAllAssetsTable = new DataTable('#all-assets-table', {
         initComplete: function () {
@@ -149,6 +151,7 @@ $(document).ready(function () {
         },
     });
 
+
     $(document).on('click', '.notification-card .btn-delete', function () {
         $(this)
             .closest('.notification-card')
@@ -157,7 +160,7 @@ $(document).ready(function () {
             });
     });
 
-    //* modal script start ===============================
+
     $(document).on('click', '[data-toggle="modal"]', function () {
         const target = $(this).attr('href');
         $(target).fadeIn();
@@ -169,7 +172,8 @@ $(document).ready(function () {
                 $(target).fadeOut();
                 $('body').removeClass('overflowY-hidden');
             });
-    }); //? modal script end =================================
+    }); 
+
 
     $(document).on('click', '.btn-delete-tr', function () {
         const tr = $(this).closest('tr');
@@ -179,7 +183,6 @@ $(document).ready(function () {
             });
     });
 
-    //* Add software script start ============================
     let imgSrc = '';
     $('#bot-software-img').on('change', function (event) {
         const file = event.target.files[0];
@@ -191,6 +194,7 @@ $(document).ready(function () {
             reader.readAsDataURL(file);
         }
     });
+
 
     $(document).on('click', '#btn-add-software', function () {
         const cardBody = $(this).closest('.card').find('.card-body');
@@ -278,3 +282,19 @@ $(document).ready(function () {
         }
     }); //? Password show/hide icon script end =========
 });
+
+
+
+// on click user-trade-result modal margin button
+jQuery(document).on( 'click', '.btnn-margin', function(){
+    jQuery('.btnn-margin').removeClass('active');
+    jQuery(this).addClass('active');
+    var value = jQuery(this).val();
+    jQuery('.user-trade-margin').val(value);
+});
+
+
+
+
+
+

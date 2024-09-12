@@ -15,41 +15,42 @@
                         }
                     </style>
                     <div class="container">
+                        <form action="{{ route('user.upgrade.plan') }}" method="POST"
+                            enctype="multipart/form-data" class="card">
+                            @csrf
                         <h1 class="title text-center"><span class="text-primary">Account</span> Plans</h1>
-
-
-
                         <div class="card-group d-grid w-100">
                             @foreach ($plans as $plan_id => $features)
                                 @php
                                     $planName = $features->first()->name;
                                     $planPrice = $features->first()->price;
                                 @endphp
-
                                 <div class="card d-flex flex-column {{ $user->account_type == $plan_id ? 'my-plan' : '' }} ">
                                     <div class="card-badge w-max">{{ $planName }}</div>
                                     <div class="card-title">${{ $planPrice }}</div>
                                     <dl class="item-list d-grid g-10">
-                                        @foreach ($features as $feature)
-                                            @if ($feature->feature_description)
-                                                <dt>
-                                                    <img src="{{ asset('assets/img/right-tick-vector.png') }}"
-                                                        class="card-img">
-                                                    <span>{{ $feature->feature_description }}</span>
-                                                </dt>
-                                            @endif
-                                        @endforeach
-                                    </dl>
-                                    <a href="" class="btn w-max">
-                                        @if ($user->account_type == $plan_id)
-                                            Your Current Account
-                                        @else
-                                            Upgrade Account
+                                    @foreach ($features as $feature)
+                                        @if ($feature->feature_description)
+                                            <dt>
+                                                <img src="{{ asset('assets/img/right-tick-vector.png') }}"
+                                                    class="card-img">
+                                                <span>{{ $feature->feature_description }}</span>
+                                            </dt>
                                         @endif
-                                    </a>
+                                    @endforeach
+                                    </dl>
+                                     @if ($user->account_type == $plan_id)
+                                        <button type="button" class="btn w-max">Your Current Account
+                                        </button>
+                                    @else
+                                        <button type="submit" class="btn w-max">
+                                            Upgrade Account
+                                        </button>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
+                        <form>
                     </div>
         </section>
     </article>

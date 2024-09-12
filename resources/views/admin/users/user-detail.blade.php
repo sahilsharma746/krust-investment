@@ -309,8 +309,7 @@
                                 </div>
                             </li>
                             <li class="dropdown-item">
-                                <a class="btn btn-default" data-toggle="modal" href="#user-trade-result">Edit Trade
-                                    Result</a>
+                                <a class="btn btn-default" data-toggle="modal" href="#user-trade-result">Edit Trade Result</a>
                             </li>
 
                             <div id="user-trade-result" class="modal">
@@ -340,35 +339,31 @@
                                             <label class="form-label">Margin</label>
                                             <div class="margin-options d-flex flex-wrap"
                                               style="border: 1px solid rgb(237, 231, 231); top-margin:10px; padding: 4px; border-radius: 10px;">
-                                              <button type="button" class="btnn-margin active" value="2x">2x</button>
-                                              <button type="button" class="btnn-margin" value="5x">5x</button>
-                                              <button type="button" class="btnn-margin" value="10x">10x</button>
-                                              <button type="button" class="btnn-margin" value="15x">15x</button>
-                                              <button type="button" class="btnn-margin" value="25x">25x</button>
-                                              <button type="button" class="btnn-margin" value="50x">50x</button>
-                                              <button type="button" class="btnn-margin" value="100x">100x</button>
+                                              <button type="button" class="btnn-margin active" value="2">2x</button>
+                                              <button type="button" class="btnn-margin" value="5">5x</button>
+                                              <button type="button" class="btnn-margin" value="10">10x</button>
+                                              <button type="button" class="btnn-margin" value="15">15x</button>
+                                              <button type="button" class="btnn-margin" value="25">25x</button>
+                                              <button type="button" class="btnn-margin" value="50">50x</button>
+                                              <button type="button" class="btnn-margin" value="100">100x</button>
                                             </div>
-                                            <input type="hidden" name="selected_margin" id="selected_margin" value="selected_margin">
+                                            <input type="hidden" name="user-trade-margin" class="user-trade-margin" value="">
                                           </div>
-
                                     </div>
                                     <div class="modal-footer">
                                         <div class="btn-area d-flex justify-content-between">
                                             <button class="btn btn-confirm-secondary"  style="justify-content: center" type="button">Update</button>
-                                            <a class="btn btn-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
+                                            <a class="btn btn-close btn-modal-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <li class="dropdown-item">
                                 <a class="btn btn-default text-danger" style="text-decoration: line-through;">View
                                     Password</a>
                             </li>
-
                             <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
                                 @csrf
-
                                 <input type="hidden" name="prompt_type" value="upgrade_prompt">
                                 <input type="hidden" name="action"
                                     value="{{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'off' : 'on' }}">
@@ -382,7 +377,6 @@
 
                             <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
                                 @csrf
-
                                 <input type="hidden" name="prompt_type" value="certificate_prompt">
                                 <input type="hidden" name="action"
                                     value="{{ $full_data['verification_prompts_permissions_data']['certificate_prompt'] == '1' ? 'off' : 'on' }}">
@@ -396,7 +390,6 @@
 
                             <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
                                 @csrf
-
                                 <input type="hidden" name="prompt_type" value="identity_prompt">
                                 <input type="hidden" name="action"
                                     value="{{ $full_data['verification_prompts_permissions_data']['identity_prompt'] == '1' ? 'off' : 'on' }}">
@@ -410,7 +403,6 @@
 
                             <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
                                 @csrf
-
                                 <input type="hidden" name="prompt_type" value="custom_prompt">
                                 <input type="hidden" name="action"
                                     value="{{ $full_data['verification_prompts_permissions_data']['custom_prompt'] == '1' ? 'off' : 'on' }}">
@@ -424,7 +416,6 @@
 
                             <form action="{{ route('admin.prompt', $full_data['user_data']->id) }}" method="POST">
                                 @csrf
-
                                 <input type="hidden" name="prompt_type" value="demo">
                                 <input type="hidden" name="action"
                                     value="{{ $full_data['verification_prompts_permissions_data']['demo'] == '1' ? 'off' : 'on' }}">
@@ -435,9 +426,6 @@
                                     Demo
                                 </button>
                             </form>
-
-
-
                             <li class="dropdown-item">
                                 <a class="btn btn-default" href="">Delete User</a>
                             </li>
@@ -856,7 +844,7 @@
                                                 <p>Selfie</p>
                                             </div>
                                             <div class="card-icons">
-                                                @if (!empty($full_data['user_settings']['kyc_address_proof']))
+                                                @if (!empty($full_data['user_settings']['kyc_selfie_proof']))
                                                     <a class="icon download-btn"
                                                         href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_selfie_proof']) }}"
                                                         download>

@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
     public function index() {
+
+         // Check if the user is logged in
+        if (!Auth::check()) {
+            return view('index');
+        }
+
+         // Check if the logged-in user has the specified role
+        $user = Auth::user();
+
+        if ($user->role == 'admin') {
+            return $next($request);
+        }else if ($user->role == 'user') {
+            return redirect()->route('user.dashboard');
+        } else{
+            return redirect()->route('admin.login');
+        }
+
         return view('index');
     }
 

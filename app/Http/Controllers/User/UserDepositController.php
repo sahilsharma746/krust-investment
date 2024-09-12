@@ -75,7 +75,7 @@ class UserDepositController extends Controller
             'created_at' => Carbon::now()
         ]);
         
-        return back()->with('success', 'Your Requeste Submited Successfully');
+        return back()->with('success', 'Your Request Submited Successfully');
     }
 
 
@@ -117,7 +117,7 @@ class UserDepositController extends Controller
                         ->subject('Deposit Request Admin Email');
             });
 
-            return back()->with('success', 'Your Requeste Submited Successfully');
+            return back()->with('success', 'Your Request Submited Successfully');
     }
     
 }
