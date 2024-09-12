@@ -42,6 +42,18 @@ Route::get('/reboot', function () {
     dd('Done');
 });
 
+Route::get('/send-test-email', function () {
+    $toEmail = 'sharmasahil00746@gmail.com'; // Replace with the recipient's email address
+
+    Mail::raw('This is a simple test email sent from Laravel.', function ($message) use ($toEmail) {
+        $message->to($toEmail)
+                ->subject('Test Email from Laravel');
+    });
+
+    return 'Email has been sent!';
+});
+
+
 Auth::routes(['reset' => true]);
 
 // home page route 
@@ -117,6 +129,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
     Route::get('upgrade', [UserUpgradeController::class, 'index'])->name('user.upgrade.index');
 
+    
+    Route::post('upgrade-plan', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
 
 });
 

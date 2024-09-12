@@ -1,7 +1,3 @@
-    <!-- font-awesome added here ================ -->
-    <!-- <script src="{{ asset('assets') }}/font-awesome-6.6.6-web/js/all.min.js"></script> -->
-    <!-- nice select 2 -->
-    
     <script src="{{ asset('assets') }}/nice-select-2/nice-select2.js"></script>
 
     <script src="{{ asset('assets') }}/js/site-common.js"></script>
@@ -12,8 +8,9 @@
         <script src="{{ asset('assets') }}/upload-file/upload-file.js"></script>
     @endif
 
-    @if (Route::currentRouteName() === 'user.trade.index')
+    @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'user.marketWatch.index')
         <script src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
+        <script src="{{ asset('assets') }}/js/user-trade.js"></script>
     @endif
 
     <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>

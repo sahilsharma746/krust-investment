@@ -52,17 +52,21 @@
                                     </a>
                                     <ul class="list-style-none dropdown-menu d-flex flex-column">
                                         <li class="dropdown-item">
-                                            @if($deposit->status != 'approved')
-                                                <a class="btn" href="{{ route('admin.deposit.approved.status', $deposit->id) }}">Approve Deposit</a>
-                                            @endif
-                                            @if($deposit->status != 'rejected')
-                                                <a class="btn" href="{{ route('admin.deposit.rejected.status', $deposit->id) }}">Reject Deposit</a>
-                                            @endif
-                                            @if($deposit->status != 'deleted')
+                                            @if($deposit->status != 'requested')
+                                                @if($deposit->status != 'approved')
+                                                    <a class="btn" href="{{ route('admin.deposit.approved.status', $deposit->id) }}">Approve Deposit</a>
+                                                @endif
+                                                @if($deposit->status != 'rejected')
+                                                    <a class="btn" href="{{ route('admin.deposit.rejected.status', $deposit->id) }}">Reject Deposit</a>
+                                                @endif
+                                                @if($deposit->status != 'deleted')
+                                                    <a class="btn" href="{{ route('admin.deposit.delete', $deposit->id) }}">Delete Deposit</a>
+                                                @endif
+                                                <a class="btn" target="_blank" href="{{ asset('uploads/deposit_receipt/' . $deposit->user_id . '/' . basename($deposit->receipt)) }}">View Receipt</a>
+                                                <a class="btn" href="{{ route('admin.deposit.download', $deposit->id) }}">Download Receipt</a>
+                                            @else
                                                 <a class="btn" href="{{ route('admin.deposit.delete', $deposit->id) }}">Delete Deposit</a>
                                             @endif
-                                            <a class="btn" target="_blank" href="{{ asset('uploads/deposit_receipt/' . $deposit->user_id . '/' . basename($deposit->receipt)) }}">View Recipt</a>
-                                            <a class="btn" href="{{ route('admin.deposit.download', $deposit->id) }}">Download Recipt</a>
                                         </li>
                                     </ul>
                                 </div>

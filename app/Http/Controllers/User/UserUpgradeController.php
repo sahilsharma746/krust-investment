@@ -24,13 +24,10 @@ class UserUpgradeController extends Controller
     public $user_setting;
 
     public function __construct(){
-
         $this->user_setting = new UserSetting();
-        
     }
     
-    public function index()
-    {
+    public function index(){
         $user = Auth::user();
         $plan_with_features = DB::table('user_account_types')
             ->leftJoin('table_user_account_types_features', 'user_account_types.id', '=', 'table_user_account_types_features.plan_id')
@@ -45,7 +42,11 @@ class UserUpgradeController extends Controller
     }
 
 
+    public function UpgradeUserPlan(Request $request){
 
+        dd( 'Working on it' );
+
+    }
  
 
 }
