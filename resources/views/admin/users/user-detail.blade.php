@@ -195,6 +195,25 @@
             background-color: #3AA31A;
             /* Darker blue on hover */
         }
+
+        .btnn-margin {
+    border: 2px solid rgb(240, 231, 231); 
+    padding: 10px 15px;
+    border-radius: 20px; 
+    margin: 5px;
+    font-size: 16px;
+    background-color: white; 
+    color: black;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, border-color 0.3s ease; 
+}
+
+.btnn-margin.active {
+    background-color: #00b300; /* Active button background */
+    color: white; /* Active button text color */
+    border-color: #00b300; /* Active button border color */
+}
+
     </style>
 @endsection
 @section('content')
@@ -203,7 +222,7 @@
         $country_name = config('countries.' . $country_code);
 
         $uploadedCount = 0;
-        $total_count = 4; 
+        $total_count = 4;
 
         $documents = ['kyc_id_front', 'kyc_id_back', 'kyc_address_proof', 'kyc_selfie_proof'];
 
@@ -214,19 +233,19 @@
         }
 
         $verification_statuses = [
-    'email_verify_status' => $full_data['verification_prompts_permissions_data']['email_verify_status'],
-    'phone_verify_status' => $full_data['verification_prompts_permissions_data']['phone_verify_status'],
-    '2fa_verify_status' => $full_data['verification_prompts_permissions_data']['2fa_verify_status'],
-    'kyc_verify_status' => $full_data['verification_prompts_permissions_data']['kyc_verify_status']
-];
+            'email_verify_status' => $full_data['verification_prompts_permissions_data']['email_verify_status'],
+            'phone_verify_status' => $full_data['verification_prompts_permissions_data']['phone_verify_status'],
+            '2fa_verify_status' => $full_data['verification_prompts_permissions_data']['2fa_verify_status'],
+            'kyc_verify_status' => $full_data['verification_prompts_permissions_data']['kyc_verify_status'],
+        ];
 
-$verified_count = 0;
-foreach ($verification_statuses as $status) {
-    if ($status == 'verified') {
-        $verified_count++;
-    }
-}
-$verification_progress = $verified_count . '/4';
+        $verified_count = 0;
+        foreach ($verification_statuses as $status) {
+            if ($status == 'verified') {
+                $verified_count++;
+            }
+        }
+        $verification_progress = $verified_count . '/4';
 
     @endphp
 
@@ -256,13 +275,92 @@ $verification_progress = $verified_count . '/4';
                                 <a class="btn btn-default" href="">Edit Plan</a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="btn btn-default" data-toggle="modal" href="#user-trade-limit">Edit Trade
+                                <a class="btn btn-default" onclick="openModal('user-trade-limit')">Edit Trade
                                     limit</a>
+                                <div id="user-trade-limit" class="modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-header">
+                                            <div class="modal-title">Trade Limit :
+                                                <span>{{ $full_data['user_data']['first_name'] }}
+                                                    {{ $full_data['user_data']['last_name'] }}</span>
+                                            </div>                                            
+                                            <button class="btn-modal-close" onclick="closeModal('user-trade-limit')">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group" >
+                                                <label class="form-label">Amount</label>
+                                                <select class="form-control" id="trade_result" name="trade-limit" required>
+                                                    <option value="win">Win</option>
+                                                    <option value="loss">Loss</option>
+                                                    <option value="draw">Draw</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                                <div class="btn-area d-flex justify-content-between">
+                                                    <button class="btn btn-confirm-secondary" style="justify-content: center"  type="button">Update</button>
+                                                    <a class="btn btn-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
+                                                </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </li>
                             <li class="dropdown-item">
                                 <a class="btn btn-default" data-toggle="modal" href="#user-trade-result">Edit Trade
                                     Result</a>
                             </li>
+
+                            <div id="user-trade-result" class="modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-header">
+                                        <div class="modal-title">Trade Result :
+                                            <span>{{ $full_data['user_data']['first_name'] }}
+                                                {{ $full_data['user_data']['last_name'] }}</span>
+                                        </div>
+                                        <button class="btn-modal-close" onclick="closeModal('user-trade-result')">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <label class="form-label">Trade Result</label>
+                                            <input class="form-control" name="amount" type="number" min="0"
+                                                placeholder="Enter Amount">
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="form-label">Percentage Win %</label>
+                                            <input type="number" class="form-control" id="percentage_win"
+                                                name="percentage_win" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">Margin</label>
+                                            <div class="margin-options d-flex flex-wrap"
+                                              style="border: 1px solid rgb(237, 231, 231); top-margin:10px; padding: 4px; border-radius: 10px;">
+                                              <button type="button" class="btnn-margin active" value="2x">2x</button>
+                                              <button type="button" class="btnn-margin" value="5x">5x</button>
+                                              <button type="button" class="btnn-margin" value="10x">10x</button>
+                                              <button type="button" class="btnn-margin" value="15x">15x</button>
+                                              <button type="button" class="btnn-margin" value="25x">25x</button>
+                                              <button type="button" class="btnn-margin" value="50x">50x</button>
+                                              <button type="button" class="btnn-margin" value="100x">100x</button>
+                                            </div>
+                                            <input type="hidden" name="selected_margin" id="selected_margin" value="selected_margin">
+                                          </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="btn-area d-flex justify-content-between">
+                                            <button class="btn btn-confirm-secondary"  style="justify-content: center" type="button">Update</button>
+                                            <a class="btn btn-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                             <li class="dropdown-item">
                                 <a class="btn btn-default text-danger" style="text-decoration: line-through;">View
                                     Password</a>
@@ -438,6 +536,7 @@ $verification_progress = $verified_count . '/4';
                         <span class="icon border-rounded"><i class="fa-solid fa-minus"></i></span>
                         <span class="text">Subtract Balance</span>
                     </button>
+
                     <div id="user-subtract-balance" class="modal">
                         <div class="modal-dialog">
                             <div class="modal-header">
@@ -530,16 +629,17 @@ $verification_progress = $verified_count . '/4';
                                 value="{{ $full_data['user_address']['zipcode'] }}" placeholder="Enter Address">
                         </div>
                         <!-- <div class="input-group grid-column-lg-2">
-                                                    <label class="form-label">user password</label>
-                                                    <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
-                                                </div> -->
+                                                        <label class="form-label">user password</label>
+                                                        <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
+                                                    </div> -->
                     </div>
                 </div>
                 <div class="section-title">Verification Status</div>
 
                 <div class="card check-files-valid-area">
                     <div class="card-header">
-                        <div class="verified-qty">{{ $verification_progress }}</div>                    </div>
+                        <div class="verified-qty">{{ $verification_progress }}</div>
+                    </div>
                     <div class="card-body check-files-valid-grid d-grid">
                         <div class="card d-flex justify-content-between align-items-center">
                             <p>Email</p>
@@ -593,7 +693,7 @@ $verification_progress = $verified_count . '/4';
                                                 <p>ID Front</p>
                                             </div>
                                             <div class="card-icons">
-                                                @if (!empty($full_data['user_settings']['kyc_selfie_proof']))
+                                                @if (!empty($full_data['user_settings']['kyc_id_front']))
                                                     <a class="icon download-btn"
                                                         href="{{ asset('uploads/kyc_documents/' . $full_data['user_data']['id'] . '/' . $full_data['user_settings']['kyc_id_front']) }}"
                                                         download>
@@ -601,7 +701,7 @@ $verification_progress = $verified_count . '/4';
                                                     </a>
                                                 @endif
                                                 <div class="document-verification-status d-flex justify-content-center align-items-center g-5"
-                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_selfie_proof'] == 3) verified @endif>
+                                                    @if ($full_data['verification_prompts_permissions_data']['kyc_id_front'] == 3) verified @endif>
                                                     <span class="icon d-flex justify-content-center align-items-center"><i
                                                             class="fa-solid fa-check"></i></span>
                                                 </div>

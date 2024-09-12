@@ -7,8 +7,8 @@
         <section id="market-watch-grid" class="tab-pane in active market-watch-grid d-grid ">
             <div class="card trade-status-card">
                 <div class="card-header">
-                    <a href="" class="btn-tab active">Market Watch</a>
-                    <a href="" class="btn-tab">Tradable Assets</a>
+                    <a href="{{ route('user.marketWatch.index') }}" class="btn-tab active">Market Watch</a>
+                    <a href="{{ route('user.trade.index') }}" class="btn-tab">Tradable Assets</a>
                 </div>
                 <div class="card-body">
                     <div class="card-indicators scroll">
@@ -165,136 +165,79 @@
                     </div>
                 </div>
             </div>
-
-            <div class="market-watch-chart-area d-grid scroll">
-                <div class="market-watch-chart-parent">
-                    <div id="market-watch-chart" class="market-watch-chart">
-                    </div>
-                </div>
-                <!-- <div class="card krust-investments-tradingView-card" id="krust-investments-tradingView-card">
-                    </div> -->
-                <div class="market-watch-chart-filter scroll">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <div class="d-flex g-8">
-                                <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                <div class="d-grid">
-                                    <span class="name">eurusd</span>
-                                    <span class="details">Euro / U.S Dollar</span>
-                                </div>
-                            </div>
-
-                            <div class="icon">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </div>
-                        </div>
-                        <div class="card-body d-grid g-10">
-                            <div class="input-group">
-                                <label class="form-label">Amount</label>
-                                <input class="form-control" type="number" min="0" placeholder="Enter Amount">
-                            </div>
-                            <div class="input-group">
-                                <label class="form-label">Time Frame</label>
-                                <select class="form-control small" id="marketViewChartTimeFrame">
-                                    <option value="0">Select Time Frame</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label class="form-label">Margin</label>
-                                <select class="form-control small" id="marketViewChartFrame">
-                                    <option value="0">Select Margin</option>
-                                    <option value="">5x</option>
-                                    <option value="">10x</option>
-                                    <option value="">15x</option>
-                                </select>
-                            </div>
-                            <table class="market-watch-short-history w-100">
-                                <tbody>
-                                    <tr>
-                                        <td>Strike Rate</td>
-                                        <td>-</td>
-                                        <td class="text-end">70%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Contract Size</td>
-                                        <td>-</td>
-                                        <td class="text-end">1M</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Leverage</td>
-                                        <td>-</td>
-                                        <td class="text-end">1:50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fees</td>
-                                        <td>-</td>
-                                        <td class="text-end">$0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                            <div class="btn-area d-flex g-10">
-                                <a href="" class="btn d-grid btn-buy">
-                                    <span class="name">buy</span>
-                                    <span>1.5647</span>
-                                </a>
-                                <a href="" class="btn d-grid btn-sell">
-                                    <span class="name">Sell</span>
-                                    <span>1.5402</span>
-                                </a>
-                            </div>
-
-                            <div class="payout-area d-grid">
-                                <span>Your Payout</span>
-                                <span class="text-center">=</span>
-                                <span class="text-end">$320.45</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="market-details-summery-card-group d-flex justify-content-between">
-                    <div class="last-closed-trades">
-                        <p>Last Closed Trades</p>
-                        <div class="d-flex">
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">ASSETS</div>
-                                <div class="value">EUR/USD</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">TIMEFRAME</div>
-                                <div class="value">10 Hrs</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">Capital</div>
-                                <div class="value">$100k</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">Profit</div>
-                                <div class="value">+ $1,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="last-open-trades">
-                        <p class="text-end">Last Open Trades</p>
-                        <div class="d-flex">
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">ASSETS</div>
-                                <div class="value">EUR/USD</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">TIMEFRAME</div>
-                                <div class="value">10 Hrs</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">CURRENT TIME</div>
-                                <div id="currentTime" interval="true" class="value">1:42 PM</div>
-                            </div>
-                        </div>
-                    </div>
+            <div id="user-market-watch-area" class="user-market-watch-area w-100">
+                <div class="user-market-watch-table-area table-area scroll w-100">
+                    <table id="user-market-watch-table" class="user-market-watch-table w-100">
+                        <thead>
+                            <tr>
+                                <th>Asset</th>
+                                <th>Market Cap</th>
+                                <th>FD Market Cap</th>
+                                <th>Price</th>
+                                <th>Traded Volume</th>
+                                <th>Available Volume</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center g-8">
+                                        <img src="../assets/img/country-eur.png" class="icon">
+                                        <span class="name">EURUSD </span>
+                                    </div>
+                                </td>
+                                <td>13.564B</td>
+                                <td>13.564B</td>
+                                <td>3.9172523</td>
+                                <td>12.8261B</td>
+                                <td>257.192M</td>
+                                <td class="text-success">+23%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center g-8">
+                                        <img src="../assets/img/country-eur.png" class="icon">
+                                        <span class="name">EURUSD </span>
+                                    </div>
+                                </td>
+                                <td>13.564B</td>
+                                <td>13.564B</td>
+                                <td>3.9172523</td>
+                                <td>12.8261B</td>
+                                <td>257.192M</td>
+                                <td class="text-danger">-5.35%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center g-8">
+                                        <img src="../assets/img/country-eur.png" class="icon">
+                                        <span class="name">EURUSD </span>
+                                    </div>
+                                </td>
+                                <td>13.564B</td>
+                                <td>13.564B</td>
+                                <td>3.9172523</td>
+                                <td>12.8261B</td>
+                                <td>257.192M</td>
+                                <td class="text-danger">-5.35%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center g-8">
+                                        <img src="../assets/img/country-eur.png" class="icon">
+                                        <span class="name">EURUSD </span>
+                                    </div>
+                                </td>
+                                <td>13.564B</td>
+                                <td>13.564B</td>
+                                <td>3.9172523</td>
+                                <td>12.8261B</td>
+                                <td>257.192M</td>
+                                <td class="text-danger">-5.35%</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

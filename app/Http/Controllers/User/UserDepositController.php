@@ -46,8 +46,8 @@ class UserDepositController extends Controller
         $request->validate([
             'amount' => 'required | numeric | min:1',
             'receipt' => 'required | image | mimes:jpg,png,jpeg',
-            'wallet_address'=>'required',
-            'address_tag'=>'required',
+            // 'wallet_address'=>'required',
+            // 'address_tag'=>'required',
         ]);
         
         $base_path = public_path('uploads/deposit_receipt/');
@@ -74,7 +74,7 @@ class UserDepositController extends Controller
             'deposit_by' => 'user',
             'created_at' => Carbon::now()
         ]);
-
+        
         return back()->with('success', 'Your Requeste Submited Successfully');
     }
 

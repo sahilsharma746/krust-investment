@@ -327,7 +327,10 @@ class AdminUserController extends Controller
             $status_message .= ' All documents are approved. KYC status is now fully approved.';
         }
 
-        return back()->with('success', $status_message);
+        // return back()->with('success', $status_message);
+        return back()->with('success', 'updated successfully');
+
+        
     }
     
     
