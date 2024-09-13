@@ -4,8 +4,8 @@
             <section id="trade-and-market-common-grid" class="trade-and-market-common-grid d-grid">
                 <div class="card trade-and-market-common-card">
                     <div class="card-header">
-                        <a href="{{ route('user.marketWatch.index') }}" class="btn-tab ">Market Watch</a>
-                        <a href="{{ route('user.trade.index') }}" class="btn-tab">Tradable Assets</a>
+                        <a href="{{ route('user.marketWatch.index') }}" class="btn-tab active">Market Watch</a>
+                        <a href="{{ route('user.trade.index') }}" class="btn-tab ">Tradable Assets</a>
                     </div>
                     <div class="card-body">
                         <div class="card-indicators scroll">

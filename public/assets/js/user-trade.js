@@ -335,14 +335,38 @@ jQuery(document).on('click', '.trade-type', function(){
 })
 
 
-// on click on the table data in assests 
 jQuery(document).on('click', '#trade-and-market-common-table .asset-data', function(){
 	let name = jQuery(this).find('span').data('name');
 	let fullname =  jQuery(this).find('span').data('fullname');
+	let assetPrice = jQuery(this).find('span').data('price');
+	trade_logic();
+
 	jQuery('.user-trade-chart-filter .selected-asset').find('.name').text(name);
 	jQuery('.user-trade-chart-filter .selected-asset').find('.fullname').text(fullname);
+	jQuery('input.asset-unitprice').val(assetPrice);
 })
 
 
+jQuery('.user-trade-chart-filter .asset-margin').on('change', function() {
+	trade_logic();
+});
 
+jQuery(document).on('input', '.user-trade-chart-filter .asset-trade-amount', function(){
+	trade_logic();
+});
 
+function trade_logic(){
+	let price = jQuery('.user-trade-chart-filter .asset-unitprice').val();
+	var margin = jQuery('.user-trade-chart-filter .asset-margin').val();
+	let asset_trade_amount = jQuery('.user-trade-chart-filter .asset-trade-amount').val() === '' ? '0' : jQuery('.user-trade-chart-filter .asset-trade-amount').val();
+	
+	
+	let contract_size = asset_trade_amount * margin;
+	let asset_unit_price = price / contract_size ;
+	console.log(asset_unit_price);
+	jQuery('.user-trade-chart-filter .asset-contract-size').text(contract_size);
+    jQuery('.user-trade-chart-filter .asset-unit-price').val(asset_unit_price.toFixed(2));
+	
+	
+	
+}

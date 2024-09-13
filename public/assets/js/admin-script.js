@@ -285,7 +285,6 @@ $(document).ready(function () {
 
 
 
-// on click user-trade-result modal margin button
 jQuery(document).on( 'click', '.btnn-margin', function(){
     jQuery('.btnn-margin').removeClass('active');
     jQuery(this).addClass('active');
@@ -294,7 +293,12 @@ jQuery(document).on( 'click', '.btnn-margin', function(){
 });
 
 
+   // Change the label text based on the selected trade result
+ 
+function updateLabel() {
+    var tradeResult = document.getElementById("trade_result").value;
+    var percentageLabel = document.getElementById("percentage_label");
 
-
-
-
+    // Change the label text based on the selected trade result
+    percentageLabel.innerText = "Percentage " + tradeResult + " %";
+  }

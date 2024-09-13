@@ -14,13 +14,14 @@
     "account_number_key" => "ki_account_number",
     "sort_code_key" => "ki_sort_code",
 
-
     // kyc verification keys 
     "kyc_id_front" => "kyc_id_front",
     "kyc_id_back" => "kyc_id_back",
     "kyc_address_proof" => "kyc_address_proof",
     "kyc_selfie_proof" => "kyc_selfie_proof",
   
-     
+    //  user trade settings
+    "trade_result" => "random",
+    "trade_percentage" => "10",
     
 ];

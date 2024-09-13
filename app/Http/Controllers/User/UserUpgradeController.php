@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Getway;
 use App\Models\Deposit;
 use App\Models\Withdraw;
-use App\Models\UserSetting;
 
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 use App\Models\UserAccountType;
 use Illuminate\Support\Facades\DB;
@@ -21,10 +22,10 @@ class UserUpgradeController extends Controller
 {
 
        
-    public $user_setting;
+    // public $user_setting;
 
     public function __construct(){
-        $this->user_setting = new UserSetting();
+        // $this->user_setting = new UserSetting();
     }
     
     public function index(){
@@ -44,8 +45,20 @@ class UserUpgradeController extends Controller
 
     public function UpgradeUserPlan(Request $request){
 
-        dd( 'Working on it' );
-
+        $user_id = $request->input('user_id');
+        $plan_id = $request->input('plan_id');
+    
+        // Find the user and update the account type
+        $user = User::find($user_id);
+        if ($user) {
+            $user->account_type = $plan_id;
+            $user->save();
+            
+            return redirect()->back()->with('success', 'Account upgraded successfully!');
+        }
+    
+        return redirect()->back()->with('error', 'User not found!');
+    
     }
  
 

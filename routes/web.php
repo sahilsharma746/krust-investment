@@ -225,6 +225,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     // Admin dashboard trades screen 
     Route::get('/trades', [AdminTradesController::class, 'getAllTrades'])->name('admin.trades');
 
+    Route::post('/trades-result/{user_id}', [AdminTradesController::class, 'saveTradeResult'])->name('admin.trades.result');
 
     // Admin dashboard assets screen 
     Route::get('/assets', [AdminAssetsController::class, 'getAllAssets'])->name('admin.assets');
