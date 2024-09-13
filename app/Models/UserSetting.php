@@ -30,7 +30,7 @@ class UserSetting extends Model
     public function updatUserSetting( $setting_name, $setting_value, $user_id ){
         return UserSetting::updateOrCreate(
                         [
-                            'user_id' => $user_id, // Search criteria
+                            'user_id' => $user_id, 
                             'option_name' => $setting_name
                         ],
                         [

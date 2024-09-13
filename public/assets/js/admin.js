@@ -282,3 +282,4 @@ $(document).on('click', '.clone-icon', function () {
 });
 
 //* copy to clipboard area end ======================
+// user trade Result loos win /random

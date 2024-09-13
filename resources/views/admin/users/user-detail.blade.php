@@ -197,23 +197,25 @@
         }
 
         .btnn-margin {
-    border: 2px solid rgb(240, 231, 231); 
-    padding: 10px 15px;
-    border-radius: 20px; 
-    margin: 5px;
-    font-size: 16px;
-    background-color: white; 
-    color: black;
-    cursor: pointer; 
-    transition: background-color 0.3s ease, border-color 0.3s ease; 
-}
+            border: 2px solid rgb(240, 231, 231);
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
 
-.btnn-margin.active {
-    background-color: #00b300; /* Active button background */
-    color: white; /* Active button text color */
-    border-color: #00b300; /* Active button border color */
-}
-
+        .btnn-margin.active {
+            background-color: #00b300;
+            /* Active button background */
+            color: white;
+            /* Active button text color */
+            border-color: #00b300;
+            /* Active button border color */
+        }
     </style>
 @endsection
 @section('content')
@@ -281,35 +283,35 @@
                                     <div class="modal-dialog">
                                         <div class="modal-header">
                                             <div class="modal-title">Trade Limit :
-                                                <span>{{ $full_data['user_data']['first_name'] }}
+                                            <span>{{ $full_data['user_data']['first_name'] }}
                                                     {{ $full_data['user_data']['last_name'] }}</span>
-                                            </div>                                            
+                                            </div>
                                             <button class="btn-modal-close" onclick="closeModal('user-trade-limit')">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="input-group" >
+                                            <div class="input-group">
                                                 <label class="form-label">Amount</label>
-                                                <select class="form-control" id="trade_result" name="trade-limit" required>
-                                                    <option value="win">Win</option>
-                                                    <option value="loss">Loss</option>
-                                                    <option value="draw">Draw</option>
-                                                </select>
+                                                <input class="form-control" name="amount" type="number" min="0">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                                <div class="btn-area d-flex justify-content-between">
-                                                    <button class="btn btn-confirm-secondary" style="justify-content: center"  type="button">Update</button>
-                                                    <a class="btn btn-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
-                                                </div>
+                                            <input name="type" type="hidden" value="credit">
+                                            <button class="btn btn-confirm-info"
+                                                style=" margin-right: 10px; justify-content:center;background-color:white; color:#00b300; border: 1px solid #00b300"
+                                                onclick="closeModal('user-trade-limit')">Close</button>
+                                            <button class="btn btn-confirm-info"
+                                                style="margin-right: 10px
+                                            ; justify-content:center;">Submit</button>
                                         </div>
 
                                     </div>
                                 </div>
                             </li>
                             <li class="dropdown-item">
-                                <a class="btn btn-default" data-toggle="modal" href="#user-trade-result">Edit Trade Result</a>
+                                <a class="btn btn-default" data-toggle="modal" href="#user-trade-result">Edit Trade
+                                    Result</a>
                             </li>
 
                             <div id="user-trade-result" class="modal">
@@ -323,41 +325,37 @@
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>
+                                    <form action="{{ route('admin.trades.result',$full_data['user_data']->id) }}" method="POST">
+                                        @csrf
                                     <div class="modal-body">
                                         <div class="input-group">
-                                            <label class="form-label">Trade Result</label>
-                                            <input class="form-control" name="amount" type="number" min="0"
-                                                placeholder="Enter Amount">
+                                          <label class="form-label">Trade Result</label>
+                                          <select class="form-control" id="trade_result" name="trade_result" onchange="updateLabel()">
+                                            <option value="Win">Win</option>
+                                            <option value="Loss">Loss</option>
+                                            <option value="Random">Random</option>
+                                          </select>
                                         </div>
                                         <div class="input-group">
-                                            <label class="form-label">Percentage Win %</label>
-                                            <input type="number" class="form-control" id="percentage_win"
-                                                name="percentage_win" required>
+                                          <label class="form-label" id="percentage_label">Percentage Win %</label>
+                                          <input type="number" class="form-control" id="percentage_win" name="trade_percentage" required>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Margin</label>
-                                            <div class="margin-options d-flex flex-wrap"
-                                              style="border: 1px solid rgb(237, 231, 231); top-margin:10px; padding: 4px; border-radius: 10px;">
-                                              <button type="button" class="btnn-margin active" value="2">2x</button>
-                                              <button type="button" class="btnn-margin" value="5">5x</button>
-                                              <button type="button" class="btnn-margin" value="10">10x</button>
-                                              <button type="button" class="btnn-margin" value="15">15x</button>
-                                              <button type="button" class="btnn-margin" value="25">25x</button>
-                                              <button type="button" class="btnn-margin" value="50">50x</button>
-                                              <button type="button" class="btnn-margin" value="100">100x</button>
-                                            </div>
-                                            <input type="hidden" name="user-trade-margin" class="user-trade-margin" value="">
-                                          </div>
-                                    </div>
+                                      </div>
+                                      
                                     <div class="modal-footer">
-                                        <div class="btn-area d-flex justify-content-between">
-                                            <button class="btn btn-confirm-secondary"  style="justify-content: center" type="button">Update</button>
-                                            <a class="btn btn-close btn-modal-close text-bg-primary"  style="justify-content: center" href="#">Close</a>
-                                        </div>
+                                        <input name="type" type="hidden" value="credit">
+                                        <button class="btn btn-confirm-info"
+                                            style=" margin-right: 10px; justify-content:center;background-color:white; color:#00b300; border: 1px solid #00b300"
+                                            onclick="closeModal('user-trade-result')">Close</button>
+                                            {{-- <input name="user_id" type="hidden" value="{{ $user->id }}"> --}}
+                                        <button class="btn btn-confirm-info"
+                                            style="margin-right: 10px
+                                        ; justify-content:center;">Update</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
+
                             <li class="dropdown-item">
                                 <a class="btn btn-default text-danger" style="text-decoration: line-through;">View
                                     Password</a>
@@ -369,7 +367,7 @@
                                     value="{{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'off' : 'on' }}">
                                 <button type="submit" class="btn btn-default"
                                     style="font-size:initial; font-family: Inter, sans-serif;">
-                                    Turn
+                                    Turn    $user = User::findOrFail($userId);
                                     {{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'Off' : 'On' }}
                                     Upgrade Prompt
                                 </button>
@@ -617,9 +615,9 @@
                                 value="{{ $full_data['user_address']['zipcode'] }}" placeholder="Enter Address">
                         </div>
                         <!-- <div class="input-group grid-column-lg-2">
-                                                        <label class="form-label">user password</label>
-                                                        <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
-                                                    </div> -->
+                                                                    <label class="form-label">user password</label>
+                                                                    <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
+                                                                </div> -->
                     </div>
                 </div>
                 <div class="section-title">Verification Status</div>
