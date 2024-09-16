@@ -97,7 +97,7 @@ class UserDepositController extends Controller
             ]);
 
             // Sending email to user about the payment by transfer
-            $user_email = 'sharmasahil00746@gmail.com';
+            $user_email = $user->email;
             $user_email_details = [
                 'body' => "You are requesting a transfer by ".$getway->name
             ];
@@ -107,8 +107,7 @@ class UserDepositController extends Controller
             });
 
              // Sending email to Admin about the payment by transfer
-
-            $admin_email = 'sharmasahil00746@gmail.com';
+            $admin_email = config('settingkeys.admin_email');
             $admin_email_details = [
                 'body' => "User " . $user->first_name ." ". $user->last_name . " is requsting payment by ". $getway->name,
             ];

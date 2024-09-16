@@ -102,7 +102,7 @@
                                 <div class="d-grid">
                                     <span class="name">eurusd</span>
                                     <span class="details fullname">Euro / U.S Dollar</span>
-                                    <input type="hidden" name="price" class="asset-unitprice" >
+                                    <input type="hidden" name="price" value="" class="asset-unitprice">
                                 </div>
                             </div>
 
@@ -122,7 +122,7 @@
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Units</label>
-                                <input class="form-control asset-unit-price" type="text" placeholder="Enter units">
+                                <input class="form-control asset-unit-price" readonly type="text" placeholder="Enter units">
                             </div>
                             <div class="input-group">
                                 <label class="form-label">Amount</label>
@@ -148,7 +148,7 @@
                                     <tr>
                                         <td>Contract Size</td>
                                         <td>-</td>
-                                        <td class="text-end asset-contract-size"></td>
+                                        <td class="text-end">$<span class="asset-contract-size">0</span></td>
                                     </tr>
                                     <tr>
                                         <td>Volatility</td>
@@ -178,7 +178,10 @@
                             <div class="payout-area d-grid">
                                 <span>Your Payout</span>
                                 <span class="text-center">=</span>
-                                <span class="text-end text-primary asset-payout">00</span>
+                                <span class="text-end text-primary">$<span class="asset-payout">0</span></span>
+                                <input type="hidden" value="{{$user_balance}}" class="asset-user_balance">
+                                <input type="hidden" value="{{$trade_result_percentage}}" class="asset-trade_result_percentage">
+                                <input type="hidden" value="{{$trade_result}}" class="asset-trade_result">
                             </div>
                         </div>
                     </div>
