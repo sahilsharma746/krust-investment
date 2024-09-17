@@ -84,10 +84,14 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     
     // route for the user dashboard 
     Route::get('/dashboard', [UserHomeController::class, 'index'])->name('user.dashboard');
+
     
     // route for the user dashboard deposits
     Route::get('/deposit-method', [UserDepositController::class, 'index'])->name('user.deposit.getway');
-    
+    Route::get('/deposit-method/{plan_id}', [UserDepositController::class, 'index'])->name('user.upgrade.plan');
+
+    // Route::post('upgrade-plan/{plan_id}', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
+
     // route to store the deposites by bitcoin , USDT and XMR
     Route::post('/deposit-store/{id}', [UserDepositController::class, 'storeUserDeposit'])->name('user.deposit.store');
 
@@ -130,7 +134,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     Route::get('upgrade', [UserUpgradeController::class, 'index'])->name('user.upgrade.index');
 
     
-    Route::post('upgrade-plan', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
+    // Route::post('upgrade-plan/{plan_id}', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
 
 });
 
@@ -149,7 +153,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     
     // admin all users dashboard view url 
     Route::get('/all-user', [AdminUserController::class, 'index'])->name('admin.user.index');
-    
+
+    Route::post('/change-plan/{user}', [AdminUserController::class, 'changeUserPlan'])->name('admin.user.change-plan');
+
     // admin all active users dashboard view url 
     Route::get('/active-users', [AdminUserController::class, 'activeUsers'])->name('admin.user.activeUsers');
     

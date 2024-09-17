@@ -2,6 +2,7 @@
 
 return [
 
+    
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -13,6 +14,23 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+
+
+
+
+    'cryptocompare' => [
+        'url' => env('COINGECKO_API_URL'),
+    ],
+
+    'currencylayer' => [
+        'api_key' => env('CURRENCY_LAYER_API_KEY'),
+        'url' => env('CURRENCY_LAYER_API_URL'),
+    ],
+
+    'exchangerate' => [
+        'api_key' => env('EXCHANGE_RATE_API_KEY'),
+        'url' => env('EXCHANGE_RATE_API_URL'),
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),

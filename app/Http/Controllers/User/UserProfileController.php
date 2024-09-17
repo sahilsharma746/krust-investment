@@ -108,6 +108,13 @@ class UserProfileController extends Controller
 
     public function saveKycDocuments(Request $request)
 {
+    $validated_data = $request->validate([
+        'kyc_type' => 'required|string',
+    ]);
+    
+    $kyc_type = $validated_data['kyc_type'];
+
+
     $user = Auth::user();
 
     $image_uploaded = false;
@@ -126,7 +133,6 @@ class UserProfileController extends Controller
         $kyc_id_front_file_name = time() . '-kyc_id_front.' . $user_id . '.' . $kyc_id_front_file->getClientOriginalExtension();
         $kyc_id_front_file->move($user_folder_path, $kyc_id_front_file_name);
         $this->user_setting->updatUserSetting('kyc_id_front', $kyc_id_front_file_name, $user_id);
-        // $this->user_setting->updateUserSetting(['kyc_id_front_status' => 'user_uploaded'], $user_id);
         UserVerifiedStatus::where('user_id', $user_id)
     ->update(['kyc_id_front' => 1]);
         }
@@ -163,6 +169,9 @@ class UserProfileController extends Controller
         UserVerifiedStatus::where('user_id', $user_id)
         ->update(['kyc_selfie_proof' => 1]);
     }
+
+    
+    $this->user_setting->updatUserSetting('kyc_doc_type',$kyc_type, $user_id);
 
 
     UserVerifiedStatus::where('user_id', $user_id)

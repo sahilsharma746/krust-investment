@@ -22,11 +22,11 @@ class UserUpgradeController extends Controller
 {
 
        
-    // public $user_setting;
+    // // public $user_setting;
 
-    public function __construct(){
-        // $this->user_setting = new UserSetting();
-    }
+    // public function __construct(){
+    //     // $this->user_setting = new UserSetting();
+    // }
     
     public function index(){
         $user = Auth::user();
@@ -39,7 +39,12 @@ class UserUpgradeController extends Controller
 
         $plans = $plan_with_features->groupBy('plan_id');
 
-        return view('users.upgrade.index', compact('user','plans'));
+        $current_plan_id = \DB::table('user_account_types')
+        ->where('id', $user->account_type ?? null)
+        ->value('name') ?? 'No Plan';
+        
+
+        return view('users.upgrade.index', compact('user','plans','current_plan_id'));
     }
 
 

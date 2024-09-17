@@ -19,6 +19,13 @@
     "kyc_id_back" => "kyc_id_back",
     "kyc_address_proof" => "kyc_address_proof",
     "kyc_selfie_proof" => "kyc_selfie_proof",
+    
+    "kyc_type" => [
+      'birth_certificate' => 'Birth Certificate',
+      '  id_card'=>'ID Card',
+      'passport'=>'Passport',
+      ],
+     
   
     //  user trade settings
     "trade_result" => "random",

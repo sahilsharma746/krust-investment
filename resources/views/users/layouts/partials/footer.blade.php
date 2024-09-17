@@ -12,8 +12,16 @@
         <script src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
         <script src="{{ asset('assets') }}/js/user-trade.js"></script>
     @endif
+    <script src="{{ asset('assets') }}/js/user-script.js"></script>
 
+    <script src="{{ asset('assets') }}/font-awesome-6.6.6-web/js/all.min.js"></script>
     <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
+    <script src="{{ asset('assets') }}/font-awesome-6.6.6-web/js/all.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

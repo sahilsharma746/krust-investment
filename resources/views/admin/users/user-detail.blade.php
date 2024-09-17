@@ -255,6 +255,7 @@
         <div class="container user-details-container">
             <div class="partial-view-header">
                 <div class="back-btn-area">
+                    
                     <a href="{{ route('admin.user.index') }}">
                         <span class="icon">
                             <i class="fa-solid fa-arrow-left"></i>
@@ -265,6 +266,31 @@
                     <span>{{ $full_data['user_data']['first_name'] }} {{ $full_data['user_data']['last_name'] }}</span>
                 </div>
                 <div class="btn-area">
+
+                      <div class="dropdown w-max">
+                        <a class="btn btn-user-tier-dropdown">
+                            <div class="d-grid">
+                                <span>USER PLAN</span>
+                                <span>{{$full_data['current_account']}}</span>
+                            </div>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </a>
+
+                        <ul class="list-style-none dropdown-menu d-flex flex-column">
+                            @foreach($full_data['all_account_type'] as $account_type)
+                                <li class="dropdown-item">
+                                    <form action="{{ route('admin.user.change-plan', $full_data['user_data']->id)  }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="account_type_id" value="{{ $account_type->id }}">
+                                        <button class="btn btn-default" type="submit">{{ $account_type->name }}</button>
+                                    </form>
+                                </li>
+                            @endforeach
+                        </ul>
+                        
+                        
+                        
+                    </div>
                     <a href="{{ route('admin.login-as-user', $full_data['user_data']['id']) }}"
                         class="btn btn-login-as-user">Log in As User</a>
                     <div class="dropdown w-max">
@@ -664,9 +690,12 @@
                 @if ($full_data['verification_prompts_permissions_data']['kyc_verify_status'] !== 'unverified')
                     <div class="section-title">KYC Verification</div>
                     <div class="card check-files-valid-area">
+                        {{-- dd($full_data['kyc_type']['option_value']); --}}
                         <div class="card-header">
                             <div class="verified-qty">{{ $uploadedCount }}/{{ $total_count }} Uploaded</div>
+                            <div class="additional-info" >{{($full_data['kyc_type']['option_value'])}} </div>
                         </div>
+                        
                         <div class="card-body check-files-valid-grid kyc-grid d-grid">
                             <div class="card">
                                 <form action="{{ route('admin.kyc.action', $full_data['user_data']->id) }}"

@@ -1,3 +1,18 @@
+//* common script for user panel =======
+typeof NiceSelect !== 'undefined' &&
+    NiceSelect.bind &&
+    $.each($('select'), function (index, selector) {
+        const id = $(selector).attr('id');
+        const searchable = $(selector).attr('searchable');
+        const options = {
+            searchable: searchable == 'true' || false,
+            placeholder: 'select',
+            searchtext: 'Search',
+            selectedtext: 'geselecteerd',
+        };
+
+        NiceSelect.bind(document.getElementById(id), options);
+    });
 
 //* Navigation nav-tab script ===============
 document.addEventListener('click', function (e) {
@@ -5,11 +20,10 @@ document.addEventListener('click', function (e) {
         e.preventDefault();
         const $parent = e.target.closest('.nav-item');
 
-        if (true) {
+        if ($parent) {
             const tabPane = e.target
                 .closest('[data-toggle]')
                 .getAttribute('href');
-            console.log(tabPane);
             if (!tabPane) return;
 
             const navTabs = e.target.closest('.nav-tabs');
@@ -161,9 +175,10 @@ $(document).ready(function () {
     //* live Chat script end ===========================
 
     //* Payment Method collapsible script start ========
+
     $(document).on(
         'click',
-        '[data-toggle="collapse"]:not(.active)',
+        '.collapsible-card-group [data-toggle="collapse"]:not(.active)',
         function (e) {
             e.preventDefault();
             const target = $(this).addClass('active').attr('href');
@@ -177,18 +192,24 @@ $(document).ready(function () {
         },
     ); //? Payment Method collapsible script end ==========
 
-    //! Market watch collapsible script start ========
-    $(document).on('click', '.user-trade-grid [data-target]', function () {
-        if (!$(this).hasClass('active')) {
-            const target = $(this).attr('data-target');
-            $(this).addClass('active').siblings('a').removeClass('active');
-            $(`.user-trade-grid ${target}`)
-                .removeClass('d-none')
-                .siblings('.collapse')
-                .addClass('d-none');
-        }
-    }); //? Market watch collapsible script end ==========
-    //! Deposit area collapsible script start ========
+    //! Market watch collapsible script start =============
+    $(document).on(
+        'click',
+        '.market-watch-table-indicators a.btn:not(.active)',
+        function () {
+            try {
+                $(this).addClass('active').siblings().removeClass('active');
+                const target = $(this).attr('href');
+                $(`${target}`)
+                    .removeClass('d-none')
+                    .siblings('tbody')
+                    .addClass('d-none');
+            } catch (err) {
+                console.warn(err);
+            }
+        },
+    ); //? Market watch collapsible script end ============
+    //! Deposit area collapsible script start =============
     $(document).on(
         'click',
         '.navigation-card-group [data-target]',
@@ -207,7 +228,7 @@ $(document).ready(function () {
                     .addClass('d-none');
             }
         },
-    ); //? Deposit area collapsible script end ==========
+    ); //? Deposit area collapsible script end ============
 
     //* modal script start ===============================
     $(document).on('click', '[data-toggle="modal"]', function () {
@@ -222,43 +243,54 @@ $(document).ready(function () {
                 $('body').removeClass('overflowY-hidden');
             });
     }); //? modal script end =================================
+
+    $(document).on('click', '.btn-confirm-info', function () {
+        const cardBody = $(
+            '.user-deposit-area .collapsible-card-group .card .card-body.collapse.active',
+        );
+        if (cardBody.length) {
+            const amount = cardBody.find('.amount').val();
+            $('.depositFinishModal .modal-text').text(
+                `You request has been received. Please note that we only receive bank wire transfer for payments above $${amount}. Any lesser payment must be processed via bitcoin`,
+            );
+        }
+    });
 });
 
 //* copy to clipboard area start ========================
-// const copyToClipboard = (id) => {
-//     // Get the input field
-//     var copyText = document.querySelector(id);
+const copyToClipboard = (id) => {
+    // Get the input field
+    var copyText = document.querySelector(id);
 
-//     if (!copyText) {
-//         console.warn('Element not found', id);
-//         return;
-//     }
+    if (!copyText) {
+        console.warn('Element not found', id);
+        return;
+    }
 
-//     // Create a temporary textarea element to hold the text
-//     var tempTextArea = document.createElement('textarea');
-//     tempTextArea.value = copyText.value;
-//     document.body.appendChild(tempTextArea);
+    // Create a temporary textarea element to hold the text
+    var tempTextArea = document.createElement('textarea');
+    tempTextArea.value = copyText.value;
+    document.body.appendChild(tempTextArea);
 
-//     // Select the text in the textarea
-//     tempTextArea.select();
-//     tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
+    // Select the text in the textarea
+    tempTextArea.select();
+    tempTextArea.setSelectionRange(0, tempTextArea.value.length); // For mobile devices
 
-//     try {
-//         // Copy the text to the clipboard
-//         var successful = document.execCommand('copy');
-//         if (successful) {
-//             alert('Copied the text: ' + tempTextArea.value);
-//         } else {
-//             console.error('Failed to copy text');
-//         }
-//     } catch (err) {
-//         console.error('Could not copy text: ', err);
-//     }
+    try {
+        // Copy the text to the clipboard
+        var successful = document.execCommand('copy');
+        if (successful) {
+            alert('Copied the text: ' + tempTextArea.value);
+        } else {
+            console.error('Failed to copy text');
+        }
+    } catch (err) {
+        console.error('Could not copy text: ', err);
+    }
 
-//     // Remove the temporary textarea element
-//     document.body.removeChild(tempTextArea);
-// };
-
+    // Remove the temporary textarea element
+    document.body.removeChild(tempTextArea);
+};
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);
@@ -398,11 +430,61 @@ if (tradingHistoryTable.length) {
         },
     });
 }
-
 $(document).on('click', '#btn-download-trading-history', function () {
     console.log('Downloading init...');
 });
+
+//? bot-trading-history-data-table ______________ ↓
+const botTradingHistoryTable = $('#bot-trading-history-table');
+if (botTradingHistoryTable.length) {
+    let table = new DataTable(botTradingHistoryTable, {
+        responsive: true,
+        initComplete: function () {
+            // Access the search input field and set a placeholder
+            const searchInput = document.querySelector(
+                '[type="search"][aria-controls="bot-trading-history-table"]',
+            );
+            if (searchInput) {
+                searchInput.placeholder = 'Search for trade etc...';
+                searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
+                searchInput.previousSibling.classList.add(
+                    'bot-trading-history-table-label',
+                );
+
+                const btn =
+                    '<a class="btn w-max" id="btn-download-bot-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
+                searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
+            }
+        },
+    });
+}
+$(document).on('click', '#btn-download-bot-trading-history', function () {
+    console.log('Downloading init...');
+});
 //? Data table end ===========================
+//* trading bot script start =================
+let btnViewHistory = null;
+$(document).on('click', '.btn-load-software', function () {
+    btnViewHistory = $(this).prev('.btn-view-history');
+});
+$(document).on(
+    'click',
+    '.trading-bot-license-modal .btn-license-submit',
+    function () {
+        btnViewHistory.removeClass('d-none');
+        btnViewHistory = null;
+    },
+);
+
+$(document).on('click', '.btn-view-history', function () {
+    $('.trading-bots-area').addClass('d-none');
+    $('.bot-trading-history').removeClass('d-none');
+});
+$(document).on('click', '[href="#trading-bots-area"]', function () {
+    $('.trading-bots-area').removeClass('d-none');
+    $('.bot-trading-history').addClass('d-none');
+});
+//* trading bot script end ===================
 
 //* Trading view js start ====================
 const watchListTableBuild = ($html) => {
@@ -491,29 +573,19 @@ const getCurrentTime = () => {
 
     return currentTime;
 };
-const currentTimeElem = $('#currentTime');
-if (currentTimeElem.length) {
-    const isInterval = currentTimeElem.attr('interval') == 'true' || false;
-    const time = getCurrentTime();
-    currentTimeElem.text(`${time.hours}:${time.formattedMinutes} ${time.ampm}`);
+//* trade-details-summery collapsable script start =====
+$(document).on(
+    'click',
+    '.trade-details-summery .card-header a:not(.active)',
+    function () {
+        const target = $(this).attr('href');
+        if (!target) return;
+        $(this).addClass('active').siblings().removeClass('active');
+        $(target).removeClass('d-none').siblings().addClass('d-none');
+    },
+);
 
-    if (isInterval)
-        setInterval(() => {
-            const time = getCurrentTime();
-            if (time.formattedSeconds == 0) {
-                currentTimeElem
-                    .parent()
-                    .css('background-color', 'var(--primary-color)');
-                setTimeout(() => {
-                    currentTimeElem.parent().css('background-color', '');
-                }, 2000);
-
-                currentTimeElem.text(
-                    `${time.hours}:${time.formattedMinutes} ${time.ampm}`,
-                );
-            }
-        }, 1000);
-}
+//* trade-details-summery collapsable script end =======
 
 $(document).on(
     'click',

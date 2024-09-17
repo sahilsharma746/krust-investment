@@ -11,7 +11,7 @@
                         <span>Manage Users</span>
                     </a>
                     <span>/</span>
-                    <span>Michael Michaelson</span>
+                    <span>{{ $user->first_name }} {{ $user->last_name }}</span>
                 </div>
                 <a href="" class="btn">Log in As User</a>
             </div>

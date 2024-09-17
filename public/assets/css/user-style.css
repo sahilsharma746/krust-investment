@@ -18,6 +18,7 @@
   --secondary-font-color-5: rgba(242, 242, 242, 0.05);
   --secondary-font-color-10: rgba(242, 242, 242, 0.1);
   --secondary-font-color-15: rgba(242, 242, 242, 0.15);
+  --secondary-font-color-25: rgba(242, 242, 242, 0.25);
   --secondary-font-color-50: rgba(242, 242, 242, 0.5);
   --secondary-font-color-65: rgba(242, 242, 242, 0.65);
   --secondary-font-color-70: rgba(242, 242, 242, 0.7);
@@ -483,24 +484,28 @@ section .subtitle {
 }
 
 /** scroll style ================ */
-.scroll::-webkit-scrollbar {
-  width: var(--scrollbar-width, 5px);
+.scroll::-webkit-scrollbar,
+.list::-webkit-scrollbar {
+  width: var(--scrollbar-width, 5px) !important;
   height: var(--scrollbar-width, 5px);
   border: 1px solid var(--scrollbar-border-color, #888);
   border-radius: 50px;
   padding-block: 5px;
 }
 
-.scroll::-webkit-scrollbar-track {
+.scroll::-webkit-scrollbar-track,
+.list::-webkit-scrollbar-track {
   background-color: var(--scroll-bg-color, #f1f1f1);
 }
 
-.scroll::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb,
+.list::-webkit-scrollbar-thumb {
   background-color: var(--scroll-thumb-color, #888);
   border-radius: var(--scroll-border-radius, 25px);
 }
 
-.scroll::-webkit-scrollbar-thumb:hover {
+.scroll::-webkit-scrollbar-thumb:hover,
+.list::-webkit-scrollbar-thumb:hover {
   background-color: var(--scroll-thumb-color-hover, #888);
 }
 
@@ -1988,20 +1993,155 @@ main > article .payment-method-and-history .trading-history .table-area div.dt-c
     min-width: 300px;
   }
 }
-main > article .payment-method-and-history .trading-history .table-area #trading-history-table {
+main > article .payment-method-and-history .trading-history .table-area #trading-history-table,
+main > article .payment-method-and-history .trading-history .table-area #bot-trading-history-table {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
-main > article .payment-method-and-history .trading-history .table-area .trading-history-table-label {
+main > article .payment-method-and-history .trading-history .table-area .trading-history-table-label,
+main > article .payment-method-and-history .trading-history .table-area .bot-trading-history-table-label {
   margin-right: -30px;
   opacity: 0.5;
 }
-main > article .payment-method-and-history .trading-history .table-area #btn-download-trading-history {
+main > article .payment-method-and-history .trading-history .table-area #btn-download-trading-history,
+main > article .payment-method-and-history .trading-history .table-area #btn-download-bot-trading-history {
   margin-left: 8px;
 }
 @media only screen and (min-width: 768px) {
-  main > article .payment-method-and-history .trading-history .table-area #btn-download-trading-history {
+  main > article .payment-method-and-history .trading-history .table-area #btn-download-trading-history,
+  main > article .payment-method-and-history .trading-history .table-area #btn-download-bot-trading-history {
     float: right;
   }
+}
+main > article .payment-method-and-history .trading-history .table-area div.dt-container .dt-paging .dt-paging-button.disabled,
+main > article .payment-method-and-history .trading-history .table-area div.dt-container .dt-paging .dt-paging-button.disabled:hover,
+main > article .payment-method-and-history .trading-history .table-area div.dt-container .dt-paging .dt-paging-button.disabled:active {
+  color: var(--secondary-font-color) !important;
+}
+main > article .payment-method-and-history .bot-trading-history .area-title {
+  color: var(--secondary-font-color);
+  font-size: 16px;
+  font-weight: 400;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group {
+  display: grid;
+  margin-block: 30px;
+  gap: 36px;
+}
+@media only screen and (min-width: 768px) {
+  main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 992px) {
+  main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-body {
+  margin-bottom: 8px;
+  border: 1px solid var(--secondary-font-color-25);
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-body .icon {
+  --icon-size: 145px;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  text-align: center;
+  margin: 30px auto 12px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-body .icon img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-body .trading-bots-name {
+  min-height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: var(--secondary-font-color-10);
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-footer {
+  display: flex;
+  gap: 8px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-footer .btn {
+  flex-grow: 1;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bots-card-group .card .card-footer .btn-view-history {
+  background-color: var(--secondary-font-color);
+  background: linear-gradient(0deg, var(--primary-color-10), var(--primary-color-10)), linear-gradient(90deg, var(--secondary-font-color), var(--secondary-font-color));
+  color: var(--primary-color);
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog {
+  padding: 24px;
+  border-radius: 5px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon {
+  --icon-size: 120px;
+  --padding-size: 6px;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  text-align: center;
+  padding: calc(var(--padding-size) * 2);
+  position: relative;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon::before, main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 6px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon::before {
+  background-color: var(--secondary-font-color);
+  z-index: 1;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon::after {
+  background-color: var(--secondary-color);
+  margin: var(--padding-size);
+  z-index: 2;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .icon img {
+  position: relative;
+  z-index: 3;
+  border-radius: 6px;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details {
+  display: grid;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details .modal-title {
+  font-size: 18px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details .modal-text {
+  font-size: 16px;
+  font-weight: 300 !important;
+  margin-block: 0;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details .modal-percentage,
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details .trading-duration {
+  font-size: 15px;
+  color: var(--secondary-font-color-70);
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-body .trading-bots-details .btn-modal-close {
+  color: var(--secondary-font-color);
+  padding: 8px 10px;
+}
+main > article .payment-method-and-history .trading-bots-area .trading-bot-license-modal .modal-dialog .modal-footer .btn-license-submit {
+  margin-top: 16px;
+  width: 200px;
 }
 @media only screen and (min-width: 1100px) {
   main > article .trade-and-market-common-grid {
@@ -2078,14 +2218,41 @@ main > article .trade-and-market-common-grid .card.trade-and-market-common-card 
   font-size: 14px;
   text-transform: uppercase;
 }
+main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: calc(100vh - 185px);
+  overflow-x: none;
+  overflow-y: auto;
+  margin-inline: -8px;
+}
+main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators .btn {
+  width: 100%;
+  height: 48px;
+  justify-content: space-between;
+  background-color: transparent;
+  font-size: 14px;
+  transition: 0.4s;
+  border-radius: 0;
+  border-bottom: 1px solid var(--secondary-font-color-5);
+}
+main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators .btn.active, main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators .btn:hover {
+  background-color: var(--secondary-font-color-5);
+}
+main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators .btn.active span:first-child, main > article .trade-and-market-common-grid .card.trade-and-market-common-card .card-body .market-watch-table-indicators .btn:hover span:first-child {
+  color: var(--primary-color);
+}
 main > article .trade-and-market-common-grid .user-trade-chart-area {
+  --user-trade-chart-parent-height: 230px;
+  --user-trade-chart-filter: 636px;
   overflow: auto;
 }
 @media only screen and (min-width: 992px) {
   main > article .trade-and-market-common-grid .user-trade-chart-area {
     height: calc(100vh - 75px);
     grid-template-columns: 1fr 280px;
-    grid-template-rows: calc(100vh - 200px) auto;
+    grid-template-rows: min(var(--user-trade-chart-filter), 100vh - var(--user-trade-chart-parent-height)) auto;
   }
 }
 @media only screen and (max-width: 991px) {
@@ -2105,7 +2272,7 @@ main > article .trade-and-market-common-grid .user-trade-chart-area .user-trade-
 }
 @media only screen and (min-width: 992px) {
   main > article .trade-and-market-common-grid .user-trade-chart-area .user-trade-chart-filter {
-    height: calc(100vh - 200px);
+    height: 100%;
     overflow: auto;
   }
 }
@@ -2154,65 +2321,42 @@ main > article .trade-and-market-common-grid .user-trade-chart-area .user-trade-
   margin-top: 15px;
   font-size: 14px;
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group {
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery {
   grid-column: span 2;
-  padding: 12px 24px;
-  border-top: 1px solid var(--secondary-font-color-5);
 }
-@media only screen and (max-width: 1300px) {
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group {
-    flex-direction: column;
-    text-align: center;
-  }
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div {
-    margin-inline: auto;
-    margin-bottom: 12px;
-    width: 100%;
-  }
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div p {
-    text-align: left;
-  }
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-header {
+  padding-inline: 24px;
 }
-@media only screen and (max-width: 767px) {
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group {
-    padding: 12px 15px;
-  }
-}
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div p {
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-header a {
   font-size: 14px;
-  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--secondary-font-color-65);
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card {
-  height: 64px;
-  min-width: 120px;
-  background-color: var(--secondary-font-color-5);
-  border-right: 1px solid var(--secondary-font-color-10);
-  padding: 5px 12px;
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-header a.active, main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-header a:hover {
+  color: var(--warning-color);
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card:first-child {
-  border-radius: 10px 0 0 10px;
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body {
+  overflow: auto;
+  height: calc(100vh - min(var(--user-trade-chart-filter), 100vh - var(--user-trade-chart-parent-height)) - 100px);
+  padding-left: 15px;
+  margin-right: 12px;
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card:last-child {
-  border-right-width: 0;
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body table {
+  width: 100%;
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card .key {
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body table thead > tr > th,
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body table tbody > tr > td {
+  white-space: nowrap;
+  border-bottom: 1px solid var(--secondary-font-color-10);
+  padding: 10px;
+  text-align: start;
+}
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body table thead > tr > th {
   font-size: 12px;
-  color: var(--secondary-font-color-70);
+  color: var(--secondary-font-color-65);
 }
-main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card .value {
+main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery .card .card-body table tbody > tr > td {
   font-size: 15px;
-}
-@media only screen and (max-width: 1299px) {
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card {
-    min-width: auto;
-    flex-grow: 1;
-  }
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card .key {
-    font-size: 10px;
-  }
-  main > article .trade-and-market-common-grid .user-trade-chart-area .trade-details-summery-card-group > div .card .value {
-    font-size: 10px;
-  }
 }
 main > article .trade-and-market-common-grid .user-market-watch-area {
   padding: 16px;
