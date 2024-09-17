@@ -248,7 +248,7 @@
             @php
                 $country_code = $full_data['user_data']->addresses->country;
                 $country_name = config('countries.' . $country_code);
-            @endphp
+                @endphp
             <div class="personal-info-card-area">
                 <form action="{{ route('user.personal.info.update') }}" method="POST">
                     @csrf
@@ -409,6 +409,16 @@
                             {{ ucfirst($full_data['user_verifications']->kyc_verify_status) }}</div>
                     </div>
                     <div class="card-body d-grid">
+                        <div class="input-group">
+                            <label class="form-label">Identity Card Type</label>
+                            <select class="form-control" id="identity-card-type"  name="kyc_type">
+                                @foreach(config('settingkeys.kyc_type') as $key => $value)
+                                <option value="{{ $key }} ">{{ $value }}</option>
+                            @endforeach
+                            
+                            </select>
+                        </div>
+                        <div></div>
                         <!-- Upload ID Front -->
                         <div class="input-group attach-file-input-group">
                             <label class="form-label">Upload ID Front</label>

@@ -20,14 +20,14 @@
                 <span class="name">Manage Users</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a class="{{ Request::url() == route('admin.identyVerification.index') ? 'active' : '' }}" href="{{ route('admin.identyVerification.index') }}">
                 <span class="icon">
                     <i class="fa-regular fa-credit-card"></i>
                 </span>
                 <span class="name">Identy Verification</span>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a class="{{ Request::url() == route('admin.deposit.index') ? 'active' : '' }}" href="{{ route('admin.deposit.index') }}">
                 <span class="icon">

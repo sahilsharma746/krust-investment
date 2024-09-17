@@ -44,60 +44,59 @@
                                 class="payment-{{ $getway->tab_id }}-tab card-body collapse {{ $key == 0 ? 'active' : 'd-none' }}">
                                 <p class="card-title">Make payment to the {{ $getway->name }} address below and upload
                                     receipt.</p>
-                                @if (trim(strtolower($getway->name)) == 'bitcoin' || trim(strtolower($getway->name)) == 'xmr' || trim(strtolower($getway->name)) == 'usdt')
+                                    @if (trim(strtolower($getway->name)) == 'bitcoin' || trim(strtolower($getway->name)) == 'xmr' || trim(strtolower($getway->name)) == 'usdt')
                                     <div class="payment-details-area d-grid align-items-center">
-                                    <div class="input-group-area d-flex flex-column justify-content-between">
-                                        <div class="input-group">
-                                            <label class="form-label">amount</label>
-                                            <input class="form-control" type="text" placeholder="enter amount to pay"
-                                                name="amount">
-                                            @error('amount')
+                                        <div class="input-group-area d-flex flex-column justify-content-between">
+                                            <div class="input-group">
+                                                <label class="form-label">Amount</label>
+                                                <input class="form-control" type="text" placeholder="Enter amount to pay"
+                                                    name="amount" value="{{ $plan_price > 0 ? $plan_price : '' }}">
+                                                @error('amount')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="input-group">
+                                                <label class="form-label">Wallet Address</label>
+                                                <input class="form-control form-clone" type="text" name="wallet_address"
+                                                    readonly id="wallet-address{{ $key }}"
+                                                    value="{{ isset($user_settings[$getway->address_setting_key]) ? $user_settings[$getway->address_setting_key] : '' }}">
+                                                <label for="wallet-address{{ $key }}" class="form-icon clone-icon">
+                                                    <i class="fa-regular fa-clone"></i>
+                                                </label>
+                                            </div>
+                                            <div class="input-group">
+                                                <label class="form-label">Address Tag</label>
+                                                <input class="form-control form-clone" type="text" name="address_tag"
+                                                    readonly id="address_tag-{{ $getway->id }}"
+                                                    value="{{ isset($user_settings[$getway->address_tag_setting_key]) ? $user_settings[$getway->address_tag_setting_key] : '' }}">
+                                                <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
+                                                    <i class="fa-regular fa-clone"></i>
+                                                </label>
+                                            </div>
+                                            <div class="input-group attach-file-input-group">
+                                                <label class="form-label">Upload Receipt</label>
+                                                <div class="form-control">
+                                                    <label class="attach-icon d-flex justify-content-between align-items-center w-100">
+                                                        <span type="placeholder">Upload payment receipt</span>
+                                                        <input class="d-none" type="file" name="receipt">
+                                                        <i class="fa-solid fa-link"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            @error('receipt')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        <div class="input-group">
-                                            <label class="form-label">wallet address</label>
-                                            <input class="form-control form-clone" type="text" name="wallet_address"
-                                                readonly id="wallet-address{{ $key }}"
-                                                value="{{ isset($user_settings[$getway->address_setting_key]) ? $user_settings[$getway->address_setting_key] : '' }}">
-                                            <label for="wallet-address{{ $key }}" class="form-icon clone-icon">
-                                                <i class="fa-regular fa-clone"></i>
-                                            </label>
-                                        </div>
-                                        <div class="input-group">
-                                            <label class="form-label"> Address tag</label>
-                                            <input class="form-control form-clone" type="text" name="address_tag"
-                                            readonly id="address_tag-{{ $getway->id }}" value="{{ isset($user_settings[$getway->address_tag_setting_key]) ? $user_settings[$getway->address_tag_setting_key] : '' }}">
-                                            <label for="address_tag-{{ $getway->id }}" class="form-icon clone-icon">
-                                                <i class="fa-regular fa-clone"></i>
-                                            </label>
-                                        </div>
-                                        <div class="input-group attach-file-input-group">
-                                            <label class="form-label">Upload receipt</label>
-                                            <div class="form-control">
-                                                <label
-                                                    class="attach-icon d-flex justify-content-between align-items-center w-100">
-                                                    <span type="placeholder">Upload payment receipt</span>
-                                                    <input class="d-none" type="file" name="receipt">
-                                                    <i class="fa-solid fa-link"></i>
-                                                </label>
+                                        <div class="qr-code-area">
+                                            <div class="input-group">
+                                                <label class="form-label">QR Code</label>
+                                                <img class="img-qr-code" src="{{ asset('assets/img/dev-qr-code.png') }}" alt="qr-code">
                                             </div>
                                         </div>
-                                        @error('receipt')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
+                                        <button class="btn w-max" type="submit">Deposit</button>
                                     </div>
-                                    <div class="qr-code-area">
-                                        <div class="input-group">
-                                            <label class="form-label">QR Code</label>
-                                            <img class="img-qr-code" src="{{ asset('assets/img/dev-qr-code.png') }}"
-                                                alt="qr-code">
-                                        </div>
-                                    </div>
-                                    <button class="btn w-max" type="submit">Deposit</button>
-                                </div>
-
                                 @endif
+                                
                             </div>
 
                             <!-- Modal for non-Bitcoin payment methods -->

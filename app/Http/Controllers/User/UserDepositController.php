@@ -27,8 +27,16 @@ class UserDepositController extends Controller
     }
 
 
-    public function index() {
-       
+    public function index( $plan_id) {
+        $plan_price = 0; 
+        if ($plan_id) {
+            $plan = UserAccountType::find($plan_id);
+            
+            if ($plan) {
+                $plan_price = $plan->price;
+            }
+
+        }
         $user = Auth::user();
         $deposits = Deposit::where('user_id', $user->id)
                             ->orderBy('created_at', 'desc')
@@ -36,7 +44,7 @@ class UserDepositController extends Controller
         $getways = Getway::where([['deposit', 'yes'], ['name', '!=', 'admin']])->get();
         $user_settings = $this->user_setting->getUserAllSetting($user->id);
 
-        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings'));
+        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_id','plan_price'));
     }
 
 
@@ -46,8 +54,8 @@ class UserDepositController extends Controller
         $request->validate([
             'amount' => 'required | numeric | min:1',
             'receipt' => 'required | image | mimes:jpg,png,jpeg',
-            // 'wallet_address'=>'required',
-            // 'address_tag'=>'required',
+            'wallet_address'=>'required',
+            'address_tag'=>'required',
         ]);
         
         $base_path = public_path('uploads/deposit_receipt/');

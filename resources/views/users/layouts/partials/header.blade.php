@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
 
     <!-- style added here ================ -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css"> -->
+   <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css"> 
 
     <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
 

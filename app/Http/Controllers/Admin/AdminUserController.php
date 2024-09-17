@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Getway;
 use App\Models\Deposit;
 use App\Models\Withdraw;
-use App\Models\Getway;
 use App\Models\UserAddress;
-use App\Models\UserVerifiedStatus;
 use App\Models\UserSetting;
-
-
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+
+
+use App\Models\UserAccountType;
+use App\Models\UserVerifiedStatus;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -127,9 +128,36 @@ class AdminUserController extends Controller
         $full_data['verification_prompts_permissions_data'] = $verification_prompts_permissions_data;
         $full_data['user_settings'] = $user_settings;
         $full_data['kyc_cocument_path'] = asset('uploads/kyc_documents/'.$user->id.'/');
+
+        $full_data['kyc_type'] = UserSetting::where('user_id', $user->id)
+                              ->where('option_name', 'kyc_doc_type')
+                              ->first();
+
+        $full_data['all_account_type'] = UserAccountType::all(); 
+    
+        $full_data['current_account'] = \DB::table('user_account_types')
+        ->where('id', $user->account_type ?? null)
+        ->value('name') ?? 'No Plan';
+    
         return view('admin.users.user-detail', compact('full_data','page_title'));
     }
 
+
+    public function changeUserPlan(Request $request, User $user)
+{
+    $request->validate([
+        'account_type_id' => 'required|exists:user_account_types,id',
+    ]);
+
+    $user->update([
+        'account_type' => $request->account_type_id,
+    ]);
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'User plan updated successfully!');
+}
+
+ 
 
     public function editUserPaymentSettings(Request $request, User $user) {
 
