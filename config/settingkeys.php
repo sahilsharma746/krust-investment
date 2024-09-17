@@ -14,6 +14,21 @@
     "account_number_key" => "ki_account_number",
     "sort_code_key" => "ki_sort_code",
 
+
+    // default payment addresses 
+    "ki_bitcoin_address" => 'default_ki_bitcoin_address',
+    "ki_bitcoin_address_tag" => 'default_ki_bitcoin_address_tag',
+    "ki_usdt_address" => 'default_ki_usdt_address',
+    "ki_usdt_address_tag" => 'default_ki_usdt_address_tag',
+    "ki_xmr_address" => 'default_ki_xmr_address',
+    "ki_xmr_address_tag" => 'default_ki_xmr_address_tag',
+    "ki_paypal" => "default_ki_paypal",
+    "ki_bank" => "default_ki_bank",
+    "ki_account_type" => "default_ki_account_type",
+    "ki_account_number" => "default_ki_account_number",
+    "ki_sort_code" => "default_ki_sort_code",
+
+
     // kyc verification keys 
     "kyc_id_front" => "kyc_id_front",
     "kyc_id_back" => "kyc_id_back",
@@ -30,5 +45,8 @@
     //  user trade settings
     "trade_result" => "random",
     "trade_percentage" => "10",
+
+    // admin email
+    'admin_email' => 'sharmasahil00746@gmail.com',
     
 ];

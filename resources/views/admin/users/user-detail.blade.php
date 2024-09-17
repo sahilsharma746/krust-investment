@@ -357,9 +357,9 @@
                                         <div class="input-group">
                                           <label class="form-label">Trade Result</label>
                                           <select class="form-control" id="trade_result" name="trade_result" onchange="updateLabel()">
-                                            <option value="Win">Win</option>
-                                            <option value="Loss">Loss</option>
-                                            <option value="Random">Random</option>
+                                            <option value="win">Win</option>
+                                            <option value="loss">Loss</option>
+                                            <option value="random">Random</option>
                                           </select>
                                         </div>
                                         <div class="input-group">
@@ -393,7 +393,7 @@
                                     value="{{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'off' : 'on' }}">
                                 <button type="submit" class="btn btn-default"
                                     style="font-size:initial; font-family: Inter, sans-serif;">
-                                    Turn    $user = User::findOrFail($userId);
+                                    Turn
                                     {{ $full_data['verification_prompts_permissions_data']['upgrade_prompt'] == '1' ? 'Off' : 'On' }}
                                     Upgrade Prompt
                                 </button>

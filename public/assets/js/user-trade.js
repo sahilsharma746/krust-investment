@@ -325,6 +325,9 @@ jQuery(document).ready(function(){
 	    chart.render();
 	}
 
+	// select first asset 
+	jQuery('#trade-and-market-common-table').find('dt:first').click();
+
 });
 
 
@@ -335,6 +338,7 @@ jQuery(document).on('click', '.trade-type', function(){
 })
 
 
+// on selecting the assets
 jQuery(document).on('click', '#trade-and-market-common-table .asset-data', function(){
 	let name = jQuery(this).find('span').data('name');
 	let fullname =  jQuery(this).find('span').data('fullname');
@@ -347,26 +351,31 @@ jQuery(document).on('click', '#trade-and-market-common-table .asset-data', funct
 })
 
 
+// on updating Margin
 jQuery('.user-trade-chart-filter .asset-margin').on('change', function() {
-	trade_logic();
+		trade_logic();
 });
 
+
+// on enter trade amount
 jQuery(document).on('input', '.user-trade-chart-filter .asset-trade-amount', function(){
-	trade_logic();
+		trade_logic();
 });
 
+
+// trade contract , payout and Unit calculation function
 function trade_logic(){
-	let price = jQuery('.user-trade-chart-filter .asset-unitprice').val();
-	var margin = jQuery('.user-trade-chart-filter .asset-margin').val();
-	let asset_trade_amount = jQuery('.user-trade-chart-filter .asset-trade-amount').val() === '' ? '0' : jQuery('.user-trade-chart-filter .asset-trade-amount').val();
+	let asset_price = jQuery('.user-trade-chart-filter .asset-unitprice').val();
+	let margin = jQuery('.user-trade-chart-filter .asset-margin').val();
+	let asset_trade_amount = jQuery('.user-trade-chart-filter .asset-trade-amount').val();
+	let trade_percentage = jQuery('.user-trade-chart-filter .asset-trade_result_percentage').val();
+	if( asset_trade_amount > 0 ) {
+		let contract_size = asset_trade_amount * margin;
+		let asset_unit_price = asset_price / contract_size;
+		let payout = ( (parseFloat(contract_size) * parseFloat(trade_percentage)) / 100 ) + parseFloat(asset_trade_amount);
+		jQuery('.user-trade-chart-filter .asset-contract-size').text(contract_size);
+	  jQuery('.user-trade-chart-filter .asset-unit-price').val(asset_unit_price);
+	  jQuery('.user-trade-chart-filter .asset-payout').text(payout);
 	
-	
-	let contract_size = asset_trade_amount * margin;
-	let asset_unit_price = price / contract_size ;
-	console.log(asset_unit_price);
-	jQuery('.user-trade-chart-filter .asset-contract-size').text(contract_size);
-    jQuery('.user-trade-chart-filter .asset-unit-price').val(asset_unit_price.toFixed(2));
-	
-	
-	
+	}
 }

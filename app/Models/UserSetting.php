@@ -12,9 +12,10 @@ class UserSetting extends Model
 
 
     public function getUserSetting( $setting_name, $user_id ) {
-        return UserSetting::where('user_id', $user_id)
-                                ->where('status', $setting_name)
+        $result = UserSetting::select('option_value')->where('user_id', $user_id)
+                                ->where('option_name', $setting_name)
                                 ->first();
+        return ( isset($result->option_value) ) ? $result->option_value : false;
     }
 
 
@@ -30,7 +31,7 @@ class UserSetting extends Model
     public function updatUserSetting( $setting_name, $setting_value, $user_id ){
         return UserSetting::updateOrCreate(
                         [
-                            'user_id' => $user_id, 
+                            'user_id' => $user_id, // Search criteria
                             'option_name' => $setting_name
                         ],
                         [

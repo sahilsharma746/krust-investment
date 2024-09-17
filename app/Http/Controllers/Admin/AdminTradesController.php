@@ -12,29 +12,24 @@ use App\Http\Controllers\Controller;
 class AdminTradesController extends Controller
 {
 
+    public $user_setting;
+    public function __construct(){
+        $this->user_setting = new UserSetting();
+    }
+
 
     public function getAllTrades(){
-     
         return view('admin.trades.index');
     }
 
-    public function saveTradeResult(Request $request,$user_id)
 
-    { 
-        UserSetting::updateOrCreate([
-            'user_id' => $user_id,
-            'option_name' => 'trade_result',
-            'option_value' => $request->trade_result,
-        ]);
+    public function saveTradeResult(Request $request, $user_id){
 
-        UserSetting::updateOrCreate([
-            'user_id' => $user_id,
-            'option_name' => 'trade_percentage',
-            'option_value' => $request->trade_percentage,
-        ]);
+        $this->user_setting->updatUserSetting('trade_result', $request->trade_result, $user_id);
+
+        $this->user_setting->updatUserSetting('trade_percentage', $request->trade_percentage, $user_id);
 
         return redirect()->back()->with('success', ' Updated successfully.');
     }
-
 
 }
