@@ -1,19 +1,3 @@
-//* common script for user panel =======
-typeof NiceSelect !== 'undefined' &&
-    NiceSelect.bind &&
-    $.each($('select'), function (index, selector) {
-        const id = $(selector).attr('id');
-        const searchable = $(selector).attr('searchable');
-        const options = {
-            searchable: searchable == 'true' || false,
-            placeholder: 'select',
-            searchtext: 'Search',
-            selectedtext: 'geselecteerd',
-        };
-
-        NiceSelect.bind(document.getElementById(id), options);
-    });
-
 //* Navigation nav-tab script ===============
 document.addEventListener('click', function (e) {
     if (e.target.closest('a[data-toggle="tab"]')) {
