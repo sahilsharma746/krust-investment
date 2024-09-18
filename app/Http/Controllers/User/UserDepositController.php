@@ -27,15 +27,14 @@ class UserDepositController extends Controller
     }
 
 
-    public function index( $plan_id) {
+    public function index( Request $request ) {
+
         $plan_price = 0; 
-        if ($plan_id) {
-            $plan = UserAccountType::find($plan_id);
-            
+        if ( $request->plan_id ) {
+            $plan = UserAccountType::find($request->plan_id);
             if ($plan) {
                 $plan_price = $plan->price;
             }
-
         }
         $user = Auth::user();
         $deposits = Deposit::where('user_id', $user->id)
@@ -44,7 +43,7 @@ class UserDepositController extends Controller
         $getways = Getway::where([['deposit', 'yes'], ['name', '!=', 'admin']])->get();
         $user_settings = $this->user_setting->getUserAllSetting($user->id);
 
-        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_id','plan_price'));
+        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_price'));
     }
 
 

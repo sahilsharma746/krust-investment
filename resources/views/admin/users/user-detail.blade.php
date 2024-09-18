@@ -693,7 +693,7 @@
                         {{-- dd($full_data['kyc_type']['option_value']); --}}
                         <div class="card-header">
                             <div class="verified-qty">{{ $uploadedCount }}/{{ $total_count }} Uploaded</div>
-                            <div class="additional-info" >{{($full_data['kyc_type']['option_value'])}} </div>
+                            <div class="verified-qty" >Kyc document type - {{ isset($full_data['user_settings']['kyc_doc_type']) ? config('settingkeys.kyc_type.'.$full_data['user_settings']['kyc_doc_type']) : 'N/A' }} </div>
                         </div>
                         
                         <div class="card-body check-files-valid-grid kyc-grid d-grid">

@@ -119,7 +119,7 @@ class AdminUserController extends Controller
         $user_address = UserAddress::where('user_id', $user->id)->first();
         $verification_prompts_permissions_data = UserVerifiedStatus::where('user_id', $user->id)->first();
         $user_settings = $this->user_setting->getUserAllSetting($user->id);
-        
+
         $full_data['total_deposit_amount'] = $total_deposit_amount;
         $full_data['total_withdrawl_amount'] = $total_withdrawl_amount;
         $full_data['total_transactions'] = $total_transactions;

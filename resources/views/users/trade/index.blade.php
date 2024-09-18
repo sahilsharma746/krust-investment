@@ -4,8 +4,8 @@
         <section id="trade-and-market-common-grid" class="trade-and-market-common-grid d-grid">
             <div class="card trade-and-market-common-card">
                 <div class="card-header">
-                    <a href="{{ route('user.marketWatch.index') }}" class="btn-tab ">Market Watch</a>
                     <a href="{{ route('user.trade.index') }}" class="btn-tab active">Tradable Assets</a>
+                    <a href="{{ route('user.marketWatch.index') }}" class="btn-tab ">Market Watch</a>
                 </div>
                 <div class="card-body">
                     <div class="card-indicators scroll">
@@ -186,46 +186,115 @@
                         </div>
                     </div>
                 </div>
-                <div class="trade-details-summery-card-group d-flex justify-content-between">
-                    <div class="last-closed-trades">
-                        <p>Last Closed Trades</p>
-                        <div class="d-flex">
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">ASSETS</div>
-                                <div class="value">EUR/USD</div>
+
+
+                <div class="trade-details-summery">
+                        <div class="card">
+                            <div class="card-header d-flex g-25">
+                                <a class="active" data-toggle="tab" href="#trade-details-summery-current">Current
+                                    Trade</a>
+                                <a data-toggle="tab" href="#trade-details-summery-history">Trade History</a>
                             </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">TIMEFRAME</div>
-                                <div class="value">10 Hrs</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">CAPITAL</div>
-                                <div class="value">$100k</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">PROFIT</div>
-                                <div class="value">+ $1,000</div>
+                            <div class="card-body scroll">
+                                <table id="trade-details-summery-current">
+                                    <thead>
+                                        <tr>
+                                            <th>ASSETS</th>
+                                            <th>MARGIN</th>
+                                            <th>SIZE</th>
+                                            <th>CAPITAL</th>
+                                            <th>TRADE TYPE</th>
+                                            <th>ENTRY</th>
+                                            <th>PNL</th>
+                                            <th>DATE CREATED</th>
+                                            <th>TIME CREATED</th>
+                                            <th>ORDER TYPE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EUR/USD</td>
+                                            <td>4x</td>
+                                            <td>5,000</td>
+                                            <td>$1000</td>
+                                            <td>LIVE</td>
+                                            <td>1.07</td>
+                                            <td>+1000</td>
+                                            <td>07 - 08 - 2024</td>
+                                            <td>11.11AM</td>
+                                            <td>Bullish</td>
+                                        </tr>
+                                        <tr>
+                                            <td>EUR/USD</td>
+                                            <td>4x</td>
+                                            <td>5,000</td>
+                                            <td>$1000</td>
+                                            <td>Demo</td>
+                                            <td>1.07</td>
+                                            <td>+1000</td>
+                                            <td>07 - 08 - 2024</td>
+                                            <td>11.11AM</td>
+                                            <td>Bullish</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table id="trade-details-summery-history" class="d-none">
+                                    <thead>
+                                        <tr>
+                                            <th>ASSETS</th>
+                                            <th>MARGIN</th>
+                                            <th>SIZE</th>
+                                            <th>CAPITAL</th>
+                                            <th>TRADE TYPE</th>
+                                            <th>ENTRY</th>
+                                            <th>PNL</th>
+                                            <th>DATE CREATED</th>
+                                            <th>TIME CREATED</th>
+                                            <th>ORDER TYPE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EUR/USD</td>
+                                            <td>1x</td>
+                                            <td>2,000</td>
+                                            <td>$500</td>
+                                            <td>Demo</td>
+                                            <td>1.07</td>
+                                            <td>+500</td>
+                                            <td>06 - 08 - 2024</td>
+                                            <td>11.11AM</td>
+                                            <td>Bullish</td>
+                                        </tr>
+                                        <tr>
+                                            <td>EUR/USD</td>
+                                            <td>4x</td>
+                                            <td>5,000</td>
+                                            <td>$1000</td>
+                                            <td>LIVE</td>
+                                            <td>1.07</td>
+                                            <td>+1000</td>
+                                            <td>07 - 08 - 2024</td>
+                                            <td>11.11AM</td>
+                                            <td>Bullish</td>
+                                        </tr>
+                                        <tr>
+                                            <td>EUR/USD</td>
+                                            <td>4x</td>
+                                            <td>5,000</td>
+                                            <td>$1000</td>
+                                            <td>Demo</td>
+                                            <td>1.07</td>
+                                            <td>+1000</td>
+                                            <td>07 - 08 - 2024</td>
+                                            <td>11.11AM</td>
+                                            <td>Bullish</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="last-open-trades">
-                        <p class="text-end">Last Open Trades</p>
-                        <div class="d-flex">
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">ASSETS</div>
-                                <div class="value">EUR/USD</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">TIMEFRAME</div>
-                                <div class="value">10 Hrs</div>
-                            </div>
-                            <div class="card d-flex flex-column justify-content-center">
-                                <div class="key">CURRENT TIME</div>
-                                <div id="currentTime" interval="true" class="value">00:00 PM</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </article>

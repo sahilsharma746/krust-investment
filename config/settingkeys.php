@@ -36,9 +36,9 @@
     "kyc_selfie_proof" => "kyc_selfie_proof",
     
     "kyc_type" => [
-      'birth_certificate' => 'Birth Certificate',
-      '  id_card'=>'ID Card',
-      'passport'=>'Passport',
+          'birth_certificate' => 'Birth Certificate',
+          'id_card'=>'ID Card',
+          'passport'=>'Passport',
       ],
      
   
