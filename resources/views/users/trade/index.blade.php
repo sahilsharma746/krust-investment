@@ -180,8 +180,8 @@
                                 <span class="text-center">=</span>
                                 <span class="text-end text-primary">$<span class="asset-payout">0</span></span>
                                 <input type="hidden" value="{{$user_balance}}" class="asset-user_balance">
-                                <input type="hidden" value="{{$trade_result_percentage}}" class="asset-trade_result_percentage">
-                                <input type="hidden" value="{{$trade_result}}" class="asset-trade_result">
+                                <input type="hidden" value="{{$user_trade_percentage}}" class="asset-trade_result_percentage">
+                                <input type="hidden" value="{{$user_trade_result}}" class="asset-trade_result">
                             </div>
                         </div>
                     </div>

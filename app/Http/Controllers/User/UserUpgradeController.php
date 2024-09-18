@@ -48,23 +48,20 @@ class UserUpgradeController extends Controller
     }
 
 
-    public function UpgradeUserPlan(Request $request){
+   public function tradingHistoryView(){
 
-        $user_id = $request->input('user_id');
-        $plan_id = $request->input('plan_id');
-    
-        // Find the user and update the account type
-        $user = User::find($user_id);
-        if ($user) {
-            $user->account_type = $plan_id;
-            $user->save();
-            
-            return redirect()->back()->with('success', 'Account upgraded successfully!');
-        }
-    
-        return redirect()->back()->with('error', 'User not found!');
-    
-    }
+    $user_trades = [];
+
+    return view('users.trading-history.index', compact('user_trades'));
+
+   }
  
+   public function tradingBotsView(){
+
+    $user_trades = [];
+
+    return view('users.trading-bots.index', compact('user_trades'));
+
+   }
 
 }

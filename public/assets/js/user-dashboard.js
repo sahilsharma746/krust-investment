@@ -264,36 +264,6 @@ $(document).on('keyup', '.search-input-group .search-input', function (e) {
     console.log(value);
 }); 
 
-
-//* Data table start ========================
-if( jQuery( '#trading-history-table' ).length > 0) {
-    let table = new DataTable('#trading-history-table', {
-        responsive: true,
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="trading-history-table"]',
-            );
-            if (searchInput) {
-                searchInput.placeholder = 'Search for trade etc...';
-                searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
-                searchInput.previousSibling.classList.add(
-                    'trading-history-table-label',
-                );
-
-                const btn =
-                    '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
-                searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
-            }
-        },
-    });
-}
-
-//* Data table end ==========================
-
-
-
-
 // when user click yes on first popup
 jQuery(document).on( 'click',  '.btn-confirm-deposit', function() {
     var payment_method_id = jQuery(this).data('gatewayid');

@@ -15,12 +15,12 @@
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="#">
+        <a class="card {{ Request::url() == route('users.trading-history.index') ? 'active' : '' }}" href="{{ route('users.trading-history.index') }}">
             <p>Trading History</p>
         </a>
     </li>
     <li class="nav-item d-flex">
-        <a class="card" href="#">
+        <a class="card {{ Request::url() == route('users.trading-bots.index') ? 'active' : '' }}" href="{{ route('users.trading-bots.index') }}">
             <p>Tradings Bots</p>
         </a>
     </li>

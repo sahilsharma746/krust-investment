@@ -1,17 +1,14 @@
 @extends('admin.layouts.app_admin')
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
-@endsection
 @section('content')
 <main class="main-area">
     <div class="container manage-user-container">
         <section class="user-filter-section">
             @include('admin.withdraw.nav')
         </section>
-        <section class="all-user-table-area">
+        <section class="all-admin-table-area">
             <div class="section-title">All Withdraw</div>
 
-            <table id="all-user-table" class="all-user-table display">
+            <table id="all-admin-table" class="all-admin-table display">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -74,7 +71,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr>
+                    <tr class="all-admin-table-no-data">
                             <td class="text-center" colspan="9">No data available</td>
                         </tr>
                     @endforelse
@@ -83,10 +80,5 @@
             </table>
         </section>
     </div>
-
-
 </main>
-@endsection
-@section('scripts')
-    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 @endsection

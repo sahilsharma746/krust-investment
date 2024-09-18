@@ -5,10 +5,9 @@
             <section class="user-filter-section">
                 @include('admin.users.manage-user-nav')
             </section>
-            <section class="all-user-table-area">
+            <section class="all-admin-table-area">
                 <div class="section-title">All Users</div>
-
-                <table id="all-user-table" class="all-user-table display">
+                <table id="all-admin-table" class="all-admin-table display">
                     <thead>
                         <tr>
                             <th>Full Name</th>
@@ -22,8 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                         
-                        @foreach ($all_users as $user)
+                        @forelse ($all_users as $user)
                             <tr>
                                 <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -59,14 +57,14 @@
                                     </div>
                                 </td>
                             </tr>
-                         
-                        @endforeach
-                    </tbody>
+                            @empty
+                            <tr class="all-admin-table-no-data">
+                                <td class="text-center" colspan="8">No data available</td>
+                            </tr>
+                     @endforelse                 
+                </tbody>
                 </table>
             </section>
         </div>
     </main>
-@endsection
-@section('scripts')
-    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 @endsection

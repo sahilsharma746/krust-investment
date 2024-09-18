@@ -133,7 +133,11 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
     Route::get('upgrade', [UserUpgradeController::class, 'index'])->name('user.upgrade.index');
 
+    Route::get('trading-history', [UserUpgradeController::class, 'tradingHistoryView'])->name('users.trading-history.index');
     
+    Route::get('trading-bots', [UserUpgradeController::class, 'tradingBotsView'])->name('users.trading-bots.index');
+
+
     // Route::post('upgrade-plan/{plan_id}', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
 
 });

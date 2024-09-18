@@ -14,9 +14,16 @@
                 <span>Deposits</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a data-toggle="tab" href="javascript:void(0)">
+        {{-- <li class="nav-item{{ Request::url() == route('user.deposit.getway') ? 'active' : '' }}">
+            <a data-toggle="tab" href="{{ route('users.trading-history.index') }}">
                 <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Trading History</span>
+            </a>
+        </li> --}}
+
+        <li class="nav-item {{ Request::url() == route('users.trading-history.index') ? 'active' : '' }}">
+            <a href="{{ route('users.trading-history.index') }}">
+                <i class="fa-solid fa-list-ul"></i>
                 <span>Trading History</span>
             </a>
         </li>
