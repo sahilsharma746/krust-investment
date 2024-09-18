@@ -328,6 +328,32 @@ jQuery(document).ready(function(){
 	// select first asset 
 	jQuery('#trade-and-market-common-table').find('dt:first').click();
 
+
+	if( jQuery('#trading-history-table').length > 0 ) {
+        let table = new DataTable('#trading-history-table', {
+			responsive: true,
+			initComplete: function () {
+				// Access the search input field and set a placeholder
+				const searchInput = document.querySelector(
+					'[type="search"][aria-controls="trading-history-table"]',
+				);
+				if (searchInput) {
+					searchInput.placeholder = 'Search for trade etc...';
+					searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
+					searchInput.previousSibling.classList.add(
+						'trading-history-table-label',
+					);
+	
+					const btn =
+						'<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
+					searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
+				}
+			},
+		});
+    }
+
+
+
 });
 
 

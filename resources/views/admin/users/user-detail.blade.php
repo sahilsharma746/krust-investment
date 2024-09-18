@@ -288,8 +288,6 @@
                             @endforeach
                         </ul>
                         
-                        
-                        
                     </div>
                     <a href="{{ route('admin.login-as-user', $full_data['user_data']['id']) }}"
                         class="btn btn-login-as-user">Log in As User</a>
@@ -355,17 +353,19 @@
                                         @csrf
                                     <div class="modal-body">
                                         <div class="input-group">
-                                          <label class="form-label">Trade Result</label>
-                                          <select class="form-control" id="trade_result" name="trade_result" onchange="updateLabel()">
-                                            <option value="win">Win</option>
-                                            <option value="loss">Loss</option>
-                                            <option value="random">Random</option>
-                                          </select>
+                                            <label class="form-label">Trade Result</label>
+                                            <select class="form-control" id="trade_result" name="trade_result" onchange="updateLabel()">
+                                                <option value="win" {{ (isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'win') ? 'selected' : '' }}>Win</option>
+                                                <option value="loss" {{ (isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'loss') ? 'selected' : '' }}>Loss</option>
+                                                <option value="random" {{ (!isset($full_data['user_settings']['trade_result']) || $full_data['user_settings']['trade_result'] == 'random') ? 'selected' : '' }}>Random</option>
+                                            </select>
                                         </div>
                                         <div class="input-group">
-                                          <label class="form-label" id="percentage_label">Percentage Win %</label>
-                                          <input type="number" class="form-control" id="percentage_win" name="trade_percentage" required>
+                                            <label class="form-label" id="percentage_label">Percentage Win %</label>
+                                            <input type="number" class="form-control" id="percentage_win" name="trade_percentage" 
+                                                   value="{{ isset($full_data['user_settings']['trade_percentage']) ? $full_data['user_settings']['trade_percentage'] : 10 }}" required>
                                         </div>
+                                        
                                       </div>
                                       
                                     <div class="modal-footer">

@@ -388,60 +388,40 @@ cryptoAPI = `../assets/demo-trading-data/BTCUSD.json`;
 
 if (userTradeChart.length) updateChart(cryptoAPI, 50);
 
-//* Chart JS end ==========================
 
-//* Data table start ========================
-const tradingHistoryTable = $('#trading-history-table');
-if (tradingHistoryTable.length) {
-    let table = new DataTable(tradingHistoryTable, {
-        responsive: true,
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="trading-history-table"]',
-            );
-            if (searchInput) {
-                searchInput.placeholder = 'Search for trade etc...';
-                searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
-                searchInput.previousSibling.classList.add(
-                    'trading-history-table-label',
-                );
 
-                const btn =
-                    '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
-                searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
-            }
-        },
-    });
-}
+
+
+
+
 $(document).on('click', '#btn-download-trading-history', function () {
     console.log('Downloading init...');
 });
 
-//? bot-trading-history-data-table ______________ ↓
-const botTradingHistoryTable = $('#bot-trading-history-table');
-if (botTradingHistoryTable.length) {
-    let table = new DataTable(botTradingHistoryTable, {
-        responsive: true,
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="bot-trading-history-table"]',
-            );
-            if (searchInput) {
-                searchInput.placeholder = 'Search for trade etc...';
-                searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
-                searchInput.previousSibling.classList.add(
-                    'bot-trading-history-table-label',
-                );
+// //? bot-trading-history-data-table ______________ ↓
+// const botTradingHistoryTable = $('#bot-trading-history-table');
+// if (botTradingHistoryTable.length) {
+//     let table = new DataTable(botTradingHistoryTable, {
+//         responsive: true,
+//         initComplete: function () {
+//             // Access the search input field and set a placeholder
+//             const searchInput = document.querySelector(
+//                 '[type="search"][aria-controls="bot-trading-history-table"]',
+//             );
+//             if (searchInput) {
+//                 searchInput.placeholder = 'Search for trade etc...';
+//                 searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
+//                 searchInput.previousSibling.classList.add(
+//                     'bot-trading-history-table-label',
+//                 );
 
-                const btn =
-                    '<a class="btn w-max" id="btn-download-bot-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
-                searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
-            }
-        },
-    });
-}
+//                 const btn =
+//                     '<a class="btn w-max" id="btn-download-bot-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
+//                 searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
+//             }
+//         },
+//     });
+// }
 $(document).on('click', '#btn-download-bot-trading-history', function () {
     console.log('Downloading init...');
 });
@@ -687,3 +667,16 @@ setInterval(() => {
         percentageDiv.text(`+${(+finalNum).toFixed(2)}%`);
     }
 }, 2500 / $('.trade-and-market-common-table > dt').length);
+
+
+const searchInputFormControl = (searchInput) => {
+    $(searchInput).attr('placeholder', 'Search for user etc...');
+    $(searchInput)
+        .prev()
+        .html('<i class="fa-solid fa-magnifying-glass"></i>');
+    $(searchInput).prev().addClass('trading-history-table-label');
+    $(searchInput).prev().css({
+        'margin-right': '-30px',
+        opacity: 0.5,
+    });
+};

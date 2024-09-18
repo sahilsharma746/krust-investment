@@ -13,32 +13,18 @@
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
-    {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" rel="stylesheet"> --}}
-
-    <!-- nice select 2 -->
+    
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
-
-    <!-- style added here ================ -->
+    <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
+    
     <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-layout.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-style.css">
 
-    <!-- font-awesome added here ================ -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
-    <!-- jQuery added here ================ -->
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
-
+    <script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
+    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 
     <style>
         .form-control::placeholder {

@@ -5,10 +5,10 @@
         <section class="user-filter-section">
             @include('admin.deposit.nav')
         </section>
-        <section class="all-user-table-area">
+        <section class="all-admin-table-area">
             <div class="section-title">All deposits</div>
 
-            <table id="all-user-table" class="all-user-table display">
+            <table id="all-admin-table" class="all-admin-table display">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -72,8 +72,8 @@
                                 </div>
                             </td>
                         </tr>
-                    @empty
-                        <tr class="all-user-table-no-data">
+                        @empty
+                        <tr class="all-admin-table-no-data">
                             <td class="text-center" colspan="8">No data available</td>
                         </tr>
                     @endforelse

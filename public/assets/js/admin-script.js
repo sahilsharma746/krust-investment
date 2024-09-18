@@ -57,7 +57,6 @@ $(document).ready(function () {
     });
 
 
-    //* attach file form control script start =========
     $(document).on('change','.attach-file-input-group .attach-icon input',function () {
             try {
                 const placeholder = $(this).prev('[type="placeholder"]');
@@ -83,73 +82,72 @@ $(document).ready(function () {
         });
     };
 
-
-    if( jQuery('#all-user-table-no-data').length != 0 ) {
-        const tableAllUserTable = new DataTable('#all-user-table', {
+    if (!jQuery('.all-admin-table-no-data').length) {
+    // if (jQuery('.all-user-table-no-data').length === 0) {
+            const tableAllUserTable = new DataTable('#all-admin-table', {
             initComplete: function () {
                 // Access the search input field and set a placeholder
                 const searchInput = document.querySelector(
-                    '[type="search"][aria-controls="all-user-table"]',
+                    '[type="search"][aria-controls="all-admin-table"]',
                 );
                 if (searchInput) searchInputFormControl(searchInput);
             },
         });
     }
 
-
-    const tableLoginHistoryTable = new DataTable('#login-history-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="login-history-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
-
-
-    const tableAllDepositTable = new DataTable('#all-deposit-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="all-deposit-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
+    // const tableLoginHistoryTable = new DataTable('#login-history-table', {
+    //     initComplete: function () {
+    //         // Access the search input field and set a placeholder
+    //         const searchInput = document.querySelector(
+    //             '[type="search"][aria-controls="login-history-table"]',
+    //         );
+    //         if (searchInput) searchInputFormControl(searchInput);
+    //     },
+    // });
 
 
-    const tableAllWithdrawTable = new DataTable('#all-withdraw-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="all-withdraw-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
+    // const tableAllDepositTable = new DataTable('#all-deposit-table', {
+    //     initComplete: function () {
+    //         // Access the search input field and set a placeholder
+    //         const searchInput = document.querySelector(
+    //             '[type="search"][aria-controls="all-deposit-table"]',
+    //         );
+    //         if (searchInput) searchInputFormControl(searchInput);
+    //     },
+    // });
 
 
-    const tableAllTradeTable = new DataTable('#all-trade-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="all-trade-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
+    // const tableAllWithdrawTable = new DataTable('#all-withdraw-table', {
+    //     initComplete: function () {
+    //         // Access the search input field and set a placeholder
+    //         const searchInput = document.querySelector(
+    //             '[type="search"][aria-controls="all-withdraw-table"]',
+    //         );
+    //         if (searchInput) searchInputFormControl(searchInput);
+    //     },
+    // });
 
 
-    const tableAllAssetsTable = new DataTable('#all-assets-table', {
-        initComplete: function () {
-            // Access the search input field and set a placeholder
-            const searchInput = document.querySelector(
-                '[type="search"][aria-controls="all-assets-table"]',
-            );
-            if (searchInput) searchInputFormControl(searchInput);
-        },
-    });
+    // const tableAllTradeTable = new DataTable('#all-trade-table', {
+    //     initComplete: function () {
+    //         // Access the search input field and set a placeholder
+    //         const searchInput = document.querySelector(
+    //             '[type="search"][aria-controls="all-trade-table"]',
+    //         );
+    //         if (searchInput) searchInputFormControl(searchInput);
+    //     },
+    // });
+
+
+    // const tableAllAssetsTable = new DataTable('#all-assets-table', {
+    //     initComplete: function () {
+    //         // Access the search input field and set a placeholder
+    //         const searchInput = document.querySelector(
+    //             '[type="search"][aria-controls="all-assets-table"]',
+    //         );
+    //         if (searchInput) searchInputFormControl(searchInput);
+    //     },
+    // });
 
 
     $(document).on('click', '.notification-card .btn-delete', function () {

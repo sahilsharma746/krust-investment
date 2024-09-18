@@ -128,17 +128,8 @@ class AdminUserController extends Controller
         $full_data['verification_prompts_permissions_data'] = $verification_prompts_permissions_data;
         $full_data['user_settings'] = $user_settings;
         $full_data['kyc_cocument_path'] = asset('uploads/kyc_documents/'.$user->id.'/');
-
-        $full_data['kyc_type'] = UserSetting::where('user_id', $user->id)
-                              ->where('option_name', 'kyc_doc_type')
-                              ->first();
-
         $full_data['all_account_type'] = UserAccountType::all(); 
-    
-        $full_data['current_account'] = \DB::table('user_account_types')
-        ->where('id', $user->account_type ?? null)
-        ->value('name') ?? 'No Plan';
-    
+        $full_data['current_account'] =  UserAccountType::getUserPlan($user->id);
         return view('admin.users.user-detail', compact('full_data','page_title'));
     }
 

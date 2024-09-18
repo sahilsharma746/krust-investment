@@ -10,29 +10,23 @@
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
-
-    <!-- jQuery added here ================ -->
-    <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
-
-    <!-- nice select 2 -->
+        
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
-
-    <!-- style added here ================ -->
-   <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css"> 
-
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
-
-    <!-- font-awesome added here ================ -->
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
 
-    <!-- font added here (ital + Merriweather) ================ -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-
+    {{-- <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css">  --}}
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
+    @if (Route::currentRouteName() === 'users.trading-bots.index' || Route::currentRouteName() === 'users.trading-history.index'  )
+        <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
+    @endif
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'user.marketWatch.index')
          <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
     @endif
+
+    <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
+    <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
+    <script src="{{ asset('assets') }}/js/site-common.js"></script>
 </head>
 
 <body>

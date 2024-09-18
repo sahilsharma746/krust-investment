@@ -16,4 +16,10 @@ class UserAccountType extends Model
         return $this->hasMany(UserAccountTypeFeature::class, 'plan_id', 'id');
     }
 
+
+    public static function getUserPlan($user_id){
+
+        return UserAccountType::where('id', $user_id ?? null)->value('name');
+    }
+
 }
