@@ -22,38 +22,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>17QHA6QH</td>
-                                <td>07-08-24</td>
-                                <td>
-                                    <div class="d-flex align-items-center g-8">
-                                        <img src="{{ asset('assets/img/country-eur.png') }}" class="icon">
-                                        <span class="name">EURUSD </span>
-                                    </div>
-                                </td>
-                                <td>Manual Trade</td>
-                                <td>Live</td>
-                                <td>$1,000</td>
-                                <td>Currency</td>
-                                <td>+4005</td>
-                                <td class="text-success">Gain</td>
-                            </tr>
-                            <tr>
-                                <td>17QHA6QH</td>
-                                <td>07-08-24</td>
-                                <td>
-                                    <div class="d-flex align-items-center g-8">
-                                        <img src="{{ asset('assets/img/country-eur.png') }}" class="icon">
-                                        <span class="name">EURUSD </span>
-                                    </div>
-                                </td>
-                                <td>Manual Trade</td>
-                                <td>Live</td>
-                                <td>$1,000</td>
-                                <td>Currency</td>
-                                <td>+4005</td>
-                                <td class="text-danger">Loss</td>
-                            </tr>
+                            @foreach ($trades as $trade)
+                                <tr>
+                                    <td>{{ $trade->id }}</td>
+                                    <td>{{ $trade->created_at->format('d-m-y') }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center g-8">
+                                            <img src="{{ asset('assets/img/country-eur.png') }}" class="icon">
+                                            <span class="name">{{ $trade->asset }}</span>
+                                        </div>
+                                    </td>
+                                    <td>Manual</td> 
+                                    <td>{{ $trade->trade_type }}</td> 
+                                    <td>${{$trade->capital }}</td>
+                                    <td>Currency</td> 
+                                    <td>{{ number_format($trade->pnl, 2) }}</td> 
+                                    <td class="{{ $trade->pnl >= 0 ? 'text-success' : 'text-danger' }}">
+                                        {{ $trade->pnl >= 0 ? 'Gain' : 'Loss' }}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -61,7 +49,4 @@
             
         </section>
     </article>
-@endsection
-
-@section('scripts')
 @endsection

@@ -320,35 +320,34 @@ jQuery(document).on( 'click',  '.confirm-deposit-success', function() {
 
 
 
+// // for updating data on the site main nav home page 
+//     const options = {
+//       method: 'GET',
+//       headers: {accept: 'application/json', 'x-cg-pro-api-key': 'CG-1zNLqMpJkTYvoZH93HsJUUEJ'}
+//     };
+//     // const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
+//     const apiUrl = 'crypto.json';
 
-// for updating data on the site main nav home page 
-    const options = {
-      method: 'GET',
-      headers: {accept: 'application/json', 'x-cg-pro-api-key': 'CG-1zNLqMpJkTYvoZH93HsJUUEJ'}
-    };
-    // const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
-    const apiUrl = 'crypto.json';
+//     var main_nav_li = '';
+//     fetch(apiUrl, options)
+//         .then(response => {
+//             if (!response.ok) {
+//              // Error('Network response was not ok');
+//                 return false;
+//            }
+//             return response.json();  
+//         })
+//         .then(data => {
 
-    var main_nav_li = '';
-    fetch(apiUrl, options)
-        .then(response => {
-            if (!response.ok) {
-             // Error('Network response was not ok');
-                return false;
-           }
-            return response.json();  
-        })
-        .then(data => {
-
-            console.log( );
+//             console.log( );
 
             
 
 
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+//         })
+//         .catch(error => {
+//             console.error('There was a problem with the fetch operation:', error);
+//         });
 
 
 

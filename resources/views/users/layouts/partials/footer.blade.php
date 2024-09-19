@@ -7,7 +7,11 @@
         <script src="{{ asset('assets') }}/upload-file/upload-file.js"></script>
     @endif
 
-    @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'users.trading-history.index')
+    <script>
+        var apiUrlCrypto = "{{ url('/crypto.json') }}";
+    </script>
+
+    @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'users.trading-history.index' || Route::currentRouteName() === 'user.marketWatch.index')
         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
         <script src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
         <script src="{{ asset('assets') }}/js/user-trade.js"></script>
