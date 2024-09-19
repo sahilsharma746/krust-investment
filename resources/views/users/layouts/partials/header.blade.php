@@ -22,6 +22,7 @@
     @endif
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'user.marketWatch.index')
          <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
+          <link rel="stylesheet" href="{{ asset('assets') }}/css/trade-and-market.min.css">
     @endif
 
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>

@@ -8,6 +8,7 @@
     @endif
 
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'users.trading-history.index')
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
         <script src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
         <script src="{{ asset('assets') }}/js/user-trade.js"></script>
     @endif

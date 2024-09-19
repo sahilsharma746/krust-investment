@@ -1,7 +1,7 @@
 <header>
     <div class="marquee">
-        <ul class="marquee-content list-style-none">
-            <li>
+        <ul class="marquee-content list-style-none" id="site-main-nav">
+            <li style="visibility: hidden;"> 
                 <div class="price-card d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center g-10">
                         <div class="country-name d-flex align-items-center g-8">
@@ -12,81 +12,6 @@
                     </div>
                     <div class="percentage-area d-flex align-items-center g-8">
                         <i class="fa-solid fa-chevron-up"></i>
-                        <span class="percentage">3.68%</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="price-card d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center g-10">
-                        <div class="country-name d-flex align-items-center g-8">
-                            <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                            <span>eurusd</span>
-                        </div>
-                        <div class="price">481.3</div>
-                    </div>
-                    <div class="percentage-area d-flex align-items-center g-8">
-                        <i class="fa-solid fa-chevron-up"></i>
-                        <span class="percentage">3.68%</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="price-card d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center g-10">
-                        <div class="country-name d-flex align-items-center g-8">
-                            <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                            <span>eurusd</span>
-                        </div>
-                        <div class="price">481.3</div>
-                    </div>
-                    <div class="percentage-area d-flex align-items-center g-8">
-                        <i class="fa-solid fa-chevron-up"></i>
-                        <span class="percentage">3.68%</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="price-card d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center g-10">
-                        <div class="country-name d-flex align-items-center g-8">
-                            <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                            <span>eurusd</span>
-                        </div>
-                        <div class="price">481.3</div>
-                    </div>
-                    <div class="percentage-area d-flex align-items-center g-8">
-                        <i class="fa-solid fa-chevron-down"></i>
-                        <span class="percentage">3.68%</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="price-card d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center g-10">
-                        <div class="country-name d-flex align-items-center g-8">
-                            <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                            <span>eurusd</span>
-                        </div>
-                        <div class="price">481.3</div>
-                    </div>
-                    <div class="percentage-area d-flex align-items-center g-8">
-                        <i class="fa-solid fa-chevron-up"></i>
-                        <span class="percentage">3.68%</span>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="price-card d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center g-10">
-                        <div class="country-name d-flex align-items-center g-8">
-                            <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                            <span>eurusd</span>
-                        </div>
-                        <div class="price">481.3</div>
-                    </div>
-                    <div class="percentage-area d-flex align-items-center g-8">
-                        <i class="fa-solid fa-chevron-down"></i>
                         <span class="percentage">3.68%</span>
                     </div>
                 </div>

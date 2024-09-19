@@ -275,10 +275,13 @@ const copyToClipboard = (id) => {
     // Remove the temporary textarea element
     document.body.removeChild(tempTextArea);
 };
+
+
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);
 }); //? copy to clipboard area end =====================
+
 
 //* search script area start ==========================
 $(document).on('keyup', '.search-input-group .search-input', function (e) {
@@ -286,151 +289,13 @@ $(document).on('keyup', '.search-input-group .search-input', function (e) {
     console.log(value);
 }); //? search script area end ============================
 
-//* Chart JS start ==========================
-const chartOptions = {
-    series: [
-        {
-            data: [
-                {
-                    x: new Date(1538778600000),
-                    y: [6629.81, 6650.5, 6623.04, 6633.33],
-                },
-                {
-                    x: new Date(1538780400000),
-                    y: [6632.01, 6650.59, 6620, 6630.11],
-                },
-            ],
-        },
-    ],
-    chart: {
-        type: 'candlestick',
-        height: '100%',
-    },
-    title: {
-        text: 'Market Watch',
-        align: 'left',
-    },
-    xaxis: {
-        type: 'datetime',
-        // tickAmount: 5,
-    },
-    yaxis: {
-        tooltip: {
-            enabled: true,
-        },
-        labels: {
-            show: true,
-        },
-        opposite: true,
-        // tickAmount: 20,
-    },
-    grid: {
-        borderColor: '#ffffff10',
-        strokeDashArray: 0,
-        xaxis: {
-            lines: {
-                show: true,
-            },
-        },
-        yaxis: {
-            lines: {
-                show: true,
-            },
-        },
-    },
-    zoom: {
-        enabled: true,
-    },
-};
-
-const userTradeChart = $('#user-trade-chart');
-const tradingViewChart =
-    userTradeChart.length && new ApexCharts(userTradeChart[0], chartOptions);
-if (userTradeChart.length) tradingViewChart.render();
-
-const updateChart = (endPoint, dataLength) => {
-    fetch(endPoint)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then((data) => {
-            const seriesData = data.slice(0, dataLength || 100).map((item) => {
-                return {
-                    x: item.date,
-                    y: [item.open, item.high, item.low, item.close],
-                };
-            });
-
-            tradingViewChart.updateSeries([
-                {
-                    data: seriesData,
-                },
-            ]);
-        })
-        .then(() => {
-            setTimeout(
-                console.log.bind(
-                    console,
-                    `%ctradingViewChart updated`,
-                    `background-color: rgb(58, 163, 26); color: white; font-size: 16px; font-family: Courier; padding:7px 15px; border-radius: 8px;`,
-                ),
-            );
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-        });
-};
-let cryptoAPI = `https://financialmodelingprep.com/api/v3/historical-chart/5min/BTCUSD?from=2023-08-10&to=2023-09-10&apikey=Uo8tKd0TfYNSRsuFyTna5QOfeADggd18`;
-cryptoAPI = `../assets/demo-trading-data/BTCUSD.json`;
-
-if (userTradeChart.length) updateChart(cryptoAPI, 50);
 
 
-
-
-
-
-
-$(document).on('click', '#btn-download-trading-history', function () {
-    console.log('Downloading init...');
-});
-
-// //? bot-trading-history-data-table ______________ ↓
-// const botTradingHistoryTable = $('#bot-trading-history-table');
-// if (botTradingHistoryTable.length) {
-//     let table = new DataTable(botTradingHistoryTable, {
-//         responsive: true,
-//         initComplete: function () {
-//             // Access the search input field and set a placeholder
-//             const searchInput = document.querySelector(
-//                 '[type="search"][aria-controls="bot-trading-history-table"]',
-//             );
-//             if (searchInput) {
-//                 searchInput.placeholder = 'Search for trade etc...';
-//                 searchInput.previousSibling.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i>`;
-//                 searchInput.previousSibling.classList.add(
-//                     'bot-trading-history-table-label',
-//                 );
-
-//                 const btn =
-//                     '<a class="btn w-max" id="btn-download-bot-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
-//                 searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
-//             }
-//         },
-//     });
-// }
-$(document).on('click', '#btn-download-bot-trading-history', function () {
-    console.log('Downloading init...');
-});
-//? Data table end ===========================
-//* trading bot script start =================
 let btnViewHistory = null;
 $(document).on('click', '.btn-load-software', function () {
     btnViewHistory = $(this).prev('.btn-view-history');
 });
+
 $(document).on(
     'click',
     '.trading-bot-license-modal .btn-license-submit',
@@ -444,229 +309,16 @@ $(document).on('click', '.btn-view-history', function () {
     $('.trading-bots-area').addClass('d-none');
     $('.bot-trading-history').removeClass('d-none');
 });
+
+
 $(document).on('click', '[href="#trading-bots-area"]', function () {
     $('.trading-bots-area').removeClass('d-none');
     $('.bot-trading-history').addClass('d-none');
 });
 //* trading bot script end ===================
 
-//* Trading view js start ====================
-const watchListTableBuild = ($html) => {
-    // console.log($html.innerHTML);
-    // fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY')
-    //     .then((response) => {
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         console.log('Fetched data:', data);
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error fetching data:', error);
-    //     });
-    // setInterval(() => {
-    // }, 1000); // Set interval to 60 seconds
-};
-const tradingViewFunc = async (symbol, watchList) => {
-    try {
-        const container = $('.tradingview-widget-container');
-        if (!container.length) return; //? Check if the widget container exists
-        container.html('');
 
-        const script = document.createElement('script');
-        script.src = '../assets/tradingview/embed-widget-advanced-chart.js';
-        script.async = true;
 
-        // Define the configuration for the TradingView widget
-        script.innerHTML = JSON.stringify({
-            autosize: true,
-            symbol: symbol || 'BITSTAMP:BTCUSD',
-            timezone: 'Etc/UTC',
-            theme: 'dark',
-            style: '1',
-            locale: 'en',
-            withdateranges: true,
-            range: '5D',
-            hide_side_toolbar: true,
-            allow_symbol_change: true,
-            watchlist: watchList || [
-                'FX:EURUSD',
-                'BITSTAMP:BTCUSD',
-                'CAPITALCOM:US100',
-                'OANDA:GBPJPY',
-                'NASDAQ:QQQ',
-                'NASDAQ:NVDA',
-                'OANDA:XAUUSD',
-            ],
-            details: false, // right side widgets
-            hotlist: false,
-            calendar: false,
-            // studies: ['STD;24h%Volume'],
-            show_popup_button: true,
-            popup_width: '1000',
-            popup_height: '650',
-            support_host: 'https://www.tradingview.com',
-        });
-
-        container[0].append(script); //? Append the script to the container
-        watchListTableBuild(script);
-    } catch (error) {
-        console.warn('Error loading TradingView widget:', error);
-    }
-};
-tradingViewFunc(); //? Execute the function
-//? Trading view js end ======================
-
-const getCurrentTime = () => {
-    const currentTime = {};
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    currentTime.ampm = hours >= 12 ? 'PM' : 'AM';
-
-    // Convert to 12-hour format
-    hours = hours % 12;
-    currentTime.hours = hours ? (hours <= 9 ? '0' + hours : hours) : 12; // the hour '0' should be '12'
-
-    // Format minutes and seconds to always show two digits
-    currentTime.formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-    currentTime.formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
-
-    return currentTime;
-};
-//* trade-details-summery collapsable script start =====
-$(document).on(
-    'click',
-    '.trade-details-summery .card-header a:not(.active)',
-    function () {
-        const target = $(this).attr('href');
-        if (!target) return;
-        $(this).addClass('active').siblings().removeClass('active');
-        $(target).removeClass('d-none').siblings().addClass('d-none');
-    },
-);
-
-//* trade-details-summery collapsable script end =======
-
-$(document).on(
-    'click',
-    '.trade-and-market-common-card .card-indicators .btn-pill',
-    function () {
-        if ($(this).hasClass('active')) {
-            return;
-        }
-        $(this).addClass('active').siblings('a').removeClass('active');
-
-        const symbol = $(this).attr('data-label');
-        setTimeout(
-            console.log.bind(
-                console,
-                `%c${$(this).text()}%c${symbol}`,
-                `background: rgb(86 86 86); color: white; font-size: 16px; font-family: Courier; padding:7px 15px; border-radius: 50px;`,
-                `color: red; padding: 7px 15px;`,
-            ),
-        );
-        if ($(this).hasClass('btn-forex')) {
-            // tradingViewFunc(symbol || 'FX:EURUSD');
-            updateChart(cryptoAPI, 100);
-        }
-        if ($(this).hasClass('btn-crypto')) {
-            // tradingViewFunc(symbol || 'BITSTAMP:BTCUSD');
-            updateChart(cryptoAPI, 500);
-        }
-        if ($(this).hasClass('btn-indices')) {
-            // tradingViewFunc(symbol || 'CAPITALCOM:US100');
-            updateChart(cryptoAPI, 1000);
-        }
-    },
-); //? onClick to update trading-chart
-
-const tradeWatchListTableUpdate = (symbol, price, changePercent) => {
-    const table = $('#trade-and-market-common-table');
-    const tr = table.find(`dt[name=${symbol}]`);
-
-    if (tr.length) {
-        tr.find('.price').text(price);
-        const percentageDiv = tr.find('.percentage');
-
-        percentageDiv.text(`${changePercent}%`);
-        if (changePercent <= 0) {
-            percentageDiv.addClass('text-danger').removeClass('text-primary');
-        } else {
-            percentageDiv.removeClass('text-danger').addClass('text-primary');
-        }
-        return;
-    }
-
-    table.append(`
-<dt name="${symbol}" class="d-flex justify-content-between align-items-center g-10">
-    <div class="country-name d-flex align-items-center g-8">
-        <img src="../assets/img/country-eur.png" alt="country flag" class="flag">
-        <span>${symbol}</span>
-    </div>
-    <div class="price">${price}</div>
-    <div class="percentage ${
-        changePercent > 0 ? 'text-success' : 'text-danger'
-    }">${changePercent}%</div>
-</dt>`);
-};
-const fetchMarketData = (url) => {
-    fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then((data) => {
-            const symbol = data[0].symbol;
-            const price = data[0].price.toFixed(4);
-            const changePercent = data[0].changesPercentage.toFixed(2);
-            tradeWatchListTableUpdate(symbol, price, changePercent);
-        })
-        .catch((error) => {
-            console.error('Error fetching market data:', error);
-        });
-};
-fetchMarketData('../assets/demo-trading-data/watchlist-EURUSD.json'); // Initial fetch
-// setInterval(fetchMarketData, 2000);
-
-$(document).on('click', '.trade-and-market-common-table > dt', function () {
-    const min = 50;
-    const max = 500;
-    const randomNum = Math.floor(Math.random() * (max - min + 1) + min);
-
-    updateChart(cryptoAPI, randomNum);
-});
-
-//! delete this demo interval ==========
-setInterval(() => {
-    const min = 1;
-    const max = 2.0;
-    const randomNum = (Math.random() * (max - min) + min).toFixed(4);
-    const randomNumP = (Math.random() * (max - min) + 0.5).toFixed(2);
-
-    // Randomly decide whether to make it positive or negative
-    const finalNum = Math.random() < 0.5 ? randomNum : (-randomNum).toFixed(2);
-
-    const maxDT = $('.trade-and-market-common-table > dt').length;
-    const randomNumDT = Math.floor(Math.random() * (maxDT - min + 1) + min);
-
-    const randomDT = $('.trade-and-market-common-table > dt').eq(randomNumDT);
-    randomDT.find('.price').text(randomNum);
-    const percentageDiv = randomDT.find('.percentage');
-
-    if (finalNum <= 0) {
-        percentageDiv.addClass('text-danger').removeClass('text-primary');
-        percentageDiv.text(`${finalNum}%`);
-    } else {
-        percentageDiv.removeClass('text-danger').addClass('text-primary');
-        percentageDiv.text(`+${(+finalNum).toFixed(2)}%`);
-    }
-}, 2500 / $('.trade-and-market-common-table > dt').length);
 
 
 const searchInputFormControl = (searchInput) => {

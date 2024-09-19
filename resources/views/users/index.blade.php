@@ -21,7 +21,7 @@
                             <div class="amount">${{ number_format(auth()->user()->balance) }}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-3 text-primary">
-                            <div class="percentage">1.5%</div>
+                            <div class="percentage">0%</div>
                             <span class="status up">
                                 <i class="fa-solid fa-arrow-up"></i>
                             </span>
@@ -41,7 +41,7 @@
                             <div class="amount">0/0</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
-                            <div class="percentage">0.5%</div>
+                            <div class="percentage">0%</div>
                             <span class="status up">
                                 <i class="fa-solid fa-arrow-down"></i>
                             </span>
@@ -122,11 +122,11 @@
                         <div class="card-title">Profit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">1,26,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">17.5%</div>
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
@@ -138,11 +138,11 @@
                         <div class="card-title">Loan</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">5,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">2.5%</div>
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>
@@ -154,11 +154,11 @@
                         <div class="card-title">Insurance</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">13,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">3.9%</div>
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
@@ -170,11 +170,11 @@
                         <div class="card-title">Credit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">1,200</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">20%</div>
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>

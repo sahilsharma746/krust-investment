@@ -15,7 +15,9 @@ $(document).ready(function () {
         }
     } catch (error) {
         console.warn(error);
-    } //? header marquee script end =============
+    } 
+
+    //? header marquee script end =============
 
     //* user left navigation active script start =======
     const leftNavOpen = () => {

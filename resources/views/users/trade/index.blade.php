@@ -9,9 +9,9 @@
                 </div>
                 <div class="card-body">
                     <div class="card-indicators scroll">
-                        <a data-label="FX:EURUSD" class="btn-pill trade-type btn-forex active">Forex</a>
-                        <a data-label="BITSTAMP:BTCUSD" class="btn-pill trade-type btn-crypto">Crypto</a>
-                        <a data-label="TVC:DXY" class="btn-pill trade-type btn-indices">Indices</a>
+                        <a data-label="BITSTAMP:BTCUSD" data-type="crypto" class="btn-pill trade-type active btn-crypto">Crypto</a>
+                        <a data-label="FX:EURUSD" data-type="forex" class="btn-pill trade-type btn-forex ">Forex</a>
+                        <a data-label="TVC:DXY" data-type="indices" class="btn-pill trade-type btn-indices">Indices</a>
                     </div>
                     <div class="trade-and-market-common-table-area">
                         <div class="input-group search-input-group">
@@ -21,69 +21,6 @@
                                     class="fa-solid fa-magnifying-glass"></i></label>
                         </div>
                         <dl id="trade-and-market-common-table" class="trade-and-market-common-table scroll">
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/US--big.svg" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="EURUSD"
-                                        data-fullname="EURO / U.S. DOLLAR">EURUSD</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-success">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="GBPUSD"
-                                        data-fullname="BRITISH POUND / U.S. DOLLAR">GBPUSD</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-danger">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="EURUAH"
-                                        data-fullname="EURO / UKRAINIAN HRYVNIA">EURUAH</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-success">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="USDSIT"
-                                        data-fullname="U.S. DOLLAR / SLOVENIAN TOLAR">USDSIT</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-danger">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="GBPUAH"
-                                        data-fullname="BRITISH POUND / UKRAINIAN HRYVNIA">GBPUAH</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-success">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="CHFUAH"
-                                        data-fullname="SWISS FRANC / UKRAINIAN HRYVNIA">CHFUAH</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-danger">+0.77%</div>
-                            </dt>
-                            <dt class="d-flex justify-content-between align-items-center g-10 asset-data    ">
-                                <div class="country-name d-flex align-items-center g-8">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
-                                    <span data-price="1.0953" data-name="USDSIT"
-                                        data-fullname="U.S. DOLLAR / SLOVENIAN TOLAR">USDSIT</span>
-                                </div>
-                                <div class="price">1.0953</div>
-                                <div class="percentage text-danger">+0.77%</div>
-                            </dt>
                         </dl>
                     </div>
                 </div>
