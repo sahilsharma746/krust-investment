@@ -1,4 +1,0 @@
-[18-Sep-2024 11:22:05 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string - float in /home/krusrlwp/staging/public/api-test/test.php:48
-Stack trace:
-#0 {main}
-  thrown in /home/krusrlwp/staging/public/api-test/test.php on line 48
