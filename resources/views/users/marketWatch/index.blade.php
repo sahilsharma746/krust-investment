@@ -8,7 +8,7 @@
                     <a href="{{ route('user.marketWatch.index') }}" class="btn-tab active">Market Watch</a>
                     </div>
                     <div class="card-body">
-                        <div class="trade-and-market-common-table-area">
+                        <div class="trade-and-market-common-table-area " id="market-watch-common-table-area">
                             <div class="input-group search-input-group">
                                 <input id="searchTableAssets" class="form-control search-input" type="search"
                                     placeholder="Search for assets etc...">
@@ -17,22 +17,22 @@
                             </div>
                         </div>
                         <div class="market-watch-table-indicators scroll">
-                            <a href="#user-market-watch-table-forex" class="btn active">
+                            {{-- <a href="#user-market-watch-table-forex" class="btn active">
                                 <span>Forex</span>
                                 <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a>
+                            </a> --}}
                             <a href="#user-market-watch-table-crypto" class="btn">
                                 <span>Crypto</span>
                                 <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
                             </a>
-                            <a href="#user-market-watch-table-indicies" class="btn">
+                            {{-- <a href="#user-market-watch-table-indicies" class="btn">
                                 <span>Indices</span>
                                 <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
                             </a>
                             <a href="#user-market-watch-table-futures" class="btn">
                                 <span>Futures</span>
                                 <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                                     <th>Change</th>
                                 </tr>
                             </thead>
-                            <tbody id="user-market-watch-table-forex">
+                            {{-- <tbody id="user-market-watch-table-forex">
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center g-8">
@@ -108,38 +108,11 @@
                                     <td>257.192M</td>
                                     <td class="text-danger">-5.35%</td>
                                 </tr>
+                            </tbody> --}}
+                            <tbody id="user-market-watch-table-crypto">
+                            
                             </tbody>
-                            <tbody id="user-market-watch-table-crypto" class="d-none">
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center g-8">
-                                            <img src="../assets/img/country-eur.png" class="icon">
-                                            <span class="name">EURUSD </span>
-                                        </div>
-                                    </td>
-                                    <td>14</td>
-                                    <td>13.564B</td>
-                                    <td>3.9172523</td>
-                                    <td>12.8261B</td>
-                                    <td>257.192M</td>
-                                    <td class="text-success">+23%</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center g-8">
-                                            <img src="../assets/img/country-eur.png" class="icon">
-                                            <span class="name">EURUSD </span>
-                                        </div>
-                                    </td>
-                                    <td>13.564B</td>
-                                    <td>13.564B</td>
-                                    <td>3.9172523</td>
-                                    <td>12.8261B</td>
-                                    <td>257.192M</td>
-                                    <td class="text-danger">-5.35%</td>
-                                </tr>
-                            </tbody>
-                            <tbody id="user-market-watch-table-indicies" class="d-none">
+                            {{-- <tbody id="user-market-watch-table-indicies" class="d-none">
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center g-8">
@@ -240,7 +213,7 @@
                                     <td>257.192M</td>
                                     <td class="text-danger">-5.35%</td>
                                 </tr>
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                 </div>

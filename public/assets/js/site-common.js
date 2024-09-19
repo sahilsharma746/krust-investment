@@ -16,6 +16,7 @@ jQuery( document ).ready(function(){
     });
 
 
+if( jQuery('#site-main-nav').length > 0 ) {
 	// for updating data on the site main nav home page 
 	const options = {
 	  method: 'GET',
@@ -58,6 +59,7 @@ jQuery( document ).ready(function(){
 	  	.catch(error => {
 	    	console.error('There was a problem with the fetch operation:', error);
 	  	});
+	}
 
 	//   // for updating data on the site main nav home page 
 	//     const options = {

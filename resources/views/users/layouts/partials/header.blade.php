@@ -27,7 +27,9 @@
 
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
     <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
+
     <script src="{{ asset('assets') }}/js/site-common.js"></script>
+    
 </head>
 
 <body>

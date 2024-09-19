@@ -48,20 +48,6 @@ class UserUpgradeController extends Controller
     }
 
 
-   public function tradingHistoryView(){
-
-    $user_trades = [];
-
-    return view('users.trading-history.index', compact('user_trades'));
-
-   }
  
-   public function tradingBotsView(){
-
-    $user_trades = [];
-
-    return view('users.trading-bots.index', compact('user_trades'));
-
-   }
 
 }

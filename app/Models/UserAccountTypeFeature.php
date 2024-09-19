@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserAccountTypeFeature extends Model
 {
     use HasFactory;
-    protected $table = 'table_user_account_types_features';
+    protected $table = 'user_account_types_features';
 
     public function features()
     {

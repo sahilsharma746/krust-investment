@@ -124,6 +124,14 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
     // route to  user dashboard trade page
     Route::get('/trade', [UserTradeController::class, 'index'])->name('user.trade.index');
+
+    Route::post('/trade-store', [UserTradeController::class, 'storeTrades'])->name('user.trade.store');
+
+    Route::get('trading-history', [UserTradeController::class, 'tradingHistoryView'])->name('users.trading-history.index');
+    
+    Route::get('trading-bots', [UserTradeController::class, 'tradingBotsView'])->name('users.trading-bots.index');
+
+
     
     
     Route::get('/market-news', [UserHomeController::class, 'news'])->name('user.market.news');
@@ -133,11 +141,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
     Route::get('upgrade', [UserUpgradeController::class, 'index'])->name('user.upgrade.index');
 
-    Route::get('trading-history', [UserUpgradeController::class, 'tradingHistoryView'])->name('users.trading-history.index');
     
-    Route::get('trading-bots', [UserUpgradeController::class, 'tradingBotsView'])->name('users.trading-bots.index');
-
-
     // Route::post('upgrade-plan/{plan_id}', [UserUpgradeController::class, 'UpgradeUserPlan'])->name('user.upgrade.plan');
 
 });
