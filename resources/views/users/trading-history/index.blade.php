@@ -18,7 +18,7 @@
                                 <th>Trade</th>
                                 <th>Market</th>
                                 <th>PNL</th>
-                                <th>Fain/loss</th>
+                                <th>Win/Loss</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,10 +36,8 @@
                                     <td>{{ $trade->trade_type }}</td> 
                                     <td>${{$trade->capital }}</td>
                                     <td>Currency</td> 
-                                    <td>{{ number_format($trade->pnl, 2) }}</td> 
-                                    <td class="{{ $trade->pnl >= 0 ? 'text-success' : 'text-danger' }}">
-                                        {{ $trade->pnl >= 0 ? 'Gain' : 'Loss' }}
-                                    </td>
+                                    <td>{{$trade->pnl}}</td> 
+                                    <td >{{ $trade->trade_result }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -32,8 +32,7 @@
                     <div id="market-watch-chart" class="market-watch-chart">
                     </div>
                 </div>
-                <form action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form">
-                    @csrf
+                <form id="tradeForm" action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form"> @csrf
                     <div class="user-trade-chart-filter scroll">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
@@ -69,6 +68,9 @@
                                     <label class="form-label">Amount</label>
                                     <input class="form-control asset-trade-amount" type="number" min="0"
                                         name="amount" placeholder="Enter Amount">
+                                    @if ($errors->has('amount'))
+                                        <span class="text-danger">{{ $errors->first('amount') }}</span>
+                                    @endif
                                 </div>
                                 <div class="input-group">
                                     <label class="form-label">Time Frame</label>
@@ -76,13 +78,16 @@
                                         <option value="0">Select Time Frame</option>
                                         <option value="5minutes">5 Minutes</option>
                                         <option value="30minutes">30 Minutes</option>
-                                        <option value="1hour">1 hour</option>
-                                        <option value="4hour">4 Hours</option>
-                                        <option value="24hour">1 day</option>
-                                        <option value="168hours">1 Week</option>
-                                        <option value="720hours">1 Month</option>
-                                        <option value="8760 hours">1 Year</option>
+                                        <option value="1hour">1 Hour</option>
+                                        <option value="4hours">4 Hours</option>
+                                        <option value="1day">1 day</option>
+                                        <option value="1week">1 Week</option>
+                                        <option value="1month">1 Month</option>
+                                        <option value="1year">1 Year</option>
                                     </select>
+                                    @if ($errors->has('time_frame'))
+                                        <span class="text-danger">{{ $errors->first('time_frame') }}</span>
+                                    @endif
                                 </div>
                                 <table class="user-trade-short-history w-100">
                                     <tbody>
@@ -120,8 +125,7 @@
                                 </div>
 
                                 <div class="payout-area d-grid">
-                                    <input type="hidden" name="payout" value=""
-                                                class="payout">
+                                    <input type="hidden" name="payout" value="" class="payout">
                                     <span>Your Payout</span>
                                     <span class="text-center">=</span>
                                     <span class="text-end text-primary">$<span class="asset-payout">0</span></span>
@@ -129,13 +133,28 @@
                                         name="user_balance">
                                     <input type="hidden" value="{{ $user_trade_percentage }}"
                                         class="asset-trade_result_percentage" name="trade_result_percentage">
-                                    <input type="hidden" value="{{ $user_trade_result }}" class="asset-trade_result"
-                                        name="trade_result">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
+
+                <div id="insufficientBalanceModal" class="modal custom-modal">
+                    <div class="modal-dialog d-flex flex-column justify-content-center align-items-center">
+                        <div class="modal-body text-center">
+                            <h3 class="modal-title">Insufficient Balance</h3>
+                            <p class="modal-title">Your balance is not sufficient to proceed with this trade.</p>
+                            <p class="modal-text">Please ensure that you have enough funds in your account to complete this transaction.
+                                You can add funds to your account through the available deposit methods.</p>
+                            <div class="modal-footer">
+                                <a class="btn btn-modal-close btn-add-asset close-button">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
 
 
                 <div class="trade-details-summery">
@@ -143,7 +162,7 @@
                         <div class="card-header d-flex g-25">
                             <a class="active" data-toggle="tab" href="#trade-details-summery-current">Current
                                 Trade</a>
-                            <a data-toggle="tab" href="#trade-details-summery-history">Trade History</a>
+                            <a  href="{{ route('users.trading-history.index') }}">Trade History</a>
                         </div>
                         <div class="card-body scroll">
                             <table id="trade-details-summery-current">
@@ -163,14 +182,21 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($trades as $trade)
-                                        <tr>
+                                        <tr data-id="{{$trade->id }}" class="trade_{{ $trade->id }}">
                                             <td>{{ $trade->asset }}</td>
                                             <td>${{ $trade->margin }}x</td>
                                             <td>${{ $trade->contract_size }}</td>
-                                            <td>${{ ($trade->capital) }}</td>
-                                            <td>{{ ($trade->trade_type) }}</td>
+                                            <td>${{ $trade->capital }}</td>
+                                            <td>{{ $trade->trade_type }}</td>
                                             <td>${{ $trade->entry }}</td>
-                                            <td>${{ $trade->pnl }}</td>
+                                            <td>
+                                                {{-- ${{ $trade->pnl }} --}}
+                                                <span class="trade_pnl_value">0</span>
+                                                <input type="hidden" class="pnl_value" value="{{$trade->pnl}}">
+                                                <input type="hidden" class="trade_created" value="{{ $trade->created_at}}">
+                                                <input type="hidden" class="current_date_time" value="{{ date('Y-m-d h:i:s') }}">
+                                                <input type="hidden" class="timeframe " value="{{ $trade->time_frame}}">
+                                            </td>
                                             <td>{{ $trade->created_at->format('d - m - Y') }}</td>
                                             <td>{{ $trade->created_at->format('h:iA') }}</td>
                                             <td>{{ $trade->order_type }}</td>
@@ -178,12 +204,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </article>
-
 @endsection
