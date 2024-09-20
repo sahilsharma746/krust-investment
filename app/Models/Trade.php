@@ -26,4 +26,10 @@ class Trade extends Model
         'admin_trade_result_percentage',
         'trade_win_loss_amount'
     ];
+
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id'); 
+}
+
 }

@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('trade_result');
             $table->decimal('admin_trade_result_percentage');
             $table->decimal('trade_win_loss_amount', 10, 10);
+            $table->tinyInteger('processed');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

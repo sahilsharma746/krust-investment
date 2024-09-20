@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Trade;
 use App\Models\Deposit;
 use App\Models\UserSetting;
 use Illuminate\Http\Request;
@@ -19,7 +20,11 @@ class AdminTradesController extends Controller
 
 
     public function getAllTrades(){
-        return view('admin.trades.index');
+
+        // $trades = Trade::all();
+        $trades = Trade::with('user')->get();
+    
+        return view('admin.trades.index',compact('trades'));
     }
 
 

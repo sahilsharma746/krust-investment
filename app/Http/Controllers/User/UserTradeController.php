@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 
+use App\Models\User;
 use App\Models\Trade;
 use App\Models\UserSetting;
 use Illuminate\Http\Request;
@@ -20,56 +21,97 @@ class UserTradeController extends Controller
         $user_id = $user->id;
         
         $trades = Trade::where('user_id', $user_id)->get();
+      
         $user_setting = new UserSetting();
         
-        $user_trade_result = $user_setting->getUserSetting('trade_result', $user_id);
         $user_trade_percentage = $user_setting->getUserSetting('trade_percentage', $user_id);
 
-        if ($user_trade_result === false || $user_trade_percentage === false) {
+        if ( $user_trade_percentage === false) {
             $user_trade_percentage = $user_trade_percentage === false ? 10 : $user_trade_percentage;
-            $user_trade_result = $user_trade_result === false ? 'random' : $user_trade_result;
-        }
-
-        if ($user_trade_result === 'random') {
-            $user_trade_result = rand(1, 2) === 1 ? 'win' : 'loss';
         }
    
         $user_balance = $user->balance;
 
-        return view('users.trade.index', compact('user_balance','user_trade_result','user_trade_percentage','trades'));
+        return view('users.trade.index', compact('user_balance','user_trade_percentage','trades'));
     }
 
 
     public function storeTrades(Request $request) {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $user_setting = new UserSetting();
 
-        dd( $request );
+        $user_trade_result = $user_setting->getUserSetting('trade_result', $user_id);
+        if ($user_trade_result == false ) {
+            $user_trade_result = $user_trade_result == false ? 'random' : $user_trade_result;
+        }
+        if ($user_trade_result == 'random') {
+            $user_trade_result = rand(1, 2) == 1 ? 'win' : 'loss';
+        }
 
-        $trade = Trade::create([
+        $validate_data =  $request->validate([
+            'name' => 'required',
+            'margin' => 'required|numeric',
+            'contract_size' => 'required|numeric',
+            'amount' => 'required|numeric|min:1',            
+            'units' => 'required|numeric',
+            'payout' => 'required|numeric',
+            'fees' => 'required|numeric',
+            'action' => 'required|string',
+            'time_frame' => ['required', 'string', 'not_in:0'],
+            'trade_result_percentage' => 'required|numeric',
+        ], [
+            'time_frame.not_in' => 'Please select the time frame', 
+            'amount.required' => 'The amount field is required.',
+        ]);
+
+            $trade_result_percentage = $validate_data['trade_result_percentage'];
+            $contract_size =  $validate_data['contract_size'];
+
+            $trade_win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
+
+            $amount = $validate_data['amount'];
+            $user_balance =  $user->balance;
+
+            $total_user_balance = $user_balance - $amount ;
+
+            User::where('id', $user_id)->update([
+                'balance' => $total_user_balance
+            ]);
+            
+            if($user_trade_result == 'win'){
+                $winloss_amount =  $amount + ($trade_win_loss_amount);
+            } else {
+                $winloss_amount = $amount - ($trade_win_loss_amount);
+            }
+            $trade = Trade::create([
             'user_id' => auth()->user()->id,
-            'name' => $request['name'],
-            'asset' => $request['name'],
-            'margin' => $request['margin'],
-            'contract_size' => $request['contract_size'],
-            'capital' => $request['amount'],
+            'name' => $validate_data['name'],
+            'asset' => $validate_data['name'],
+            'margin' => $validate_data['margin'],
+            'contract_size' => $validate_data['contract_size'],
+            'capital' => $validate_data['amount'],
             'trade_type' => 'live',
-            'entry' => $request['units'],
-            'pnl' => $request['payout'],
-            'fees' => $request['fees'],
-            'order_type' => $request['action'],
-            'time_frame' => $request['time_frame'],
-            'trade_result' => $request['trade_result'],
-            'admin_trade_result_percentage' => $request['trade_result_percentage'],
+            'entry' => $validate_data['units'],
+            'pnl' => $winloss_amount,
+            'fees' => $validate_data['fees'],
+            'order_type' => $validate_data['action'],
+            'time_frame' => $validate_data['time_frame'],
+            'trade_result' =>  $user_trade_result,
+            'trade_win_loss_amount'=> $trade_win_loss_amount,
+            'admin_trade_result_percentage' => $validate_data['trade_result_percentage'],
         ]);
         return redirect()->back()->with('success', 'Your trade has been successfully placed!');
     }
     
-
     public function tradingHistoryView(){
         $user = Auth::user();
         $user_id = $user->id;
-        $trades = Trade::where('user_id', $user_id)->get();
-        $user_trades = [];
-        return view('users.trading-history.index', compact('user_trades','trades'));
+        $trades = Trade::where('user_id', $user_id)
+        ->where('status', 1)
+        ->get();
+        
+        return view('users.trading-history.index', compact('trades'));
     
     }
      

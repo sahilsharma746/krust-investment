@@ -149,7 +149,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
 
 
 // Backend admin dashboard urls 
-// admin login URL 
+// admin tn URL 
 Route::get('/admin', [AdminHomeController::class, 'adminLogin'])->name('admin.login');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
