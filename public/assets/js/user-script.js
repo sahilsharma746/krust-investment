@@ -51,24 +51,8 @@ document.addEventListener('click', function (e) {
 // nav-tab script end.
 
 $(document).ready(function () {
-    //* user left navigation active script start =======
-    const leftNavOpen = () => {
-        $('#btn-nav-toggle').addClass('nav-displayed');
-        $('#left-nav').addClass('active');
-        $('body').addClass('overflowY-hidden');
-    };
-    const leftNavClose = () => {
-        $('#btn-nav-toggle').removeClass('nav-displayed');
-        $('#left-nav').removeClass('active');
-        $('body').removeClass('overflowY-hidden');
-    };
-    $(document).on('click', '#btn-nav-toggle', function () {
-        if ($(this).hasClass('nav-displayed')) {
-            leftNavClose();
-        } else {
-            leftNavOpen();
-        }
-    });
+
+
     $(document).on('click', '#left-nav:not(ul > *)', function (e) {
         if (!$(e.target).is('ul')) leftNavClose();
     });
@@ -316,9 +300,6 @@ $(document).on('click', '[href="#trading-bots-area"]', function () {
     $('.bot-trading-history').addClass('d-none');
 });
 //* trading bot script end ===================
-
-
-
 
 
 const searchInputFormControl = (searchInput) => {

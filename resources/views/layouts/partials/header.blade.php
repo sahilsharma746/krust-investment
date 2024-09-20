@@ -52,6 +52,10 @@
                             <dt class="dropdown-item"><a href="{{ route('frontend.faq') }}">FAQs</a></dt>
                         </dl>
                     </dt>
+                    <dt class="header-btns g-8">
+                        <a class="btn btn-login" href="{{ route('login') }}">Log in</a>
+                        <a class="btn btn-started" href="{{ route('register') }}">Get Started</a>
+                    </dt>
                 </dl>
             </nav>
             <div class="contact-details d-flex g-20">

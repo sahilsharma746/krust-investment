@@ -27,6 +27,16 @@
 <!-- font-awesome added here ================ -->
 <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
 
+<script>
+        var apiUrlCrypto = "{{ url('/crypto.json') }}";
+        var apiUrlForex = "{{ url('/forex.json') }}";
+        var apiUrlIndisis = "{{ url('/indisis.json') }}";
+        
+        var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
+        var apiUrlTesla = "{{ url('/tesla.json') }}";
+        var apiUrlAmazon = "{{ url('/amazon.json') }}";
+        var apiUrlSolana = "{{ url('/solana.json') }}";
+    </script>
 
 <!-- jQuery added here ================ -->
 <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>

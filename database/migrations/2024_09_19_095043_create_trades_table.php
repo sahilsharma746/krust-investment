@@ -16,17 +16,18 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('asset');
             $table->string('name');
-            $table->decimal('margin');
-            $table->decimal('contract_size');
-            $table->decimal('capital');
+            $table->decimal('margin', 10, 10);
+            $table->decimal('contract_size', 10, 10);
+            $table->decimal('capital', 10, 10);
             $table->string('trade_type');
-            $table->decimal('entry');
-            $table->decimal('pnl'); 
-            $table->decimal('fees'); 
+            $table->decimal('entry', 10, 10);
+            $table->decimal('pnl', 10, 10);
+            $table->decimal('fees', 10, 10);
             $table->string('order_type'); 
             $table->string('time_frame'); 
             $table->string('trade_result');
             $table->decimal('admin_trade_result_percentage');
+            $table->decimal('trade_win_loss_amount', 10, 10);
             $table->timestamps();
         });
     }

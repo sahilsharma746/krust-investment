@@ -2292,3 +2292,10 @@ main > article .market-news-section .news-page .trading-news-container .news-bod
 main > article .market-news-section .news-page .trading-news-container .news-body a:hover {
   color: var(--primary-color);
 }
+
+.svg-inline--fa {
+    display: inline-block !important;  /* Ensures the icon behaves like an inline element */
+    width: 1em;             /* Adjusts the width based on the font size */
+    height: 1em;            /* Keeps the aspect ratio consistent */
+    vertical-align: middle; /* Aligns the icon vertically with text */
+}

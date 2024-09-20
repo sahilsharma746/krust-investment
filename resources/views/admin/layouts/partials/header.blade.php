@@ -21,6 +21,16 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-layout.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-style.css">
 
+    <script>
+        var apiUrlCrypto = "{{ url('/crypto.json') }}";
+        var apiUrlForex = "{{ url('/forex.json') }}";
+        var apiUrlIndisis = "{{ url('/indisis.json') }}";
+        
+        var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
+        var apiUrlTesla = "{{ url('/tesla.json') }}";
+        var apiUrlAmazon = "{{ url('/amazon.json') }}";
+        var apiUrlSolana = "{{ url('/solana.json') }}";
+    </script>
 
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
     <script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>

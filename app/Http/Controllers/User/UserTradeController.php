@@ -17,7 +17,6 @@ class UserTradeController extends Controller
     public function index() {
 
         $user = Auth::user();
-       
         $user_id = $user->id;
         
         $trades = Trade::where('user_id', $user_id)->get();
@@ -29,38 +28,21 @@ class UserTradeController extends Controller
         if ($user_trade_result === false || $user_trade_percentage === false) {
             $user_trade_percentage = $user_trade_percentage === false ? 10 : $user_trade_percentage;
             $user_trade_result = $user_trade_result === false ? 'random' : $user_trade_result;
-        }   
+        }
+
         if ($user_trade_result === 'random') {
-                $user_trade_result = rand(1, 2) === 1 ? 'win' : 'loss';
-            }
-        
-        
-    
-        // $forex_url = config('services.currencylayer.url');
-        // $forex_response = Http::get($forex_url);
-        // $forex_data = $forex_response->json();
-
-        // $crypto_url = config('services.cryptocompare.url');
-        // $crypto_response = Http::get($crypto_url);
-        // $crypto_data = $crypto_response->json();
-
-        // $indices_url = config('services.exchangerate.url');
-        // $indices_response = Http::get($indices_url);
-        // $indices_data = $indices_response->json();
-
-        // $forex_data = '';
-        // $crypto_data = '';
-        // $indices_data = '';
+            $user_trade_result = rand(1, 2) === 1 ? 'win' : 'loss';
+        }
+   
         $user_balance = $user->balance;
 
-
-
         return view('users.trade.index', compact('user_balance','user_trade_result','user_trade_percentage','trades'));
-        
     }
 
 
     public function storeTrades(Request $request) {
+
+        dd( $request );
 
         $trade = Trade::create([
             'user_id' => auth()->user()->id,
@@ -84,22 +66,21 @@ class UserTradeController extends Controller
 
     public function tradingHistoryView(){
         $user = Auth::user();
-       
         $user_id = $user->id;
-        
         $trades = Trade::where('user_id', $user_id)->get();
-
         $user_trades = [];
-    
         return view('users.trading-history.index', compact('user_trades','trades'));
     
-       }
+    }
      
-       public function tradingBotsView(){
     
+    public function tradingBotsView(){
         $user_trades = [];
-    
         return view('users.trading-bots.index', compact('user_trades'));
-    
-       }
+    }
+
 }
+
+
+
+

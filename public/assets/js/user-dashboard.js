@@ -265,7 +265,6 @@ $(document).on('keyup', '.search-input-group .search-input', function (e) {
 }); 
 
 
-//* Data table start ========================
 if( jQuery( '#trading-history-table' ).length > 0) {
     let table = new DataTable('#trading-history-table', {
         responsive: true,
@@ -285,13 +284,17 @@ if( jQuery( '#trading-history-table' ).length > 0) {
                     '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
                 searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
             }
+
+            // Add custom class to the page length select dropdown
+            const lengthSelect = document.querySelector(
+                'select[name="trading-history-table_length"]'
+            );
+            if (lengthSelect) {
+                lengthSelect.classList.add('trading-history-table_length');
+            }
         },
     });
 }
-
-//* Data table end ==========================
-
-
 
 
 // when user click yes on first popup
@@ -313,48 +316,6 @@ jQuery(document).on( 'click',  '.confirm-deposit-success', function() {
     var payment_method_id = jQuery(this).data('gatewayid');
     window.location.href = 'deposit-transfer/'+payment_method_id;
 });
-
-
-
-
-
-
-
-// // for updating data on the site main nav home page 
-//     const options = {
-//       method: 'GET',
-//       headers: {accept: 'application/json', 'x-cg-pro-api-key': 'CG-1zNLqMpJkTYvoZH93HsJUUEJ'}
-//     };
-//     // const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false';
-//     const apiUrl = 'crypto.json';
-
-//     var main_nav_li = '';
-//     fetch(apiUrl, options)
-//         .then(response => {
-//             if (!response.ok) {
-//              // Error('Network response was not ok');
-//                 return false;
-//            }
-//             return response.json();  
-//         })
-//         .then(data => {
-
-//             console.log( );
-
-            
-
-
-//         })
-//         .catch(error => {
-//             console.error('There was a problem with the fetch operation:', error);
-//         });
-
-
-
-
-
-
-
 
 
 

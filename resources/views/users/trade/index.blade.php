@@ -8,8 +8,7 @@
                     <a href="{{ route('user.marketWatch.index') }}" class="btn-tab ">Market Watch</a>
                 </div>
                 <div class="card-body">
-                    <div class="card-indicators scroll" id="t
-                    ">
+                    <div class="card-indicators scroll">
                         <a data-label="BITSTAMP:BTCUSD" data-type="crypto"
                             class="btn-pill trade-type active btn-crypto">Crypto</a>
                         {{-- <a data-label="FX:EURUSD" data-type="forex"- class="btn-pill trade-type btn-forex ">Forex</a> --}}

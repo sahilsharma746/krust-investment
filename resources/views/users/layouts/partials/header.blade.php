@@ -10,16 +10,28 @@
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
+
+     <script>
+        var apiUrlCrypto = "{{ url('/crypto.json') }}";
+        var apiUrlForex = "{{ url('/forex.json') }}";
+        var apiUrlIndisis = "{{ url('/indisis.json') }}";
+
+        var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
+        var apiUrlTesla = "{{ url('/tesla.json') }}";
+        var apiUrlAmazon = "{{ url('/amazon.json') }}";
+        var apiUrlSolana = "{{ url('/solana.json') }}";
+    </script>
         
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
-
-    {{-- <link rel="stylesheet" href="{{ asset('assets') }}/css/admin.css">  --}}
+    
     <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
+    
     @if (Route::currentRouteName() === 'users.trading-bots.index' || Route::currentRouteName() === 'users.trading-history.index'  )
         <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
     @endif
+
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'user.marketWatch.index')
          <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
           <link rel="stylesheet" href="{{ asset('assets') }}/css/trade-and-market.min.css">
@@ -97,3 +109,13 @@
             </div>
         </div>
     </header>
+
+
+    <script type="text/javascript">
+        // JQUERY FOR DISPLAYING THE MENU ON MOBILE 
+        $(document).on('click', '#btn-nav-toggle', function () {
+            $(this).toggleClass('nav-displayed');
+            $('#left-nav').toggleClass('active');
+            $('body').toggleClass('overflowY-hidden');
+        });
+    </script>
