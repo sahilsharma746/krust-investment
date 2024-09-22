@@ -33,7 +33,6 @@
                             </td>
                             <td>
                                 <div class="symbol d-flex align-items-center g-8">
-                                    <img src="../assets/img/country-eur.png">
                                     <div class="name">{{ $trade->asset }}</div>
                                 </div>
                             </td>
@@ -59,7 +58,7 @@
 
                                     <ul class="list-style-none dropdown-menu d-flex flex-column">
                                         <li class="dropdown-item">
-                                            <a class="btn btn-delete-dt-tr">Delete</a>
+                                            <a href="{{ route('admin.trade.delete', $trade->id) }}" class="btn btn-delete-dt-tr">Delete</a>
                                         </li>
                                     </ul>
                                 </div>

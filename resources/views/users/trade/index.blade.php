@@ -154,9 +154,6 @@
                 </div>
 
 
-
-
-
                 <div class="trade-details-summery">
                     <div class="card">
                         <div class="card-header d-flex g-25">
@@ -184,13 +181,12 @@
                                     @foreach ($trades as $trade)
                                         <tr data-id="{{$trade->id }}" class="trade_{{ $trade->id }}">
                                             <td>{{ $trade->asset }}</td>
-                                            <td>${{ $trade->margin }}x</td>
+                                            <td>{{ $trade->margin }}x</td>
                                             <td>${{ $trade->contract_size }}</td>
                                             <td>${{ $trade->capital }}</td>
                                             <td>{{ $trade->trade_type }}</td>
                                             <td>${{ $trade->entry }}</td>
                                             <td>
-                                                {{-- ${{ $trade->pnl }} --}}
                                                 <span class="trade_pnl_value">0</span>
                                                 <input type="hidden" class="pnl_value" value="{{$trade->pnl}}">
                                                 <input type="hidden" class="trade_created" value="{{ $trade->created_at}}">

@@ -37,4 +37,12 @@ class AdminTradesController extends Controller
         return redirect()->back()->with('success', ' Updated successfully.');
     }
 
+
+    public function deleteTrade( Request $request, $trade_id){
+
+        dd( $trade_id );
+
+
+    }
+
 }

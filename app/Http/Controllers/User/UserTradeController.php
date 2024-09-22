@@ -42,9 +42,11 @@ class UserTradeController extends Controller
         $user_setting = new UserSetting();
 
         $user_trade_result = $user_setting->getUserSetting('trade_result', $user_id);
+
         if ($user_trade_result == false ) {
             $user_trade_result = $user_trade_result == false ? 'random' : $user_trade_result;
         }
+
         if ($user_trade_result == 'random') {
             $user_trade_result = rand(1, 2) == 1 ? 'win' : 'loss';
         }
@@ -65,42 +67,47 @@ class UserTradeController extends Controller
             'amount.required' => 'The amount field is required.',
         ]);
 
-            $trade_result_percentage = $validate_data['trade_result_percentage'];
-            $contract_size =  $validate_data['contract_size'];
+        $trade_result_percentage = $validate_data['trade_result_percentage'];
+        $contract_size = $request->contract_size;
 
-            $trade_win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
+        $trade_win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
+        $amount = $request->amount;
+        $user_balance =  $user->balance;
+        $total_user_balance = $user_balance - $amount ;
 
-            $amount = $validate_data['amount'];
-            $user_balance =  $user->balance;
-
-            $total_user_balance = $user_balance - $amount ;
-
-            User::where('id', $user_id)->update([
-                'balance' => $total_user_balance
-            ]);
-            
-            if($user_trade_result == 'win'){
-                $winloss_amount =  $amount + ($trade_win_loss_amount);
-            } else {
-                $winloss_amount = $amount - ($trade_win_loss_amount);
-            }
-            $trade = Trade::create([
-            'user_id' => auth()->user()->id,
-            'name' => $validate_data['name'],
-            'asset' => $validate_data['name'],
-            'margin' => $validate_data['margin'],
-            'contract_size' => $validate_data['contract_size'],
-            'capital' => $validate_data['amount'],
-            'trade_type' => 'live',
-            'entry' => $validate_data['units'],
-            'pnl' => $winloss_amount,
-            'fees' => $validate_data['fees'],
-            'order_type' => $validate_data['action'],
-            'time_frame' => $validate_data['time_frame'],
-            'trade_result' =>  $user_trade_result,
-            'trade_win_loss_amount'=> $trade_win_loss_amount,
-            'admin_trade_result_percentage' => $validate_data['trade_result_percentage'],
+        User::where('id', $user_id)->update([
+            'balance' => $total_user_balance
         ]);
+        
+        if($user_trade_result == 'win'){
+            $winloss_amount =  $amount + ($trade_win_loss_amount);
+        } else {
+            $winloss_amount = $amount - ($trade_win_loss_amount);
+        }
+
+        $data = [
+            'user_id' => auth()->user()->id,
+            'name' => $request->name,
+            'asset' => $request->name,
+            'margin' => (int) $request->margin,  
+            'contract_size' => (float)$request->contract_size,
+            'capital' => (float)$request->amount,
+            'trade_type' => 'live',
+            'entry' => (float)$request->price,
+            'units' => (float)$request->units,
+            'pnl' => (float)$winloss_amount,
+            'fees' => (float)$request->fees,
+            'order_type' => $request->action,
+            'time_frame' => $request->time_frame,
+            'trade_result' => $user_trade_result,
+            'trade_win_loss_amount'=> (float)$trade_win_loss_amount,
+            'admin_trade_result_percentage' => (float)$request->trade_result_percentage, 
+            'created_at' => date('Y-m-d h:i:s'), 
+            'updated_at' => date('Y-m-d h:i:s')
+        ];
+
+        $trade = Trade::create( $data);
+
         return redirect()->back()->with('success', 'Your trade has been successfully placed!');
     }
     
@@ -120,6 +127,10 @@ class UserTradeController extends Controller
         $user_trades = [];
         return view('users.trading-bots.index', compact('user_trades'));
     }
+
+
+ 
+
 
 }
 

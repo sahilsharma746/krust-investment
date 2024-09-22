@@ -241,6 +241,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
 
     Route::post('/trades-result/{user_id}', [AdminTradesController::class, 'saveTradeResult'])->name('admin.trades.result');
 
+
+    // admin delete trade  
+    Route::get('/delete-trade/{trade_id}', [AdminTradesController::class, 'deleteTrade'])->name('admin.trade.delete');
+
     // Admin dashboard assets screen 
     Route::get('/assets', [AdminAssetsController::class, 'getAllAssets'])->name('admin.assets');
 

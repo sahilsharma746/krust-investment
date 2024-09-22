@@ -11,23 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trades', function (Blueprint $table) {
+       Schema::create('trades', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('asset');
             $table->string('name');
-            $table->decimal('margin', 10, 10);
-            $table->decimal('contract_size', 10, 10);
-            $table->decimal('capital', 10, 10);
+            $table->integer('margin');  // Changed margin to integer
+            $table->float('contract_size', 10, 10);  // Changed from decimal to float
+            $table->float('capital', 10, 10);  // Changed from decimal to float
             $table->string('trade_type');
-            $table->decimal('entry', 10, 10);
-            $table->decimal('pnl', 10, 10);
-            $table->decimal('fees', 10, 10);
+            $table->float('entry', 10, 10);  // Changed from decimal to float
+            $table->float('units', 10, 10);  // Changed from decimal to float
+            $table->float('pnl', 10, 10);  // Changed from decimal to float
+            $table->float('fees', 10, 10);  // Changed from decimal to float
             $table->string('order_type'); 
             $table->string('time_frame'); 
             $table->string('trade_result');
-            $table->decimal('admin_trade_result_percentage');
-            $table->decimal('trade_win_loss_amount', 10, 10);
+            $table->float('admin_trade_result_percentage', 8, 2);  // Changed from decimal to float (8,2 for percentage precision)
+            $table->float('trade_win_loss_amount', 10, 10);  // Changed from decimal to float
             $table->tinyInteger('processed');
             $table->tinyInteger('status');
             $table->timestamps();

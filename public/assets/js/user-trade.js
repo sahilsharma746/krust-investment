@@ -8,60 +8,68 @@ jQuery(document).ready(function () {
   }
 
   $('#trade-details-summery-current tbody tr').each(function() {
+    // Get the trade_id from the data attribute
+    var trade_id = $(this).data('id');
 
-    // Get the values from hidden inputs
+    // Get the values from hidden inputs or table cells
     var pnl_value = parseFloat($(this).find('.pnl_value').val());
     var trade_created = $(this).find('.trade_created').val();
     var current_date_time = $(this).find('.current_date_time').val();
     var time_frame = $(this).find('.timeframe').val();
 
+    // Convert trade_created and current_date_time to Date objects
     var tradeCreatedDate = new Date(trade_created);
     var currentDateTime = new Date(current_date_time);
+
+
 
     // Calculate the time difference in milliseconds
     var timeDifference = currentDateTime - tradeCreatedDate;
 
     // Convert time_frame (e.g., '2h', '30m') to milliseconds
     var timeFrameInMilliseconds;
-
     if (time_frame.includes('h')) {
         var hours = parseInt(time_frame);
         timeFrameInMilliseconds = hours * 60 * 60 * 1000; // Convert hours to milliseconds
     } else if (time_frame.includes('m')) {
         var minutes = parseInt(time_frame);
-        timeFrameInMilliseconds = minutes * 60 * 1000; 
+        timeFrameInMilliseconds = minutes * 60 * 1000; // Convert minutes to milliseconds
     } else if (time_frame.includes('s')) {
         var seconds = parseInt(time_frame);
-        timeFrameInMilliseconds = seconds * 1000; 
+        timeFrameInMilliseconds = seconds * 1000; // Convert seconds to milliseconds
     } else {
         timeFrameInMilliseconds = parseInt(time_frame);
     }
+
+    // If the time difference is greater than the time frame, set PnL value directly
     if (timeDifference > timeFrameInMilliseconds) {
         $(this).find('.trade_pnl_value').text(pnl_value.toFixed(2));
     } else {
         var currentPnl = 0;
-        var updateInterval = 100; 
-        var incrementAmount = pnl_value / (timeDifference / updateInterval); 
+        var updateInterval = 100; // Interval for the updates (in milliseconds)
+        var incrementAmount = pnl_value / (timeDifference / updateInterval); // Increment amount per update
 
-        var pnlDisplay = $(this).find('.trade_pnl_value'); 
+        var pnlDisplay = $(this).find('.trade_pnl_value'); // Targeting the correct PnL field
+
         var interval = setInterval(function() {
             currentPnl += incrementAmount;
 
             if (currentPnl >= pnl_value) {
                 currentPnl = pnl_value;
-                clearInterval(interval); 
+                clearInterval(interval); // Stop once PnL is reached
             }
 
-            pnlDisplay.text(currentPnl.toFixed(2)); 
+            pnlDisplay.text(currentPnl.toFixed(2)); // Update the PnL field in the table
         }, updateInterval);
     }
 
     // Debugging logs
-    console.log('Time frame: ' + timeFrameInMilliseconds);
-    console.log('PNL Value: ' + pnl_value);
     console.log('Trade Created: ' + trade_created);
     console.log('Current Date: ' + current_date_time);
+    console.log('Time frame: ' + timeFrameInMilliseconds);
+    console.log('Time frame: ' + timeDifference);
     console.log('Timeframe: ' + time_frame);
+    console.log('PNL Value: ' + pnl_value);
     console.log('------------------------------------------------------------------------------------------------');
 });
 
