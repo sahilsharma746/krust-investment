@@ -84,7 +84,6 @@ class UserTradeController extends Controller
         } else {
             $winloss_amount = $amount - ($trade_win_loss_amount);
         }
-
         $data = [
             'user_id' => auth()->user()->id,
             'name' => $request->name,
@@ -105,7 +104,6 @@ class UserTradeController extends Controller
             'created_at' => date('Y-m-d h:i:s'), 
             'updated_at' => date('Y-m-d h:i:s')
         ];
-
         $trade = Trade::create( $data);
 
         return redirect()->back()->with('success', 'Your trade has been successfully placed!');
@@ -122,7 +120,6 @@ class UserTradeController extends Controller
     
     }
      
-    
     public function tradingBotsView(){
         $user_trades = [];
         return view('users.trading-bots.index', compact('user_trades'));
