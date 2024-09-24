@@ -20,7 +20,8 @@ class UserTradeController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
         
-        $trades = Trade::where('user_id', $user_id)->get();
+        $trades = Trade::where('user_id', $user_id)->where('status', 0)
+        ->get();
       
         $user_setting = new UserSetting();
         
