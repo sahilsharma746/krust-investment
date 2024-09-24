@@ -128,6 +128,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'is_user']], function
     Route::post('/trade-store', [UserTradeController::class, 'storeTrades'])->name('user.trade.store');
 
     Route::get('trading-history', [UserTradeController::class, 'tradingHistoryView'])->name('users.trading-history.index');
+
+    Route::get('/generate-pdf', [UserTradeController::class, 'generatePDF'])->name('users.trading-history-download-pdf');
     
     Route::get('trading-bots', [UserTradeController::class, 'tradingBotsView'])->name('users.trading-bots.index');
 

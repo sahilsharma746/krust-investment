@@ -139,4 +139,12 @@ $(document).ready(function () {
         });
     }
 
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+
+    document.getElementById('time-zone').value = timezone;
+
+    console.log('User timezone set to:', timezone);
+
+
 });

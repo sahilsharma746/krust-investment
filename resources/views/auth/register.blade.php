@@ -113,6 +113,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <input type="hidden" name="time-zone" id="time-zone" class="time-zone">
                             </div>
                             <div class="card-footer">
                                 <button class="btn submit-signup" type="submit">Sign Up</button>
