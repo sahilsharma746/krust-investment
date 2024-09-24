@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use PDF;
 
 
 class UserTradeController extends Controller
@@ -119,6 +120,18 @@ class UserTradeController extends Controller
         
         return view('users.trading-history.index', compact('trades'));
     
+    }
+
+    public function generatePDF()
+    {
+        $user = Auth::user();
+        $user_id = $user->id;
+        $trades = Trade::where('user_id', $user_id)->where('status', 1)
+        ->get();
+
+        $pdf = PDF::loadView('users.trading-history.trade-history-download-pdf', ['trades' => $trades]);
+
+        return $pdf->download('trading_history.pdf');
     }
      
     public function tradingBotsView(){

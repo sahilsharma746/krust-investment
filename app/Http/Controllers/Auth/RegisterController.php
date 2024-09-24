@@ -63,7 +63,7 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'phone' => ['required'],
             'country' => ['required', 'string', 'max:255'],
-        
+            'time-zone' => ['required'],
         ]);
     }
 
@@ -104,6 +104,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'avatar' => 'avatar.png',
             'referal_id' => $data['referal_id'],
+            'time_zone'=>$data['time-zone'],
         ]);
 
         UserVerifiedStatus::create([

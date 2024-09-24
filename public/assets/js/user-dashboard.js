@@ -283,7 +283,13 @@ if( jQuery( '#trading-history-table' ).length > 0) {
                 const btn =
                     '<a class="btn w-max" id="btn-download-trading-history"><i class="fa-solid fa-download"></i>&nbsp;Print As PDF</a>';
                 searchInput.parentNode.insertAdjacentHTML('beforeend', btn);
+
+                document.getElementById('btn-download-trading-history').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = '/user/generate-pdf'; 
+                });
             }
+
 
             // Add custom class to the page length select dropdown
             const lengthSelect = document.querySelector(
