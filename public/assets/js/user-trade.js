@@ -101,7 +101,7 @@ jQuery(document).on(
     let name = jQuery(this).find("span").data("name");
     let fullname = jQuery(this).find("span").data("fullname");
     let assetPrice = jQuery(this).find("span").data("price");
-    trade_logic();
+    // trade_logic();
     jQuery(".user-trade-chart-filter .selected-asset").find(".name").text(name);
     jQuery(".user-trade-chart-filter .selected-asset")
       .find(".fullname")
@@ -111,6 +111,13 @@ jQuery(document).on(
 
     $(".btn-buy .buy_price").text(assetPrice).attr("value", assetPrice);
     $(".btn-sell .sell_price").text(assetPrice).attr("value", assetPrice);
+
+    document.querySelector("input.asset-contract-size").value = 0;
+    jQuery(".user-trade-chart-filter .asset-contract-size").text(0);
+    jQuery(".user-trade-chart-filter .asset-unit-price").val(0);
+    jQuery(".user-trade-chart-filter .asset-payout").text(0);
+    document.querySelector("input.payout").value = 0;
+    jQuery(".user-trade-chart-filter .asset-trade-amount").val(0);
   }
 );
 
