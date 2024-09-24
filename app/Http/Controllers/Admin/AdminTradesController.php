@@ -21,9 +21,10 @@ class AdminTradesController extends Controller
 
     public function getAllTrades(){
 
-        // $trades = Trade::all();
-        $trades = Trade::with('user')->get();
-    
+        $trades = Trade::with('user')
+        ->where('status', '!=', 2) 
+        ->get();
+        
         return view('admin.trades.index',compact('trades'));
     }
 
@@ -40,9 +41,10 @@ class AdminTradesController extends Controller
 
     public function deleteTrade( Request $request, $trade_id){
 
-        dd( $trade_id );
-
-
+        Trade::where('id', $trade_id)->update([
+            'status' => '2' 
+        ]);
+        return redirect()->back()->with('success', ' deleted successfully.');
     }
 
 }
