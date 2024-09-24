@@ -24,6 +24,7 @@ class is_user
          // Check if the logged-in user has the specified role
         $user = Auth::user();
         if ($user->role == 'user') {
+            date_default_timezone_set($user->time_zone);
             return $next($request);
         }else if ($user->role == 'admin') {
             return redirect()->route('admin.dashboard');
