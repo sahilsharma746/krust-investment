@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Trade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+
 
 class UpdatedTradesStatus extends Command
 {
@@ -29,6 +31,9 @@ class UpdatedTradesStatus extends Command
     
         public function handle()
         {
+
+            \Log::info("Updated trades status command ran at " . now());
+
             $trades = Trade::where('status', '0')->get();
         
             foreach ($trades as $trade) {
@@ -57,6 +62,14 @@ class UpdatedTradesStatus extends Command
                     case 'days':
                         $trade_complete_time = $trade_time->addDays($time_value);
                         break;
+                        case 'week':
+                        case 'weeks':
+                            $trade_complete_time = $trade_time->addWeeks($time_value);
+                            break;
+                        case 'year':
+                        case 'years':
+                            $trade_complete_time = $trade_time->addYears($time_value);
+                            break;
                     default:
                         echo "Unknown time frame unit: " . $time_unit . " for trade ID: " . $trade->id . PHP_EOL;
                         continue 2;
