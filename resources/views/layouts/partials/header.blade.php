@@ -22,7 +22,7 @@
         <div class="container d-flex flex-wrap justify-content-between align-items-center g-10">
             <a href="{{ route('frontend.index') }}" class="logo-area d-flex align-items-center g-4">
                 <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
-                <span class="site-name">Krust-Investments</span>
+                <span class="site-name">Crust-Markets</span>
             </a>
             <a id="btn-nav-toggle" class="btn-nav-toggle">
                 <i class="fa-solid fa-bars"></i>

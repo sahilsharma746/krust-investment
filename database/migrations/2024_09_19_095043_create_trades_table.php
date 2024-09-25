@@ -31,6 +31,7 @@ return new class extends Migration
             $table->float('trade_win_loss_amount', 10, 10);  // Changed from decimal to float
             $table->tinyInteger('processed');
             $table->tinyInteger('status');
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }
