@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contact_us_message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class FrontendController extends Controller
 {
@@ -38,7 +40,16 @@ class FrontendController extends Controller
     }
 
     public function accountPlan() {
-        return view('accountPlan');
+       $plan_with_features = DB::table('user_account_types')
+            ->leftJoin('user_account_types_features', 'user_account_types.id', '=', 'user_account_types_features.plan_id')
+            ->select('user_account_types.id as plan_id', 'user_account_types.name', 'user_account_types.price',
+                     'user_account_types_features.feature_description', 'user_account_types_features.feature_order', 
+                     'user_account_types_features.feature_available')
+            ->get();
+
+        $plans = $plan_with_features->groupBy('plan_id');
+
+        return view('accountPlan', compact('plans'));
     }
 
     public function faq() {

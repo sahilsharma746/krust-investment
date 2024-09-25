@@ -50,65 +50,65 @@
                 </div>
             </div>
             <div class="company-trade-percentage-card-group d-grid">
-                <div class="card d-grid align-items-center">
-                    <img src="{{ asset('assets/img/company-bitcoin_symbol.svg.png') }}" alt="company logo">
-                    <div class="card-title-area">
+                <div class="card d-grid align-items-center bitcoin-dashboard-data">
+                    <img src="{{ asset('assets/img/bitcoin.png') }}" alt="company logo">
+                    <div class="card-title-area ">
                         <div class="card-title">Bitcoin</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">64,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">1.5%</div>
+                    <div class="card-status d-flex align-items-center g-4 percentage-data">
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
                     </div>
                 </div>
-                <div class="card d-grid align-items-center">
-                    <img src="{{ asset('assets/img/company-apple-T.png') }}" alt="company logo">
+                <div class="card d-grid align-items-center ethereum-dashboard-data">
+                    <img src="{{ asset('assets/img/ethereum.png') }}" alt="company logo">
                     <div class="card-title-area">
-                        <div class="card-title">Bitcoin</div>
+                        <div class="card-title">Ethereum</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">64,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">0.5%</div>
+                    <div class="card-status d-flex align-items-center g-4 percentage-data">
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>
                     </div>
                 </div>
-                <div class="card d-grid align-items-center">
-                    <img src="{{ asset('assets/img/company-amazon.png') }}" alt="company logo">
+                <div class="card d-grid align-items-center solana-dashboard-data">
+                    <img src="{{ asset('assets/img/solana.png') }}" alt="company logo">
                     <div class="card-title-area">
-                        <div class="card-title">Amazon</div>
+                        <div class="card-title">Solana</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">64,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">1.5%</div>
+                    <div class="card-status d-flex align-items-center g-4 percentage-data">
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
                     </div>
                 </div>
-                <div class="card d-grid align-items-center">
-                    <img src="{{ asset('assets/img/company-solana_symbol.svg.png') }}" alt="company logo">
+                <div class="card d-grid align-items-center tether-dashboard-data">
+                    <img src="{{ asset('assets/img/Tether.png') }}" alt="company logo">
                     <div class="card-title-area">
-                        <div class="card-title">Solana</div>
+                        <div class="card-title">Tether</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">64,000</span>
+                            <span class="amount">0</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">0.5%</div>
+                    <div class="card-status d-flex align-items-center g-4 percentage-data">
+                        <div class="percentage">0%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>
@@ -135,7 +135,7 @@
                 <div class="card d-grid align-items-center">
                     <img src="{{ asset('assets/img/loan.png') }}" alt="company logo">
                     <div class="card-title-area">
-                        <div class="card-title">Loan</div>
+                        <div class="card-title">Loss</div>
                         <div class="card-price">
                             <span>USD</span>
                             <span class="amount">0</span>
@@ -151,7 +151,7 @@
                 <div class="card d-grid align-items-center">
                     <img src="{{ asset('assets/img/insurance.png') }}" alt="company logo">
                     <div class="card-title-area">
-                        <div class="card-title">Insurance</div>
+                        <div class="card-title">Loan</div>
                         <div class="card-price">
                             <span>USD</span>
                             <span class="amount">0</span>

@@ -132,7 +132,7 @@
                                     <input type="hidden" name="payout" value="" class="payout">
                                     <span>Your Payout</span>
                                     <span class="text-center">=</span>
-                                    <span class="text-end text-primary">$<span class="asset-payout">0</span></span>
+                                    <span class="text-end text-primary">$<b><span class="asset-payout">0</span></b></span>
                                     <input type="hidden" value="{{ $user_balance }}" class="asset-user_balance"
                                         name="user_balance">
                                     <input type="hidden" value="{{ $user_trade_percentage }}"

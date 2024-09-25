@@ -327,3 +327,59 @@ jQuery(document).on( 'click',  '.confirm-deposit-success', function() {
 
 
 
+jQuery(document).ready(function() {
+    function fetchCryptoData(apiUrl, selector) {
+        if (jQuery(selector).length > 0) {
+            fetch(apiUrl)
+                .then((response) => response.text())  // Get raw text response
+                .then((data) => {
+                    // Attempt to parse JSON safely
+                    try {
+                        const jsonData = JSON.parse(data);
+                        
+                        // Format current price with commas
+                        const formattedPrice = Number(jsonData[0].current_price.toFixed(2)).toLocaleString();
+                        jQuery(selector).find('.amount').text(formattedPrice);
+
+                        // Update percentage data
+                        var percentageData = '<div>';
+                            percentageData += jsonData[0].price_change_percentage_24h.toFixed(2);
+                            percentageData += '%</div>';
+                            percentageData += '<span class="status"><i class="fa-solid ' + 
+                            (jsonData[0].price_change_percentage_24h >= 0 ? 'fa-arrow-up' : 'fa-arrow-down') + 
+                            '"></i></span>';
+                        
+                        jQuery(selector).find('.percentage-data').html(percentageData);
+
+                        // Add class for percentage data based on positive/negative change
+                        const percentageDataClass = (jsonData[0].price_change_percentage_24h >= 0 ? 'text-primary' : 'text-danger');
+                        jQuery(selector).find('.percentage-data').addClass(percentageDataClass);
+
+                    } catch (e) {
+                        console.error("Error parsing JSON:", e.message);
+                    }
+                })
+                .catch((error) => console.error("Error fetching data from " + apiUrl + ":", error));
+        }
+    }
+
+    // Fetch Bitcoin data
+    fetchCryptoData(apiUrlBitcoin, '.bitcoin-dashboard-data');
+
+    // Fetch Ethereum data
+    fetchCryptoData(apiUrlEthereum, '.ethereum-dashboard-data');
+
+    // Fetch Solana data
+    fetchCryptoData(apiUrlSolana, '.solana-dashboard-data');
+
+    // Fetch Tether data
+    fetchCryptoData(apiUrlTether, '.tether-dashboard-data');
+});
+
+
+
+
+
+
+
+

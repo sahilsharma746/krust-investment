@@ -17,9 +17,10 @@
         var apiUrlIndisis = "{{ url('/indisis.json') }}";
 
         var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
-        var apiUrlTesla = "{{ url('/tesla.json') }}";
-        var apiUrlAmazon = "{{ url('/amazon.json') }}";
+        var apiUrlEthereum = "{{ url('/ethereum.json') }}";
+        var apiUrlTether = "{{ url('/tether.json') }}";
         var apiUrlSolana = "{{ url('/solana.json') }}";
+
     </script>
         
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
@@ -53,7 +54,7 @@
                         <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
                         <span class="site-name">Crust-Markets</span>
                     </a>
-                    <div class="account-status-header d-flex align-items-center g-10" >
+                    <div class="account-status-header d-flex align-items-center g-15" >
                         <span class="dot"></span>
                         <span class="account-status text-primary">Active Account</span>
                     </div>
