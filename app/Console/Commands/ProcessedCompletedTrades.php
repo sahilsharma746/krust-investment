@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Trade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 
 class ProcessedCompletedTrades extends Command
@@ -27,34 +29,11 @@ class ProcessedCompletedTrades extends Command
     /**
      * Execute the console command.
      */
-    // public function handle()
-    // {
-    //     $trades = Trade::where('status', '1')->get();
-    
-    //     foreach ($trades as $trade) {
-    
-    //         $trade_result_percentage = $trade->admin_trade_result_percentage;
-    //         $contract_size = $trade->contract_size;
-        
-    //         $trade_win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
-    
-    //         $user_trade_result = $trade->trade_result;
-    //         $user_trade_amount = $trade->capital;
-    
-    //         if ($user_trade_result == 'win') {
-    //             $winloss_amount = $user_trade_amount + $trade_win_loss_amount;
-    //             dd("win amount ->".$winloss_amount);
-    //         } else {
-    //             $winloss_amount = $user_trade_amount - $trade_win_loss_amount;
-    //             dd("loss amount ->".$winloss_amount);
-    //         }
-    
-    //     }
-        
-    // }
 
     public function handle()
     {
+        \Log::info("Processed completed trades command ran at " . now());
+
         $trades = Trade::where('status', '1')->get();
     
         foreach ($trades as $trade) {
@@ -77,12 +56,12 @@ class ProcessedCompletedTrades extends Command
                 // Save the updated user balance
                 $user->save();
     
-                echo $user_id  . PHP_EOL;
+                echo "user_ID: " . $user_id  . PHP_EOL;
                 echo $user->balance . PHP_EOL;
+                echo "result: " . $user_trade_result . ", amount: " . $trade_win_loss_amount . PHP_EOL;
             }
         }
     }
     
     
 }
-
