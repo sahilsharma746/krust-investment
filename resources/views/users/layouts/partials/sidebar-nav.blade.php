@@ -46,7 +46,8 @@
             </a>
         </li>
         <li class="nav-item {{ Request::url() == route('user.market.news') ? 'active' : '' }}">
-            <a href="{{ route('user.market.news') }}">
+            {{-- <a href="{{ route('user.market.news') }}"> --}}
+                <a href="javascript:void(0)">
                 <i class="fa-solid fa-bullhorn"></i>
                 <span>Market News</span>
             </a>

@@ -24,7 +24,8 @@ class Trade extends Model
         'time_frame',
         'trade_result',
         'admin_trade_result_percentage',
-        'trade_win_loss_amount'
+        'trade_win_loss_amount',
+        'image'
     ];
 
 public function user()

@@ -825,6 +825,13 @@ header .container {
     width: calc(100% - 30px);
   }
 }
+
+header .account-status-header{
+
+  padding-left: 10px
+
+}
+
 header .account-status-header .dot {
   width: 8px;
   height: 8px;

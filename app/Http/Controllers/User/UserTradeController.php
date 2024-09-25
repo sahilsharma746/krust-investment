@@ -39,6 +39,7 @@ class UserTradeController extends Controller
 
 
     public function storeTrades(Request $request) {
+
         $user = Auth::user();
         $user_id = $user->id;
         $user_setting = new UserSetting();
@@ -64,6 +65,7 @@ class UserTradeController extends Controller
             'action' => 'required|string',
             'time_frame' => ['required', 'string', 'not_in:0'],
             'trade_result_percentage' => 'required|numeric',
+
         ], [
             'time_frame.not_in' => 'Please select the time frame', 
             'amount.required' => 'The amount field is required.',
@@ -86,6 +88,13 @@ class UserTradeController extends Controller
         } else {
             $winloss_amount = $amount - ($trade_win_loss_amount);
         }
+        
+        if ( $request->image) {
+            $image = $request->image; 
+        } else {
+            $image = 'no_image.png'; 
+        }
+
         $data = [
             'user_id' => auth()->user()->id,
             'name' => $request->name,
@@ -103,6 +112,7 @@ class UserTradeController extends Controller
             'trade_result' => $user_trade_result,
             'trade_win_loss_amount'=> (float)$trade_win_loss_amount,
             'admin_trade_result_percentage' => (float)$request->trade_result_percentage, 
+            'image'=>   $image,
             'created_at' => date('Y-m-d h:i:s'), 
             'updated_at' => date('Y-m-d h:i:s')
         ];

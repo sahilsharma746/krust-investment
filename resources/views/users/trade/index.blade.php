@@ -32,17 +32,19 @@
                     <div id="market-watch-chart" class="market-watch-chart">
                     </div>
                 </div>
-                <form id="tradeForm" action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form"> @csrf
+                <form id="tradeForm" action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form" enctype="multipart/form-data"> 
+                    @csrf
                     <div class="user-trade-chart-filter scroll">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div class="d-flex g-8 selected-asset">
-                                    <img src="{{ asset('assets') }}/img/country-eur.png" alt="country flag" class="flag">
+                                    <img src="" alt="country flag" class="flag_image" name="trade_image" style="width: 30px; height:30px;">
                                     <div class="d-grid">
                                         <span class="name"></span>
                                         <span class="details fullname"></span>
                                         <input type="hidden" class="name_input" name="name" value="">
                                         <input type="hidden" name="price" value="" class="asset-unitprice">
+                                        <input type="hidden" name="image"  value="" class="image">
                                     </div>
                                 </div>
                                 <div class="icon">

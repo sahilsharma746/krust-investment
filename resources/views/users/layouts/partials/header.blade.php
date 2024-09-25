@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Krust-Investments | Admin</title>
+    <title>Crust-Markets | Admin</title>
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
@@ -51,9 +51,9 @@
                 <div>
                     <a href="{{ route('home') }}" class="logo-area d-flex align-items-center g-4">
                         <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
-                        <span class="site-name">Krust-Investments</span>
+                        <span class="site-name">Crust-Markets</span>
                     </a>
-                    <div class="account-status-header d-flex align-items-center g-10">
+                    <div class="account-status-header d-flex align-items-center g-10" >
                         <span class="dot"></span>
                         <span class="account-status text-primary">Active Account</span>
                     </div>

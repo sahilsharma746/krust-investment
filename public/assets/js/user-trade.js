@@ -100,7 +100,11 @@ jQuery(document).on(
   function () {
     let name = jQuery(this).find("span").data("name");
     let fullname = jQuery(this).find("span").data("fullname");
-    let assetPrice = jQuery(this).find("span").data("price");
+    let assetPrice = jQuery(this).find("span").data("price"); 
+    let assetImage = jQuery(this).find("span").data("image");
+
+    console.log( assetImage );
+
     // trade_logic();
     jQuery(".user-trade-chart-filter .selected-asset").find(".name").text(name);
     jQuery(".user-trade-chart-filter .selected-asset")
@@ -108,6 +112,9 @@ jQuery(document).on(
       .text(fullname);
     jQuery("input.asset-unitprice").val(assetPrice);
     jQuery("input.name_input").val(name);
+    jQuery("input.image").val(assetImage);
+
+    jQuery(".flag_image").attr("src", assetImage).show();
 
     $(".btn-buy .buy_price").text(assetPrice).attr("value", assetPrice);
     $(".btn-sell .sell_price").text(assetPrice).attr("value", assetPrice);
@@ -149,7 +156,7 @@ function trade_logic() {
 
   if (asset_trade_amount > 0) {
     let contract_size = asset_trade_amount * margin;
-    let asset_unit_price = asset_price / contract_size;
+    let asset_unit_price =contract_size / asset_price ;
     let payout =(parseFloat(contract_size) * parseFloat(trade_percentage)) / 100 +
       parseFloat(asset_trade_amount);
     document.querySelector("input.asset-contract-size").value = contract_size;
@@ -199,6 +206,7 @@ function update_crypto_assets(apiUrl) {
         cryptoassetdata += '<span class="details"';
         cryptoassetdata += ' data-price="' + crypto_current_price + '"';
         cryptoassetdata += ' data-name="' + crypto_name + '"';
+        cryptoassetdata += ' data-image="' + pair.image + '"';
         cryptoassetdata +=
           ' data-fullname="' + pair.symbol.toUpperCase() + ' / U.S Dollar">';
         cryptoassetdata += pair.symbol.toUpperCase() + "/USD";

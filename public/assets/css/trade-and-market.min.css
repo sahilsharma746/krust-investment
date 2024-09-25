@@ -932,6 +932,12 @@ header .container {
     }
 }
 
+header .account-status-header{
+
+    padding-left: 10px
+  
+  }
+
 header .account-status-header .dot {
     width: 8px;
     height: 8px;
