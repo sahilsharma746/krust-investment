@@ -32,19 +32,21 @@
                     <div id="market-watch-chart" class="market-watch-chart">
                     </div>
                 </div>
-                <form id="tradeForm" action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form" enctype="multipart/form-data"> 
+                <form id="tradeForm" action="{{ route('user.trade.store') }}" method="POST" class="user-trade-form"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="user-trade-chart-filter scroll">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div class="d-flex g-8 selected-asset">
-                                    <img src="" alt="country flag" class="flag_image" name="trade_image" style="width: 30px; height:30px;">
+                                    <img src="" alt="country flag" class="flag_image" name="trade_image"
+                                        style="width: 30px; height:30px;">
                                     <div class="d-grid">
                                         <span class="name"></span>
                                         <span class="details fullname"></span>
                                         <input type="hidden" class="name_input" name="name" value="">
                                         <input type="hidden" name="price" value="" class="asset-unitprice">
-                                        <input type="hidden" name="image"  value="" class="image">
+                                        <input type="hidden" name="image" value="" class="image">
                                     </div>
                                 </div>
                                 <div class="icon">
@@ -146,7 +148,8 @@
                         <div class="modal-body text-center">
                             <h3 class="modal-title">Insufficient Balance</h3>
                             <p class="modal-title">Your balance is not sufficient to proceed with this trade.</p>
-                            <p class="modal-text">Please ensure that you have enough funds in your account to complete this transaction.
+                            <p class="modal-text">Please ensure that you have enough funds in your account to complete this
+                                transaction.
                                 You can add funds to your account through the available deposit methods.</p>
                             <div class="modal-footer">
                                 <a class="btn btn-modal-close btn-add-asset close-button">Close</a>
@@ -161,7 +164,7 @@
                         <div class="card-header d-flex g-25">
                             <a class="active" data-toggle="tab" href="#trade-details-summery-current">Current
                                 Trade</a>
-                            <a  href="{{ route('users.trading-history.index') }}">Trade History</a>
+                            <a href="{{ route('users.trading-history.index') }}">Trade History</a>
                         </div>
                         <div class="card-body scroll">
                             <table id="trade-details-summery-current">
@@ -181,23 +184,43 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($trades as $trade)
-                                        <tr data-id="{{$trade->id }}" class="trade_{{ $trade->id }}">
-                                            <td>{{ $trade->asset }}</td>
-                                            <td>{{ $trade->margin }}x</td>
+                                        <tr data-id="{{ $trade->id }}" class="trade_{{ $trade->id }}">
+                                            {{-- <td style="padding: 5px; vertical-align:top ">
+                                                <img src="{{$trade->image}}" alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
+                                                {{ $trade->asset }}
+                                              </td> --}}
+                                              <td>
+                                                <img src="{{ $trade->image ?: asset('assets/img/crypto.jpeg') }}" alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
+                                                {{ $trade->asset }}
+                                            </td>
+                                            
+                                            <td>{{ $trade->margin }}</td>
                                             <td>${{ $trade->contract_size }}</td>
                                             <td>${{ $trade->capital }}</td>
-                                            <td>{{ $trade->trade_type }}</td>
+                                            <td style="color: blue">{{ $trade->trade_type }}</td>
                                             <td>${{ $trade->entry }}</td>
                                             <td>
                                                 <span class="trade_pnl_value">0</span>
-                                                <input type="hidden" class="pnl_value" value="{{$trade->pnl}}">
-                                                <input type="hidden" class="trade_created" value="{{ $trade->created_at}}">
-                                                <input type="hidden" class="current_date_time" value="{{ date('Y-m-d h:i:s') }}">
-                                                <input type="hidden" class="timeframe " value="{{ $trade->time_frame}}">
+                                                <input type="hidden" class="pnl_value" value="{{ $trade->pnl }}">
+                                                <input type="hidden" class="trade_created"
+                                                    value="{{ $trade->created_at }}">
+                                                <input type="hidden" class="current_date_time"
+                                                    value="{{ date('Y-m-d h:i:s') }}">
+                                                <input type="hidden" class="timeframe "
+                                                    value="{{ $trade->time_frame }}">
                                             </td>
                                             <td>{{ $trade->created_at->format('d - m - Y') }}</td>
                                             <td>{{ $trade->created_at->format('h:iA') }}</td>
-                                            <td>{{ $trade->order_type }}</td>
+                                            <td
+                                                style="color: 
+                                            @if ($trade->order_type == 'bullish') yellow;
+                                            @elseif($trade->order_type == 'bearish')
+                                                red;
+                                            @else
+                                                black; /* Default color */ @endif
+                                        ">
+                                                {{ $trade->order_type }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
