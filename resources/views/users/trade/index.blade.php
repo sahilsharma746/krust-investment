@@ -178,29 +178,29 @@
                                         <th>ENTRY</th>
                                         <th>PNL</th>
                                         <th>DATE CREATED</th>
-                                        <th>TIME CREATED</th>
+                                        <th>TIME FRAME</th>
                                         <th>ORDER TYPE</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($trades as $trade)
                                         <tr data-id="{{ $trade->id }}" class="trade_{{ $trade->id }}">
-                                            {{-- <td style="padding: 5px; vertical-align:top ">
-                                                <img src="{{$trade->image}}" alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
-                                                {{ $trade->asset }}
-                                              </td> --}}
-                                              <td>
-                                                <img src="{{ $trade->image ?: asset('assets/img/crypto.jpeg') }}" alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
+                                            <td class="d-flex align-items-center g-8">
+                                                <img src="{{ $trade->image ?: asset('assets/img/crypto.jpeg') }}"
+                                                    alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
                                                 {{ $trade->asset }}
                                             </td>
-                                            
+
                                             <td>{{ $trade->margin }}</td>
-                                            <td>${{ $trade->contract_size }}</td>
+                                            <td style="color:  #F8E40F;">${{ $trade->contract_size }}</td>
                                             <td>${{ $trade->capital }}</td>
-                                            <td style="color: blue">{{ $trade->trade_type }}</td>
+                                            <td
+                                                style="color: {{ $trade->trade_type == 'live' ? '#FF683E' : 'inherit' }};">
+                                                {{ $trade->trade_type }}</td>
                                             <td>${{ $trade->entry }}</td>
                                             <td>
-                                                <span class="trade_pnl_value">0</span>
+                                                <span class="trade_pnl_value" style="font-weight: bolder"><span
+                                                        class="sign"></span><span class="amount">0</span></span>
                                                 <input type="hidden" class="pnl_value" value="{{ $trade->pnl }}">
                                                 <input type="hidden" class="trade_created"
                                                     value="{{ $trade->created_at }}">
@@ -209,18 +209,18 @@
                                                 <input type="hidden" class="timeframe "
                                                     value="{{ $trade->time_frame }}">
                                             </td>
-                                            <td>{{ $trade->created_at->format('d - m - Y') }}</td>
-                                            <td>{{ $trade->created_at->format('h:iA') }}</td>
+                                            <td>{{ $trade->created_at->format('d-m-Y h:iA') }}</td>
+                                            <td class="remaining_time">00:00</td>
+
                                             <td
-                                                style="color: 
-                                            @if ($trade->order_type == 'bullish') yellow;
-                                            @elseif($trade->order_type == 'bearish')
-                                                red;
-                                            @else
-                                                black; /* Default color */ @endif
-                                        ">
+                                                style="
+                                                @if ($trade->order_type == 'bullish') color: #EFB90B; 
+                                                @elseif($trade->order_type == 'bearish') 
+                                                color: #F32524; @endif
+                                                ">
                                                 {{ $trade->order_type }}
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

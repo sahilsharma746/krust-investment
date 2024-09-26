@@ -11,72 +11,133 @@ jQuery(document).ready(function () {
     // Get the trade_id from the data attribute
     var trade_id = $(this).data('id');
     var pnl_value = parseFloat($(this).find('.pnl_value').val());
-var trade_created = $(this).find('.trade_created').val();
-var current_date_time = $(this).find('.current_date_time').val();
-var time_frame = $(this).find('.timeframe').val();
+    var trade_created = $(this).find('.trade_created').val();
+    var current_date_time = $(this).find('.current_date_time').val();
+    var time_frame = $(this).find('.timeframe').val();
 
-// Convert trade_created and current_date_time to Date objects
-var tradeCreatedDate = new Date(trade_created);
-var currentDateTime = new Date(current_date_time);
+    // Convert trade_created and current_date_time to Date objects
+    var tradeCreatedDate = new Date(trade_created);
+    var currentDateTime = new Date(current_date_time);
 
-// Calculate the time difference between the current time and the trade created time
-var timeDifference = currentDateTime - tradeCreatedDate;
+    // Calculate the time difference between the current time and the trade created time
+    var timeDifference = currentDateTime - tradeCreatedDate;
 
-// Convert time_frame to milliseconds
-var timeFrameInMilliseconds;
-if (time_frame.includes('h')) {
-    var hours = parseInt(time_frame);
-    timeFrameInMilliseconds = hours * 60 * 60 * 1000; 
-} else if (time_frame.includes('m')) {
-    var minutes = parseInt(time_frame);
-    timeFrameInMilliseconds = minutes * 60 * 1000;
-} else if (time_frame.includes('s')) {
-    var seconds = parseInt(time_frame);
-    timeFrameInMilliseconds = seconds * 1000; 
-} else {
-    timeFrameInMilliseconds = parseInt(time_frame); // Default case, you may handle it differently
-}
+    // Convert time_frame to milliseconds
+    var timeFrameInMilliseconds;
+    switch (time_frame) {
+        case '5minutes':
+            timeFrameInMilliseconds = 5 * 60 * 1000;
+            break;
+        case '30minutes':
+            timeFrameInMilliseconds = 30 * 60 * 1000;
+            break;
+        case '1hour':
+            timeFrameInMilliseconds = 1 * 60 * 60 * 1000;
+            break;
+        case '4hours':
+            timeFrameInMilliseconds = 4 * 60 * 60 * 1000;
+            break;
+        case '1day':
+            timeFrameInMilliseconds = 24 * 60 * 60 * 1000;
+            break;
+        case '1week':
+            timeFrameInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+            break;
+        case '1month':
+            timeFrameInMilliseconds = 30 * 24 * 60 * 60 * 1000; // Approximation for 1 month
+            break;
+        case '1year':
+            timeFrameInMilliseconds = 365 * 24 * 60 * 60 * 1000; // Approximation for 1 year
+            break;
+        default:
+            timeFrameInMilliseconds = 0; // Handle case where time frame is unknown
+            break;
+    }
 
-// If the time frame has expired, show the full PnL value and stop updating
-if (timeDifference >= timeFrameInMilliseconds) {
-    $(this).find('.trade_pnl_value').text(pnl_value.toFixed(2));
-} else {
-    // Time frame is still active, update PnL progressively
-    var currentPnl = 0;
-    var updateInterval = 100; // Frequency of updates in milliseconds
-    var totalTimeRemaining = timeFrameInMilliseconds - timeDifference; // Time left to complete the trade
-    var incrementAmount = pnl_value / (totalTimeRemaining / updateInterval); // Calculate how much PnL to add per interval
+    var sign = (pnl_value < 0) ? '-' : '+';
+    pnl_value = Math.abs(pnl_value);
 
-    var pnlDisplay = $(this).find('.trade_pnl_value'); 
+    // Calculate remaining time
+    var remainingTime = timeFrameInMilliseconds - timeDifference;
 
-    var interval = setInterval(function() {
-        // Update PnL progressively
-        currentPnl += incrementAmount;
+    // Function to format remaining time in MM:SS
+    function formatTime(ms) {
+        var totalSeconds = Math.floor(ms / 1000);
+        var minutes = Math.floor(totalSeconds / 60);
+        var seconds = totalSeconds % 60;
+        return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    }
+
+    // Display initial time
+    var timeDisplayElement = $(this).find('.remaining_time'); // Assuming you have a span or div for displaying time
+    timeDisplayElement.text(formatTime(remainingTime));
+
+    // If the trade has expired, show the full PnL value and stop updating
+    if (timeDifference >= timeFrameInMilliseconds) {
+        $(this).find('.trade_pnl_value .amount').text(pnl_value.toFixed(2));
+        $(this).find('.trade_pnl_value .sign').text(sign);
+        (sign == '-') ? $(this).find('.trade_pnl_value').css('color', '#F32524') : $(this).find('.trade_pnl_value').css('color', '#3AA31A');
+      
+        // AJAX call for updating the trade status can be added here
         
+    } else {
+        // Time frame is still active, update PnL progressively
+        var currentPnl = 0;
+        var updateInterval = 1000; // Frequency of updates in milliseconds
 
-        // Stop updating once the full PnL is reached or time frame is complete
-        if (currentPnl >= pnl_value || currentPnl >= pnl_value || timeDifference >= timeFrameInMilliseconds) {
-            currentPnl = pnl_value;
-            clearInterval(interval); // Stop updating
+        // Function to create dynamic increments based on pnl_value
+        function getDynamicIncrements(pnl_value) {
+            let increments = [];
+            if (pnl_value <= 1000) {
+                increments = [1, 5, 10, 20, 50]; // Small pnl values
+            } else if (pnl_value <= 10000) {
+                increments = [10, 50, 100, 200, 500]; // Medium pnl values
+            } else {
+                increments = [100, 500, 1000, 5000, 10000]; // Large pnl values
+            }
+            return increments;
         }
 
-        pnlDisplay.text(currentPnl.toFixed(2)); // Update the PnL value in the UI
-    }, updateInterval);
+        $(this).find('.trade_pnl_value .sign').text(sign);
+
+        let increments = getDynamicIncrements(pnl_value);
+        var interval = setInterval(function() {
+            // Update remaining time
+            remainingTime -= 1000; // Decrease by one second
+
+            // Update the remaining time display
+            timeDisplayElement.text(formatTime(remainingTime));
+
+            // Select a random increment from the dynamically generated increments
+            let randomIncrement = increments[Math.floor(Math.random() * increments.length)];
+            currentPnl += randomIncrement;
+
+            if( currentPnl >= pnl_value ) {
+               currentPnl = getRandomInRange(pnl_value - 20, pnl_value);
+            }
+
+            // Stop updating once the full PnL is reached or time frame is complete
+            if (remainingTime <= 0) {
+                currentPnl = pnl_value;
+                clearInterval(interval); // Stop updating
+                timeDisplayElement.text('00:00'); // Ensure to show '00:00' when finished
+            }
+
+            $(this).find('.trade_pnl_value .amount').text(currentPnl.toFixed(2)); // Update the PnL value in the UI
+            (sign == '-') ? $(this).find('.trade_pnl_value').css('color', '#F32524') : $(this).find('.trade_pnl_value').css('color', '#3AA31A');
+
+        }.bind(this), updateInterval); // Bind 'this' to access the current row context in the interval
+    }
+
+});
+
+});
+
+
+function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-console.log('Trade Created: ' + trade_created);
-console.log('Current Date: ' + current_date_time);
-console.log('Time frame in ms: ' + timeFrameInMilliseconds);
-console.log('Time Difference: ' + timeDifference);
-console.log('PNL Value: ' + pnl_value);
-console.log('------------------------------------------------------------------------------------------------');
-
-});
-
-
-
-
-});
 
 jQuery(document).on("click", ".trade-type", function () {
   var type = jQuery(this).data("type");

@@ -87,7 +87,7 @@
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
                                     <td>{{ Carbon\Carbon::parse($withdrawal->created_at)->format('F j, Y') }}</td>
-                                    <td>{{ $withdrawal->payment_method ? $withdrawal->payment_method : 'NA' }}</td>
+                                    <td>{{ strtolower($withdrawal->payment_method) ? strtolower($withdrawal->payment_method) : 'NA' }}</td>
                                     <td>{{ $withdrawal->wallet_address ? $withdrawal->wallet_address : 'NA' }}</td>
                                     <td>{{ $withdrawal->address_tag ? $withdrawal->address_tag : 'NA' }}</td>
                                     <td>{{ $withdrawal->remarks ? $withdrawal->remarks : 'NA' }}</td>

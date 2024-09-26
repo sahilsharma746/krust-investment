@@ -1,6 +1,7 @@
 // Add nice 2 select for all the selects in the site
 jQuery( document ).ready(function(){
 
+
    if (typeof NiceSelect !== 'undefined' && NiceSelect.bind) {
     $.each($('select'), function (index, selector) {
         const id = $(selector).attr('id');
@@ -21,6 +22,7 @@ jQuery( document ).ready(function(){
         NiceSelect.bind(document.getElementById(id), options);
     });
 }
+ 
 
 
 if( jQuery('#site-main-nav').length > 0 ) {
