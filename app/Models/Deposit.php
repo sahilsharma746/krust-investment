@@ -51,11 +51,11 @@ class Deposit extends Model
     }
 
 
-    public static function updateDepositByAdmin($user_id, $amount, $gateway_id, $remarks){
+    public static function updateDepositByAdmin($user_id, $amount, $gateway_id, $remarks, $payment_method = 'admin'){
        return Deposit::insert([
             'user_id' => $user_id,
             'getway_id' => $gateway_id,
-            'payment_method'=> 'admin',
+            'payment_method'=> $payment_method,
             'amount' => $amount,
             'wallet_address' => '',
             'remarks' => $remarks,
@@ -65,10 +65,5 @@ class Deposit extends Model
         ]);
 
     }
-
-
-    
-
-    
 
 }

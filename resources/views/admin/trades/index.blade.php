@@ -31,10 +31,10 @@
                                 <div class="name">{{ $trade->user->first_name }} {{ $trade->user->last_name }}</div>
                                 <div class="email">{{ $trade->user->email }}</div>
                             </td>
-                            <td>
-                                <div class="symbol d-flex align-items-center g-8">
-                                    <div class="name">{{ $trade->asset }}</div>
-                                </div>
+                            <td class="d-flex align-items-center g-8">
+                                <img src="{{ $trade->image ?: asset('assets/img/crypto.jpeg') }}"
+                                    alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
+                                {{ $trade->asset }}
                             </td>
                             <td>
                                 <div class="date">{{ $trade->created_at->format('d - m - Y') }}</div>

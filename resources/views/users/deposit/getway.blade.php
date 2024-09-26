@@ -144,7 +144,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
-                                <th>Payment Method</th>
+                                <th>Payment Method</th>R
                                 <th>Wallet Address</th>
                                 <th>Address Tag</th>
                                 <th>Currency</th>
@@ -158,7 +158,7 @@
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
                                     <td>{{ Carbon\Carbon::parse($deposit->created_at)->format('F j, Y') }}</td>
-                                    <td> {{ strtolower($deposit->payment_method) ? strtolower($deposit->payment_method) : 'NA' }}</td>
+                                    <td>{{ ucfirst( strtolower(str_replace('_', ' ',$deposit->payment_method) ) ) }}</td> 
                                     <td>{{ $deposit->wallet_address ? $deposit->wallet_address : 'NA' }}</td>
                                     <td>{{ $deposit->address_tag ? $deposit->address_tag : 'NA' }}</td>
                                     <td>USD</td>

@@ -40,10 +40,14 @@ class UserDepositController extends Controller
         $deposits = Deposit::where('user_id', $user->id)
                             ->orderBy('created_at', 'desc')
                             ->get();
-        $getways = Getway::where([['deposit', 'yes'], ['name', '!=', 'admin']])->get();
+        $getways = Getway::where('deposit', 'yes')
+                            ->whereNotIn('name', ['admin', 'admin_credit', 'admin_loan'])
+                            ->get();        
         $user_settings = $this->user_setting->getUserAllSetting($user->id);
 
-        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_price'));
+
+
+        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_price',));
     }
 
 

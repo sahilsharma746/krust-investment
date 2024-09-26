@@ -31,7 +31,7 @@
                                 <p>{{ $deposit->first_name }} {{ $deposit->last_name }}</p>
                                 <p>{{ $deposit->email }}</p>
                             </td>
-                            <td>{{ $deposit->payment_method ?? 'N/A' }}</td> 
+                            <td>{{ ucfirst( strtolower(str_replace('_', ' ',$deposit->payment_method) ) ) }}</td> 
                             <td>${{ number_format($deposit->amount, 2) }}</td>
                             <td>{{ $deposit->remarks ?? 'N/A' }}</td> 
                             @php

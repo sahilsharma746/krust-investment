@@ -38,10 +38,10 @@
                         <div class="card-title">Profitable Trades</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
-                            <div class="amount">0/0</div>
+                            <div class="amount">{{ $full_data['totalAmount']}}/{{$full_data['totalWinAmount']}}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
-                            <div class="percentage">0%</div>
+                            <div class="percentage">{{$full_data['win_percentage']}}%</div>
                             <span class="status up">
                                 <i class="fa-solid fa-arrow-down"></i>
                             </span>
@@ -122,12 +122,12 @@
                         <div class="card-title">Profit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">0</span>
+                            <span class="amount">{{$full_data['totalWinAmount']}}</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">0%</div>
-                        <span class="status">
+                        <div class="percentage">{{$full_data['win_percentage']}}%</div>
+                        <span class="status up">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
                     </div>
@@ -138,11 +138,11 @@
                         <div class="card-title">Loss</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">0</span>
+                            <span class="amount">{{$full_data['totalLossAmount']}}</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">0%</div>
+                        <div class="percentage">{{  $full_data['loss_percentage']}}%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>
@@ -154,7 +154,7 @@
                         <div class="card-title">Loan</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">0</span>
+                            <span class="amount">{{$full_data['totalAdminLoanDeposits']}}</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-primary">
@@ -170,7 +170,7 @@
                         <div class="card-title">Credit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">0</span>
+                            <span class="amount">{{$full_data['totalAdminCreditDeposits']}}</span>
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-danger">
