@@ -26,11 +26,10 @@
                                 <tr>
                                     <td>{{ $trade->id }}</td>
                                     <td>{{ $trade->created_at->format('d-m-y') }}</td>
-                                    <td>
-                                        <div class="d-flex align-items-center g-8">
-                                            <img src="{{ asset('assets/img/country-eur.png') }}" class="icon">
-                                            <span class="name">{{ $trade->asset }}</span>
-                                        </div>
+                                    <td class="d-flex align-items-center g-8">
+                                        <img src="{{ $trade->image ?: asset('assets/img/crypto.jpeg') }}"
+                                            alt="{{ $trade->asset }}" style="width: 20px; height: 20px;">
+                                        {{ $trade->asset }}
                                     </td>
                                     <td>Manual</td> 
                                     <td>{{ $trade->trade_type }}</td> 

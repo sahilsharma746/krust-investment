@@ -224,29 +224,30 @@ class AdminUserController extends Controller
 
     public function updateBalance(Request $request, User $user) {
 
+
         $request->validate([
             'amount' => 'required | numeric | min:1',
             'type' => 'required | string'
         ]);
 
-        $admin_gateway_id = Getway::getAdminGatewayID();
+        $admin_gateway_id = ( $request->type == 'admin_credit') ? Getway::getAdminCreditGatewayID() : Getway::getAdminLoanGatewayID();
         $remarks = isset($request->remark ) ? $request->remark : '';
 
-        if ($request->type == 'credit') {
-            Deposit::updateDepositByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks );
-            $user->increment('balance', $request->amount);
-            return to_route('admin.user.index')->with('success', 'Updated Successfully');
-        }elseif ($request->type == 'debit'){
-            if ($user->balance > $request->amount) {
-                Withdraw::updateWithdrawalByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks );
-                $user->decrement('balance', $request->amount);
-                return to_route('admin.user.index')->with('success', 'Updated Successfully');
-            }else{
-                return to_route('admin.user.index')->with('error', 'This user dose not have enough balance');
-            }
-        }else{
-            abort(404);
-        }
+        // Check if the request type is 'credit', otherwise treat it as 'debit'
+        Deposit::updateDepositByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks, $request->type );
+        $user->increment('balance', $request->amount);
+        return to_route('admin.user.index')->with('success', 'Updated Successfully');
+    
+
+        // Handle debit case
+        // if ($user->balance >= $request->amount) { // Ensure user has enough balance
+        //     Withdraw::updateWithdrawalByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks);
+        //     $user->decrement('balance', $request->amount);
+        //     return to_route('admin.user.index')->with('success', 'Updated Successfully');
+        // } else {
+        //     return to_route('admin.user.index')->with('error', 'This user does not have enough balance');
+        // }
+
     }
 
     public function deleteUser(User $user) {

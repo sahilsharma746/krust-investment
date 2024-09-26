@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\User;
+use App\Models\Trade;
 use App\Models\Deposit;
+
 use App\Models\UserSetting;
+use Illuminate\Http\Request;
 use App\Models\UserAccountType;
 use App\Models\UserVerifiedStatus;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserHomeController extends Controller
@@ -45,7 +46,38 @@ class UserHomeController extends Controller
         $full_data['currencies'] = config('currencies');
         $kycTypes = config('settingkeys.kyc_type');
         $full_data['user_data'] = $user_data;
-    
+
+
+
+        $full_data['totalAdminCreditDeposits'] = Deposit::where('user_id', $user->id)
+        ->where('payment_method', 'admin_credit')
+        ->sum('amount');
+
+        $full_data['totalAdminLoanDeposits']= Deposit::where('user_id', $user->id)
+        ->where('payment_method', 'admin_loan')
+        ->sum('amount');
+
+         $full_data['totalAmount'] = Trade::where('user_id', $user->id)
+        ->sum('capital');
+
+        $full_data['totalWinAmount'] = Trade::where('user_id', $user->id)
+        ->where('trade_result', 'win')
+        ->sum('trade_win_loss_amount');
+
+        $full_data['totalLossAmount'] = Trade::where('user_id', $user->id)
+        ->where('trade_result', 'loss')
+        ->sum('trade_win_loss_amount');
+
+        $full_data['win_percentage'] =($full_data['totalWinAmount']/ $full_data['totalAmount']) *100;
+        $full_data['loss_percentage'] =($full_data['totalLossAmount'] / $full_data['totalAmount']) *100;
+
+        $full_data['win_percentage']= number_format($full_data['win_percentage'], 2);
+        $full_data['loss_percentage']= number_format($full_data['loss_percentage'], 2);
+
+
+        
+
+
         return view('users.index', compact('full_data','kycTypes'));
     }
     

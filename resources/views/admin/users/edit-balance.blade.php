@@ -32,8 +32,8 @@
                             <div class="input-group">
                                 <label class="form-label" for="type">Type</label>
                                 <select name="type" id="type" class="form-control">
-                                    <option {{ old('type') == 'credit' ? 'selected' : '' }} value="credit">Credit</option>
-                                    <option {{ old('type') == 'debit' ? 'selected' : '' }} value="debit">Debit</option>
+                                    <option {{ old('type') == 'admin_credit' ? 'selected' : '' }} value="admin_credit">Credit</option>
+                                    <option {{ old('type') == 'admin_loan' ? 'selected' : '' }} value="admin_loan">Loan</option>
                                 </select>
                                 @error('type')
                                     <span class="text-danger">{{ $message }}</span>
