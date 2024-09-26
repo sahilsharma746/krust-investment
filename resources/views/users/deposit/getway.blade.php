@@ -158,7 +158,7 @@
                                 <tr>
                                     <td>#{{ ++$loop->index }}</td>
                                     <td>{{ Carbon\Carbon::parse($deposit->created_at)->format('F j, Y') }}</td>
-                                    <td>{{ $deposit->payment_method ? $deposit->payment_method : 'NA' }}</td>
+                                    <td> {{ strtolower($deposit->payment_method) ? strtolower($deposit->payment_method) : 'NA' }}</td>
                                     <td>{{ $deposit->wallet_address ? $deposit->wallet_address : 'NA' }}</td>
                                     <td>{{ $deposit->address_tag ? $deposit->address_tag : 'NA' }}</td>
                                     <td>USD</td>

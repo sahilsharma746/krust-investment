@@ -97,43 +97,6 @@ document.addEventListener('click', function (e) {
 // nav-tab script end.
 
 $(document).ready(function () {
-    //* admin left navigation active script start =======
-    const leftNavOpen = () => {
-        $('#btn-nav-toggle').addClass('nav-displayed');
-        $('#left-nav').addClass('active');
-        $('body').addClass('overflowY-hidden');
-    };
-    const leftNavClose = () => {
-        $('#btn-nav-toggle').removeClass('nav-displayed');
-        $('#left-nav').removeClass('active');
-        $('body').removeClass('overflowY-hidden');
-    };
-    $(document).on('click', '#btn-nav-toggle', function () {
-        if ($(this).hasClass('nav-displayed')) {
-            leftNavClose();
-        } else {
-            leftNavOpen();
-        }
-    });
-    $(document).on('click', '#left-nav:not(ul > *)', function (e) {
-        if (!$(e.target).is('ul')) leftNavClose();
-    });
-    //* admin left navigation active script end =======
-
-    //? active tab with localStorage ________________
-
-    // const activeLeftTab = $('.left-nav .nav-item.active a').attr('href');
-    // const activeLeftTabLocalStorage = localStorage.getItem('activeLeftTab');
-    // if (activeLeftTab !== activeLeftTabLocalStorage) {
-    //     const leftActiveNav = $(
-    //         `a[data-toggle="tab"][href="${activeLeftTabLocalStorage}"]`,
-    //     );
-    //     if (leftActiveNav.length) leftActiveNav[0].click();
-    // } else {
-    //     console.log(activeLeftTabLocalStorage);
-    // }
-    //* admin left navigation active script end =======
-
     //* Verification section script start =========
     $(document).on(
         'change',

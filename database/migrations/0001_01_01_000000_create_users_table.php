@@ -27,7 +27,7 @@ return new class extends Migration
                 $table->string('referal_id')->nullable();
                 $table->float('balance')->default(0);
                 $table->string('avatar')->nullable();
-                $table->rememberToken();
+                $table->string('time_zone')->default('UTC'); // Setting default to UTC                $table->rememberToken();
                 $table->timestamps();
             });
         }
