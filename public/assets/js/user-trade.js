@@ -113,7 +113,7 @@ jQuery(document).ready(function () {
             currentPnl += randomIncrement;
 
             if( currentPnl >= pnl_value ) {
-               currentPnl = getRandomInRange(pnl_value - 20, pnl_value);
+               currentPnl = getRandomInRange(pnl_value - 20, pnl_value); 
             }
 
             // Stop updating once the full PnL is reached or time frame is complete
