@@ -38,12 +38,12 @@
                         <div class="card-title">Profitable Trades</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
-                            <div class="amount">{{ $full_data['totalAmount']}}/{{$full_data['totalWinAmount']}}</div>
+                            <div class="amount">{{ $full_data['totalWinTradesCount']}}/{{$full_data['totalTradesCount']}}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
-                            <div class="percentage">{{$full_data['win_percentage']}}%</div>
-                            <span class="status up">
-                                <i class="fa-solid fa-arrow-down"></i>
+                        <div class="percentage">{{$full_data['winPercentage']}}</div>
+                            <span class="status {{($full_data['winPercentage'] > 0) ? 'up' : 'down'}}>
+                                <i class="fa-solid {{($full_data['winPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                             </span>
                         </div>
                     </div>

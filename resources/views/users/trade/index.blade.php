@@ -205,7 +205,7 @@
                                                 <input type="hidden" class="trade_created"
                                                     value="{{ $trade->created_at }}">
                                                 <input type="hidden" class="current_date_time"
-                                                    value="{{ date('Y-m-d h:i:s') }}">
+                                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d H:i:s') }}">
                                                 <input type="hidden" class="timeframe "
                                                     value="{{ $trade->time_frame }}">
                                             </td>

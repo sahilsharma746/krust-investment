@@ -11,6 +11,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use PDF;
+use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
+
 
 
 class UserTradeController extends Controller
@@ -116,6 +120,7 @@ class UserTradeController extends Controller
             'created_at' => date('Y-m-d h:i:s'), 
             'updated_at' => date('Y-m-d h:i:s')
         ];
+
         $trade = Trade::create( $data);
 
         return redirect()->back()->with('success', 'Your trade has been successfully placed!');

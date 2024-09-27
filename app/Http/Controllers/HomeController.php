@@ -28,7 +28,6 @@ class HomeController extends Controller
         if (auth()->user()->role == 'admin') {
             return redirect()->route('admin.dashboard');
         } 
-        
         if (auth()->user()->role == 'user'){
             return redirect()->route('user.dashboard');
         }else{

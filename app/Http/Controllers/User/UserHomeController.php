@@ -57,26 +57,42 @@ class UserHomeController extends Controller
         ->where('payment_method', 'admin_loan')
         ->sum('amount');
 
-         $full_data['totalAmount'] = Trade::where('user_id', $user->id)
-        ->sum('capital');
-
-        $full_data['totalWinAmount'] = Trade::where('user_id', $user->id)
-        ->where('trade_result', 'win')
-        ->sum('trade_win_loss_amount');
-
-        $full_data['totalLossAmount'] = Trade::where('user_id', $user->id)
-        ->where('trade_result', 'loss')
-        ->sum('trade_win_loss_amount');
-
-        $full_data['win_percentage'] =($full_data['totalWinAmount']/ $full_data['totalAmount']) *100;
-        $full_data['loss_percentage'] =($full_data['totalLossAmount'] / $full_data['totalAmount']) *100;
-
-        $full_data['win_percentage']= number_format($full_data['win_percentage'], 2);
-        $full_data['loss_percentage']= number_format($full_data['loss_percentage'], 2);
-
-
+         
+        $full_data['totalAmount'] = Trade::where('user_id', $user->id)->sum('capital');
         
+        $full_data['totalWinAmount'] = Trade::where('user_id', $user->id)
+            ->where('trade_result', 'win')
+            ->sum('trade_win_loss_amount');
+        
+        $full_data['totalLossAmount'] = Trade::where('user_id', $user->id)
+            ->where('trade_result', 'loss')
+            ->sum('trade_win_loss_amount');
 
+        $totalWinLoss = $full_data['totalWinAmount'] + $full_data['totalLossAmount'];
+
+        // Check if totalWinLoss is greater than zero to avoid division issues
+        if ($totalWinLoss > 0) {
+            $full_data['win_percentage'] = ($full_data['totalWinAmount'] / $totalWinLoss) * 100;
+            $full_data['loss_percentage'] = ($full_data['totalLossAmount'] / $totalWinLoss) * 100;
+        } else {
+            $full_data['win_percentage'] = 0;
+            $full_data['loss_percentage'] = 0;
+        }
+        $full_data['win_percentage'] = number_format($full_data['win_percentage'], 2);
+        $full_data['loss_percentage'] = number_format($full_data['loss_percentage'], 2);
+
+
+        $full_data['totalTradesCount'] = Trade::where('user_id', $user->id)->count();
+        $full_data['totalWinTradesCount'] = Trade::where('user_id', $user->id)
+                                            ->where('trade_result', 'win')
+                                            ->count();
+
+        if ($full_data['totalTradesCount'] > 0) {
+            $full_data['winPercentage'] = ($full_data['totalWinTradesCount'] / $full_data['totalTradesCount']) * 100;
+        } else {
+            $full_data['winPercentage'] = 0;
+        }
+        $full_data['winPercentage'] = number_format($full_data['winPercentage'], 2) . '%';
 
         return view('users.index', compact('full_data','kycTypes'));
     }

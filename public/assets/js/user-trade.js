@@ -19,8 +19,13 @@ jQuery(document).ready(function () {
     var tradeCreatedDate = new Date(trade_created);
     var currentDateTime = new Date(current_date_time);
 
+    console.log( tradeCreatedDate );
+    console.log( currentDateTime );
+
     // Calculate the time difference between the current time and the trade created time
     var timeDifference = currentDateTime - tradeCreatedDate;
+    
+    console.log( timeDifference );
 
     // Convert time_frame to milliseconds
     var timeFrameInMilliseconds;
@@ -54,11 +59,15 @@ jQuery(document).ready(function () {
             break;
     }
 
+    console.log( timeFrameInMilliseconds );
+
     var sign = (pnl_value < 0) ? '-' : '+';
     pnl_value = Math.abs(pnl_value);
 
     // Calculate remaining time
     var remainingTime = timeFrameInMilliseconds - timeDifference;
+
+    console.log( remainingTime );
 
     // Function to format remaining time in MM:SS
     function formatTime(ms) {
