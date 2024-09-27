@@ -21,9 +21,9 @@
                             <div class="amount">${{ number_format(auth()->user()->balance) }}</div>
                         </div>
                         <div class="card-status d-flex align-items-center g-3 text-primary">
-                            <div class="percentage">0%</div>
-                            <span class="status up">
-                                <i class="fa-solid fa-arrow-up"></i>
+                            <div class="percentage">{{ $full_data['usertotoalpercentage'] }}%</div>
+                            <span class="status {{($full_data['usertotoalpercentage'] > 0) ? 'up' : 'down'}}">
+                                <i class="fa-solid {{ ($full_data['usertotoalpercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
                             </span>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="card-status d-flex align-items-center g-4 text-danger-2">
                         <div class="percentage">{{$full_data['winPercentage']}}</div>
-                            <span class="status {{($full_data['winPercentage'] > 0) ? 'up' : 'down'}}>
+                            <span class="status {{($full_data['winPercentage'] > 0) ? 'up' : 'down'}}">
                                 <i class="fa-solid {{($full_data['winPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                             </span>
                         </div>
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-primary">
-                        <div class="percentage">0%</div>
+                        <div class="percentage">{{ $full_data['adminLoanPercentage']}}%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-up"></i>
                         </span>
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                     <div class="card-status d-flex align-items-center g-4 text-danger">
-                        <div class="percentage">0%</div>
+                        <div class="percentage">{{$full_data['adminCreditPercentage']}}%</div>
                         <span class="status">
                             <i class="fa-solid fa-arrow-down"></i>
                         </span>

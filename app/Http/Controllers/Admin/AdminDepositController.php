@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Deposit;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class AdminDepositController extends Controller
 {
+
+
+    public $user_setting;
+    public function __construct(){
+        $this->user_setting = new UserSetting();
+    }
    
     public function getAllDeposits() {
         $deposits = DB::table('deposits')
@@ -55,13 +62,23 @@ class AdminDepositController extends Controller
     }
 
 
+
+
     public function approvedDepositStatus($id) {
         $data = Deposit::where('id', $id)->first();
         if ($data) {
             $data->update(['status' => 'approved']);
         }
         $user = User::where('id', $data->user_id)->first();
+        
+        $user_balance = $user->balance;
+
+        $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
+
         $user->increment('balance', $data->amount);
+
+
+
         return back()->with('success', 'Updated Successfully');
     }
 
@@ -70,6 +87,8 @@ class AdminDepositController extends Controller
         $data = Deposit::where('id', $id)->first();
         $user = User::where('id', $data->user_id)->first();
         if( $data->status == 'approved' && $user->balance > $data->amount ){
+            $user_balance = $user->balance;
+            $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
             $user->decrement('balance', $data->amount);
         }else{
             $user->update(['balance' => 0]);
@@ -85,6 +104,8 @@ class AdminDepositController extends Controller
         $data = Deposit::where('id', $id)->first();
         $user = User::where('id', $data->user_id)->first();
         if( $data->status == 'approved' && $user->balance > $data->amount ){
+            $user_balance = $user->balance;
+            $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
             $user->decrement('balance', $data->amount);
         }else{
             $user->update(['balance' => 0]);

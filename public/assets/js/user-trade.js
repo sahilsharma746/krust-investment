@@ -49,13 +49,13 @@ jQuery(document).ready(function () {
             timeFrameInMilliseconds = 7 * 24 * 60 * 60 * 1000;
             break;
         case '1month':
-            timeFrameInMilliseconds = 30 * 24 * 60 * 60 * 1000; // Approximation for 1 month
+            timeFrameInMilliseconds = 30 * 24 * 60 * 60 * 1000; 
             break;
         case '1year':
-            timeFrameInMilliseconds = 365 * 24 * 60 * 60 * 1000; // Approximation for 1 year
+            timeFrameInMilliseconds = 365 * 24 * 60 * 60 * 1000; 
             break;
         default:
-            timeFrameInMilliseconds = 0; // Handle case where time frame is unknown
+            timeFrameInMilliseconds = 0; 
             break;
     }
 
@@ -69,17 +69,42 @@ jQuery(document).ready(function () {
 
     console.log( remainingTime );
 
-    // Function to format remaining time in MM:SS
     function formatTime(ms) {
-        var totalSeconds = Math.floor(ms / 1000);
-        var minutes = Math.floor(totalSeconds / 60);
-        var seconds = totalSeconds % 60;
-        return (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-    }
+      if (ms <= 0) {
+          return ;
+      }
+  
+      var totalSeconds = Math.floor(ms / 1000);
+  
+      var days = Math.floor(totalSeconds / (24 * 60 * 60));
+      var hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+      var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      var seconds = totalSeconds % 60;
+  
+      if (days > 0) {
+          return days + " day" + (days > 1 ? 's' : '') + " left";
+      } else if (hours > 0) {
+          return hours + " hour" + (hours > 1 ? 's' : '') + " left";
+      } else if (minutes > 0) {
+          return minutes + ":" + (seconds < 10 ? '0' : '') + seconds + " min left";
+      } else {
+          return seconds + " second" + (seconds > 1 ? 's' : '') + " left";
+      }
+  }
 
     // Display initial time
-    var timeDisplayElement = $(this).find('.remaining_time'); // Assuming you have a span or div for displaying time
+    var timeDisplayElement = $(this).find('.remaining_time'); 
     timeDisplayElement.text(formatTime(remainingTime));
+    var interval = setInterval(function () {
+      remainingTime -= 1000; 
+  
+      var formattedTime = formatRemainingTime(remainingTime);
+      timeDisplayElement.text(formattedTime);
+  
+      if (remainingTime <= 0) {
+          clearInterval(interval);
+      }
+  }, 1000);
 
     // If the trade has expired, show the full PnL value and stop updating
     if (timeDifference >= timeFrameInMilliseconds) {
@@ -131,12 +156,14 @@ jQuery(document).ready(function () {
                 clearInterval(interval); // Stop updating
                 timeDisplayElement.text('00:00'); // Ensure to show '00:00' when finished
             }
+            
 
             $(this).find('.trade_pnl_value .amount').text(currentPnl.toFixed(2)); // Update the PnL value in the UI
             (sign == '-') ? $(this).find('.trade_pnl_value').css('color', '#F32524') : $(this).find('.trade_pnl_value').css('color', '#3AA31A');
 
         }.bind(this), updateInterval); // Bind 'this' to access the current row context in the interval
     }
+
 
 });
 

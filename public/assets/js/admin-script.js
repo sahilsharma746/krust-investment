@@ -300,3 +300,14 @@ function updateLabel() {
     // Change the label text based on the selected trade result
     percentageLabel.innerText = "Percentage " + tradeResult + " %";
   }
+
+
+  document.querySelectorAll('.trade_reult_margin_btn').forEach(button => {
+    button.addEventListener('click', function () {
+        this.classList.toggle('selected');
+        
+        // Optional: Store selected values
+        const selectedValues = Array.from(document.querySelectorAll('.margin-btn.selected')).map(btn => btn.value);
+        console.log('Selected margins:', selectedValues);
+    });
+});

@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Withdraw;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminWithdrawController extends Controller
 {
+
+
+    public $user_setting;
+
+    public function __construct()
+    {
+        $this->user_setting = new UserSetting();
+    }
     public function getAllWithDrawls() {
         $withdrawls = Withdraw::join('users', 'withdraws.user_id', '=', 'users.id')
                         ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
@@ -54,6 +63,8 @@ class AdminWithdrawController extends Controller
         if ($data) {
             $data->update([ 'status' => 'approved' ]);
         }
+        $user_balance = $user->balance;
+        $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
         $user->decrement('balance', $data->amount);
         return back()->with('success', 'Updated Successfully');
     }
@@ -63,6 +74,9 @@ class AdminWithdrawController extends Controller
         $data = Withdraw::where('id', $id)->first();
         $user = User::where('id', $data->user_id)->first();
         if( $data->status == 'approved' ){
+            $user_balance = $user->balance;
+
+            $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
             $user->increment('balance', $data->amount);
         }
         if ($data) {
@@ -75,6 +89,8 @@ class AdminWithdrawController extends Controller
         $data = Withdraw::where('id', $id)->first();
         $user = User::where('id', $data->user_id)->first();
         if( $data->status == 'approved' ){
+            $user_balance = $user->balance;
+            $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
             $user->increment('balance', $data->amount);
         }
         if ($data) {

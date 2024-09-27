@@ -210,13 +210,29 @@
 
         .btnn-margin.active {
             background-color: #00b300;
-            /* Active button background */
             color: white;
             /* Active button text color */
             border-color: #00b300;
             /* Active button border color */
         }
-    </style>
+
+        .selected {
+            background-color: green;
+            /* Set selected background to green */
+            color: white;
+            /* Change text color for visibility */
+        }
+
+        .margin-options button {
+            margin: 5px;
+            padding: 10px 15px;
+            /* Add padding for better appearance */
+            border: ;
+            /* Remove default border */
+            cursor: pointer;
+            /* Change cursor to pointer */
+        }
+</style>
 @endsection
 @section('content')
     @php
@@ -255,7 +271,7 @@
         <div class="container user-details-container">
             <div class="partial-view-header">
                 <div class="back-btn-area">
-                    
+
                     <a href="{{ route('admin.user.index') }}">
                         <span class="icon">
                             <i class="fa-solid fa-arrow-left"></i>
@@ -267,19 +283,20 @@
                 </div>
                 <div class="btn-area">
 
-                      <div class="dropdown w-max">
+                    <div class="dropdown w-max">
                         <a class="btn btn-user-tier-dropdown">
                             <div class="d-grid">
                                 <span>USER PLAN</span>
-                                <span>{{$full_data['current_account']}}</span>
+                                <span>{{ $full_data['current_account'] }}</span>
                             </div>
                             <i class="fa-solid fa-angle-down"></i>
                         </a>
 
                         <ul class="list-style-none dropdown-menu d-flex flex-column">
-                            @foreach($full_data['all_account_type'] as $account_type)
+                            @foreach ($full_data['all_account_type'] as $account_type)
                                 <li class="dropdown-item">
-                                    <form action="{{ route('admin.user.change-plan', $full_data['user_data']->id)  }}" method="POST">
+                                    <form action="{{ route('admin.user.change-plan', $full_data['user_data']->id) }}"
+                                        method="POST">
                                         @csrf
                                         <input type="hidden" name="account_type_id" value="{{ $account_type->id }}">
                                         <button class="btn btn-default" type="submit">{{ $account_type->name }}</button>
@@ -287,7 +304,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                        
+
                     </div>
                     <a href="{{ route('admin.login-as-user', $full_data['user_data']['id']) }}"
                         class="btn btn-login-as-user">Log in As User</a>
@@ -307,7 +324,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-header">
                                             <div class="modal-title">Trade Limit :
-                                            <span>{{ $full_data['user_data']['first_name'] }}
+                                                <span>{{ $full_data['user_data']['first_name'] }}
                                                     {{ $full_data['user_data']['last_name'] }}</span>
                                             </div>
                                             <button class="btn-modal-close" onclick="closeModal('user-trade-limit')">
@@ -349,35 +366,87 @@
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>
-                                    <form action="{{ route('admin.trades.result',$full_data['user_data']->id) }}" method="POST">
+                                    <form action="{{ route('admin.trades.result', $full_data['user_data']->id) }}"
+                                        method="POST">
                                         @csrf
-                                    <div class="modal-body">
-                                        <div class="input-group">
-                                            <label class="form-label">Trade Result</label>
-                                            <select class="form-control" id="trade_result" name="trade_result" onchange="updateLabel()">
-                                                <option value="win" {{ (isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'win') ? 'selected' : '' }}>Win</option>
-                                                <option value="loss" {{ (isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'loss') ? 'selected' : '' }}>Loss</option>
-                                                <option value="random" {{ (!isset($full_data['user_settings']['trade_result']) || $full_data['user_settings']['trade_result'] == 'random') ? 'selected' : '' }}>Random</option>
-                                            </select>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <label class="form-label">Trade Result</label>
+                                                <select class="form-control" id="trade_result" name="trade_result"
+                                                    onchange="updateLabel()">
+                                                    <option value="win"
+                                                        {{ isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'win' ? 'selected' : '' }}>
+                                                        Win</option>
+                                                    <option value="loss"
+                                                        {{ isset($full_data['user_settings']['trade_result']) && $full_data['user_settings']['trade_result'] == 'loss' ? 'selected' : '' }}>
+                                                        Loss</option>
+                                                    <option value="random"
+                                                        {{ !isset($full_data['user_settings']['trade_result']) || $full_data['user_settings']['trade_result'] == 'random' ? 'selected' : '' }}>
+                                                        Random</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <label class="form-label" id="percentage_label">Percentage Win %</label>
+                                                <input type="number" class="form-control" id="percentage_win"
+                                                    name="trade_percentage"
+                                                    value="{{ isset($full_data['user_settings']['trade_percentage']) ? $full_data['user_settings']['trade_percentage'] : 10 }}"
+                                                    required>
+                                            </div>
+
+
+
+                                            
+                                            </head>
+
+                                            <body>
+                                                <div class="input-group" style="margin: 20px;">
+                                                    <label class="form-label" id="margin">Margin</label>
+                                                    <div class="margin-options">
+                                                        <button type="button" value="2x"
+                                                            class="trade_reult_margin_btn">2x</button>
+                                                        <button type="button" value="5x"
+                                                            class="trade_reult_margin_btn">5x</button>
+                                                        <button type="button" value="10x"
+                                                            class="trade_reult_margin_btn">10x</button>
+                                                        <button type="button" value="15x"
+                                                            class="trade_reult_margin_btn">15x</button>
+                                                        <button type="button" value="25x"
+                                                            class="trade_reult_margin_btn">25x</button>
+                                                        <button type="button" value="50x"
+                                                            class="trade_reult_margin_btn">50x</button>
+                                                        <button type="button" value="100x"
+                                                            class="trade_reult_margin_btn">100x</button>
+                                                    </div>
+                                                </div>
+
+                                                <script>
+                                                    document.querySelectorAll('.trade_reult_margin_btn').forEach(button => {
+                                                        button.addEventListener('click', function() {
+                                                            // Toggle the 'selected' class on click
+                                                            this.classList.toggle('selected');
+
+                                                            // Get the values of the selected buttons
+                                                            const selectedValues = Array.from(document.querySelectorAll(
+                                                                '.trade_reult_margin_btn.selected')).map(btn => btn.value);
+                                                            console.log('Selected margins:', selectedValues); // Log selected values to the console
+                                                        });
+                                                    });
+                                                </script>
+
+
+
                                         </div>
-                                        <div class="input-group">
-                                            <label class="form-label" id="percentage_label">Percentage Win %</label>
-                                            <input type="number" class="form-control" id="percentage_win" name="trade_percentage" 
-                                                   value="{{ isset($full_data['user_settings']['trade_percentage']) ? $full_data['user_settings']['trade_percentage'] : 10 }}" required>
-                                        </div>
-                                        
-                                      </div>
-                                      
-                                    <div class="modal-footer">
-                                        <input name="type" type="hidden" value="credit">
-                                        <button class="btn btn-confirm-info"
-                                            style=" margin-right: 10px; justify-content:center;background-color:white; color:#00b300; border: 1px solid #00b300"
-                                            onclick="closeModal('user-trade-result')">Close</button>
+
+                                        <div class="modal-footer">
+                                            <input name="type" type="hidden" value="credit">
+                                            <button class="btn btn-confirm-info"
+                                                style=" margin-right: 10px; justify-content:center;background-color:white; color:#00b300; border: 1px solid #00b300"
+                                                onclick="closeModal('user-trade-result')">Close</button>
                                             {{-- <input name="user_id" type="hidden" value="{{ $user->id }}"> --}}
-                                        <button class="btn btn-confirm-info"
-                                            style="margin-right: 10px
+                                            <button class="btn btn-confirm-info"
+                                                style="margin-right: 10px
                                         ; justify-content:center;">Update</button>
-                                    </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -641,9 +710,9 @@
                                 value="{{ $full_data['user_address']['zipcode'] }}" placeholder="Enter Address">
                         </div>
                         <!-- <div class="input-group grid-column-lg-2">
-                                                                    <label class="form-label">user password</label>
-                                                                    <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
-                                                                </div> -->
+                                                                        <label class="form-label">user password</label>
+                                                                        <input class="form-control" type="text" value="{{ $full_data['user_data']['password'] }}" placeholder="Enter user password">
+                                                                    </div> -->
                     </div>
                 </div>
                 <div class="section-title">Verification Status</div>
@@ -693,9 +762,11 @@
                         {{-- dd($full_data['kyc_type']['option_value']); --}}
                         <div class="card-header">
                             <div class="verified-qty">{{ $uploadedCount }}/{{ $total_count }} Uploaded</div>
-                            <div class="verified-qty" >Kyc document type - {{ isset($full_data['user_settings']['kyc_doc_type']) ? config('settingkeys.kyc_type.'.$full_data['user_settings']['kyc_doc_type']) : 'N/A' }} </div>
+                            <div class="verified-qty">Kyc document type -
+                                {{ isset($full_data['user_settings']['kyc_doc_type']) ? config('settingkeys.kyc_type.' . $full_data['user_settings']['kyc_doc_type']) : 'N/A' }}
+                            </div>
                         </div>
-                        
+
                         <div class="card-body check-files-valid-grid kyc-grid d-grid">
                             <div class="card">
                                 <form action="{{ route('admin.kyc.action', $full_data['user_data']->id) }}"
@@ -1096,6 +1167,18 @@
 
 @section('scripts')
     <script>
+        document.querySelectorAll('.trade_reult_margin_btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Toggle the 'selected' class on click
+                this.classList.toggle('selected');
+
+                // Get the values of the selected buttons
+                const selectedValues = Array.from(document.querySelectorAll(
+                    '.trade_reult_margin_btn.selected')).map(btn => btn.value);
+                console.log('Selected margins:', selectedValues); // Log selected values to the console
+            });
+        });
+
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
         }

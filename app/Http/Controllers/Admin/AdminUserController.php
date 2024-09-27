@@ -235,6 +235,8 @@ class AdminUserController extends Controller
 
         // Check if the request type is 'credit', otherwise treat it as 'debit'
         Deposit::updateDepositByAdmin($user->id, $request->amount, $admin_gateway_id->id, $remarks, $request->type );
+        $user_balance = $user->balance;
+        $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
         $user->increment('balance', $request->amount);
         return to_route('admin.user.index')->with('success', 'Updated Successfully');
     
