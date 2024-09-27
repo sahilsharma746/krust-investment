@@ -56,7 +56,7 @@
                     </a>
                     <div class="account-status-header d-flex align-items-center g-15" >
                         <span class="dot"></span>
-                        <span class="account-status text-primary">Active Account</span>
+                        <span class="account-status text-primary">Live Account</span>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
                     <dt class="dropdown">
                         <a class="btn btn-account-balance">
                             <span class="text">Account Balance</span>
-                            <span class="account-amount">${{ number_format(auth()->user()->balance) }}</span>
+                            <span class="account-amount" >${{ number_format(auth()->user()->balance) }}</span>
                             <span class="icon"><i class="fa-solid fa-angle-down"></i></span>
                         </a>
 
@@ -81,8 +81,7 @@
                             <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ $user_plan }}</span> </dt>
                             <dt class="dropdown-item">
                                 <div class="account-status-header d-flex align-items-center g-10">
-                                    <span class="dot"></span>
-                                    <span class="account-status text-primary">Active Account</span>
+                                    <span class="account-status text-primary">Profit</span>
                                 </div>
                                 <div class="account-amount-header">
                                     ${{ number_format(auth()->user()->balance) }}

@@ -38,20 +38,12 @@ class ProcessedCompletedTrades extends Command
     
         foreach ($trades as $trade) {
             $user_id = $trade->user_id;
-            $trade_win_loss_amount = $trade->trade_win_loss_amount; 
+            $trade_win_loss_amount = $trade->pnl; 
             $user_trade_result = $trade->trade_result; 
             $user = User::find($user_id);
     
             if ($user) { // Check if the user exists
-                $amount = $user->balance;
-    
-                if ($user_trade_result == 'win') {
-                    // Update the balance for a win
-                    $user->balance = $amount + $trade_win_loss_amount;
-                } elseif($user_trade_result == 'loss') {
-                    // Update the balance for a loss
-                    $user->balance = $amount - $trade_win_loss_amount;
-                }
+                $user->balance += $trade_win_loss_amount;
     
                 // Save the updated user balance
                 $user->save();
