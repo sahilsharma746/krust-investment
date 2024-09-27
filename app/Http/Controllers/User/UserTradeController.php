@@ -121,6 +121,7 @@ class UserTradeController extends Controller
             'updated_at' => date('Y-m-d h:i:s')
         ];
 
+
         $trade = Trade::create( $data);
 
         return redirect()->back()->with('success', 'Your trade has been successfully placed!');
