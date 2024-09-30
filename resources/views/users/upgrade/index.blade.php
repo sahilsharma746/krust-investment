@@ -27,8 +27,11 @@
                             <div class="card-title">${{ number_format($planPrice, 0) }}</div>
                             <dl class="item-list d-grid g-10">
                                 @foreach ($features as $feature)
+                                @php
+                                     $style = ( $feature->feature_available != 1 ) ? 'visibility:hidden' : '';
+                                @endphp
                                     @if ($feature->feature_description)
-                                        <dt>
+                                        <dt style="{{ $style}}">
                                             <img src="{{ asset('assets/img/right-tick-vector.png') }}" class="card-img">
                                             <span>{!! $feature->feature_description !!}</span> <!-- Display raw HTML -->
                                         </dt>
