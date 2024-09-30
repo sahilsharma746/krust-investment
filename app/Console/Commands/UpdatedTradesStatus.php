@@ -6,6 +6,7 @@ use App\Models\Trade;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 
 class UpdatedTradesStatus extends Command
@@ -29,82 +30,77 @@ class UpdatedTradesStatus extends Command
      */
  
     
-        public function handle()
-        {
+     public function handle()
+     {
+         \Log::info("Updated trades status command ran at " . now());
+     
+         $trades = Trade::where('status', '0')->get();
 
-            \Log::info("Updated trades status command ran at " . now());
-
-            $trades = Trade::where('status', '0')->get();
-        
-            foreach ($trades as $trade) {
-                preg_match('/(\d+)\s*(\w+)/', $trade->time_frame, $matches);
-        
-                if (count($matches) === 3) {
-                    $time_value = (int)$matches[1];   
-                    $time_unit = strtolower($matches[2]); 
-                } else {
-                    echo "Invalid time frame format for trade ID: " . $trade->id . PHP_EOL;
-                    continue;
-                }
-        
-                $trade_time = \Carbon\Carbon::parse($trade->created_at);
-        
-                switch ($time_unit) {
-                    case 'minute':
-                    case 'minutes':
-                        $trade_complete_time = $trade_time->addMinutes($time_value);
-                        break;
-                    case 'hour':
-                    case 'hours':
-                        $trade_complete_time = $trade_time->addHours($time_value);
-                        break;
-                    case 'day':
-                    case 'days':
-                        $trade_complete_time = $trade_time->addDays($time_value);
-                        break;
-                        case 'week':
-                        case 'weeks':
-                            $trade_complete_time = $trade_time->addWeeks($time_value);
-                            break;
-                        case 'year':
-                        case 'years':
-                            $trade_complete_time = $trade_time->addYears($time_value);
-                            break;
-                    default:
-                        echo "Unknown time frame unit: " . $time_unit . " for trade ID: " . $trade->id . PHP_EOL;
-                        continue 2;
-                }
-                        $current_time = now();
-        
-                if ($current_time >= $trade_complete_time) {
-                    $trade->status = 1;
-                    $trade->save();
-        
-                    echo "Trade status updated to 1 for user_id: " . $trade->user_id . " at " . $current_time->format('Y-m-d H:i:s') . PHP_EOL;
-                } else {
-                    $time_remaining = $current_time->diff($trade_complete_time);
-                    
-                    $remaining_string = sprintf(
-                        '%d days, %d hours, %d minutes, %d seconds',
-                        $time_remaining->d,
-                        $time_remaining->h,
-                        $time_remaining->i,
-                        $time_remaining->s
-                    );
-        
-                    $for_humans = $trade_complete_time->diffForHumans($current_time, [
-                        'parts' => 4,
-                        'short' => true,
-                        'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE
-                    ]);
-        
-                    echo "Time remaining for trade to complete for user_id: " . $trade->user_id . ":" . PHP_EOL;
-                    
-                    echo "Time remaining for trade to complete : " . $for_humans . PHP_EOL;
-                }
-            }
-        
-        
-    }
+         
+         foreach ($trades as $trade) {
+             // Ensure the time frame is set
+             $user_id = $trade->user_id;
+             $user = User::where('id', $user_id)->first();
+             $user_timezone = $user->time_zone;
+             if (empty($trade->time_frame)) {
+                 echo "Time frame is not set for trade ID: " . $trade->id . PHP_EOL;
+                 continue;
+             }
+     
+             preg_match('/(\d+)\s*(\w+)/', $trade->time_frame, $matches);
+             
+             if (count($matches) !== 3) {
+                 echo "Invalid time frame format for trade ID: " . $trade->id . PHP_EOL;
+                 continue;
+             }
+     
+             $time_value = (int)$matches[1];   
+             $time_unit = strtolower($matches[2]);
+     
+             $trade_time = \Carbon\Carbon::parse($trade->created_at);
+     
+             // Use match to determine the complete time based on the time unit
+             $trade_complete_time = match ($time_unit) {
+                 'minutes' => $trade_time->addMinutes($time_value),
+                 'hours' => $trade_time->addHours($time_value),
+                 'days' => $trade_time->addDays($time_value),
+                 'weeks' => $trade_time->addWeeks($time_value),
+                 'months' => $trade_time->addMonths($time_value),
+                 'years' => $trade_time->addYears($time_value),
+                 default => null,
+             };
+     
+             // If trade_complete_time is null, the time unit was invalid
+             if ($trade_complete_time === null) {
+                 echo "Invalid time unit for trade ID: " . $trade->id . PHP_EOL;
+                 continue;
+             }
+     
+             $current_time = Carbon::now($user_timezone);
+             if ($current_time >= $trade_complete_time) {
+                 $trade->status = 1;
+                 $trade->save();
+                 echo "Trade status updated to 1 for user_id: " . $trade->user_id . " at " . $current_time->format('Y-m-d H:i:s') . PHP_EOL;
+             } else {
+                 $time_remaining = $current_time->diff($trade_complete_time);
+                 $remaining_string = sprintf(
+                     '%d days, %d hours, %d minutes, %d seconds',
+                     $time_remaining->d,
+                     $time_remaining->h,
+                     $time_remaining->i,
+                     $time_remaining->s
+                 );
+     
+                 $for_humans = $trade_complete_time->diffForHumans($current_time, [
+                     'parts' => 4,
+                     'short' => true,
+                     'syntax' => \Carbon\CarbonInterface::DIFF_ABSOLUTE
+                 ]);
+     
+                 echo "Time remaining for trade to complete: " . $for_humans . " for user id " . $trade->user_id . ":" . PHP_EOL;
+             }
+         }
+     }
+     
     
 }

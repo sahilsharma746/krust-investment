@@ -38,8 +38,7 @@ class ProcessedCompletedTrades extends Command
             $user_trade_result = $trade->trade_result; 
             $user = User::find($user_id);
 
-            if ($user) { // Check if the user exists
-                // Update balance based on the trade result
+            if ($user) { 
                 $user->balance += $trade_win_loss_amount;
 
                 // Save the updated user balance

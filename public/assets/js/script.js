@@ -134,10 +134,19 @@ $(document).ready(function () {
 
 });
 
+function getRandomAmount() {
+    return Math.floor(Math.random() * (35000 - 15000 + 1)) + 1000;
+}
 
 function showPopup() {
+    const randomIndex = Math.floor(Math.random() * countries.length);  
+    const randomCountry = countries[randomIndex];
+    const randomAmount = getRandomAmount(); 
+
+    document.getElementById('popup-country').textContent = randomCountry;
+    document.getElementById('amount').textContent = `$${randomAmount.toLocaleString()}`; 
     document.getElementById('profit-popup').style.display = 'block';
-    setTimeout(closePopup, 10000);  // Auto-close after 10 seconds
+    setTimeout(closePopup, 10000);  
 }
 
 function closePopup() {
@@ -149,6 +158,6 @@ window.onload = function() {
     if( jQuery('#profit-popup').length > 0 ) {
         // Show popup every 30 seconds
         setInterval(showPopup, 30000);
+        showPopup();
     }
-    showPopup();
 };
