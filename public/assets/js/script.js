@@ -100,73 +100,48 @@ $(document).ready(function () {
     };
 
 
-    // if( $('.trade-counter').length > 0 ) {
-    //     onVisible($('.trade-counter')[0], (e) => {
-    //         $.each($('.trade-counter .item'), function () {
-    //             const $this = $(this).find('span[value]');
-    //             const $thisValue = +$this.attr('value');
-    //             if (!$thisValue || $thisValue <= 0) return;
-
-    //             const $startWith = $this.attr('startWith');
-
-    //             let count = 0;
-    //             let count2 = 0;
-    //             const duration = 1500;
-    //             const intervalTime = duration / $thisValue;
-
-    //             const interval = setInterval(() => {
-    //                 $this.text($startWith ? $startWith + count : count);
-    //                 count++;
-
-    //                 // Check if the count has reached the maximum value
-    //                 if (count > $thisValue) {
-    //                     clearInterval(interval);
-    //                 }
-    //             }, intervalTime);
-    //         });
-    //     });
-    // }
 
     if ($('.trade-counter').length > 0) {
         onVisible($('.trade-counter')[0], () => {
-          const $items = $('.trade-counter .item');
-          const duration = 1500;
-          let maxValue = 0;
-      
-          // Find the maximum value among all counters
-          $items.each(function() {
-            const value = +$(this).find('span[value]').attr('value');
-            if (value > maxValue) maxValue = value;
-          });
-      
-          $items.each(function(index) {
-            const $this = $(this).find('span[value]');
-            const $thisValue = +$this.attr('value');
-            const $startWith = $this.attr('startWith') || '';
-      
-            if ($thisValue <= 0) return;
-      
-            // Calculate speed factor based on position
-            const itemCount = $items.length;
-            const positionFactor = (index + 1) / itemCount;
-            const speedFactor = 0.5 + positionFactor; // Ranges from 0.5 to 1.5
-      
-            const adjustedDuration = duration / speedFactor;
-            const intervalTime = adjustedDuration / $thisValue;
-      
-            let count = 0;
-            const interval = setInterval(() => {
-              if (count <= $thisValue) {
-                $this.text($startWith + Math.round(count));
-                count += speedFactor * 0.2;
-              } else {
-                clearInterval(interval);
-                $this.text($startWith + $thisValue);
-              }
-            }, intervalTime);
-          });
+            const $items = $('.trade-counter .item');
+            const duration = 1500; // Default duration
+          
+            $items.each(function(index) {
+                const $this = $(this).find('span[value]');
+                const $thisValue = +$this.attr('value');
+                const $startWith = $this.attr('startWith') || '';
+          
+                if ($thisValue <= 0) return; // Skip if value is 0 or less
+          
+                // Set custom speed factor for each counter
+                let speedFactor;
+                if (index === 0) {
+                    speedFactor = 0.8;  // Very slow for the first counter (300+)
+                } else if (index === 1) {
+                    speedFactor = 0.9;  // Medium speed for the second counter (1:500)
+                } else if (index === 2) {
+                    speedFactor = 1.8;  // Fast speed for the third counter ($1000 minimum deposit)
+                } else {
+                    speedFactor = 1.0;  // Default speed for other counters
+                }
+    
+                const adjustedDuration = duration / speedFactor;
+                const intervalTime = adjustedDuration / $thisValue;
+    
+                let count = 0;
+                const interval = setInterval(() => {
+                    if (count <= $thisValue) {
+                        $this.text($startWith + Math.round(count));
+                        count += speedFactor * 0.2;
+                    } else {
+                        clearInterval(interval);
+                        $this.text($startWith + $thisValue);
+                    }
+                }, intervalTime);
+            });
         });
-      }
+    }
+    
 
     if( $('.time-zone').length > 0 ) {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
