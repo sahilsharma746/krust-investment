@@ -100,32 +100,73 @@ $(document).ready(function () {
     };
 
 
-    if( $('.trade-counter').length > 0 ) {
-        onVisible($('.trade-counter')[0], (e) => {
-            $.each($('.trade-counter .item'), function () {
-                const $this = $(this).find('span[value]');
-                const $thisValue = +$this.attr('value');
-                if (!$thisValue || $thisValue <= 0) return;
+    // if( $('.trade-counter').length > 0 ) {
+    //     onVisible($('.trade-counter')[0], (e) => {
+    //         $.each($('.trade-counter .item'), function () {
+    //             const $this = $(this).find('span[value]');
+    //             const $thisValue = +$this.attr('value');
+    //             if (!$thisValue || $thisValue <= 0) return;
 
-                const $startWith = $this.attr('startWith');
+    //             const $startWith = $this.attr('startWith');
 
-                let count = 0;
-                let count2 = 0;
-                const duration = 1500;
-                const intervalTime = duration / $thisValue;
+    //             let count = 0;
+    //             let count2 = 0;
+    //             const duration = 1500;
+    //             const intervalTime = duration / $thisValue;
 
-                const interval = setInterval(() => {
-                    $this.text($startWith ? $startWith + count : count);
-                    count++;
+    //             const interval = setInterval(() => {
+    //                 $this.text($startWith ? $startWith + count : count);
+    //                 count++;
 
-                    // Check if the count has reached the maximum value
-                    if (count > $thisValue) {
-                        clearInterval(interval);
-                    }
-                }, intervalTime);
-            });
+    //                 // Check if the count has reached the maximum value
+    //                 if (count > $thisValue) {
+    //                     clearInterval(interval);
+    //                 }
+    //             }, intervalTime);
+    //         });
+    //     });
+    // }
+
+    if ($('.trade-counter').length > 0) {
+        onVisible($('.trade-counter')[0], () => {
+          const $items = $('.trade-counter .item');
+          const duration = 1500;
+          let maxValue = 0;
+      
+          // Find the maximum value among all counters
+          $items.each(function() {
+            const value = +$(this).find('span[value]').attr('value');
+            if (value > maxValue) maxValue = value;
+          });
+      
+          $items.each(function(index) {
+            const $this = $(this).find('span[value]');
+            const $thisValue = +$this.attr('value');
+            const $startWith = $this.attr('startWith') || '';
+      
+            if ($thisValue <= 0) return;
+      
+            // Calculate speed factor based on position
+            const itemCount = $items.length;
+            const positionFactor = (index + 1) / itemCount;
+            const speedFactor = 0.5 + positionFactor; // Ranges from 0.5 to 1.5
+      
+            const adjustedDuration = duration / speedFactor;
+            const intervalTime = adjustedDuration / $thisValue;
+      
+            let count = 0;
+            const interval = setInterval(() => {
+              if (count <= $thisValue) {
+                $this.text($startWith + Math.round(count));
+                count += speedFactor * 0.2;
+              } else {
+                clearInterval(interval);
+                $this.text($startWith + $thisValue);
+              }
+            }, intervalTime);
+          });
         });
-    }
+      }
 
     if( $('.time-zone').length > 0 ) {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

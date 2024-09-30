@@ -28,18 +28,37 @@
 <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
 
 <script>
-        var apiUrlCrypto = "{{ url('/crypto.json') }}";
-        var apiUrlForex = "{{ url('/forex.json') }}";
-        var apiUrlIndisis = "{{ url('/indisis.json') }}";
-        
-        var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
-        var apiUrlTesla = "{{ url('/tesla.json') }}";
-        var apiUrlAmazon = "{{ url('/amazon.json') }}";
-        var apiUrlSolana = "{{ url('/solana.json') }}";
+    var apiUrlCrypto = "{{ url('/crypto.json') }}";
+    var apiUrlForex = "{{ url('/forex.json') }}";
+    var apiUrlIndisis = "{{ url('/indisis.json') }}";
 
-
-        var countries = @json(array_values(config('countries')));
-    </script>
+    var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
+    var apiUrlTesla = "{{ url('/tesla.json') }}";
+    var apiUrlAmazon = "{{ url('/amazon.json') }}";
+    var apiUrlSolana = "{{ url('/solana.json') }}";
+    const countries = [
+        "Luxembourg",
+        "Switzerland",
+        "Ireland",
+        "Norway",
+        "Qatar",
+        "Iceland",
+        "United States",
+        "Denmark",
+        "Singapore",
+        "Australia",
+        "Sweden",
+        "Netherlands",
+        "Austria",
+        "Finland",
+        "Germany",
+        "Canada",
+        "Belgium",
+        "United Arab Emirates",
+        "New Zealand",
+        "Japan"
+    ];
+</script>
 
 <!-- jQuery added here ================ -->
 <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>

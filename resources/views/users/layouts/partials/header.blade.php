@@ -79,7 +79,7 @@
 
                         <dl class="dropdown-menu d-flex flex-column">
                             <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ $user_plan }}</span> </dt>
-                            <dt class="dropdown-item">Account Profit : <span class="user-plan-name"><b>${{ number_format ( $account_profit ) }}</b></span> </dt>
+                            <dt class="dropdown-item">Account Profit : <span class="user-plan-name"  style="color: #3AAC1A"><b>${{ number_format ( $account_profit ) }}</b></span> </dt>
 
                             <!-- <dt class="dropdown-item">
                                 <div class="account-status-header d-flex align-items-center g-10">
