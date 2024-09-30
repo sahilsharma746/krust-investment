@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex flex-wrap justify-content-between align-items-start r-g-10">
             <div class="logo-area d-flex align-items-center g-4">
-                <img src="./assets/img/site-logo-footer.png" alt="Site Logo" class="site-logo">
+                <img src="{{ asset('assets/img/site-logo-footer.png') }}" alt="Site Logo" class="site-logo">
                 <span class="site-name">Krust-Markets</span>
             </div>
             <div class="subscribe-area">

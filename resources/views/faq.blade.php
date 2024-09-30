@@ -46,10 +46,10 @@
                     </div>
                     <div class="card mx-auto">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <span>Can I start trading with just $50?</span>
+                            <span>Can I start trading with just $250?</span>
                             <a class="btn-collapse"><i class="fa-solid fa-plus"></i></a>
                         </div>
-                        <div class="card-body">No. Our minimum deposit is $250 so as to allow you explore different
+                        <div class="card-body">No. Our minimum deposit is $1000 so as to allow you explore different
                             markets and strategies on our platform without
                             committing too much capital.</div>
                     </div>
