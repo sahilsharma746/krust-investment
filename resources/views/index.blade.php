@@ -119,7 +119,7 @@
     <div id="profit-popup" class="popup">
         <button style="visibility: hidden" class="popup-close" onclick="closePopup()">x</button>
         <ul>
-            <li>Someone from Greece has withdrawn <span class="amount">$15,000</span></li>
+            <li id="popup-message">Someone from <span id="popup-country"></span> has withdrawn <span class="amount" id="amount"></span></li>
         </ul>
     </div>
 

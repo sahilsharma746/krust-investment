@@ -139,12 +139,13 @@
                 <div class="clear-fix"></div>
                 <div class="area-title">Deposit History</div>
                 <div class="deposit-table-area table-area scroll">
+
                     <table class="deposit-table w-100">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
-                                <th>Payment Method</th>R
+                                <th>Payment Method</th>
                                 <th>Wallet Address</th>
                                 <th>Address Tag</th>
                                 <th>Currency</th>

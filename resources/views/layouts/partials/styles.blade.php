@@ -36,6 +36,9 @@
         var apiUrlTesla = "{{ url('/tesla.json') }}";
         var apiUrlAmazon = "{{ url('/amazon.json') }}";
         var apiUrlSolana = "{{ url('/solana.json') }}";
+
+
+        var countries = @json(array_values(config('countries')));
     </script>
 
 <!-- jQuery added here ================ -->

@@ -78,7 +78,7 @@ class UserTradeController extends Controller
         $trade_result_percentage = $validate_data['trade_result_percentage'];
         $contract_size = $request->contract_size;
 
-        $trade_win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
+        $win_loss_amount = ($trade_result_percentage / 100) * $contract_size;
         $amount = $request->amount;
         $user_balance =  $user->balance;
         $total_user_balance = $user_balance - $amount ;
@@ -88,16 +88,13 @@ class UserTradeController extends Controller
         ]);
         
         if($user_trade_result == 'win'){
-            $winloss_amount =  $amount + ($trade_win_loss_amount);
+            $trade_result_amount =  $amount + ($win_loss_amount);
         } else {
-            $winloss_amount = $amount - ($trade_win_loss_amount);
+            $trade_result_amount = $amount - ($win_loss_amount);
         }
-        
-        if ( $request->image) {
-            $image = $request->image; 
-        } else {
-            $image = 'no_image.png'; 
-        }
+
+        $trade_win_loss_amount = abs($trade_result_amount) - abs($win_loss_amount);
+        $image = ( $request->image) ? $request->image : 'no_image.png'; 
 
         $data = [
             'user_id' => auth()->user()->id,
@@ -109,18 +106,16 @@ class UserTradeController extends Controller
             'trade_type' => 'live',
             'entry' => (float)$request->price,
             'units' => (float)$request->units,
-            'pnl' => (float)$winloss_amount,
+            'pnl' => (float)$trade_result_amount,
             'fees' => (float)$request->fees,
             'order_type' => $request->action,
             'time_frame' => $request->time_frame,
             'trade_result' => $user_trade_result,
-            'trade_win_loss_amount'=> (float)$trade_win_loss_amount,
             'admin_trade_result_percentage' => (float)$request->trade_result_percentage, 
             'image'=>   $image,
             'created_at' => date('Y-m-d h:i:s'), 
             'updated_at' => date('Y-m-d h:i:s')
         ];
-
 
         $trade = Trade::create( $data);
 

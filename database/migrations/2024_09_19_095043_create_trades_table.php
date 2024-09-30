@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('time_frame'); 
             $table->string('trade_result');
             $table->float('admin_trade_result_percentage', 8, 2);  // Changed from decimal to float (8,2 for percentage precision)
-            $table->float('trade_win_loss_amount', 10, 10);  // Changed from decimal to float
+            // $table->float('trade_win_loss_amount', 10, 10);  // Changed from decimal to float
             $table->tinyInteger('processed');
             $table->tinyInteger('status');
             $table->string('image');
