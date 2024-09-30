@@ -386,7 +386,7 @@ function show_crypto_assets_marketwacth(apiUrl) {
         table_row_html += "<td>" + pair.market_cap.toLocaleString() + "</td>";
         table_row_html +=
           "<td>" + pair.fully_diluted_valuation.toLocaleString() + "</td>";
-        table_row_html += "<td>" + pair.current_price.toFixed(2) + "</td>";
+        // table_row_html += "<td>" + pair.current_price.toFixed(2) + "</td>";
         table_row_html += "<td>" + pair.total_volume.toLocaleString() + "</td>";
         table_row_html +=
           "<td>" + pair.circulating_supply.toLocaleString() + "</td>";

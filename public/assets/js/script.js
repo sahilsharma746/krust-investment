@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     //* header marquee script start =============
     try {
         const qtyOfElement = Math.floor($('.marquee').width() / 200) + 1;
@@ -16,7 +17,6 @@ $(document).ready(function () {
     } catch (error) {
         console.warn(error);
     } 
-
     //? header marquee script end =============
 
     //* user left navigation active script start =======
@@ -25,11 +25,13 @@ $(document).ready(function () {
         $('.navigation-area .nav-main').addClass('active');
         $('body').addClass('overflowY-hidden');
     };
+
     const leftNavClose = () => {
         $('.main-header #btn-nav-toggle').removeClass('nav-displayed');
         $('.navigation-area .nav-main').removeClass('active');
         $('body').removeClass('overflowY-hidden');
     };
+
     $(document).on('click', '.main-header #btn-nav-toggle', function () {
         if ($(this).hasClass('nav-displayed')) {
             leftNavClose();
@@ -37,6 +39,7 @@ $(document).ready(function () {
             leftNavOpen();
         }
     });
+
     $(document).on(
         'click',
         '.navigation-area nav.nav-main:not(dl > *)',
@@ -56,21 +59,6 @@ $(document).ready(function () {
             $(`#${inputId}`).attr('type', 'password');
         }
     });
-
-    // typeof NiceSelect !== 'undefined' &&
-    //     NiceSelect.bind &&
-    //     $.each($('select'), function (index, selector) {
-    //         const id = $(selector).attr('id');
-    //         const searchable = $(selector).attr('searchable');
-    //         const options = {
-    //             searchable: searchable == 'true' || false,
-    //             placeholder: 'select',
-    //             searchtext: 'Search',
-    //             selectedtext: 'geselecteerd',
-    //         };
-
-    //         NiceSelect.bind(document.getElementById(id), options);
-    //     });
 
     $(document).on('click', '.faq-section .btn-collapse', function () {
         $(this)
@@ -139,12 +127,28 @@ $(document).ready(function () {
         });
     }
 
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    
-
-    document.getElementById('time-zone').value = timezone;
-
-    console.log('User timezone set to:', timezone);
-
+    if( $('.time-zone').length > 0 ) {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('time-zone').value = timezone;
+    }
 
 });
+
+
+function showPopup() {
+    document.getElementById('profit-popup').style.display = 'block';
+    setTimeout(closePopup, 10000);  // Auto-close after 10 seconds
+}
+
+function closePopup() {
+    document.getElementById('profit-popup').style.display = 'none';
+}
+
+// Optionally, trigger popup when page loads
+window.onload = function() {
+    if( jQuery('#profit-popup').length > 0 ) {
+        // Show popup every 30 seconds
+        setInterval(showPopup, 30000);
+    }
+    showPopup();
+};

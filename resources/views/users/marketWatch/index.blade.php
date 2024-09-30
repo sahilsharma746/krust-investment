@@ -1,6 +1,6 @@
 @extends('users.layouts.app_user')
 @section('content')
-    <article class="tab-content trade-article">
+    <article class="tab-content trade-article" style="overflow: auto">
             <section id="trade-and-market-common-grid" class="trade-and-market-common-grid d-grid">
                 <div class="card trade-and-market-common-card">
                     <div class="card-header">
@@ -37,14 +37,14 @@
                     </div>
                 </div>
 
-                <div id="user-market-watch-area" class="user-market-watch-area w-100">
-                    <div class="user-market-watch-table-area table-area scroll w-100">
+                <div id="user-market-watch-area" class="user-market-watch-area w-100" style="max-height: fit-content;">
+                    <div class="user-market-watch-table-area table-area scroll w-100" style="max-height: fit-content;">
                         <table class="user-market-watch-table w-100">
                             <thead>
                                 <tr>
                                     <th>Asset</th>
                                     <th>Market Cap</th>
-                                    <th>FD Market Cap</th>
+                                    <!-- <th>FD Market Cap</th> -->
                                     <th>Price</th>
                                     <th>Traded Volume</th>
                                     <th>Available Volume</th>

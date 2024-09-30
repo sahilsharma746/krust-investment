@@ -45,6 +45,7 @@ class FrontendController extends Controller
             ->select('user_account_types.id as plan_id', 'user_account_types.name', 'user_account_types.price',
                      'user_account_types_features.feature_description', 'user_account_types_features.feature_order', 
                      'user_account_types_features.feature_available')
+            ->orderBy('user_account_types.id')  // Add this line to order by 'id'
             ->get();
 
         $plans = $plan_with_features->groupBy('plan_id');

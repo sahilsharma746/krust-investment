@@ -82,8 +82,8 @@ $(document).ready(function () {
         });
     };
 
-    if (!jQuery('.all-admin-table-no-data').length) {
-    // if (jQuery('.all-user-table-no-data').length === 0) {
+    // if (jQuery('.all-admin-table-no-data').length) {
+    if (jQuery('.all-user-table-no-data').length === 0) {
             const tableAllUserTable = new DataTable('#all-admin-table', {
             initComplete: function () {
                 // Access the search input field and set a placeholder
@@ -300,14 +300,3 @@ function updateLabel() {
     // Change the label text based on the selected trade result
     percentageLabel.innerText = "Percentage " + tradeResult + " %";
   }
-
-
-  document.querySelectorAll('.trade_reult_margin_btn').forEach(button => {
-    button.addEventListener('click', function () {
-        this.classList.toggle('selected');
-        
-        // Optional: Store selected values
-        const selectedValues = Array.from(document.querySelectorAll('.margin-btn.selected')).map(btn => btn.value);
-        console.log('Selected margins:', selectedValues);
-    });
-});

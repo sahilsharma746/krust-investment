@@ -30,11 +30,13 @@ class UserUpgradeController extends Controller
     
     public function index(){
         $user = Auth::user();
+       
         $plan_with_features = DB::table('user_account_types')
             ->leftJoin('user_account_types_features', 'user_account_types.id', '=', 'user_account_types_features.plan_id')
             ->select('user_account_types.id as plan_id', 'user_account_types.name', 'user_account_types.price',
                      'user_account_types_features.feature_description', 'user_account_types_features.feature_order', 
                      'user_account_types_features.feature_available')
+            ->orderBy('user_account_types.id')  // Add this line to order by 'id'
             ->get();
 
         $plans = $plan_with_features->groupBy('plan_id');

@@ -100,12 +100,12 @@ class UserHomeController extends Controller
         $full_data['totalAmount'] = Trade::where('user_id', $user->id)->sum('capital');
         
         $full_data['totalWinAmount'] = Trade::where('user_id', $user->id)
-            ->where('trade_result', 'win')
-            ->sum('trade_win_loss_amount');
+                                            ->where('trade_result', 'win')
+                                            ->sum('pnl');
         
         $full_data['totalLossAmount'] = Trade::where('user_id', $user->id)
-            ->where('trade_result', 'loss')
-            ->sum('trade_win_loss_amount');
+                                        ->where('trade_result', 'loss')
+                                        ->sum('pnl');
 
         $totalWinLoss = $full_data['totalWinAmount'] + $full_data['totalLossAmount'];
 
@@ -132,9 +132,6 @@ class UserHomeController extends Controller
             $full_data['winPercentage'] = 0;
         }
         $full_data['winPercentage'] = number_format($full_data['winPercentage'], 2) ;
-
-        
-
 
         return view('users.index', compact('full_data','kycTypes'));
     }

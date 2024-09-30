@@ -720,3 +720,31 @@ section.faq-section .card-collapsible-group .card .card-body {
   padding-top: 10px;
   display: none;
 }
+
+div#profit-popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+    border-image: linear-gradient(90deg, #171f2c, #3aa31a, #171f2c) 1;
+    box-shadow: 0 2px 8px 0 rgba(23, 31, 44, 0.1490196078);
+}
+
+div#profit-popup .popup-close {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+}
+
+div#profit-popup ul li::marker {
+  color: var(--primary-color);
+  font-size: 22px;
+}

@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Crust-Markets | Home Page 2</title>
+<title>Krust-Markets | Home Page </title>
 <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
 <meta name="description" content="Open up a world of possibilities with Krust Investments">
 <meta name="keywords" content="Investments, krust, trade">

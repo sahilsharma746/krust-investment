@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Crust-Markets | Admin</title>
+    <title>Krust-Markets | Admin</title>
     <link rel="icon" href="{{ asset('assets') }}/img/site-logo.png">
     <meta name="description" content="Open up a world of possibilities with Krust Investments">
     <meta name="keywords" content="Investments, krust, trade">
@@ -52,7 +52,7 @@
                 <div>
                     <a href="{{ route('home') }}" class="logo-area d-flex align-items-center g-4">
                         <img src="{{ asset('assets') }}/img/site-logo.png" alt="Site Logo" class="site-logo">
-                        <span class="site-name">Crust-Markets</span>
+                        <span class="site-name">Krust-Markets</span>
                     </a>
                     <div class="account-status-header d-flex align-items-center g-15" >
                         <span class="dot"></span>
@@ -79,14 +79,16 @@
 
                         <dl class="dropdown-menu d-flex flex-column">
                             <dt class="dropdown-item">Current Plan: <span class="user-plan-name">{{ $user_plan }}</span> </dt>
-                            <dt class="dropdown-item">
+                            <dt class="dropdown-item">Account Profit : <span class="user-plan-name"><b>${{ number_format ( $account_profit ) }}</b></span> </dt>
+
+                            <!-- <dt class="dropdown-item">
                                 <div class="account-status-header d-flex align-items-center g-10">
                                     <span class="account-status text-primary">Profit</span>
                                 </div>
                                 <div class="account-amount-header">
                                     ${{ number_format(auth()->user()->balance) }}
                                 </div>
-                            </dt>
+                            </dt> -->
                             <dt class="dropdown-item">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i>

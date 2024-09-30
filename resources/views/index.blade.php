@@ -1,9 +1,8 @@
 @extends('layouts.app')
 @section('styles')
-
 @endsection
 @section('content')
-<main>
+    <main>
         <section class="hero-section-2">
             <div class="container">
                 <div class="d-flex flex-wrap">
@@ -33,7 +32,7 @@
                         <span class="text d-inline-block">Leverage Up To</span>
                     </div>
                     <div class="item">
-                        <span value="100" startWith="$">$100</span>
+                        <span value="1000" startWith="$">$1000</span>
                         <span class="text d-inline-block">minimum deposit</span>
                     </div>
                     <div class="item">
@@ -91,11 +90,6 @@
                                 their accounts.
                                 Explore our platforms vast trading tools and markets to get started.</div>
                             <a href="" class="btn w-max">Start Trading Today</a>
-                            <div class="card-footer">
-                                <ul>
-                                    <li>Someone from Greece has withdrawn <span class="amount">&15,000</span></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -120,13 +114,17 @@
                 </div>
             </div>
         </section>
-
-
-
     </main>
+
+    <div id="profit-popup" class="popup">
+        <button style="visibility: hidden" class="popup-close" onclick="closePopup()">x</button>
+        <ul>
+            <li>Someone from Greece has withdrawn <span class="amount">$15,000</span></li>
+        </ul>
+    </div>
+
 @endsection
 @section('scripts')
-
 @endsection
 
 

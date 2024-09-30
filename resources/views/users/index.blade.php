@@ -20,7 +20,7 @@
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
                             <div class="amount">${{ number_format(auth()->user()->balance) }}</div>
                         </div>
-                        <div class="card-status d-flex align-items-center g-3 text-primary">
+                        <div class="card-status d-flex align-items-center g-3 {{ $full_data['usertotoalpercentage'] > 0 ? 'text-primary' : 'text-danger' }}">
                             <div class="percentage">{{ $full_data['usertotoalpercentage'] }}%</div>
                             <span class="status {{($full_data['usertotoalpercentage'] > 0) ? 'up' : 'down'}}">
                                 <i class="fa-solid {{ ($full_data['usertotoalpercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down' }}"></i>
@@ -31,7 +31,7 @@
                         <div class="card-title">Total Deposit</div>
                         <div class="card-price d-flex align-items-center g-8">
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
-                            <div class="amount">${{ $full_data['total_deposit'] }}</div>
+                            <div class="amount">${{ number_format( $full_data['total_deposit'] ) }}</div>
                         </div>
                     </div>
                     <div class="card d-grid g-4">
@@ -40,11 +40,11 @@
                             <img src="{{ asset('assets/img/flag-eur.png') }}" alt="Eur currency">
                             <div class="amount">{{ $full_data['totalWinTradesCount']}}/{{$full_data['totalTradesCount']}}</div>
                         </div>
-                        <div class="card-status d-flex align-items-center g-4 text-danger-2">
-                        <div class="percentage">{{$full_data['winPercentage']}}</div>
-                            <span class="status {{($full_data['winPercentage'] > 0) ? 'up' : 'down'}}">
-                                <i class="fa-solid {{($full_data['winPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
-                            </span>
+                        <div class="card-status d-flex align-items-center g-4 {{ $full_data['winPercentage'] > 0 ? 'text-primary' : 'text-danger' }}">
+                            <div class="percentage">{{ $full_data['winPercentage'] }}</div>
+                                <span class="status {{($full_data['winPercentage'] > 0) ? 'up' : 'down'}}">
+                                    <i class="fa-solid {{($full_data['winPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -122,13 +122,13 @@
                         <div class="card-title">Profit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">{{$full_data['totalWinAmount']}}</span>
+                            <span class="amount">{{ number_format( $full_data['totalWinAmount'] ) }}</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-primary">
+                    <div class="card-status d-flex align-items-center g-4 {{ $full_data['win_percentage'] > 0 ? 'text-primary' : 'text-danger' }}">
                         <div class="percentage">{{$full_data['win_percentage']}}%</div>
                         <span class="status up">
-                            <i class="fa-solid fa-arrow-up"></i>
+                        <i class="fa-solid {{($full_data['win_percentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                         </span>
                     </div>
                 </div>
@@ -138,13 +138,13 @@
                         <div class="card-title">Loss</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">{{$full_data['totalLossAmount']}}</span>
+                            <span class="amount">{{ number_format ( $full_data['totalLossAmount'] ) }}</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-danger">
+                    <div class="card-status d-flex align-items-center g-4 {{ $full_data['loss_percentage'] > 0 ? 'text-primary' : 'text-danger' }}">
                         <div class="percentage">{{  $full_data['loss_percentage']}}%</div>
                         <span class="status">
-                            <i class="fa-solid fa-arrow-down"></i>
+                            <i class="fa-solid {{($full_data['loss_percentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                         </span>
                     </div>
                 </div>
@@ -154,13 +154,13 @@
                         <div class="card-title">Loan</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">{{$full_data['totalAdminLoanDeposits']}}</span>
+                            <span class="amount">{{ number_format($full_data['totalAdminLoanDeposits']) }}</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-primary">
+                    <div class="card-status d-flex align-items-center g-4 {{ $full_data['adminLoanPercentage'] > 0 ? 'text-primary' : 'text-danger' }}">
                         <div class="percentage">{{ $full_data['adminLoanPercentage']}}%</div>
                         <span class="status">
-                            <i class="fa-solid fa-arrow-up"></i>
+                            <i class="fa-solid {{($full_data['adminLoanPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                         </span>
                     </div>
                 </div>
@@ -170,13 +170,13 @@
                         <div class="card-title">Credit</div>
                         <div class="card-price">
                             <span>USD</span>
-                            <span class="amount">{{$full_data['totalAdminCreditDeposits']}}</span>
+                            <span class="amount">{{ number_format( $full_data['totalAdminCreditDeposits'] ) }}</span>
                         </div>
                     </div>
-                    <div class="card-status d-flex align-items-center g-4 text-danger">
+                    <div class="card-status d-flex align-items-center g-4 {{ $full_data['adminCreditPercentage'] > 0 ? 'text-primary' : 'text-danger' }}">
                         <div class="percentage">{{$full_data['adminCreditPercentage']}}%</div>
                         <span class="status">
-                            <i class="fa-solid fa-arrow-down"></i>
+                            <i class="fa-solid {{( $full_data['adminCreditPercentage'] > 0) ? 'fa-arrow-up' : 'fa-arrow-down'}}"></i>
                         </span>
                     </div>
                 </div>
