@@ -6,7 +6,7 @@
 <script src="{{ asset('assets') }}/js/site-common.js"></script>
 <script src="{{ asset('assets') }}/js/script.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-@if (session('forgot_password_clicked'))
+@if (session('success'))
     <script>
         swal("Good job!", "Your reset password email has been sent to you, Check your inbox and follow the instructions provided!", "success");
     </script>
