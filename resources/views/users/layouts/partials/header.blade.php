@@ -16,11 +16,6 @@
         var apiUrlForex = "{{ url('/forex.json') }}";
         var apiUrlIndisis = "{{ url('/indisis.json') }}";
 
-        var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
-        var apiUrlEthereum = "{{ url('/ethereum.json') }}";
-        var apiUrlTether = "{{ url('/tether.json') }}";
-        var apiUrlSolana = "{{ url('/solana.json') }}";
-
     </script>
         
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
