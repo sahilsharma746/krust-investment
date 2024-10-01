@@ -19,8 +19,6 @@ jQuery(document).ready(function () {
     var tradeCreatedDate = new Date(trade_created);
     var currentDateTime = new Date(current_date_time);
 
-    console.log( tradeCreatedDate );
-    console.log( currentDateTime );
 
     // Calculate the time difference between the current time and the trade created time
     var timeDifference = currentDateTime - tradeCreatedDate;
@@ -59,10 +57,9 @@ jQuery(document).ready(function () {
             break;
     }
 
-    console.log( timeFrameInMilliseconds );
-
     var sign = (pnl_value < 0) ? '-' : '+';
     pnl_value = Math.abs(pnl_value);
+
 
     // Calculate remaining time
     var remainingTime = timeFrameInMilliseconds - timeDifference;
@@ -98,7 +95,8 @@ jQuery(document).ready(function () {
     var interval = setInterval(function () {
       remainingTime -= 1000; 
   
-      var formattedTime = formatRemainingTime(remainingTime);
+      // var formattedTime = formatRemainingTime(remainingTime);
+      var formattedTime = formatTime(remainingTime);
       timeDisplayElement.text(formattedTime);
   
       if (remainingTime <= 0) {
@@ -146,6 +144,9 @@ jQuery(document).ready(function () {
             let randomIncrement = increments[Math.floor(Math.random() * increments.length)];
             currentPnl += randomIncrement;
 
+
+
+
             if( currentPnl >= pnl_value ) {
                currentPnl = getRandomInRange(pnl_value - 20, pnl_value); 
             }
@@ -156,9 +157,9 @@ jQuery(document).ready(function () {
                 clearInterval(interval); // Stop updating
                 timeDisplayElement.text('00:00'); // Ensure to show '00:00' when finished
             }
-            
 
-            $(this).find('.trade_pnl_value .amount').text(currentPnl.toFixed(2)); // Update the PnL value in the UI
+
+            $(this).find('.trade_pnl_value .amount').text( Math.abs(currentPnl.toFixed(2))); // Update the PnL value in the UI
             (sign == '-') ? $(this).find('.trade_pnl_value').css('color', '#F32524') : $(this).find('.trade_pnl_value').css('color', '#3AA31A');
 
         }.bind(this), updateInterval); // Bind 'this' to access the current row context in the interval
@@ -200,7 +201,6 @@ jQuery(document).on(
     let assetPrice = jQuery(this).find("span").data("price"); 
     let assetImage = jQuery(this).find("span").data("image");
 
-    console.log( assetImage );
 
     // trade_logic();
     jQuery(".user-trade-chart-filter .selected-asset").find(".name").text(name);

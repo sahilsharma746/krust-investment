@@ -49,6 +49,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="company-trade-percentage-card-group d-grid">
                 <div class="card d-grid align-items-center bitcoin-dashboard-data">
                     <img src="{{ asset('assets/img/bitcoin.png') }}" alt="company logo">
@@ -115,6 +117,8 @@
                     </div>
                 </div>
             </div>
+
+            
             <div class="company-trade-percentage-card-group d-grid">
                 <div class="card d-grid align-items-center">
                     <img src="{{ asset('assets/img/profit.png') }}" alt="company logo">

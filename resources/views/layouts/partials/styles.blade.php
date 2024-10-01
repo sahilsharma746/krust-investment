@@ -32,10 +32,6 @@
     var apiUrlForex = "{{ url('/forex.json') }}";
     var apiUrlIndisis = "{{ url('/indisis.json') }}";
 
-    var apiUrlBitcoin = "{{ url('/bitcoin.json') }}";
-    var apiUrlTesla = "{{ url('/tesla.json') }}";
-    var apiUrlAmazon = "{{ url('/amazon.json') }}";
-    var apiUrlSolana = "{{ url('/solana.json') }}";
     const countries = [
         "Luxembourg",
         "Switzerland",

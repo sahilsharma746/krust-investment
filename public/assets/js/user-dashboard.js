@@ -302,56 +302,44 @@ jQuery(document).on( 'click',  '.confirm-deposit-success', function() {
 
 
 
-
-
 jQuery(document).ready(function() {
-    function fetchCryptoData(apiUrl, selector) {
-        if (jQuery(selector).length > 0) {
-            fetch(apiUrl)
-                .then((response) => response.text())  // Get raw text response
-                .then((data) => {
-                    // Attempt to parse JSON safely
-                    try {
-                        const jsonData = JSON.parse(data);
-                        
-                        // Format current price with commas
-                        const formattedPrice = Number(jsonData[0].current_price.toFixed(2)).toLocaleString();
-                        jQuery(selector).find('.amount').text(formattedPrice);
+    function fetchCryptoData(apiUrl, cryptoNames) {
+        fetch(apiUrl)
+            .then(response => response.json())  // Convert response to JSON
+            .then(jsonData => {
+                // Filter only the specified cryptocurrencies
+                const filteredData = jsonData.filter(item => cryptoNames.includes(item.name.toLowerCase()));
 
-                        // Update percentage data
-                        var percentageData = '<div>';
-                            percentageData += jsonData[0].price_change_percentage_24h.toFixed(2);
-                            percentageData += '%</div>';
-                            percentageData += '<span class="status"><i class="fa-solid ' + 
-                            (jsonData[0].price_change_percentage_24h >= 0 ? 'fa-arrow-up' : 'fa-arrow-down') + 
-                            '"></i></span>';
-                        
-                        jQuery(selector).find('.percentage-data').html(percentageData);
+                filteredData.forEach(cryptoData => {
+                    // Select the corresponding card based on the crypto name
+                    const selector = `.${cryptoData.name.toLowerCase()}-dashboard-data`;
 
-                        // Add class for percentage data based on positive/negative change
-                        const percentageDataClass = (jsonData[0].price_change_percentage_24h >= 0 ? 'text-primary' : 'text-danger');
-                        jQuery(selector).find('.percentage-data').addClass(percentageDataClass);
+                    // Format current price with commas
+                    const formattedPrice = Number(cryptoData.current_price.toFixed(2)).toLocaleString();
+                    jQuery(selector).find('.amount').text(formattedPrice);
 
-                    } catch (e) {
-                        console.error("Error parsing JSON:", e.message);
-                    }
-                })
-                .catch((error) => console.error("Error fetching data from " + apiUrl + ":", error));
-        }
+                    // Update percentage data
+                    const percentage = cryptoData.price_change_percentage_24h.toFixed(2);
+                    const percentageData = `${percentage}%`;
+                    jQuery(selector).find('.percentage').text(percentageData);
+
+                    // Add arrow up/down and class based on positive/negative percentage
+                    const arrowIcon = (cryptoData.price_change_percentage_24h >= 0) ? 'fa-arrow-up' : 'fa-arrow-down';
+                    const statusClass = (cryptoData.price_change_percentage_24h >= 0) ? 'text-primary' : 'text-danger';
+
+                    // Update arrow icon and class
+                    jQuery(selector).find('.status i').removeClass('fa-arrow-up fa-arrow-down').addClass(arrowIcon);
+                    jQuery(selector).find('.percentage-data').removeClass('text-primary text-danger').addClass(statusClass);
+                });
+            })
+            .catch(error => console.error("Error fetching data:", error));
     }
 
-    // Fetch Bitcoin data
-    fetchCryptoData(apiUrlBitcoin, '.bitcoin-dashboard-data');
+    // Specify the cryptocurrencies you want to fetch
+    var cryptoNames = ['bitcoin', 'ethereum', 'solana', 'tether'];
 
-    // Fetch Ethereum data
-    fetchCryptoData(apiUrlEthereum, '.ethereum-dashboard-data');
-
-    // Fetch Solana data
-    fetchCryptoData(apiUrlSolana, '.solana-dashboard-data');
-
-    // Fetch Tether data
-    fetchCryptoData(apiUrlTether, '.tether-dashboard-data');
+    // Fetch and update the data for the specified cryptocurrencies
+    fetchCryptoData(apiUrlCrypto, cryptoNames);
 });
-
 
 
