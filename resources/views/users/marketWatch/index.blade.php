@@ -8,33 +8,32 @@
                     <a href="{{ route('user.marketWatch.index') }}" class="btn-tab active">Market Watch</a>
                     </div>
                     <div class="card-body">
-                        <div class="trade-and-market-common-table-area " id="market-watch-common-table-area">
-                            <div class="input-group search-input-group">
-                                <input id="searchTableAssets" class="form-control search-input" type="search"
-                                    placeholder="Search for assets etc...">
-                                <label for="searchTableAssets" class="search-icon"><i
-                                        class="fa-solid fa-magnifying-glass"></i></label>
-                            </div>
+                        <div class="trade-and-market-common-table-area" id="market-watch-common-table-area">
+                          <div class="input-group search-input-group">
+                            <input id="searchTableAssetsMarketWatch" class="form-control search-input" type="search" placeholder="Search for assets etc...">
+                            <label for="searchTableAssetsMarketWatch" class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></label>
+                          </div>
                         </div>
                         <div class="market-watch-table-indicators scroll">
-                            {{-- <a href="#user-market-watch-table-forex" class="btn active">
-                                <span>Forex</span>
-                                <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a> --}}
-                            <a href="#user-market-watch-table-crypto" class="btn active">
-                                <span>Crypto</span>
-                                <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a>
-                            {{-- <a href="#user-market-watch-table-indicies" class="btn">
-                                <span>Indices</span>
-                                <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a>
-                            <a href="#user-market-watch-table-futures" class="btn">
-                                <span>Futures</span>
-                                <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
-                            </a> --}}
+                          <a href="#user-market-watch-table-crypto" class="btn trade-type active" data-type="crypto">
+                            <span>Crypto</span>
+                            <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                          </a>
+                          {{-- <a href="#user-market-watch-table-forex" class="btn" data-type="forex">
+                            <span>Forex</span>
+                            <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                          </a>
+                          <a href="#user-market-watch-table-indices" class="btn" data-type="indices">
+                            <span>Indices</span>
+                            <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                          </a>
+                          <a href="#user-market-watch-table-futures" class="btn" data-type="futures">
+                            <span>Futures</span>
+                            <span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                          </a> --}}
                         </div>
-                    </div>
+                      </div>
+                      
                 </div>
 
                 <div id="user-market-watch-area" class="user-market-watch-area w-100" style="max-height: fit-content;">

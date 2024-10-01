@@ -23,7 +23,7 @@
 
         <li class="nav-item {{ Request::url() == route('users.trading-history.index') ? 'active' : '' }}">
             <a href="{{ route('users.trading-history.index') }}">
-                <i class="fa-solid fa-list-ul"></i>
+                <i class="fa-solid fa-clock-rotate-left"></i>
                 <span>Trading History</span>
             </a>
         </li>
