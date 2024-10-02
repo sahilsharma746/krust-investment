@@ -202,7 +202,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function () {
     
      // admin balance update post request handle
     Route::post('/update-balance/{user}', [AdminUserController::class, 'updateBalance'])->name('admin.user.updateBalance');
-        
+
     //subtract the amoun from user accoun by admin
     Route::post('/subtract-balanace/{user}', [AdminUserController::class, 'AddsubtractBlanace'])->name('admin.user.AddsubtractBlanace');
     
