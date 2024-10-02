@@ -20,6 +20,7 @@ class Trade extends Model
         'trade_type',
         'entry',
         'pnl',
+        'units',
         'order_type',
         'time_frame',
         'trade_result',

@@ -39,7 +39,6 @@ Route::get('/reboot', function () {
     Artisan::call('config:cache');
     Artisan::call('view:cache');
     // composer dump-autoload
-    dd('Done');
 });
 
 Route::get('/send-test-email', function () {

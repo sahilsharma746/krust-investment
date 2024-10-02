@@ -39,12 +39,7 @@ class HomeController extends Controller
     {
 
         \Log::info('Request received', $request->all());
-        dd($request);
-
 
     }
-
-
-
 
 }

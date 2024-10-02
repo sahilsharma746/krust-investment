@@ -280,3 +280,118 @@
 [02-Oct-2024 09:57:09 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
 [02-Oct-2024 09:57:09 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
 [02-Oct-2024 09:57:09 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[02-Oct-2024 11:02:59 UTC] PHP Warning:  require(/home/krusrlwp/staging/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:02:59 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/krusrlwp/staging/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/krusrlwp/staging/public/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:11 UTC] PHP Warning:  require(/home/krusrlwp/staging/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:11 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/krusrlwp/staging/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/krusrlwp/staging/public/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:15 UTC] PHP Warning:  require(/home/krusrlwp/staging/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/krusrlwp/staging/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/krusrlwp/staging/public/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:35 UTC] PHP Warning:  require(/home/krusrlwp/staging/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:35 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/krusrlwp/staging/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/krusrlwp/staging/public/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:40 UTC] PHP Warning:  require(/home/krusrlwp/staging/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:06:40 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/krusrlwp/staging/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/krusrlwp/staging/public/index.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/krusrlwp/staging/public/index.php on line 13
+[02-Oct-2024 11:09:25 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:12:55 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:07 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:18 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:29 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:30 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:36 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:13:53 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:14:00 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:14:13 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:14:33 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:15:07 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:15:07 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:15:28 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[02-Oct-2024 11:16:24 UTC] PHP Fatal error:  Uncaught BadMethodCallException: Method Illuminate\Foundation\Application::configure does not exist. in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php:86
+Stack trace:
+#0 /home/krusrlwp/staging/bootstrap/app.php(7): Illuminate\Foundation\Application::__callStatic()
+#1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
+#2 {main}
+  thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
