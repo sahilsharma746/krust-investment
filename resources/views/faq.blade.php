@@ -39,7 +39,7 @@
                             <a class="btn-collapse"><i class="fa-solid fa-plus"></i></a>
                         </div>
                         <div class="card-body">
-                            You can start trading with a minimum deposit of $250. This is to ensure you have enough
+                            You can start trading with a minimum deposit of $1000. This is to ensure you have enough
                             capital to make meaningful
                             trades and take full advantage of our platform’s features.
                         </div>
