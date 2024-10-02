@@ -38,7 +38,9 @@
                                     @endif
                                 @endforeach
                             </dl>
+                            <input type="hidden" name="planid" value="{{ $plan_id}}">
                             @if ($user->account_type == $plan_id)
+                            
                                 <button type="button" class="btn w-max">Your Current Account</button>
                             @else
                                 <a href="{{ route('user.upgrade.plan', $plan_id) }}" class="btn w-max">Upgrade Account</a>
