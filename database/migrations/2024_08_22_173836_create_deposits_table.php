@@ -24,6 +24,7 @@ return new class extends Migration
                 $table->enum('status', ['pending', 'approved', 'rejected','requested', 'deleted'])->default('pending');
                 $table->string('remarks')->nullable();
                 $table->string('deposit_by')->nullable();
+                $table->string('plan_id')->nullable();
                 $table->timestamps();
             });
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Deposit;
 use App\Models\UserSetting;
+use App\Models\UserAccountType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -61,27 +62,24 @@ class AdminDepositController extends Controller
         return view('admin.deposit.index', compact('deposits'));
     }
 
-
-
-
     public function approvedDepositStatus($id) {
         $data = Deposit::where('id', $id)->first();
         if ($data) {
+            $user = User::where('id', $data->user_id)->first();
             $data->update(['status' => 'approved']);
+
+            $this->user_setting->updatUserSetting('user_old_balance', $user_balance, $user->id);
+            $user->increment('balance', $data->amount);
+            
+            $plan_ids = UserAccountType::allPlansIds();
+            if( $data->plan_id && in_array($data->plan_id, $plan_ids) ){
+                $user->account_type = $data->plan_id; 
+            }
+            $user->save(); 
         }
-        $user = User::where('id', $data->user_id)->first();
-        
-        $user_balance = $user->balance;
-
-        $this->user_setting->updatUserSetting('user_old_balance', $user_balance , $user->id );
-
-        $user->increment('balance', $data->amount);
-
-
-
         return back()->with('success', 'Updated Successfully');
     }
-
+    
 
     public function rejectedDepositStatus($id) {
         $data = Deposit::where('id', $id)->first();

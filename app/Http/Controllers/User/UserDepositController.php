@@ -27,29 +27,32 @@ class UserDepositController extends Controller
     }
 
 
-    public function index( Request $request ) {
-
+    public function index(Request $request) {
         $plan_price = 0; 
-        if ( $request->plan_id ) {
+        $plan = null; 
+    
+        if ($request->plan_id) {
             $plan = UserAccountType::find($request->plan_id);
             if ($plan) {
-                $plan_price = $plan->price;
+                $plan_price = $plan->price; 
             }
         }
+    
         $user = Auth::user();
+    
         $deposits = Deposit::where('user_id', $user->id)
                             ->orderBy('created_at', 'desc')
                             ->get();
+    
         $getways = Getway::where('deposit', 'yes')
-                            ->whereNotIn('name', ['admin', 'admin_credit', 'admin_loan'])
-                            ->get();        
+                         ->whereNotIn('name', ['admin', 'admin_credit', 'admin_loan'])
+                         ->get();        
+    
         $user_settings = $this->user_setting->getUserAllSetting($user->id);
-
-
-
-        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings','plan_price',));
+    
+        return view('users.deposit.getway', compact('deposits', 'getways', 'user_settings', 'plan_price', 'plan'));
     }
-
+    
 
     public function storeUserDeposit(Request $request, $id) {
 
@@ -60,7 +63,8 @@ class UserDepositController extends Controller
             'wallet_address'=>'required',
             'address_tag'=>'required',
         ]);
-        
+        $plan_id = $request->plan_id ?? "NULL"; 
+
         $base_path = public_path('uploads/deposit_receipt/');
 
         $user_id = auth()->user()->id;
@@ -83,6 +87,7 @@ class UserDepositController extends Controller
             'address_tag'=>  $request->address_tag,
             'receipt' => $file_name,
             'deposit_by' => 'user',
+            'plan_id'=>$plan_id,
             'created_at' => Carbon::now()
         ]);
         
