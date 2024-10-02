@@ -35,8 +35,7 @@ class AppServiceProvider extends ServiceProvider
                                     ->where('trade_result', 'win')
                                     ->sum('pnl');
 
-                $plan_name = UserAccountType::select('name')->where('id', $user_data->account_type)->first();
-               
+                $plan_name = UserAccountType::select('name')->where('id', $user_data->account_type)->first();               
                 $view->with('user_plan', $plan_name->name);
                 $view->with('user_data', $user_data);
                 $view->with('account_profit',  $total_loan + $total_profit);

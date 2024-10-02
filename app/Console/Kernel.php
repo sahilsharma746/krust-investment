@@ -19,52 +19,39 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        ProcessedCompletedTrades::class,
-        UpdatedTradesStatus::class,
+        \App\Console\Commands\ProcessedCompletedTrades::class,
+        \App\Console\Commands\UpdatedTradesStatus::class,
     ];
     
 
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    // protected function schedule(Schedule $schedule)
-    // {
-    //     \Log::info('Scheduler running...');
-    
-    //     // Check if commands are being scheduled
-    //     \Log::info('Scheduling app:processed-completed-trades');
-    //     $schedule->command('app:processed-completed-trades')->everyMinute();
+    protected function schedule(Schedule $schedule){
+
+        throw new \Exception("Scheduler hit");
+
         
-    //     \Log::info('Scheduling app:updated-trades-status');
-    //     $schedule->command('app:updated-trades-status')->everyMinute();
-    // }
-    
 
-    protected function schedule(Schedule $schedule)
-{
-    \Log::info('Scheduler running...');
-    
-    $schedule->command('app:processed-completed-trades')
-        ->everyMinute()
-        ->before(function () {
-            \Log::info('Starting app:processed-completed-trades');
-        })
-        ->after(function () {
-            \Log::info('Finished app:processed-completed-trades');
-        });
+        \Log::info('Scheduler running...');
 
-    $schedule->command('app:updated-trades-status')
-        ->everyMinute()
-        ->before(function () {
-            \Log::info('Starting app:updated-trades-status');
-        })
-        ->after(function () {
-            \Log::info('Finished app:updated-trades-status');
-        });
-}
+        die("****");
+        
+        $schedule->command('app:processed-completed-trades')
+            ->everyMinute()
+            ->before(function () {
+                \Log::info('Starting app:processed-completed-trades');
+            })
+            ->after(function () {
+                \Log::info('Finished app:processed-completed-trades');
+            });
+
+        $schedule->command('app:updated-trades-status')
+            ->everyMinute()
+            ->before(function () {
+                \Log::info('Starting app:updated-trades-status');
+            })
+            ->after(function () {
+                \Log::info('Finished app:updated-trades-status');
+            });
+    }
 
     /**
      * Register the commands for the application.

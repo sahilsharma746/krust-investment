@@ -62,11 +62,11 @@ class UpdatedTradesStatus extends Command
              // Use match to determine the complete time based on the time unit
              $trade_complete_time = match ($time_unit) {
                  'minutes' => $trade_time->addMinutes($time_value),
-                 'hours' => $trade_time->addHours($time_value),
-                 'days' => $trade_time->addDays($time_value),
-                 'weeks' => $trade_time->addWeeks($time_value),
-                 'months' => $trade_time->addMonths($time_value),
-                 'years' => $trade_time->addYears($time_value),
+                 'hour', 'hours' => $trade_time->addHours($time_value),                 
+                 'day', 'days' => $trade_time->addDays($time_value),
+                 'week', 'weeks' => $trade_time->addWeeks($time_value),
+                 'month', 'months' => $trade_time->addMonths($time_value),
+                 'year' , 'years' => $trade_time->addYears($time_value),
                  default => null,
              };
      
