@@ -9,7 +9,7 @@
 
     <!-- admin script added here ======================= -->
     <script src="{{ asset('assets') }}/js/admin-layout.js"></script>
-    <script src="{{ asset('assets') }}/js/admin-script.js"></script>
+    <script src="{{ asset('assets') }}/js/admin-script.js?v={{ env('SITE_JS_VERSION') }}"></script>
 
     <!-- font added here (ital + Merriweather) ================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

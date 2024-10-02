@@ -82,8 +82,8 @@ $(document).ready(function () {
         });
     };
 
-    // if (jQuery('.all-admin-table-no-data').length) {
-    if (jQuery('.all-user-table-no-data').length === 0) {
+    if (jQuery('.all-admin-table-no-data').length == 0) {
+    // if (jQuery('.all-user-table-no-data').length === 0) {
             const tableAllUserTable = new DataTable('#all-admin-table', {
             initComplete: function () {
                 // Access the search input field and set a placeholder

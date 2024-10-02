@@ -592,7 +592,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="{{ route('admin.user.updateBalance', $full_data['user_data']->id) }}"
+                            <form action="{{ route('admin.user.AddsubtractBlanace', $full_data['user_data']->id) }}"                            
                                 method="POST">
                                 @csrf
                                 <div class="modal-body">
@@ -626,7 +626,7 @@
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
                             </div>
-                            <form action="{{ route('admin.user.updateBalance', $full_data['user_data']->id) }}"
+                            <form action="{{ route('admin.user.AddsubtractBlanace', $full_data['user_data']->id) }}"                            
                                 method="POST">
                                 @csrf
                                 <div class="modal-body">
