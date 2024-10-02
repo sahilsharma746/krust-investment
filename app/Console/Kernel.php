@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Console;
-
-
-
-
 use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Schedule;
 use App\Console\Commands\UpdatedTradesStatus;
@@ -25,24 +21,8 @@ class Kernel extends ConsoleKernel
     
 
     protected function schedule(Schedule $schedule){
-
-        $schedule->command('app:processed-completed-trades')
-            ->everyMinute()
-            ->before(function () {
-                \Log::info('Starting app:processed-completed-trades');
-            })
-            ->after(function () {
-                \Log::info('Finished app:processed-completed-trades');
-            });
-
-        $schedule->command('app:updated-trades-status')
-            ->everyMinute()
-            ->before(function () {
-                \Log::info('Starting app:updated-trades-status');
-            })
-            ->after(function () {
-                \Log::info('Finished app:updated-trades-status');
-            });
+        $schedule->command('app:processed-completed-trades')->everyMinute();
+        $schedule->command('app:updated-trades-status')->everyMinute();
     }
 
     /**

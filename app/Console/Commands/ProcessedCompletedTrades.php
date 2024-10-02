@@ -46,9 +46,16 @@ class ProcessedCompletedTrades extends Command
 
                 // Log user balance update
                 Log::info("User ID: {$user_id}, New Balance: {$user->balance}, Result: {$user_trade_result}, Amount: {$trade_win_loss_amount}");
+            
             } else {
+            
                 Log::warning("User not found for User ID: {$user_id}");
+            
             }
+        
         }
+        
+        Log::info("Processed completed trades command ends at " . now() . PHP_EOL);
+
     }
 }
