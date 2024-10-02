@@ -26,14 +26,6 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule){
 
-        throw new \Exception("Scheduler hit");
-
-        
-
-        \Log::info('Scheduler running...');
-
-        die("****");
-        
         $schedule->command('app:processed-completed-trades')
             ->everyMinute()
             ->before(function () {
