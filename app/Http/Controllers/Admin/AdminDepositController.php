@@ -67,7 +67,8 @@ class AdminDepositController extends Controller
         if ($data) {
             $user = User::where('id', $data->user_id)->first();
             $data->update(['status' => 'approved']);
-
+            
+            $user_balance = $user->balance;
             $this->user_setting->updatUserSetting('user_old_balance', $user_balance, $user->id);
             $user->increment('balance', $data->amount);
             

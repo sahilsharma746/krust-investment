@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (session('success'))
     <script>
-        swal("Good job!", "Your reset password email has been sent to you, Check your inbox and follow the instructions provided!", "success");
+        // swal("Good job!", "Your reset password email has been sent to you, Check your inbox and follow the instructions provided!", "success");
     </script>
 
     {{-- Remove the session variable after showing the alert --}}

@@ -89,7 +89,7 @@
                                 investors by filling out the registration and funding
                                 their accounts.
                                 Explore our platforms vast trading tools and markets to get started.</div>
-                            <a href="" class="btn w-max">Start Trading Today</a>
+                            <a href="{{route('register')}}" class="btn w-max">Start Trading Today</a>
                         </div>
                     </div>
                 </div>

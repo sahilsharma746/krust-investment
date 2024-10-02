@@ -69,6 +69,7 @@ class FrontendController extends Controller
             'email' => $request->input('email'),
             'message' => $request->input('message'),
         ]);
+        return back()->with('success', 'Your message has been sent successfully!');
 
-        return redirect()->route('frontend.contact')->with('success', 'Your message has been sent successfully!');    }
+    }
 }

@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="card-footer leave-message-footer">
-                                <button class="btn submit-login">Submit</button>
+                                <button class="btn submit-contact-us">Submit</button>
 
 
                                 <p class="text-center"> - OR - </p>
