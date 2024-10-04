@@ -129,7 +129,7 @@ class AdminUserController extends Controller
         $full_data['user_settings'] = $user_settings;
         $full_data['kyc_cocument_path'] = asset('uploads/kyc_documents/'.$user->id.'/');
         $full_data['all_account_type'] = UserAccountType::all(); 
-        $full_data['current_account'] =  UserAccountType::getUserPlan($user->id);
+        $full_data['current_account'] =  UserAccountType::getUserPlan($user->account_type);
         return view('admin.users.user-detail', compact('full_data','page_title'));
     }
 
