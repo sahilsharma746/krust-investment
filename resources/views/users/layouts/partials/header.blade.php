@@ -17,26 +17,25 @@
         var apiUrlIndisis = "{{ url('/indisis.json') }}";
 
     </script>
-        
     <link rel="stylesheet" href="{{ asset('assets') }}/nice-select-2/nice-select2.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
     
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/user-dashboard.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/user-dashboard.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
     
     @if (Route::currentRouteName() === 'users.trading-bots.index' || Route::currentRouteName() === 'users.trading-history.index'  )
-        <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/user-style.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
     @endif
 
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'user.marketWatch.index')
-         <link rel="stylesheet" href="{{ asset('assets') }}/css/user-style.css">
-          <link rel="stylesheet" href="{{ asset('assets') }}/css/trade-and-market.min.css">
+         <link rel="stylesheet" href="{{ asset('assets/css/user-style.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
+          <link rel="stylesheet" href="{{ asset('assets/css/trade-and-market.min.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
     @endif
 
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
     <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 
-    <script src="{{ asset('assets') }}/js/site-common.js"></script>
+    <script src="{{ asset('assets/js/site-common.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
     
 </head>
 
