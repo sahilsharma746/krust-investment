@@ -64,8 +64,7 @@
                     <i class="fa-brands fa-whatsapp"></i>
                     <span>Whatsapp</span>
                 </a>
-                <a href="mailto:ahnafkhanhibban@outlook.com">
-                    <i class="fa-regular fa-envelope"></i>
+                <a href="mailto:{{ config('settingkeys.support_email') }}">                    <i class="fa-regular fa-envelope"></i>
                     <span>Email</span>
                 </a>
             </div>

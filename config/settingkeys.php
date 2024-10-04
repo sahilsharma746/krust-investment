@@ -47,6 +47,7 @@
     "trade_percentage" => "10",
 
     // admin email
-    'admin_email' => 'sharmasahil00746@gmail.com',
+    'admin_email' => 'admin@krustinvestement.com',
+    'support_email' => 'support@krustinvestement.com',
     
 ];

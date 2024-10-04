@@ -6,21 +6,18 @@
                 <span>{{ $user_data->first_name  . ' '. $user_data->last_name }}</span>
             </a>
         </li>
-        
-        
         <li class="nav-item {{ Request::url() == route('user.deposit.getway') ? 'active' : '' }}">
             <a href="{{ route('user.deposit.getway') }}">
                 <i class="fa-regular fa-credit-card"></i>
                 <span>Deposits</span>
             </a>
         </li>
-        {{-- <li class="nav-item{{ Request::url() == route('user.deposit.getway') ? 'active' : '' }}">
-            <a data-toggle="tab" href="{{ route('users.trading-history.index') }}">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                <span>Trading History</span>
+        <li class="nav-item {{ Request::url() == route('user.trade.index') ? 'active' : '' }}">
+            <a href="{{ route('user.trade.index') }}">
+                <i class="fa-solid fa-arrow-down-up-across-line"></i>
+                <span>Trade</span>
             </a>
-        </li> --}}
-
+        </li>
         <li class="nav-item {{ Request::url() == route('users.trading-history.index') ? 'active' : '' }}">
             <a href="{{ route('users.trading-history.index') }}">
                 <i class="fa-solid fa-clock-rotate-left"></i>
@@ -31,12 +28,6 @@
             <a href="{{ route('user.marketWatch.index') }}">
                 <i class="fa-solid fa-list-ul"></i>
                 <span>Market Watch</span>
-            </a>
-        </li>
-        <li class="nav-item {{ Request::url() == route('user.trade.index') ? 'active' : '' }}">
-            <a href="{{ route('user.trade.index') }}">
-                <i class="fa-solid fa-arrow-down-up-across-line"></i>
-                <span>Trade</span>
             </a>
         </li>
         <li class="nav-item">

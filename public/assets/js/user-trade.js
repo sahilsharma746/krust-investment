@@ -393,7 +393,7 @@ function show_crypto_assets_marketwacth(apiUrlCrypto, searchTerm = "") {
         table_row_html += "</td>";
         table_row_html += "<td>" + pair.market_cap.toLocaleString() + "</td>";
         table_row_html +=
-          "<td>" + pair.fully_diluted_valuation.toLocaleString() + "</td>";
+          "<td>" + pair.current_price.toLocaleString() + "</td>";
         table_row_html += "<td>" + pair.total_volume.toLocaleString() + "</td>";
         table_row_html +=
           "<td>" + pair.circulating_supply.toLocaleString() + "</td>";
