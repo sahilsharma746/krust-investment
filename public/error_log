@@ -395,3 +395,43 @@ Stack trace:
 #1 /home/krusrlwp/staging/public/index.php(16): require_once('/home/krusrlwp/...')
 #2 {main}
   thrown in /home/krusrlwp/staging/vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php on line 86
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 07:41:45 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:24:02 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[03-Oct-2024 10:34:18 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
+[04-Oct-2024 05:30:06 UTC] PHP Warning:  Undefined variable $dg in /home/krusrlwp/staging/public/adminer-4.8.1-mysql.php on line 868
