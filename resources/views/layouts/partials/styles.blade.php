@@ -12,9 +12,9 @@
 @yield('styles')
 
 <!-- style added here ================ -->
-<link rel="stylesheet" href="{{ asset('assets') }}/css/site-common.css">
-<link rel="stylesheet" href="{{ asset('assets') }}/css/site-layout.css">
-<link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
+<link rel="stylesheet" href="{{ asset('assets/css/site-common.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/site-layout.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ env('SITE_CSS_JS_VERSION') }}">
 
 <!-- font added here (ital + Merriweather) ================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

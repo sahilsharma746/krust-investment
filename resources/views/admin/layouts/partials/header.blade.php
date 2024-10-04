@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets') }}/font-awesome-6.6.6-web/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets') }}/data-table-2.1.4/dataTables.dataTables.css">
     
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-layout.css">
-    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-style.css">
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-layout.css?v={{ env('SITE_CSS_JS_VERSION') }}">
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/admin-style.css?v={{ env('SITE_CSS_JS_VERSION') }}">
 
     <script>
         var apiUrlCrypto = "{{ url('/crypto.json') }}";
@@ -29,7 +29,7 @@
     </script>
 
     <script src="{{ asset('assets') }}/jQuery/jquery-3.7.1.min.js"></script>
-    <script src="{{ asset('assets/js/admin-head-foot.js') }}"></script>
+    <script src="{{ asset('assets/js/admin-head-foot.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
     <script src="{{ asset('assets') }}/data-table-2.1.4/dataTables.js"></script>
 
     <style>

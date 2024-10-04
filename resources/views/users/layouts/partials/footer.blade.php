@@ -2,17 +2,17 @@
     <script src="{{ asset('assets') }}/nice-select-2/nice-select2.js"></script>
 
     {{-- <!-- <script src="{{ asset('assets') }}/js/admin.js"></script> --> --}}
-    <script src="{{ asset('assets') }}/js/user-script.js"></script>
-    <script src="{{ asset('assets') }}/js/user-dashboard.js"></script>
+    <script src="{{ asset('assets/js/user-script.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
+    <script src="{{ asset('assets/js/user-dashboard.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
 
     @if (Route::currentRouteName() === 'user.dashboard')
-        <script src="{{ asset('assets') }}/upload-file/upload-file.js"></script>
+        <script src="{{ asset('assets/upload-file/upload-file.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
     @endif
 
     @if (Route::currentRouteName() === 'user.trade.index' || Route::currentRouteName() === 'users.trading-history.index' || Route::currentRouteName() === 'user.marketWatch.index')
         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
         <script src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
-        <script src="{{ asset('assets') }}/js/user-trade.js"></script>
+        <script src="{{ asset('assets/js/user-trade.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
     @endif
 
   
