@@ -5,11 +5,11 @@
     <script src="{{ asset('assets') }}/nice-select-2/nice-select2.js"></script>
 
     <!-- apex charts js added here ======================= -->
-    <script type="text/javascript" src="{{ asset('assets') }}/apexcharts/apexcharts.js"></script>
+    <script type="text/javascript" src="{{ asset('assets') }}/apexcharts/apexcharts.js?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
 
     <!-- admin script added here ======================= -->
-    <script src="{{ asset('assets') }}/js/admin-layout.js"></script>
-    <script src="{{ asset('assets') }}/js/admin-script.js?v={{ env('SITE_JS_VERSION') }}"></script>
+    <script src="{{ asset('assets') }}/js/admin-layout.js?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
+    <script src="{{ asset('assets') }}/js/admin-script.js?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
 
     <!-- font added here (ital + Merriweather) ================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

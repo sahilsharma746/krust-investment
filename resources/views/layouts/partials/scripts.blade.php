@@ -3,8 +3,8 @@
 @yield('scripts')
 
 <!-- script added here ======================= -->
-<script src="{{ asset('assets') }}/js/site-common.js"></script>
-<script src="{{ asset('assets') }}/js/script.js"></script>
+<script src="{{ asset('assets/js/site-common.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
+<script src="{{ asset('assets/js/script.js') }}?v={{ env('SITE_CSS_JS_VERSION') }}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (session('success'))
     <script>
