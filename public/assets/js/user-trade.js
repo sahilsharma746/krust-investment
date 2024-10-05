@@ -304,33 +304,18 @@ function update_crypto_assets(apiUrlCrypto, searchTerm = "") {
         dtElement.dataset.symbol = pair.symbol.toUpperCase() + "USD"; // Add symbol for click handling
 
         // Create the inner HTML content
-        let cryptoassetdata =
-          '<div class="country-name d-flex align-items-center g-8">';
-        cryptoassetdata +=
-          '<img class="flag" src="' +
-          pair.image +
-          '" alt="' +
-          pair.name +
-          ' logo">';
+        let cryptoassetdata = '<div class="country-name d-flex align-items-center g-8">';
+        cryptoassetdata +='<img class="flag" src="' + pair.image +'" alt="' +pair.name +' logo">';
         cryptoassetdata += '<span class="details"';
         cryptoassetdata += ' data-price="' + crypto_current_price + '"';
         cryptoassetdata += ' data-name="' + crypto_name + '"';
         cryptoassetdata += ' data-image="' + pair.image + '"';
-        cryptoassetdata +=
-          ' data-fullname="' + pair.symbol.toUpperCase() + ' / U.S Dollar">';
+        cryptoassetdata += ' data-fullname="' + pair.symbol.toUpperCase() + ' / U.S Dollar">';
         cryptoassetdata += pair.symbol.toUpperCase() + "/USD";
         cryptoassetdata += "</span>";
         cryptoassetdata += "</div>";
-        cryptoassetdata +=
-          '<div class="pair-price">$' +
-          pair.current_price.toFixed(2) +
-          "</div>";
-        cryptoassetdata +=
-          '<div class="percentage ' +
-          (pair.price_change_percentage_24h < 0
-            ? "text-danger"
-            : "text-success") +
-          '">';
+        cryptoassetdata += '<div class="pair-price">$' + pair.current_price.toFixed(2) + "</div>";
+        cryptoassetdata += '<div class="percentage ' +(pair.price_change_percentage_24h < 0 ? "text-danger" : "text-success") + '">';
         cryptoassetdata += pair.price_change_percentage_24h.toFixed(2) + "%";
         cryptoassetdata += "</div>";
 
