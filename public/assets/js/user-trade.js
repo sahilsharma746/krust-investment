@@ -1,179 +1,22 @@
 jQuery(document).ready(function () {
+
+  // Show the crypto assets on the trade page on window load
   if ($("#trade-and-market-common-table").length > 0) {
-    update_crypto_assets(apiUrlCrypto);
+      update_crypto_assets(apiUrlCrypto);
   }
 
+  // Show the crypto assets on the Market Watch page on window load
   if ($("#market-watch-common-table-area").length > 0) {
-    show_crypto_assets_marketwacth(apiUrlCrypto);
+      show_crypto_assets_marketwacth(apiUrlCrypto);
   }
 
-  $("#trade-details-summery-current tbody tr").each(function () {
-    // Get the trade_id from the data attribute
-    var trade_id = $(this).data("id");
-    var pnl_value = parseFloat($(this).find(".pnl_value").val());
-    var trade_created = $(this).find(".trade_created").val();
-    var current_date_time = $(this).find(".current_date_time").val();
-    var time_frame = $(this).find(".timeframe").val();
+  // show the timings for the current processing trades on Current Trade section
+  if ($("#trade-details-summery-current").length > 0) {
+    checkAndUpdateTheCurrentTradesTimings();
+  }
 
-    // Convert trade_created and current_date_time to Date objects
-    var tradeCreatedDate = new Date(trade_created);
-    var currentDateTime = new Date(current_date_time);
-
-    // Calculate the time difference between the current time and the trade created time
-    var timeDifference = currentDateTime - tradeCreatedDate;
-
-    console.log(timeDifference);
-
-    // Convert time_frame to milliseconds
-    var timeFrameInMilliseconds;
-    switch (time_frame) {
-      case "5minutes":
-        timeFrameInMilliseconds = 5 * 60 * 1000;
-        break;
-      case "30minutes":
-        timeFrameInMilliseconds = 30 * 60 * 1000;
-        break;
-      case "1hour":
-        timeFrameInMilliseconds = 1 * 60 * 60 * 1000;
-        break;
-      case "4hours":
-        timeFrameInMilliseconds = 4 * 60 * 60 * 1000;
-        break;
-      case "1day":
-        timeFrameInMilliseconds = 24 * 60 * 60 * 1000;
-        break;
-      case "1week":
-        timeFrameInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-        break;
-      case "1month":
-        timeFrameInMilliseconds = 30 * 24 * 60 * 60 * 1000;
-        break;
-      case "1year":
-        timeFrameInMilliseconds = 365 * 24 * 60 * 60 * 1000;
-        break;
-      default:
-        timeFrameInMilliseconds = 0;
-        break;
-    }
-
-    var sign = pnl_value < 0 ? "-" : "+";
-    pnl_value = Math.abs(pnl_value);
-
-    // Calculate remaining time
-    var remainingTime = timeFrameInMilliseconds - timeDifference;
-
-    console.log(remainingTime);
-
-    function formatTime(ms) {
-      if (ms <= 0) {
-        return;
-      }
-
-      var totalSeconds = Math.floor(ms / 1000);
-
-      var days = Math.floor(totalSeconds / (24 * 60 * 60));
-      var hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
-      var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-      var seconds = totalSeconds % 60;
-
-      if (days > 0) {
-        return days + " day" + (days > 1 ? "s" : "") + " left";
-      } else if (hours > 0) {
-        return hours + " hour" + (hours > 1 ? "s" : "") + " left";
-      } else if (minutes > 0) {
-        return (
-          minutes + ":" + (seconds < 10 ? "0" : "") + seconds + " min left"
-        );
-      } else {
-        return seconds + " second" + (seconds > 1 ? "s" : "") + " left";
-      }
-    }
-
-    // Display initial time
-    var timeDisplayElement = $(this).find(".remaining_time");
-    timeDisplayElement.text(formatTime(remainingTime));
-    var interval = setInterval(function () {
-      remainingTime -= 1000;
-
-      // var formattedTime = formatRemainingTime(remainingTime);
-      var formattedTime = formatTime(remainingTime);
-      timeDisplayElement.text(formattedTime);
-
-      if (remainingTime <= 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-
-    // If the trade has expired, show the full PnL value and stop updating
-    if (timeDifference >= timeFrameInMilliseconds) {
-      $(this).find(".trade_pnl_value .amount").text(pnl_value.toFixed(2));
-      $(this).find(".trade_pnl_value .sign").text(sign);
-      sign == "-"
-        ? $(this).find(".trade_pnl_value").css("color", "#F32524")
-        : $(this).find(".trade_pnl_value").css("color", "#3AA31A");
-
-      // AJAX call for updating the trade status can be added here
-    } else {
-      // Time frame is still active, update PnL progressively
-      var currentPnl = 0;
-      var updateInterval = 1000; // Frequency of updates in milliseconds
-
-      // Function to create dynamic increments based on pnl_value
-      function getDynamicIncrements(pnl_value) {
-        let increments = [];
-        if (pnl_value <= 1000) {
-          increments = [1, 5, 10, 20, 50]; // Small pnl values
-        } else if (pnl_value <= 10000) {
-          increments = [10, 50, 100, 200, 500]; // Medium pnl values
-        } else {
-          increments = [100, 500, 1000, 5000, 10000]; // Large pnl values
-        }
-        return increments;
-      }
-
-      $(this).find(".trade_pnl_value .sign").text(sign);
-
-      let increments = getDynamicIncrements(pnl_value);
-      var interval = setInterval(
-        function () {
-          // Update remaining time
-          remainingTime -= 1000; // Decrease by one second
-
-          // Update the remaining time display
-          timeDisplayElement.text(formatTime(remainingTime));
-
-          // Select a random increment from the dynamically generated increments
-          let randomIncrement =
-            increments[Math.floor(Math.random() * increments.length)];
-          currentPnl += randomIncrement;
-
-          if (currentPnl >= pnl_value) {
-            currentPnl = getRandomInRange(pnl_value - 20, pnl_value);
-          }
-
-          // Stop updating once the full PnL is reached or time frame is complete
-          if (remainingTime <= 0) {
-            currentPnl = pnl_value;
-            clearInterval(interval); // Stop updating
-            timeDisplayElement.text("00:00"); // Ensure to show '00:00' when finished
-          }
-
-          $(this)
-            .find(".trade_pnl_value .amount")
-            .text(Math.abs(currentPnl.toFixed(2))); // Update the PnL value in the UI
-          sign == "-"
-            ? $(this).find(".trade_pnl_value").css("color", "#F32524")
-            : $(this).find(".trade_pnl_value").css("color", "#3AA31A");
-        }.bind(this),
-        updateInterval
-      ); // Bind 'this' to access the current row context in the interval
-    }
-  });
 });
 
-function getRandomInRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 // Function to handle trade type selection
 jQuery(document).on("click", ".trade-type", function () {
@@ -454,4 +297,178 @@ function trade_logic() {
     jQuery(".user-trade-chart-filter .asset-contract-size").text(contract_size);
     jQuery(".user-trade-chart-filter .asset-unit-price").val(asset_unit_price);
   }
+}
+
+
+
+
+function checkAndUpdateTheCurrentTradesTimings(){
+  $("#trade-details-summery-current tbody tr").each(function () {
+
+    // Get the trade_id from the data attribute
+    var trade_id = $(this).data("id");
+    var pnl_value = parseFloat($(this).find(".pnl_value").val());
+    var trade_created = $(this).find(".trade_created").val();
+    var current_date_time = $(this).find(".current_date_time").val();
+    var time_frame = $(this).find(".timeframe").val();
+
+    // Convert trade_created and current_date_time to Date objects
+    var tradeCreatedDate = new Date(trade_created);
+    var currentDateTime = new Date(current_date_time);
+
+    // Calculate the time difference between the current time and the trade created time
+    var timeDifference = currentDateTime - tradeCreatedDate;
+
+    console.log(timeDifference);
+
+    // Convert time_frame to milliseconds
+    var timeFrameInMilliseconds;
+    switch (time_frame) {
+      case "5minutes":
+        timeFrameInMilliseconds = 5 * 60 * 1000;
+        break;
+      case "30minutes":
+        timeFrameInMilliseconds = 30 * 60 * 1000;
+        break;
+      case "1hour":
+        timeFrameInMilliseconds = 1 * 60 * 60 * 1000;
+        break;
+      case "4hours":
+        timeFrameInMilliseconds = 4 * 60 * 60 * 1000;
+        break;
+      case "1day":
+        timeFrameInMilliseconds = 24 * 60 * 60 * 1000;
+        break;
+      case "1week":
+        timeFrameInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+        break;
+      case "1month":
+        timeFrameInMilliseconds = 30 * 24 * 60 * 60 * 1000;
+        break;
+      case "1year":
+        timeFrameInMilliseconds = 365 * 24 * 60 * 60 * 1000;
+        break;
+      default:
+        timeFrameInMilliseconds = 0;
+        break;
+    }
+
+    var sign = pnl_value < 0 ? "-" : "+";
+    pnl_value = Math.abs(pnl_value);
+
+    // Calculate remaining time
+    var remainingTime = timeFrameInMilliseconds - timeDifference;
+
+    console.log(remainingTime);
+
+    function formatTime(ms) {
+      if (ms <= 0) {
+        return;
+      }
+
+      var totalSeconds = Math.floor(ms / 1000);
+
+      var days = Math.floor(totalSeconds / (24 * 60 * 60));
+      var hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+      var minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      var seconds = totalSeconds % 60;
+
+      if (days > 0) {
+        return days + " day" + (days > 1 ? "s" : "") + " left";
+      } else if (hours > 0) {
+        return hours + " hour" + (hours > 1 ? "s" : "") + " left";
+      } else if (minutes > 0) {
+        return (
+          minutes + ":" + (seconds < 10 ? "0" : "") + seconds + " min left"
+        );
+      } else {
+        return seconds + " second" + (seconds > 1 ? "s" : "") + " left";
+      }
+    }
+
+    // Display initial time
+    var timeDisplayElement = $(this).find(".remaining_time");
+    timeDisplayElement.text(formatTime(remainingTime));
+    var interval = setInterval(function () {
+      remainingTime -= 1000;
+
+      // var formattedTime = formatRemainingTime(remainingTime);
+      var formattedTime = formatTime(remainingTime);
+      timeDisplayElement.text(formattedTime);
+
+      if (remainingTime <= 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    // If the trade has expired, show the full PnL value and stop updating
+    if (timeDifference >= timeFrameInMilliseconds) {
+      $(this).find(".trade_pnl_value .amount").text(pnl_value.toFixed(2));
+      $(this).find(".trade_pnl_value .sign").text(sign);
+      sign == "-"
+        ? $(this).find(".trade_pnl_value").css("color", "#F32524")
+        : $(this).find(".trade_pnl_value").css("color", "#3AA31A");
+
+      // AJAX call for updating the trade status can be added here
+    } else {
+      // Time frame is still active, update PnL progressively
+      var currentPnl = 0;
+      var updateInterval = 1000; // Frequency of updates in milliseconds
+
+      // Function to create dynamic increments based on pnl_value
+      function getDynamicIncrements(pnl_value) {
+        let increments = [];
+        if (pnl_value <= 1000) {
+          increments = [1, 5, 10, 20, 50]; // Small pnl values
+        } else if (pnl_value <= 10000) {
+          increments = [10, 50, 100, 200, 500]; // Medium pnl values
+        } else {
+          increments = [100, 500, 1000, 5000, 10000]; // Large pnl values
+        }
+        return increments;
+      }
+
+      $(this).find(".trade_pnl_value .sign").text(sign);
+
+      let increments = getDynamicIncrements(pnl_value);
+      var interval = setInterval(
+        function () {
+          // Update remaining time
+          remainingTime -= 1000; // Decrease by one second
+
+          // Update the remaining time display
+          timeDisplayElement.text(formatTime(remainingTime));
+
+          // Select a random increment from the dynamically generated increments
+          let randomIncrement =
+            increments[Math.floor(Math.random() * increments.length)];
+          currentPnl += randomIncrement;
+
+          if (currentPnl >= pnl_value) {
+            currentPnl = getRandomInRange(pnl_value - 20, pnl_value);
+          }
+
+          // Stop updating once the full PnL is reached or time frame is complete
+          if (remainingTime <= 0) {
+            currentPnl = pnl_value;
+            clearInterval(interval); // Stop updating
+            timeDisplayElement.text("00:00"); // Ensure to show '00:00' when finished
+          }
+
+          $(this)
+            .find(".trade_pnl_value .amount")
+            .text(Math.abs(currentPnl.toFixed(2))); // Update the PnL value in the UI
+          sign == "-"
+            ? $(this).find(".trade_pnl_value").css("color", "#F32524")
+            : $(this).find(".trade_pnl_value").css("color", "#3AA31A");
+        }.bind(this),
+        updateInterval
+      ); // Bind 'this' to access the current row context in the interval
+    }
+  });
+}
+
+
+function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
