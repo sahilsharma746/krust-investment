@@ -12,7 +12,7 @@ jQuery(document).ready(function () {
 
   // show the timings for the current processing trades on Current Trade section
   if ($("#trade-details-summery-current").length > 0) {
-    checkAndUpdateTheCurrentTradesTimings();
+      checkAndUpdateTheCurrentTradesTimings();
   }
 
 });
@@ -20,105 +20,52 @@ jQuery(document).ready(function () {
 
 // Function to handle trade type selection
 jQuery(document).on("click", ".trade-type", function () {
-  var type = jQuery(this).data("type"); // Get the data-type attribute from the clicked element
-  const container = jQuery("#trade-and-market-common-table"); // Use jQuery to select the container
+  var type = jQuery(this).data("type"); 
+  var searchParameter = jQuery('#searchTableAssets').val().trim();
+  const container = jQuery("#trade-and-market-common-table");
+  container.empty();
   // Clear the container if Forex or Indices is selected
-  if (type == "forex" || type == "indices") {
-    container.empty();
-  } else if (type == "crypto") {
-      update_crypto_assets(apiUrlCrypto, searchParameter); // Call function for trade page
+   if (type == "crypto") {
+      update_crypto_assets(apiUrlCrypto, searchParameter);
+  }else if( type == "forex" ){
+      update_forex_assets(apiUrlForex, searchParameter);
+  }else if( type == "indices" ){
+      update_indices_assets(apiUrlIndisis, searchParameter);
   }
   jQuery(".trade-type").removeClass("active"); 
   jQuery(this).addClass("active");
 });
 
 
+// On search on the Trade page for the asset
 jQuery("#searchTableAssets").on("input", function () {
   var searchParameter = jQuery(this).val().trim();
   var activeType = jQuery(".trade-type.active").data("type");
   if (activeType == "crypto") {
     update_crypto_assets(apiUrlCrypto, searchParameter);
+  }else if( activeType == "forex" ){
+    update_forex_assets(apiUrlForex, searchParameter);
+  }else if( activeType == "indices" ){
+    update_indices_assets(apiUrlIndisis, searchParameter);
   }
 });
 
 
+// On search on the Market Watch page for the asset
 jQuery("#searchTableAssetsMarketWatch").on("input", function () {
   var searchParameter = jQuery(this).val().trim();
   var activeType = jQuery(".trade-type.active").data("type");
   if (activeType == "crypto") {
-    show_crypto_assets_marketwacth(apiUrlCrypto, searchParameter);
-  }
-});
-
-// on selecting the assets
-jQuery(document).on(
-  "click",
-  "#trade-and-market-common-table .asset-data",
-  function () {
-    let name = jQuery(this).find("span").data("name");
-    let fullname = jQuery(this).find("span").data("fullname");
-    let assetPrice = jQuery(this).find("span").data("price");
-    let assetImage = jQuery(this).find("span").data("image");
-
-    jQuery(".user-trade-chart-filter .selected-asset").find(".name").text(name);
-    jQuery(".user-trade-chart-filter .selected-asset")
-      .find(".fullname")
-      .text(fullname);
-    jQuery("input.asset-unitprice").val(assetPrice);
-    jQuery("input.name_input").val(name);
-    jQuery("input.image").val(assetImage);
-
-    jQuery(".flag_image").attr("src", assetImage).show();
-
-    $(".btn-buy .buy_price").text(assetPrice).attr("value", assetPrice);
-    $(".btn-sell .sell_price").text(assetPrice).attr("value", assetPrice);
-
-    document.querySelector("input.asset-contract-size").value = 0;
-    jQuery(".user-trade-chart-filter .asset-contract-size").text(0);
-    jQuery(".user-trade-chart-filter .asset-unit-price").val(0);
-    jQuery(".user-trade-chart-filter .asset-payout").text(0);
-    document.querySelector("input.payout").value = 0;
-    jQuery(".user-trade-chart-filter .asset-trade-amount").val(0);
-  }
-);
-
-// on updating Margin
-jQuery(".user-trade-chart-filter .asset-margin").on("change", function () {
-  trade_logic();
-});
-
-// on enter trade amountasset-contract-size-hidden
-jQuery(document).on(
-  "input",
-  ".user-trade-chart-filter .asset-trade-amount",
-  function () {
-    trade_logic();
-  }
-);
-
-
-jQuery("#tradeForm").on("submit", function (event) {
-  var userBalance = parseFloat($(".asset-user_balance").val());
-  var amount = parseFloat($(".asset-trade-amount").val());
-
-  if (amount > userBalance) {
-    event.preventDefault();
-    document.getElementById("insufficientBalanceModal").style.display = "block";
+      show_crypto_assets_marketwacth(apiUrlCrypto, searchParameter);
+  }else if( activeType == "forex" ){
+      show_forex_assets_marketwacth(apiUrlForex, searchParameter);
+  }else if( activeType == "indices" ){
+      show_indices_assets_marketwacth(apiUrlIndisis, searchParameter);
   }
 });
 
 
-jQuery(document).on( 'click', '.close-button', function(){
-  jQuery('#insufficientBalanceModal').hide();
-});
-
-window.onclick = function (event) {
-  if( jQuery('#insufficientBalanceModal').length > 0 ){
-    jQuery('#insufficientBalanceModal').hide();
-  }
-};
-
-
+// Trade page functions
 function update_crypto_assets(apiUrlCrypto, searchTerm = "") {
   fetch(apiUrlCrypto)
     .then((response) => response.json())
@@ -182,6 +129,94 @@ function update_crypto_assets(apiUrlCrypto, searchTerm = "") {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
+function update_forex_assets(apiUrlForex, searchTerm = "") {
+  fetch(apiUrlForex)
+    .then((response) => response.json())
+    .then((data) => {
+      const container = document.getElementById("trade-and-market-common-table");
+      container.innerHTML = ""; // Clear the existing content
+
+      const filteredData = data.filter((pair) => {
+        const firstWordSymbol = pair.symbol.split("/")[0].toLowerCase();
+        return firstWordSymbol.startsWith(searchTerm.toLowerCase());
+      });
+
+      filteredData.forEach((pair) => {
+        const forex_current_price = parseFloat(pair.current_price).toFixed(4);
+        const forex_symbol = pair.symbol;
+
+        // Create a <dt> element
+        const dtElement = document.createElement("dt");
+        dtElement.className = "d-flex justify-content-between align-items-center g-10 asset-data";
+        dtElement.dataset.symbol = pair.symbol.toUpperCase(); // Add symbol for click handling
+
+        // Create the inner HTML content
+        let forexAssetData = '<div class="country-name d-flex align-items-center g-8">';
+        forexAssetData += '<img class="flag" src="' + pair.base_currency_image + '" alt="' + pair.symbol + ' logo">';
+        // forexAssetData += '<img class="flag" src="' + pair.quote_currency_image + '" alt="' + pair.symbol + ' logo">';
+        forexAssetData += '<span class="details"';
+        forexAssetData += ' data-price="' + forex_current_price + '"';
+        forexAssetData += ' data-symbol="' + forex_symbol + '"';
+        forexAssetData += ' data-image="' + pair.base_currency_image + '"';
+        forexAssetData += ' data-name="' + pair.symbol + '"';
+        forexAssetData += ' data-fullname="' + pair.name + '">';
+        forexAssetData += forex_symbol.toUpperCase();
+        forexAssetData += "</span>";
+        forexAssetData += "</div>";
+        forexAssetData += '<div class="pair-price">$' + forex_current_price + "</div>";
+        forexAssetData += '<div class="percentage ' + (parseFloat(pair.percentage_change) < 0 ? "text-danger" : "text-success") + '">';
+        forexAssetData += pair.percentage_change;
+        forexAssetData += "</div>";
+
+        // Set the inner HTML of the dtElement
+        dtElement.innerHTML = forexAssetData;
+
+        // Append the dtElement to the container
+        container.appendChild(dtElement);
+
+        // Add click event listener to the dtElement
+        dtElement.addEventListener("click", function () {
+          loadTradingViewChart('FX_IDC:' + pair.symbol.replace('/', ''));
+        });
+      });
+
+      // Trigger click on the first <dt> element to load the chart by default
+      if (filteredData.length > 0) {
+        jQuery("#trade-and-market-common-table").find("dt:first").click();
+      }
+    })
+    .catch((error) => console.error("Error fetching data:", error));
+}
+
+
+function update_indices_assets(apiUrlIndisis, searchTerm = "") {
+}
+
+function loadTradingViewChart(symbol) {
+  // Get the container element
+  const container = document.getElementById("market-watch-chart");
+  // Set the chart width and height based on the container's size
+  const chartWidth = container.offsetWidth;
+  const chartHeight = window.innerHeight * 0.7; // 70% of the window height, adjust as needed
+
+  new TradingView.widget({
+    width: chartWidth,
+    height: chartHeight,
+    symbol: symbol,
+    interval: "D",
+    timezone: "Etc/UTC",
+    theme: "light",
+    style: "1",
+    locale: "en",
+    toolbar_bg: "#f1f3f6",
+    enable_publishing: false,
+    allow_symbol_change: true,
+    container_id: "market-watch-chart",
+  });
+}
+
+
+// Market Watch functions
 function show_crypto_assets_marketwacth(apiUrlCrypto, searchTerm = "") {
   fetch(apiUrlCrypto)
     .then((response) => response.json())
@@ -239,30 +274,75 @@ function show_crypto_assets_marketwacth(apiUrlCrypto, searchTerm = "") {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-
-function loadTradingViewChart(symbol) {
-  // Get the container element
-  const container = document.getElementById("market-watch-chart");
-  // Set the chart width and height based on the container's size
-  const chartWidth = container.offsetWidth;
-  const chartHeight = window.innerHeight * 0.7; // 70% of the window height, adjust as needed
-
-  new TradingView.widget({
-    width: chartWidth,
-    height: chartHeight,
-    symbol: symbol,
-    interval: "D",
-    timezone: "Etc/UTC",
-    theme: "light",
-    style: "1",
-    locale: "en",
-    toolbar_bg: "#f1f3f6",
-    enable_publishing: false,
-    allow_symbol_change: true,
-    container_id: "market-watch-chart",
-  });
+function show_forex_assets_marketwacth(apiUrlForex, searchTerm = "") {
 }
 
+function show_indices_assets_marketwacth(apiUrlIndisis, searchTerm = "") {
+}
+
+
+
+
+
+
+
+
+// Section of the js for handling the trade process logic
+// on selecting the assets for doing the trade
+jQuery(document).on("click", "#trade-and-market-common-table .asset-data", function () {
+  let name = jQuery(this).find("span").data("name");
+  let fullname = jQuery(this).find("span").data("fullname");
+  let assetPrice = jQuery(this).find("span").data("price");
+  let assetImage = jQuery(this).find("span").data("image");
+
+  jQuery(".user-trade-chart-filter .selected-asset").find(".name").text(name);
+  jQuery(".user-trade-chart-filter .selected-asset").find(".fullname").text(fullname);
+  jQuery("input.asset-unitprice").val(assetPrice);
+  jQuery("input.name_input").val(name);
+  jQuery("input.image").val(assetImage);
+  jQuery(".flag_image").attr("src", assetImage).show();
+
+  $(".btn-buy .buy_price").text(assetPrice).attr("value", assetPrice);
+  $(".btn-sell .sell_price").text(assetPrice).attr("value", assetPrice);
+
+  document.querySelector("input.asset-contract-size").value = 0;
+  jQuery(".user-trade-chart-filter .asset-contract-size").text(0);
+  jQuery(".user-trade-chart-filter .asset-unit-price").val(0);
+  jQuery(".user-trade-chart-filter .asset-payout").text(0);
+  document.querySelector("input.payout").value = 0;
+  jQuery(".user-trade-chart-filter .asset-trade-amount").val(0);
+}
+);
+
+// on updating Margin
+jQuery(".user-trade-chart-filter .asset-margin").on("change", function () {
+  trade_logic();
+});
+
+// on enter trade amountasset-contract-size-hidden
+jQuery(document).on("input", ".user-trade-chart-filter .asset-trade-amount", function () {
+  trade_logic();
+});
+
+// check for the user balanc if greater than he is trying to do the trade
+jQuery("#tradeForm").on("submit", function (event) {
+  var userBalance = parseFloat($(".asset-user_balance").val());
+  var amount = parseFloat($(".asset-trade-amount").val());
+  if (amount > userBalance) {
+    event.preventDefault();
+    document.getElementById("insufficientBalanceModal").style.display = "block";
+  }
+});
+
+jQuery(document).on( 'click', '.close-button', function(){
+  jQuery('#insufficientBalanceModal').hide();
+});
+
+window.onclick = function (event) {
+  if( jQuery('#insufficientBalanceModal').length > 0 ){
+    jQuery('#insufficientBalanceModal').hide();
+  }
+};
 
 
 function trade_logic() {
@@ -298,8 +378,6 @@ function trade_logic() {
     jQuery(".user-trade-chart-filter .asset-unit-price").val(asset_unit_price);
   }
 }
-
-
 
 
 function checkAndUpdateTheCurrentTradesTimings(){

@@ -11,7 +11,7 @@
                     <div class="card-indicators scroll">
                         <a data-type="crypto" class="btn-pill trade-type active btn-crypto">Crypto</a>
                         <a data-type="forex" class="btn-pill trade-type btn-forex ">Forex</a>
-                        <a data-type="indices" class="btn-pill trade-type btn-indices">Indices</a>
+                        <!-- <a data-type="indices" class="btn-pill trade-type btn-indices">Indices</a> -->
                     </div>
                     <div class="trade-and-market-common-table-area">
                         <div class="input-group search-input-group">

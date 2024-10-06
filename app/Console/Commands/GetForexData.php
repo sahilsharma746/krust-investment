@@ -8,66 +8,107 @@ use Illuminate\Support\Facades\Log;
 class GetForexData extends Command
 {
     protected $signature = 'app:get-forex-data';
-    protected $description = 'Get Forex data';
+    protected $description = 'Get combined Forex data from FCS API';
 
     public function handle() {
         $api_key = 'rtF3NH0L4i1DSkKZlCmVXc';
-        $api_url = "https://fcsapi.com/api-v3/forex/latest?symbol=EUR/USD,GBP/USD,USD/JPY,AUD/USD&access_key=$api_key";
 
-        $response = file_get_contents($api_url);
+        // Step 1: Get the list of Forex pairs
+        $list_url = "https://fcsapi.com/api-v3/forex/list?type=forex&access_key=$api_key";
+        $forex_list = $this->makeApiRequest($list_url);
 
-        if ($response === FALSE) {
-            Log::error('Error occurred while fetching Forex data.');
-            throw new \Exception('Error occurred while fetching Forex data.');
+        if (!$forex_list || !isset($forex_list['response'])) {
+            Log::error('Error fetching Forex list.');
+            return;
         }
 
-        $forex_data = json_decode($response, true);
+        // Extract the first 50 symbols and their IDs
+        $forex_ids = [];
+        $symbols = [];
+        $combined_data = [];
+        foreach (array_slice($forex_list['response'], 0, 50) as $pair) {
+            $forex_ids[] = $pair['id'];
+            $symbols[] = $pair['symbol'];
+            $combined_data[$pair['symbol']] = [
+                'name' => $pair['name'],
+                'symbol' => $pair['symbol']
+            ];
+        }
 
-        if (isset($forex_data['response']) && !empty($forex_data['response'])) {
-            $forex_list = [];
+        // Join the symbols into a comma-separated string for the profile API call
+        $symbols_string = implode(',', $symbols);
 
-            foreach ($forex_data['response'] as $forex) {
-                $symbol = $forex['s'] ?? 'N/A';
-                $currencies = explode('/', $symbol);
-                $base_currency = $currencies[0] ?? 'N/A';
-                $quote_currency = $currencies[1] ?? 'N/A';
-                $base_currency_image = $this->getFlagImageUrl($base_currency);
-                $quote_currency_image = $this->getFlagImageUrl($quote_currency);
+        // Step 2: Get the base and quote currency icons using the profile API
+        $profile_url = "https://fcsapi.com/api-v3/forex/profile?symbol=$symbols_string&access_key=$api_key";
+        $profile_data = $this->makeApiRequest($profile_url);
 
-                $forex_list[] = [
-                    'symbol' => $symbol,
-                    'base_currency_image' => $base_currency_image,
-                    'quote_currency_image' => $quote_currency_image,
-                    'current_price' => $forex['c'] ?? 'N/A', // Current price
-                    'percentage_change' => $forex['cp'] ?? 'N/A', // Percentage change
-                    'open_price' => $forex['o'] ?? 'N/A', // Opening price
-                    'high_24h' => $forex['h'] ?? 'N/A', // High price
-                    'low_24h' => $forex['l'] ?? 'N/A', // Low price
-                    'price_change' => $forex['ch'] ?? 'N/A', // Price change
-                    'last_updated' => $forex['tm'] ?? 'N/A', // Last updated time
-                ];
+        if (!$profile_data || !isset($profile_data['response'])) {
+            Log::error('Error fetching Forex profile data.');
+            return;
+        }
+
+        // Store icons based on currency short names
+        $currency_icons = [];
+        foreach ($profile_data['response'] as $profile) {
+            $currency_icons[$profile['short_name']] = $profile['icon'];
+        }
+
+        // Step 3: Combine the icon URLs with the base and quote currencies
+        foreach ($combined_data as $symbol => &$data) {
+            list($base_currency, $quote_currency) = explode('/', $symbol);
+            $data['base_currency_image'] = $currency_icons[$base_currency] ?? 'default_base_image.png';
+            $data['quote_currency_image'] = $currency_icons[$quote_currency] ?? 'default_quote_image.png';
+        }
+
+
+        // Step 4: Get the latest price data
+        $ids_string = implode(',', $forex_ids);
+        $latest_url = "https://fcsapi.com/api-v3/forex/latest?id=$ids_string&access_key=$api_key";
+        $latest_data = $this->makeApiRequest($latest_url);
+
+        if (!$latest_data || !isset($latest_data['response'])) {
+            Log::error('Error fetching Forex latest data.');
+            return;
+        }
+
+        foreach ($latest_data['response'] as $latest) {
+            $symbol = $latest['s'];
+            if (isset($combined_data[$symbol])) {
+                $combined_data[$symbol]['current_price'] = $latest['c'];
+                $combined_data[$symbol]['percentage_change'] = $latest['cp'];
+                $combined_data[$symbol]['open_price'] = $latest['o'];
+                $combined_data[$symbol]['high_24h'] = $latest['h'];
+                $combined_data[$symbol]['low_24h'] = $latest['l'];
+                $combined_data[$symbol]['price_change'] = $latest['ch'];
+                $combined_data[$symbol]['last_updated'] = $latest['tm'];
             }
-
-            $json_file = public_path('forex.json');
-            file_put_contents($json_file, json_encode($forex_list, JSON_PRETTY_PRINT));
-
-            Log::info("Forex data saved to $json_file");
-        } else {
-            Log::warning("No data found in the API response.");
         }
+
+        // Save data to a JSON file
+        $json_file = public_path('forex.json');
+        file_put_contents($json_file, json_encode(array_values($combined_data), JSON_PRETTY_PRINT));
+
+        Log::info("Forex data saved to $json_file");
     }
 
-    public function getFlagImageUrl($currency_code) {
-        $country_flags = [
-            'USD' => 'https://s3-symbol-logo.tradingview.com/country/US.svg',  // United States
-            'EUR' => 'https://s3-symbol-logo.tradingview.com/country/EU.svg',  // European Union
-            'GBP' => 'https://s3-symbol-logo.tradingview.com/country/GB.svg',  // United Kingdom
-            'JPY' => 'https://s3-symbol-logo.tradingview.com/country/JP.svg',  // Japan
-            'AUD' => 'https://s3-symbol-logo.tradingview.com/country/AU.svg',  // Australia
-            // Add more currency codes as needed
-        ];
-    
-        return $country_flags[$currency_code] ?? 'https://example.com/default_image.png';  // Default image if not found
+    // Helper function to make API requests
+    private function makeApiRequest($url) {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'User-Agent: Mozilla/5.0'
+        ]);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, true);
     }
-    
 }
+
+
+function pr($data) {
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+}   
