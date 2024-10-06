@@ -9,10 +9,9 @@
                 </div>
                 <div class="card-body">
                     <div class="card-indicators scroll">
-                        <a data-label="BITSTAMP:BTCUSD" data-type="crypto"
-                            class="btn-pill trade-type active btn-crypto">Crypto</a>
-                        {{-- <a data-label="FX:EURUSD" data-type="forex"- class="btn-pill trade-type btn-forex ">Forex</a> --}}
-                        {{-- <a data-label="TVC:DXY" data-type="indices" class="btn-pill trade-type btn-indices">Indices</a> --}}
+                        <a data-type="crypto" class="btn-pill trade-type active btn-crypto">Crypto</a>
+                        <a data-type="forex" class="btn-pill trade-type btn-forex ">Forex</a>
+                        <!-- <a data-type="indices" class="btn-pill trade-type btn-indices">Indices</a> -->
                     </div>
                     <div class="trade-and-market-common-table-area">
                         <div class="input-group search-input-group">
