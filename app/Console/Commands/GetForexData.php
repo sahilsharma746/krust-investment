@@ -9,12 +9,14 @@ class GetForexData extends Command
 {
     protected $signature = 'app:get-forex-data';
     protected $description = 'Get combined Forex data from FCS API';
+    protected $api_key = 'rtF3NH0L4i1DSkKZlCmVXc';
 
     public function handle() {
-        $api_key = 'rtF3NH0L4i1DSkKZlCmVXc';
+
+        Log::info("Updated Forex data command ran at " . now());
 
         // Step 1: Get the list of Forex pairs
-        $list_url = "https://fcsapi.com/api-v3/forex/list?type=forex&access_key=$api_key";
+        $list_url = "https://fcsapi.com/api-v3/forex/list?type=forex&access_key=$this->api_key";
         $forex_list = $this->makeApiRequest($list_url);
 
         if (!$forex_list || !isset($forex_list['response'])) {
@@ -26,7 +28,7 @@ class GetForexData extends Command
         $forex_ids = [];
         $symbols = [];
         $combined_data = [];
-        foreach (array_slice($forex_list['response'], 0, 50) as $pair) {
+        foreach (array_slice($forex_list['response'], 0, 150) as $pair) {
             $forex_ids[] = $pair['id'];
             $symbols[] = $pair['symbol'];
             $combined_data[$pair['symbol']] = [
@@ -39,7 +41,7 @@ class GetForexData extends Command
         $symbols_string = implode(',', $symbols);
 
         // Step 2: Get the base and quote currency icons using the profile API
-        $profile_url = "https://fcsapi.com/api-v3/forex/profile?symbol=$symbols_string&access_key=$api_key";
+        $profile_url = "https://fcsapi.com/api-v3/forex/profile?symbol=$symbols_string&access_key=$this->api_key";
         $profile_data = $this->makeApiRequest($profile_url);
 
         if (!$profile_data || !isset($profile_data['response'])) {
@@ -56,14 +58,24 @@ class GetForexData extends Command
         // Step 3: Combine the icon URLs with the base and quote currencies
         foreach ($combined_data as $symbol => &$data) {
             list($base_currency, $quote_currency) = explode('/', $symbol);
-            $data['base_currency_image'] = $currency_icons[$base_currency] ?? 'default_base_image.png';
-            $data['quote_currency_image'] = $currency_icons[$quote_currency] ?? 'default_quote_image.png';
+
+            $base_icon = $currency_icons[$base_currency] ?? null;
+            $quote_icon = $currency_icons[$quote_currency] ?? null;
+        
+            // Skip assets if either base or quote currency icon is not available
+            if (!$base_icon || !$quote_icon) {
+                unset($combined_data[$symbol]);
+                continue;
+            }
+        
+            $data['base_currency_image'] = $base_icon;
+            $data['quote_currency_image'] = $quote_icon;
         }
 
 
         // Step 4: Get the latest price data
         $ids_string = implode(',', $forex_ids);
-        $latest_url = "https://fcsapi.com/api-v3/forex/latest?id=$ids_string&access_key=$api_key";
+        $latest_url = "https://fcsapi.com/api-v3/forex/latest?id=$ids_string&access_key=$this->api_key";
         $latest_data = $this->makeApiRequest($latest_url);
 
         if (!$latest_data || !isset($latest_data['response'])) {
@@ -89,6 +101,8 @@ class GetForexData extends Command
         file_put_contents($json_file, json_encode(array_values($combined_data), JSON_PRETTY_PRINT));
 
         Log::info("Forex data saved to $json_file");
+
+        Log::info("Updated Forex data command ends at " . now() . PHP_EOL);
     }
 
     // Helper function to make API requests

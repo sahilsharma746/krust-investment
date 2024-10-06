@@ -233,13 +233,7 @@ $(document).ready(function () {
 $(document).on('click', '.clone-icon', function () {
     const targetId = $(this).attr('for');
     if (targetId) copyToClipboard(`#${targetId}`);
-}); 
-
-
-$(document).on('keyup', '.search-input-group .search-input', function (e) {
-    const value = this.value.toLowerCase();
-    console.log(value);
-}); 
+});
 
 
 if( jQuery( '#trading-history-table' ).length > 0) {

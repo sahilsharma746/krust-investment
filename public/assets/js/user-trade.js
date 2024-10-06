@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
 
   // Show the crypto assets on the Market Watch page on window load
   if ($("#market-watch-common-table-area").length > 0) {
-      show_crypto_assets_marketwacth(apiUrlCrypto);
+      show_assets_marketwatch(apiUrlCrypto);
   }
 
   // show the timings for the current processing trades on Current Trade section
@@ -36,6 +36,24 @@ jQuery(document).on("click", ".trade-type", function () {
   jQuery(this).addClass("active");
 });
 
+// Function to handle trade type selection
+jQuery(document).on("click", ".trade-type-market-watch", function () {
+  var type = jQuery(this).data("type"); 
+  var searchParameter = jQuery('#searchTableAssetsMarketWatch').val().trim();
+  const container = jQuery("#user-market-watch-table-data");
+  container.empty();
+  // Clear the container if Forex or Indices is selected
+   if (type == "crypto") {
+      show_assets_marketwatch(apiUrlCrypto, searchParameter, type);
+  }else if( type == "forex" ){
+      show_assets_marketwatch(apiUrlForex, searchParameter, type);
+  }else if( type == "indices" ){
+      show_assets_marketwatch(apiUrlIndisis, searchParameter, type);
+  }
+  jQuery(".trade-type").removeClass("active"); 
+  jQuery(this).addClass("active");
+});
+
 
 // On search on the Trade page for the asset
 jQuery("#searchTableAssets").on("input", function () {
@@ -54,13 +72,13 @@ jQuery("#searchTableAssets").on("input", function () {
 // On search on the Market Watch page for the asset
 jQuery("#searchTableAssetsMarketWatch").on("input", function () {
   var searchParameter = jQuery(this).val().trim();
-  var activeType = jQuery(".trade-type.active").data("type");
+  var activeType = jQuery(".trade-type-market-watch.active").data("type");
   if (activeType == "crypto") {
-      show_crypto_assets_marketwacth(apiUrlCrypto, searchParameter);
+     show_assets_marketwatch(apiUrlCrypto, searchParameter, activeType);
   }else if( activeType == "forex" ){
-      show_forex_assets_marketwacth(apiUrlForex, searchParameter);
+      show_assets_marketwatch(apiUrlForex, searchParameter, activeType);
   }else if( activeType == "indices" ){
-      show_indices_assets_marketwacth(apiUrlIndisis, searchParameter);
+      show_assets_marketwatch(apiUrlIndisis, searchParameter, activeType);
   }
 });
 
@@ -217,21 +235,21 @@ function loadTradingViewChart(symbol) {
 
 
 // Market Watch functions
-function show_crypto_assets_marketwacth(apiUrlCrypto, searchTerm = "") {
-  fetch(apiUrlCrypto)
+function show_assets_marketwatch(apiUrl, searchTerm = "", type = "crypto") {
+  fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("user-market-watch-table-data");
       container.innerHTML = ""; // Clear the existing content
 
-      // Filter the data based on search term matching either the name or symbol
-      const filteredData = data.filter((pair) => {
-        const firstWordName = pair.name.split(" ")[0].toLowerCase();
-        const firstWordSymbol = pair.symbol.toLowerCase();
+      // Update headers based on the type
+      setTableHeadersMarketWatch(type);
 
-        // Check if the first word matches the search term (case insensitive)
-        return firstWordName.startsWith(searchTerm.toLowerCase()) ||
-               firstWordSymbol.startsWith(searchTerm.toLowerCase());
+      // Filter data based on search term
+      const filteredData = data.filter((item) => {
+        const firstWordName = item.name.split(" ")[0].toLowerCase();
+        const firstWordSymbol = item.symbol.toLowerCase();
+        return firstWordName.startsWith(searchTerm.toLowerCase()) || firstWordSymbol.startsWith(searchTerm.toLowerCase());
       });
 
       // If no data matches the search, show a message
@@ -241,47 +259,63 @@ function show_crypto_assets_marketwacth(apiUrlCrypto, searchTerm = "") {
       }
 
       // Loop through filtered data and populate the table
-      filteredData.forEach((pair) => {
-        var table_row_html = "<tr>";
+      filteredData.forEach((item) => {
+        let table_row_html = "<tr>";
+        
+        // Asset column (for both crypto and forex)
         table_row_html += "<td>";
         table_row_html += '<div class="d-flex align-items-center g-8">';
-        table_row_html +=
-          '<img src="' +
-          pair.image +
-          '" class="icon crypto_image" alt="' +
-          pair.name +
-          '" style="width: 30px; height: 30px;">';
-        table_row_html += "<span>" + pair.name + "</span>";
-        table_row_html += "</div>";
-        table_row_html += "</td>";
-        table_row_html += "<td>" + pair.market_cap.toLocaleString() + "</td>";
-        table_row_html +=
-          "<td>" + pair.current_price.toLocaleString() + "</td>";
-        table_row_html += "<td>" + pair.total_volume.toLocaleString() + "</td>";
-        table_row_html +=
-          "<td>" + pair.circulating_supply.toLocaleString() + "</td>";
-        table_row_html +=
-          '<td style="color: ' +
-          (pair.price_change_percentage_24h < 0 ? "red" : "green") +
-          ';">' +
-          pair.price_change_percentage_24h.toFixed(2) +
-          "%</td>";
-        table_row_html += "</tr>";
+        if (type === 'crypto') {
+          table_row_html += `<img src="${item.image}" class="icon crypto_image" alt="${item.name}" style="width: 30px; height: 30px;">`;
+        } else if (type === 'forex') {
+          table_row_html += `<img src="${item.base_currency_image}" class="icon" alt="${item.name}" style="width: 30px; height: 30px;">`;
+          // table_row_html += `<img src="${item.quote_currency_image}" class="icon" alt="${item.name}" style="width: 30px; height: 30px;">`;
+        }
+        table_row_html += `<span>${item.name}</span>`;
+        table_row_html += "</div></td>";
 
+        // Other columns based on type
+        if (type === 'crypto') {
+          table_row_html += `<td>${item.market_cap.toLocaleString()}</td>`;
+          table_row_html += `<td>${item.current_price.toLocaleString()}</td>`;
+          table_row_html += `<td>${item.total_volume.toLocaleString()}</td>`;
+          table_row_html += `<td>${item.circulating_supply.toLocaleString()}</td>`;
+          table_row_html += `<td style="color: ${(item.price_change_percentage_24h < 0 ? "red" : "green")}">${item.price_change_percentage_24h.toFixed(2)}%</td>`;
+        } else if (type === 'forex') {
+          table_row_html += `<td>${item.current_price}</td>`;
+          table_row_html += `<td>${item.open_price}</td>`;
+          table_row_html += `<td>${item.high_24h}</td>`;
+          table_row_html += `<td>${item.low_24h}</td>`;
+          table_row_html += `<td style="color: ${(item.percentage_change.startsWith('-') ? "red" : "green")}">${item.percentage_change}</td>`;
+        }
+
+        table_row_html += "</tr>";
         container.innerHTML += table_row_html;
       });
     })
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-function show_forex_assets_marketwacth(apiUrlForex, searchTerm = "") {
+function setTableHeadersMarketWatch(type) {
+  const container = document.querySelector('.user-market-watch-table thead tr');
+  container.innerHTML = ''; // Clear existing headers
+
+  let headers = [];
+
+  if (type === 'crypto') {
+    headers = ['Asset', 'Market Cap', 'Price', 'Traded Volume', 'Available Volume', 'Change'];
+  } else if (type === 'forex') {
+    headers = ['Asset', 'Price', 'Open Price', 'High 24h', 'Low 24h', 'Change'];
+  } else if (type === 'indices') {
+    headers = ['Asset', 'Market Cap', 'Price', 'Change', 'Volume', 'High 24h', 'Low 24h'];
+  }
+
+  headers.forEach(header => {
+    const th = document.createElement('th');
+    th.textContent = header;
+    container.appendChild(th);
+  });
 }
-
-function show_indices_assets_marketwacth(apiUrlIndisis, searchTerm = "") {
-}
-
-
-
 
 
 

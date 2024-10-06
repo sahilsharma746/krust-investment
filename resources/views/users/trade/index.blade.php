@@ -39,7 +39,7 @@
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <div class="d-flex g-8 selected-asset">
                                     <img src="" alt="country flag" class="flag_image" name="trade_image"
-                                        style="width: 30px; height:30px;">
+                                        style="width: 30px; height:30px; border-radius: 50%;">
                                     <div class="d-grid">
                                         <span class="name"></span>
                                         <span class="details fullname"></span>
@@ -190,7 +190,7 @@
                                                 {{ $trade->asset }}
                                             </td>
 
-                                            <td>{{ $trade->margin }}</td>
+                                            <td>{{ $trade->margin }}x</td>
                                             <td style="color:  #F8E40F;">${{ $trade->contract_size }}</td>
                                             <td>${{ $trade->capital }}</td>
                                             <td

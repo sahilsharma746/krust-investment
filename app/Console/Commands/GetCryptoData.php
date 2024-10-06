@@ -62,6 +62,6 @@ class GetCryptoData extends Command
         } else {
             Log::warning("No data found in the API response.");
         }
-        Log::info("Updated crypto data command ends at " . now());
+        Log::info("Updated crypto data command ends at " . now() . PHP_EOL);
     }
 }

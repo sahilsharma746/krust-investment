@@ -267,14 +267,6 @@ $(document).on('click', '.clone-icon', function () {
 }); //? copy to clipboard area end =====================
 
 
-//* search script area start ==========================
-$(document).on('keyup', '.search-input-group .search-input', function (e) {
-    const value = this.value.toLowerCase();
-    console.log(value);
-}); //? search script area end ============================
-
-
-
 let btnViewHistory = null;
 $(document).on('click', '.btn-load-software', function () {
     btnViewHistory = $(this).prev('.btn-view-history');
