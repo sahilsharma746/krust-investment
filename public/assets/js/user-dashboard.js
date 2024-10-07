@@ -73,7 +73,6 @@ $(document).ready(function () {
     } else {
         console.log(activeLeftTabLocalStorage);
     } 
-
     
 
     //? active tab with localStorage
@@ -120,47 +119,6 @@ $(document).ready(function () {
         }
     }); //? Password show/hide icon script end =========
 
-    //* live Chat script start ========================
-    const sendMessage = () => {
-        const textBox = (text, imgSrc) => {
-            return `
-<div class="user-text-box d-flex align-items-start g-8">
-    <p class="message">${text}</p>
-    <div class="icon-area d-flex justify-content-center align-items-center">
-        <img class="user-icon" src="${
-            imgSrc ? imgSrc : './assets/img/site-logo.png'
-        }" alt="user name">
-    </div>
-</div>`;
-        };
-        const message = $('#live-chat-input');
-        if (message.val()) {
-            try {
-                const $newElement = $(textBox(message.val())).css({
-                    opacity: 0,
-                });
-                $('#chat-body').append($newElement);
-                $newElement.animate({ opacity: 1 }, 500); // 500 is the duration in milliseconds
-
-                $('#live-chat-section .scroll').animate(
-                    {
-                        scrollTop: $('#live-chat-section .scroll')[0]
-                            .scrollHeight,
-                    },
-                    1000,
-                );
-                message.val('');
-                message.focus();
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-    };
-    $('#send-message').on('click', sendMessage);
-    $(document).on('keypress', '#live-chat-input', function (e) {
-        if (e.which === 13) sendMessage();
-    });
-    //* live Chat script end ===========================
 
     //* Payment Method collapsible script start ========
     $(document).on(
@@ -376,12 +334,14 @@ jQuery(document).ready(function() {
         var title = jQuery(this).data('title');
         var description = jQuery(this).data('description');
         var pubDate = jQuery(this).find('.news-time').text(); // Get publication date
+        var link = jQuery(this).data('link');
 
         // Update the details section with the selected news information
         jQuery('#news-image').attr('src', image).show(); // Show the news image
         jQuery('#selected-news-title').text(title); // Set the title
         jQuery('#selected-news-time').text(pubDate); // Set the publication date
         jQuery('#selected-news-body').html(description); // Set the description
+        jQuery('#selected-news-body-footer a').attr('href', link);
     });
 
     // Optional: If you want to show the first item of the default selected news type on page load
