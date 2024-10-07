@@ -337,3 +337,61 @@ jQuery(document).ready(function() {
 });
 
 
+
+    jQuery(document).on('click', '.news_type', function(e) {
+        e.preventDefault(); // Prevent the default link behavior
+
+        // Remove the 'active' class from all news type buttons
+        jQuery('.news_type').removeClass('active');
+
+        // Add the 'active' class to the clicked button
+        jQuery(this).addClass('active');
+
+        // Get the type of news to show
+        var type = jQuery(this).data('type');
+
+        // Hide all news sections
+        jQuery('#news-title-area ul').hide();
+
+        // Show the selected news section
+        jQuery('#news-title-area .' + type).show();
+
+        // Trigger click on the first news item of the selected type
+        var firstItem = jQuery('#news-title-area .' + type + ' li:first-child');
+        if (firstItem.length) {
+            firstItem.click(); // Simulate a click on the first item
+        }
+    });
+
+    // Click event for news items
+    jQuery(document).on('click', '#news-title-area ul li', function() {
+        
+        jQuery('#news-title-area ul li a').removeClass('active');
+
+        // Add 'active' class to the <a> element of the clicked news item
+        jQuery(this).find('a').addClass('active');
+
+        // Get data attributes from the clicked news item
+        var image = jQuery(this).data('image');
+        var title = jQuery(this).data('title');
+        var description = jQuery(this).data('description');
+        var pubDate = jQuery(this).find('.news-time').text(); // Get publication date
+
+        // Update the details section with the selected news information
+        jQuery('#news-image').attr('src', image).show(); // Show the news image
+        jQuery('#selected-news-title').text(title); // Set the title
+        jQuery('#selected-news-time').text(pubDate); // Set the publication date
+        jQuery('#selected-news-body').html(description); // Set the description
+    });
+
+    // Optional: If you want to show the first item of the default selected news type on page load
+    jQuery(document).ready(function() {
+        var defaultNewsType = 'crypto-news'; // Set your default news type here
+        jQuery('.news_type[data-type="' + defaultNewsType + '"]').click(); // Simulate a click to show default news
+    });
+
+
+
+
+
+

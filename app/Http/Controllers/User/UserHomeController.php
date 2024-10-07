@@ -138,6 +138,119 @@ class UserHomeController extends Controller
     
 
     public function news() {
-        return view('users.news');
+
+        $crypto_feed_data = $this->get_feed_for_crypto();
+        $forex_feed_data = $this->get_feed_for_forex();
+        $indices_feed_data = $this->get_feed_for_indices();
+
+        return view('users.news' , compact('crypto_feed_data','forex_feed_data','indices_feed_data'));
     }
+
+
+
+
+    public function get_feed_for_crypto(){
+        $crypto_feed_data = [];
+        $rss_feed_crypto = 'https://cointelegraph.com/rss'; 
+        $crypto_feed = simplexml_load_file($rss_feed_crypto);
+        if ($crypto_feed != false) {
+            $i = 0;
+            foreach ($crypto_feed->channel->item as $key => $item) {
+             
+                $crypto_feed_data[$i]['title'] = htmlspecialchars($item->title);
+                $crypto_feed_data[$i]['link'] = htmlspecialchars($item->link);
+                $crypto_feed_data[$i]['pub_date'] = date('M d, Y', strtotime($item->pubDate));
+                $crypto_feed_data[$i]['description'] = trim(preg_replace('/<.*?>/i', '', (string) $item->description));
+                $crypto_feed_data[$i]['image'] = (string) $item->enclosure['url'];
+                $i++;
+            }
+        }
+        return  $crypto_feed_data;
+    }
+
+
+    public function get_feed_for_forex() {
+        $forex_feed_data = [];
+        $rss_feed_forex = 'https://www.fxstreet.com/rss/news';
+    
+        $options = [
+            "http" => [
+                "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+            ]
+        ];
+        $context = stream_context_create($options);
+
+      
+        
+        // Use file_get_contents to get the RSS feed content
+        $response = @file_get_contents($rss_feed_forex, false, $context);    
+        if ($response !== false) {
+            $forex_feed = simplexml_load_string($response);
+            if ($forex_feed !== false) {
+                $i = 0;
+                foreach ($forex_feed->channel->item as $key => $item) {
+                    $forex_feed_data[$i]['title'] = htmlspecialchars($item->title);
+                    $forex_feed_data[$i]['link'] = htmlspecialchars($item->link);
+                    $forex_feed_data[$i]['pub_date'] = date('M d, Y', strtotime($item->pubDate));
+                    $forex_feed_data[$i]['description'] = trim(preg_replace('/<.*?>/i', '', (string) $item->description));
+                    $forex_feed_data[$i]['image'] = htmlspecialchars($item->enclosure['url'] ?? '');
+    
+                    $i++;
+                }
+            } else {
+                return ['error' => 'Failed to parse the RSS feed.'];
+            }
+        } else {
+            return ['error' => 'Failed to load RSS feed.'];
+        }
+
+        return $forex_feed_data;
+    }
+    
+    
+
+
+    public function get_feed_for_Indices() {
+        $indices_feed_data = [];
+        // Valid RSS feed for indices news
+        $rss_feed_indices = 'https://finance.yahoo.com/rss/';
+    
+        $options = [
+            "http" => [
+                "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3\r\n"
+            ]
+        ];
+        $context = stream_context_create($options);
+    
+        $response = @file_get_contents($rss_feed_indices, false, $context);
+        if ($response !== false) {
+            $indices_feed = simplexml_load_string($response);
+            if ($indices_feed !== false) {
+                $i = 0;
+                foreach ($indices_feed->channel->item as $item) {
+                    $indices_feed_data[$i]['title'] = htmlspecialchars($item->title);
+                    $indices_feed_data[$i]['link'] = htmlspecialchars($item->link);
+                    $indices_feed_data[$i]['pub_date'] = date('M d, Y', strtotime($item->pubDate));
+                    $indices_feed_data[$i]['description'] = trim(preg_replace('/<.*?>/i', '', (string) $item->description));
+                    $indices_feed_data[$i]['image'] = htmlspecialchars($item->enclosure['url'] ?? '');
+    
+                    $i++;
+                }
+            } else {
+                return ['error' => 'Failed to parse the RSS feed.'];
+            }
+        } else {
+            return ['error' => 'Failed to load RSS feed.'];
+        }
+
+        return $indices_feed_data;
+    }
+    
+
+
+
+
+
+
+
 }
