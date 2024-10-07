@@ -49,5 +49,6 @@
     // admin email
     'admin_email' => 'admin@krustinvestement.com',
     'support_email' => 'support@krustinvestement.com',
-    
+    'phone_number' => '+1(213)293-2886',
+
 ];
