@@ -37,7 +37,10 @@
                         @if (strtolower($withdrawl->payment_method) === 'deposit via paypal')
                             <td>{{ $withdrawl->paypal_email ?? 'N/A' }}</td>
                         @elseif (strtolower($withdrawl->payment_method) === 'deposit via bank')
-                            <td>{{ $withdrawl->bank_name ?? 'N/A' }}</td>
+                            <td>
+                                {{ $withdrawl->bank_name ?? 'N/A' }} <br>
+                                {{ $withdrawl->account_number ?? 'N/A' }}
+                            </td>
                         @else
                             <td>{{ $withdrawl->wallet_address ?? 'N/A' }}</td>
                         @endif
