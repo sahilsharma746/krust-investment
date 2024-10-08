@@ -351,7 +351,24 @@ jQuery(document).ready(function() {
     });
 
 
-
+    jQuery('#userWithdrawalMethod').change(function() {
+        var selectedMethod = jQuery('#userWithdrawalMethod option:selected').data('method');
+        
+        // Hide all method fields initially
+        jQuery('#crypto-fields, #crypto-address-tag, #paypal-field, #bank-fields, #bank-account-number, #bank-account-type, #bank-short-code, #bank-account-holder').hide();
+    
+        // Show the relevant fields based on the selected method
+        if (selectedMethod === 'bitcoin' || selectedMethod === 'usdt' || selectedMethod === 'xmr') {
+            jQuery('#crypto-fields, #crypto-address-tag').show();
+        } else if (selectedMethod === 'deposit via paypal') {
+            jQuery('#paypal-field').show();
+        } else if (selectedMethod === 'deposit via bank') {
+            jQuery('#bank-fields, #bank-account-number, #bank-account-type, #bank-short-code, #bank-account-holder').show();
+        }
+    });
+    
+    // Trigger the change event to handle pre-selected methods (optional)
+    jQuery('#userWithdrawalMethod').trigger('change');
 
 
 

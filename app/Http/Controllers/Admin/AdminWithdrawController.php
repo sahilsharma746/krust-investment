@@ -23,6 +23,7 @@ class AdminWithdrawController extends Controller
                         ->select('withdraws.*', 'users.first_name', 'users.last_name', 'users.email')
                         ->orderBy('withdraws.created_at', 'asc')
                         ->get();
+                       
         return view('admin.withdraw.index', compact('withdrawls'));
     }
     

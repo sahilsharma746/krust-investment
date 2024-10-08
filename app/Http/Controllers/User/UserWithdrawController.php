@@ -32,14 +32,22 @@ class UserWithdrawController extends Controller
 
 
     public function SaveUserWithdrawlRequest(Request $request) {
+       
         $user = Auth::user();
 
         $request->validate([
             'amount' => 'required|numeric|min:1',
             'getway' => 'required|numeric',
-            'address' => 'required',
-            'address_tag' => 'nullable'
+            'address' => 'nullable',
+            'address_tag' => 'nullable',
+            'bank_name' => 'nullable|string',
+            'account_number' => 'nullable|numeric',
+            'account_type' => 'nullable|string',
+            'short_code' => 'nullable|numeric',
+            'account_holder_name' => 'nullable|string',
+            'paypal_email' => 'nullable|email', 
         ]);
+    
     
         $user = User::where('id', $user->id)->first();
      
@@ -60,6 +68,12 @@ class UserWithdrawController extends Controller
             'address_tag' => $request->address_tag,
             'payment_method' => $getway->name,
             'withdrawl_by' => 'user',
+            'bank_name' => $request->bank_name,
+            'account_number' =>$request->account_number,
+            'account_type' => $request->account_type,
+            'short_code' => $request->short_code,
+            'account_holder_name' => $request->account_holder_name,
+            'paypal_email' => $request->paypal_email, 
             'created_at' => Carbon::now()
         ]);
        
