@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="input-group" id="bank-account-type" style="display: none;">
                                     <label class="form-label">Account Type</label>
-                                    <select class="form-control" name="account_type">
+                                    <select class="form-control select_account_type" name="account_type">
                                         <option value="">Select Method</option>
                                         <option value="savings">Savings</option>
                                         <option value="current">Current</option>
@@ -146,13 +146,20 @@
                                 <td>#{{ ++$loop->index }}</td>
                                 <td>{{ Carbon\Carbon::parse($withdrawal->created_at)->format('F j, Y') }}</td>
                                 <td>{{ strtolower($withdrawal->payment_method) ? strtolower($withdrawal->payment_method) : 'NA' }}</td>
+                                
                                 @if (strtolower($withdrawal->payment_method) === 'deposit via paypal')
 
                                     <td>{{ $withdrawal->paypal_email ? $withdrawal->paypal_email : 'NA' }}</td>
                                     <td>{{ $withdrawal->address_tag ? $withdrawal->address_tag : 'NA' }}</td>
+                                
                                 @elseif (strtolower($withdrawal->payment_method) === 'deposit via bank')
-                                    <td>{{ $withdrawal->bank_name ? $withdrawal->bank_name : 'NA' }}</td>
-                                    <td>{{ $withdrawal->account_type ? $withdrawal->account_type : 'NA' }}</td>
+                                
+                                <td>
+                                     {{ $withdrawal->bank_name ? $withdrawal->bank_name : 'NA' }} <br>
+                                     {{ $withdrawal->account_number ? $withdrawal->account_number : 'NA' }}
+                                </td>
+                                <td></td>
+                               
                                 @else
                                     <td>{{ $withdrawal->wallet_address ? $withdrawal->wallet_address : 'NA' }}</td>
                                     <td>{{ $withdrawal->address_tag ? $withdrawal->address_tag : 'NA' }}</td>

@@ -36,28 +36,44 @@ class UserWithdrawController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'amount' => 'required|numeric|min:1',
             'getway' => 'required|numeric',
-            'address' => 'nullable',
-            'address_tag' => 'nullable',
-            'bank_name' => 'nullable|string',
-            'account_number' => 'nullable|numeric',
-            'account_type' => 'nullable|string',
-            'short_code' => 'nullable|numeric',
-            'account_holder_name' => 'nullable|string',
-            'paypal_email' => 'nullable|email', 
+            'amount' => 'required|numeric|min:1',
         ]);
-    
-    
+
+        $getway = Getway::find($request->getway);
+        if (!$getway) {
+            return back()->with('error', 'Invalid withdrawal method selected.');
+        }
+
+        if( strtolower($getway->name) == 'bitcoin' || strtolower($getway->name) == 'xmr' || strtolower($getway->name) == 'usdt' ) {
+
+            $request->validate([
+                'address' => 'required',
+                'address_tag' => 'required',
+            ]);
+
+
+        }else if ( strtolower($getway->name) == 'deposit via paypal' ) {
+            $request->validate([
+                'paypal_email' => 'required',
+            ]);
+
+        }else if ( strtolower($getway->name) == 'deposit via bank' ) {
+            
+            $request->validate([
+                'bank_name' => 'required|string',
+                'account_number' => 'required|numeric',
+                'account_type' => 'required|string',
+                'short_code' => 'required|string',
+                'account_holder_name' => 'required|string',
+            ]);
+
+        }
+
         $user = User::where('id', $user->id)->first();
      
         if ($user->balance < $request->amount) {
             return back()->with('error', 'You don’t have enough balance.');
-        }
-    
-        $getway = Getway::find($request->getway);
-        if (!$getway) {
-            return back()->with('error', 'Invalid withdrawal method selected.');
         }
     
         Withdraw::insert([

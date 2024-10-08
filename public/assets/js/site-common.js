@@ -8,7 +8,7 @@ jQuery( document ).ready(function(){
         const searchable = $(selector).attr('searchable');
 
         // Skip the select elements with specific classes
-        if ($(selector).hasClass('trading-history-table_length')) {
+        if ($(selector).hasClass('trading-history-table_length') || $(selector).hasClass('select_account_type')) {
             return true; // This continues to the next iteration, skipping the current one
         }
 
