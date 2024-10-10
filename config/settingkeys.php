@@ -13,7 +13,9 @@
     "account_type_key" => "ki_account_type",
     "account_number_key" => "ki_account_number",
     "sort_code_key" => "ki_sort_code",
-
+    "bitcoin_qr_code_key"=>"key_bitcoin_qr_code",
+    "xmr_qr_code_key"=>"key_xmr_qr_code",
+    "usdt_qr_code_key"=>"key_usdt_qr_code",
 
     // default payment addresses 
     "ki_bitcoin_address" => 'default_ki_bitcoin_address',
@@ -27,6 +29,10 @@
     "ki_account_type" => "default_ki_account_type",
     "ki_account_number" => "default_ki_account_number",
     "ki_sort_code" => "default_ki_sort_code",
+    "key_bitcoin_qr_code"=>"deafult_key_bitcoin_qr_code",
+    "key_xmr_qr_code"=>"deafult_key_xmr_qr_code",
+    "key_usdt_qr_code"=>"deafult_key_usdt_qr_code",
+
 
 
     // kyc verification keys 
