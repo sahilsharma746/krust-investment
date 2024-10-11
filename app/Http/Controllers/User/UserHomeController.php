@@ -125,6 +125,7 @@ class UserHomeController extends Controller
         $full_data['totalTradesCount'] = Trade::where('user_id', $user->id)->count();
         $full_data['totalWinTradesCount'] = Trade::where('user_id', $user->id)->where('trade_result', 'win')
         ->where('status', 1)->where('processed', 1)->count();
+   
 
         if ($full_data['totalTradesCount'] > 0) {
             $full_data['winPercentage'] = ($full_data['totalWinTradesCount'] / $full_data['totalTradesCount']) * 100;
